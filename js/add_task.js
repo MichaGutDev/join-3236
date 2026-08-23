@@ -1,45 +1,20 @@
 const task = [
-  {
-    id: 1,
-    category: "Test Category 1",
-    title: "Task 1",
-    description: "Description for Task 1",
-    preview : "short descr for  1",
-    subtasks: [
-      { id: 1.1, title: "Subtask 1.1", completed: false },
-      { id: 1.2, title: "Subtask 1.2", completed: true },
-    ],
-    collaborators: [
-      { id: 1, name: "Collaborator 1", email: "collaborator1@example.com", abbr : "C1"}
-    ],
-    urgency : "Urgent",
-  },
-
-  {
-    id: 2,
-    category: "User Story",
-    title: "Task 2",
-    description: "Description for Task 2",
-    preview : "short descr for 2",
-    subtasks: [
-      { id: 2.1, title: "Subtask 2.1", completed: false },
-      { id: 2.2, title: "Subtask 2.2", completed: true },
-    ],
-    collaborators: [
-      { id: 2, name: "Collaborator 2", email: "collaborator2@example.com", abbr : "C2" }
-    ],
-    urgency : "Medium",
-  },
-
-];
-
-
-const tasks = {
-    to_do: [],
-    in_progress: [],
-    await_feedback: [],
-    done: [],
-}
+    {toDo: {
+        id: 1,
+        title: "Create login page",
+        description: "Build the basic structure and styling for the login page.",
+        dueDate: "2026-08-25",
+        prio: "urgent",
+        category: "User Story",
+        assignedTo: ["contactId1", "contactId2"],
+        status: "To Do",
+        subtasks: [
+          { subtask: "Create HTML structure", completion: true },
+          { subtask: "Add responsive styling", completion: false },
+        ],
+      },
+    },
+  ];
 
 const toDoContainerRef = document.getElementById('to_do');
 const inProgressContainerRef = document.getElementById('in_progress');
@@ -75,4 +50,9 @@ function returnTaskHTML(task) { // takes full object
 
         </section>
     `
+}
+
+
+function addTask() {
+  
 }

@@ -42,3 +42,18 @@
     background-color: white;
     padding: 16px;
 }
+
+#todo-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    gap: 20px;
+    margin-left: 50px;
+    margin-top: 50px;
+    background-color: rgba(117, 117, 117, 0.466);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
