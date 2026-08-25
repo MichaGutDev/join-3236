@@ -10,7 +10,7 @@
     <link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
 </head>
 
-<body>
+<body onload="init()">
     <aside>
         <div class="aside-join-icon">
             <img src="../assets/icons/main-icon.svg" alt="">
@@ -59,45 +59,7 @@
         <div class="board-wrapper">
             <section class="task-col">
                 <ul id="to_do">
-                    <li class="task-box">
-                        <h3>User Story</h3>
-                        <h4>Kochwelt Page</h4>
-                        <span>build start page with recipe</span>
-
-
-                        <div class="subtask-progress-container">
-                            <div class="progress-bar">
-
-                            </div>
-                            <span>1/2Subtasks</span>
-                        </div>
-
-
-                        <div class="initials-container">
-                            <div class="user-avatar">RB</div>
-                            <img src="../assets/icons/prio-high.svg" alt="high-priority icon">
-
-                        </div>
-
-                    </li>
-
-                    <li class="task-box">
-                        <h3>User Story</h3>
-                        <h4>Kochwelt Page</h4>
-                        <span>build start page with recipe</span>
-                        <div class="subtask-progress-container">
-                            <div class="progress-bar">
-
-                            </div>
-                            <span>1/2Subtasks</span>
-                        </div>
-                        <div>
-                            <div class="initials-container">
-                                <div class="user-avatar">RB</div>
-                            </div>
-                            <div class="placeholder for image urgent"></div>
-                        </div>
-                    </li>
+                    
                 </ul>
             </section>
 
@@ -120,32 +82,11 @@
             </section>
         </div>
 
-
-
-
-        <!-- <section>
-            <h3>User Story</h3>
-            <h4>Title</h4>
-            <p>Description</p>
-            <div>
-                <div>LoadingBar</div>
-                <span>subtasks</span>
-            </div>
-            <div>
-                <div>
-                    <div>RB</div>
-                    <div>MG</div>
-                    <div>SO</div>
-                </div>
-                <div>Urgency</div>
-            </div>
-
-        </section> -->
-
     </main>
 
     <script src="../script.js"></script>
-    <script src="../js/add_task.js"></script>
+    <!-- <script src="../js/add_task.js"></script> -->
+    <script src="../js/board.js"></script>
 <!-- 
     <script type="module" src="../js/firebase-config.js"></script>
     <script type="module" src="../js/auth-check.js"></script> -->

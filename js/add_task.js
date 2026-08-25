@@ -1,39 +1,3 @@
-const toDoContainerRef = document.getElementById('to_do');
-const inProgressContainerRef = document.getElementById('in_progress');
-const awaitFeedbackContainerRef = document.getElementById('await_feedback');
-const doneContainerRef = document.getElementById('done');
-
-// function displayTasks() {
-//     html = "";
-//     task.forEach(task => {
-//         html += returnTaskHTML(task)
-//     });
-//     toDoContainerRef.innerHTML += html;
-// }
-
-// function returnTaskHTML(task) { // takes full object
-//     return `
-//         <section>
-//             <h3>${task.category}</h3>
-//             <h4>${task.title}</h4>
-//             <p>${task.preview}</p>
-//             <div>
-//                 <span>${task.subtasks[0].title}</span>
-//                 <span>${task.subtasks[1].title}</span>
-//             </div>
-//             <div>
-//                 <div>
-//                     <div>${task.collaborators[0].name}</div>
-//                     <div>MG</div>
-//                     <div>SO</div>
-//                 </div>
-//                 <div>${task.urgency}</div>
-//             </div>
-
-//         </section>
-//     `
-// }
-
 const task = [
   {
     id: 1,
