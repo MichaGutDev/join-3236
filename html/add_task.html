@@ -81,13 +81,24 @@
 
             <!-- Priority -->
             <div class="form-group">
-                <label for="priority">Priority</label>
-                <select id="priority" name="prio" required>
-                    <option value="">Select priority</option>
-                    <option value="urgent">Urgent</option>
-                    <option value="medium">Medium</option>
-                    <option value="low">Low</option>
-                </select>
+                <fieldset class="priority">
+                    <legend>Priority</legend>
+
+                    <label class="priority-high">
+                        <input type="radio" name="priority" value="urgent">
+                        <span>Urgent</span><img src="../assets/icons/prio-high.svg" alt="">
+                    </label>
+
+                    <label class="priority-medium">
+                        <input type="radio" name="priority" value="medium" checked>
+                        <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="">
+                    </label>
+
+                    <label class="priority-low">
+                        <input type="radio" name="priority" value="low">
+                        <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
+                    </label>
+                </fieldset>
             </div>
 
             <!-- Category -->
