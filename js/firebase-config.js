@@ -8,7 +8,8 @@ const firebaseConfig = {
     projectId: "join-3236",
     storageBucket: "join-3236.firebasestorage.app",
     messagingSenderId: "1075341106587",
-    appId: "1:1075341106587:web:94df0c65166a709f6b953e"
+    appId: "1:1075341106587:web:94df0c65166a709f6b953e",
+    databaseURL: "https://join-3236-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 export const app = initializeApp(firebaseConfig);
