@@ -1,7 +1,9 @@
-const toDoContainerRef = document.getElementById('to_do');
-const inProgressContainerRef = document.getElementById('in_progress');
-const awaitFeedbackContainerRef = document.getElementById('await_feedback');
-const doneContainerRef = document.getElementById('done');
+const taskContainerMap = {
+    "To Do" : document.getElementById('to_do'),
+    "In Progress" : document.getElementById('in_progress'),
+    "Awaiting Feedback" : document.getElementById('await_feedback'),
+    "Done" : document.getElementById('done'),
+}
 
 const taskTest = [
     {
@@ -45,6 +47,8 @@ const taskTest = [
     },
 ];
 
+
+
 function init() {
     displayTasks();
 }
@@ -75,11 +79,17 @@ function returnTaskHTML(task) { // takes full object
  * Renders all tasks into the todo container.
  */
 function displayTasks() {
-    html = "";
-    taskTest.forEach(task => {
-        html += returnTaskHTML(task)
+    clearTaskHTML();
+    tasks.forEach(task => {
+        taskContainerMap[task.status].innerHTML += returnTaskHTML(task)
     });
-    toDoContainerRef.innerHTML += html;
+}
+
+/**
+ * Clears all HTML Task Containers.
+ */
+function clearTaskHTML() {
+    Object.values(taskContainerMap).forEach(taskContainer => {taskContainer.innerHTML = ""});
 }
 
 /**
