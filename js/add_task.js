@@ -15,7 +15,7 @@ const task = [
   }
 ];
 
-const formRef = document.querySelector('#todo-form');
+const formRef = document.querySelector('#task-form');
 
 formRef.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -36,7 +36,7 @@ let valueLog = [];
  * creates the task object based on the data given by getValues
  * @param {array} formData - array of [key, value] from input submit
  */
-function dataCreation(formData) {
+async function dataCreation(formData) {
   const data = {
     assignedTo: [],
     subtasks: [],
@@ -49,4 +49,33 @@ function dataCreation(formData) {
     }
   });
   valueLog.push(data);
+  await addTask(data);
+}
+
+
+import { database } from './firebase-config.js';
+import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
+// const newTaskRef = push(ref(database, 'tasks'));
+
+// set(newTaskRef, {
+//   title: "Login-Seite bauen",
+//   description: "...",
+//   dueDate: "2026-08-30",
+//   priority: "urgent",
+//   category: "Technical Task",
+//   status: "todo",
+//   assignedTo: ["contactId1", "contactId2"],
+//   subtasks: [
+//     { title: "Formular bauen", done: false }
+//   ]
+// });
+
+
+
+async function addTask(task) {
+  const tasksRef = ref(database, "tasks");
+  const newTaskRef = push(tasksRef);
+
+  await set(newTaskRef, task);
 }

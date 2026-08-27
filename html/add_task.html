@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../styles/buttons.css">
     <link rel="stylesheet" href="../styles/board.css">
+    <link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -60,7 +61,7 @@
 
 
 
-        <form id="todo-form">
+        <form id="task-form">
             <!-- Title -->
             <div class="form-group">
                 <label for="title">Title</label>
@@ -86,7 +87,7 @@
 
                     <label class="priority-high">
                         <input type="radio" name="priority" value="urgent">
-                        <span>Urgent</span><img src="../assets/icons/prio-high.svg" alt="">
+                        <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
                     </label>
 
                     <label class="priority-medium">
@@ -154,10 +155,10 @@
     </main>
 
     <script src="../script.js"></script>
-    <script src="../js/add_task.js"></script>
-    <!-- 
+    <script type="module" src="../js/add_task.js"></script>
+    
     <script type="module" src="../js/firebase-config.js"></script>
-    <script type="module" src="../js/auth-check.js"></script> -->
+    <!-- <script type="module" src="../js/auth-check.js"></script> -->
 
 </body>
 
