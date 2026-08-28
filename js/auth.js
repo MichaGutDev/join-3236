@@ -1,4 +1,5 @@
-import { auth } from './firebase-config.js';
+import { auth, database } from './firebase-config.js';
+import { push, set, ref } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { signInWithEmailAndPassword, signInAnonymously, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
 
@@ -109,8 +110,10 @@ function handleFirebaseSignUp(name, email, password) {
     signupSubmit.disabled = true;
 
     createUserWithEmailAndPassword(auth, email, password)
-        .then(() => {
+        .then((userCredential) => {
             showToast();
+            const newContactRef = push(ref(database, "contacts"));
+            set(newContactRef, { name, email, phone: "", color: "#000000", userId: userCredential.user.uid });
         })
         .catch((error) => {
             console.log(error);
