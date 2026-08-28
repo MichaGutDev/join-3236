@@ -1,17 +1,19 @@
 .board-wrapper {
     display: flex;
     width: 100%;
+    gap: 16px;
+    margin-top: 20px;
 }
 
 .task-col {
     display: flex;
     flex-direction: column;
-
+    gap: 8px;
     width: 20%;
 }
 
 .task-col>ul {
-    background-color: rgb(105, 105, 105);
+    /* background-color: rgb(255, 0, 0); */
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -29,6 +31,38 @@
 .task-box {
     background-color: white;
     padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 4px #00000059;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.taskgroup-header {
+    color: var(--color-board-taskgroup);
+}
+
+h3, h4 {
+    color: var(--color-primary);
+}
+
+.task-category {
+    width: fit-content;
+    padding: 8px 15px;
+    border-radius: 8px;
+    color: white;
+}
+
+.technical-task {
+    background-color: var(--color-technical-task);
+}
+
+.user-story {
+    background-color: var(--color-user-story);
+}
+
+.task-descr {
+    color: var(--color-form-box);
 }
 
 #todo-form {
@@ -68,7 +102,7 @@
 }
 
 .priority label:has(input:checked) img {
-    filter: brightness(0) invert(1) ;
+    filter: brightness(0) invert(1);
 }
 
 .priority-high:has(input:checked) {
@@ -90,18 +124,19 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    text-align: center;
 }
 
 .progress-bar-outer {
     background-color: rgb(102, 102, 102);
-    width: 100%;
-    height: 4px;
+    width: 52%;
+    height: 8px;
     border-radius: 8px;
 }
 
 .progress-bar {
     background-color: rgb(0, 153, 255);
-    height: 4px;
+    height: 8px;
     border-radius: 8px;
-    width: 0%;
 }

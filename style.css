@@ -12,8 +12,8 @@
   --color-login-privacy-policy: rgb(18, 70, 88);
   --color-error: rgb(230, 0, 38);
 
-  --color-task-user-story: rgb(0, 56, 255);
-  --color-task-technical: rgb(31, 215, 193);
+  --color-user-story: rgb(0, 56, 255);
+  --color-technical-task: rgb(31, 215, 193);
   --color-nav-active: rgb(9, 25, 49);
 
   --color-login-initials: rgb(18, 70, 88);
@@ -21,6 +21,8 @@
   --color-underscore: rgb(41, 171, 226);
 
   --color-contact-mail: rgb(0, 124, 238);
+
+  --color-board-taskgroup: rgb(66, 82, 110);
 }
 
 * {
@@ -32,21 +34,21 @@
 
 /* Utilities – projektweit wiederverwendbare Hilfsklassen */
 .visually-hidden {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Basis-Typografie – globale Standard-Elemente */
 h1 {
-    font-size: 3.8rem;
-    font-weight: 700;
+  font-size: 3.8rem;
+  font-weight: 700;
 }
 
 

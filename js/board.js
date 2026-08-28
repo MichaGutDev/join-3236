@@ -54,13 +54,15 @@ function init() {
 }
 
 
+// rework here : progress bar into seperate function, that returns the html and progress of the bar, if there are tasks present
+
 
 function returnTaskHTML(task) { // takes full object
     return `
         <li class="task-box">
-            <h3>${task.category}</h3>
+            <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
             <h4>${task.title}</h4>
-            <span>${task.description}</span>
+            <span class="task-descr">${task.description}</span>
             <div class="subtask-progress-container">
                 <div class="progress-bar-outer">
                     <div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
@@ -115,7 +117,7 @@ function returnSubtaskCompletionPercent(subtaskList) {
  */
 function returnSubtaskCompletionNum(subtaskList) {
     let completionData = returnSubtaskValues(subtaskList);
-    return `${completionData[0]} / ${completionData[1]}`
+    return `${completionData[0]}/${completionData[1]}`
 }
 
 /**
