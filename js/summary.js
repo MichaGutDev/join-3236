@@ -14,6 +14,8 @@ onValue(tasksRef, (snapshot) => {
     updateCount(tasksData, "In Progress", "progress-count");
     updateCount(tasksData, "Awaiting Feedback", "feedback-count");
 
+    updateUrgentDeadline(tasksData);
+
     const boardCount = Object.values(tasksData).length;
     document.getElementById("board-count").textContent = boardCount;
     const urgentCount = Object.values(tasksData).filter(task => task.priority === "urgent" && task.status !== "Done").length;
@@ -32,6 +34,27 @@ onValue(tasksRef, (snapshot) => {
 function updateCount(tasksData, status, elementId) {
     const count = Object.values(tasksData).filter(task => task.status === status).length;
     document.getElementById(elementId).textContent = count;
+
+}
+
+
+/**
+ * Filters, sorts and writes the nearest urgent deadline to the DOM
+ * 
+ * @param {object} tasksData 
+ */
+function updateUrgentDeadline(tasksData) {
+    const urgentData = Object.values(tasksData).filter(task => task.priority === "urgent" && task.status !== "Done");
+    urgentData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    const nextUrgentTask = urgentData[0];
+
+    if (nextUrgentTask === undefined) {
+        document.getElementById("urgent-date").textContent = "No deadline";
+    } else {
+        const formattedDate = new Date(nextUrgentTask.dueDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+        document.getElementById("urgent-date").textContent = formattedDate;
+    }
 
 }
 
