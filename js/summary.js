@@ -5,23 +5,6 @@ import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebas
 const tasksRef = ref(database, "tasks");
 
 
-// Listens for changes under "tasks" and updates all task-related dashboard counts
-onValue(tasksRef, (snapshot) => {
-    const tasksData = snapshot.val();
-
-    updateCount(tasksData, "To Do", "todo-count");
-    updateCount(tasksData, "Done", "done-count");
-    updateCount(tasksData, "In Progress", "progress-count");
-    updateCount(tasksData, "Awaiting Feedback", "feedback-count");
-
-    const boardCount = Object.values(tasksData).length;
-    document.getElementById("board-count").textContent = boardCount;
-    const urgentCount = Object.values(tasksData).filter(task => task.priority === "urgent" && task.status !== "Done").length;
-    document.getElementById("urgent-count").textContent = urgentCount;
-
-})
-
-
 /**
  * This helper function counts and writes the corresponding value to the DOM
  * 
@@ -34,6 +17,65 @@ function updateCount(tasksData, status, elementId) {
     document.getElementById(elementId).textContent = count;
 
 }
+
+
+/**
+ * Filters, sorts and writes the nearest urgent deadline to the DOM
+ * 
+ * @param {object} tasksData 
+ */
+function updateUrgentDeadline(tasksData) {
+    const urgentData = Object.values(tasksData).filter(task => task.priority === "urgent" && task.status !== "Done");
+    urgentData.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
+
+    const nextUrgentTask = urgentData[0];
+
+    if (nextUrgentTask === undefined) {
+        document.getElementById("urgent-date").textContent = "No deadline";
+    } else {
+        const formattedDate = new Date(nextUrgentTask.dueDate).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+        document.getElementById("urgent-date").textContent = formattedDate;
+    }
+
+}
+
+
+/**
+ * Determines the greeting text based on the current time of day.
+ *
+ * @returns {string} The greeting text.
+ */
+function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning,";
+    else if (hour < 18) return "Good afternoon,";
+    else return "Good evening,";
+}
+
+
+// Listens for changes under "tasks" and updates all task-related dashboard counts
+onValue(tasksRef, (snapshot) => {
+    const tasksData = snapshot.val();
+
+    updateCount(tasksData, "To Do", "todo-count");
+    updateCount(tasksData, "Done", "done-count");
+    updateCount(tasksData, "In Progress", "progress-count");
+    updateCount(tasksData, "Awaiting Feedback", "feedback-count");
+
+    updateUrgentDeadline(tasksData);
+
+    const boardCount = Object.values(tasksData).length;
+    document.getElementById("board-count").textContent = boardCount;
+    const urgentCount = Object.values(tasksData).filter(task => task.priority === "urgent" && task.status !== "Done").length;
+    document.getElementById("urgent-count").textContent = urgentCount;
+
+})
+
+
+document.getElementById("greeting-welcome").textContent = getGreeting();
+
+
+
 
 
 
