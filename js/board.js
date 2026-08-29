@@ -78,7 +78,7 @@ function returnTaskHTML(task) { // takes full object
 }
 
 /**
- * Renders all tasks into the todo container.
+ * Renders all tasks into the respective containers.
  */
 function displayTasks() {
     clearTaskHTML();
@@ -134,4 +134,37 @@ function returnSubtaskValues(subtaskList) {
         }
     });
     return [counter, subtaskList.length]
+}
+
+const taskDialogRef = document.getElementById("task-edit-dialog");
+function openTaskEdit() {
+    // insertTask(insertTaskTest);
+    taskDialogRef.showModal();
+}
+
+function closeTaskEdit() {
+    taskDialogRef.close();
+}
+
+let insertTaskTest = {
+        id: 1,
+        title: "Create login page",
+        description: "Build the basic structure and styling for the login page.",
+        // dueDate: "2026-08-25",
+        // priority: "urgent",
+        category: "User Story",
+        assignedTo: ["contactId1", "contactId2"],
+        status: "To Do",
+        subtasks: [
+            { subtask: "Create HTML structure", completion: true },
+            { subtask: "Add responsive styling", completion: false },
+        ],
+    };
+
+function insertTask(task) {
+    Object.entries(task).forEach(([key, value]) => {
+        if (key !== "id") {
+            document.getElementById(key).value = value;
+        }
+    });
 }

@@ -1,32 +1,30 @@
-const task = [
-  {
-    id: 1,
-    title: "Create login page",
-    description: "Build the basic structure and styling for the login page.",
-    dueDate: "2026-08-25",
-    prio: "urgent",
-    category: "User Story",
-    assignedTo: ["contactId1", "contactId2"],
-    status: "To Do",
-    subtasks: [
-      { subtask: "Create HTML structure", completion: true },
-      { subtask: "Add responsive styling", completion: false },
-    ],
-  }
-];
-
+import { database } from './firebase-config.js';
+import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+// const task = [
+//   {
+//     id: 1,
+//     title: "Create login page",
+//     description: "Build the basic structure and styling for the login page.",
+//     dueDate: "2026-08-25",
+//     prio: "urgent",
+//     category: "User Story",
+//     assignedTo: ["contactId1", "contactId2"],
+//     status: "To Do",
+//     subtasks: [
+//       { subtask: "Create HTML structure", completion: true },
+//       { subtask: "Add responsive styling", completion: false },
+//     ],
+//   }
+// ];
 const formRef = document.querySelector('#task-form');
 
 formRef.addEventListener("submit", (event) => {
   event.preventDefault();
-
-  console.log("Form submitted!");
   getValues();
 });
 
 function getValues() {
   const formData = new FormData(formRef);
-  console.log([...formData]);
   dataCreation([...formData])
 };
 
@@ -49,12 +47,8 @@ async function dataCreation(formData) {
     }
   });
   valueLog.push(data);
-  await addTask(data);
-}
-
-
-import { database } from './firebase-config.js';
-import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+  // await addTask(data); // ENABLE THIS HERE TO UPLOAD
+} 
 
 // const newTaskRef = push(ref(database, 'tasks'));
 
@@ -70,8 +64,6 @@ import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/fireb
 //     { title: "Formular bauen", done: false }
 //   ]
 // });
-
-
 
 async function addTask(task) {
   const tasksRef = ref(database, "tasks");
