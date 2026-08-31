@@ -25,7 +25,7 @@ formRef.addEventListener("submit", (event) => {
 
 function getValues() {
   const formData = new FormData(formRef);
-  dataCreation([...formData])
+  createTaskObject([...formData])
 };
 
 let valueLog = [];
@@ -34,7 +34,7 @@ let valueLog = [];
  * creates the task object based on the data given by getValues
  * @param {array} formData - array of [key, value] from input submit
  */
-async function dataCreation(formData) {
+async function createTaskObject(formData) {
   const data = {
     assignedTo: [],
     subtasks: [],
@@ -48,7 +48,7 @@ async function dataCreation(formData) {
   });
   valueLog.push(data);
   // await addTask(data); // ENABLE THIS HERE TO UPLOAD
-} 
+}
 
 // const newTaskRef = push(ref(database, 'tasks'));
 
@@ -70,4 +70,47 @@ async function addTask(task) {
   const newTaskRef = push(tasksRef);
 
   await set(newTaskRef, task);
+}
+
+let subtasks = [];
+
+const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+
+addSubtaskBtnRef.addEventListener("click", addSubtask);
+
+function addSubtask() {
+    const subTaskInputRef = document.getElementById("new-subtask");
+    subtasks.push({
+        description: subTaskInputRef.value,
+        completion: false
+    });
+    renderSubtasks();
+}
+
+function renderSubtasks() {
+  const subTaskListRef = document.getElementById('subtask-list');
+  subTaskListRef.innerHTML = "";
+  for (let index = 0; index < subtasks.length; index++) {
+    const subtask = subtasks[index];
+    subTaskListRef.innerHTML += returnSubtaskHTML(subtask);
+  }
+}
+
+function returnSubtaskHTML(subtask, index) {
+  return `
+        <li class="subtask-item">
+            <span class="subtask-description">
+                ${subtask.description}
+            </span>
+
+            <button
+                type="button"
+                class="subtask-delete-btn"
+                aria-label="Subtask ${subtask.description} löschen"
+                onclick="deleteSubtask(${index})"
+            >
+                Löschen
+            </button>
+        </li>
+    `;
 }

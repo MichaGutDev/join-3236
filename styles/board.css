@@ -73,6 +73,13 @@ h3, h4 {
     margin-left: 50px;
     margin-top: 50px;
     background-color: rgba(117, 117, 117, 0.466);
+    max-width: 50%;
+}
+
+.form-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .form-group {
@@ -83,6 +90,7 @@ h3, h4 {
 .priority {
     display: flex;
     gap: 16px;
+    min-inline-size: auto;
 }
 
 .priority input {
