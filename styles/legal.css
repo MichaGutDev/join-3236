@@ -1,0 +1,28 @@
+.legal-content {
+    padding: 96px 0 64px 96px;
+    max-width: 1208px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.legal-title-large {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.legal-section h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.legal-section p,
+.legal-section li {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.legal-highlight {
+    color: var(--color-login-privacy-policy);
+}
