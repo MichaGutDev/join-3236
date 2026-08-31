@@ -78,6 +78,13 @@ main {
   box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
 }
 
+.header-title {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    color: #000000;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
