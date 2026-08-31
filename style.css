@@ -32,7 +32,9 @@
   font-family: "Inter", sans-serif;
 }
 
-/* Utilities – projektweit wiederverwendbare Hilfsklassen */
+
+/* Utilities */
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -45,12 +47,20 @@
   border: 0;
 }
 
-/* Basis-Typografie – globale Standard-Elemente */
+/* End Utilities */
+
+
+/* Basis-Typografie */
+
 h1 {
   font-size: 3.8rem;
   font-weight: 700;
 }
 
+/* End Basis-Typografie */
+
+
+/* Page Layout (Body, Main) */
 
 body {
   margin: 0;
@@ -64,6 +74,11 @@ main {
   flex-direction: column;
   flex: 1;
 }
+
+/* End Page Layout */
+
+
+/* Header */
 
 .header {
   height: 80px;
@@ -79,10 +94,10 @@ main {
 }
 
 .header-title {
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 120%;
-    color: #000000;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 120%;
+  color: #000000;
 }
 
 .header-actions {
@@ -127,10 +142,15 @@ main {
   cursor: pointer;
 }
 
+/* End Header */
+
+
+/* Aside / Sidebar Navigation */
+
 aside {
   background-color: var(--color-primary);
   max-width: 20vw;
-  width: 200px;
+  width: 232px;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -163,7 +183,7 @@ aside img {
   align-items: center;
   gap: 12px;
 
-  padding: 16px 32px;
+  padding: 16px 32px 16px 56px;
 
   color: white;
   text-decoration: none;
@@ -177,3 +197,23 @@ aside img {
 .nav-item.active {
   background-color: var(--color-nav-active);
 }
+
+.sidebar-footer-nav {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 4px;
+  margin-top: auto;
+  padding: 8px 0 64px 48px;
+}
+
+.footer-nav-item {
+  padding: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 120%;
+  color: var(--color-light-font);
+  text-decoration: none;
+}
+
+/* End Aside / Sidebar Navigation */
