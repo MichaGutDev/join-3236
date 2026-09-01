@@ -11,9 +11,12 @@
     font-weight: 700;
 }
 
-.content-section h2 {
+.title-medium {
     font-size: 20px;
     font-weight: 700;
+}
+
+.content-section h2 {
     margin-bottom: 8px;
 }
 
