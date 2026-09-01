@@ -194,7 +194,7 @@ aside img {
   height: 20px;
 }
 
-.nav-item.active {
+.nav-item.active, .footer-nav-item.active {
   background-color: var(--color-nav-active);
 }
 
@@ -204,11 +204,13 @@ aside img {
   width: 100%;
   gap: 4px;
   margin-top: auto;
-  padding: 8px 0 64px 48px;
+  padding-bottom: 64px;
 }
 
 .footer-nav-item {
+  display: flex;
   padding: 8px;
+  padding-left: 56px;
   font-weight: 400;
   font-size: 16px;
   line-height: 120%;
