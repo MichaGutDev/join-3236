@@ -79,12 +79,18 @@ const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
 addSubtaskBtnRef.addEventListener("click", addSubtask);
 
 function addSubtask() {
-    const subTaskInputRef = document.getElementById("new-subtask");
-    subtasks.push({
-        description: subTaskInputRef.value,
-        completion: false
-    });
-    renderSubtasks();
+  const subTaskInputRef = document.getElementById("new-subtask");
+  subtasks.push({
+    description: subTaskInputRef.value,
+    completion: false
+  });
+  renderSubtasks();
+  document.getElementById("new-subtask").value = "";
+}
+
+function updateSubtaskDelButtons() {
+  const deleteSubtaskButtons = document.querySelectorAll(".subtask-delete-btn");
+  deleteSubtaskButtons.forEach(button => { button.addEventListener("click", deleteSubtask); });
 }
 
 function renderSubtasks() {
@@ -92,8 +98,9 @@ function renderSubtasks() {
   subTaskListRef.innerHTML = "";
   for (let index = 0; index < subtasks.length; index++) {
     const subtask = subtasks[index];
-    subTaskListRef.innerHTML += returnSubtaskHTML(subtask);
+    subTaskListRef.innerHTML += returnSubtaskHTML(subtask, index);
   }
+  updateSubtaskDelButtons();
 }
 
 function returnSubtaskHTML(subtask, index) {
@@ -107,10 +114,24 @@ function returnSubtaskHTML(subtask, index) {
                 type="button"
                 class="subtask-delete-btn"
                 aria-label="Subtask ${subtask.description} löschen"
-                onclick="deleteSubtask(${index})"
+                data-index="${index}"
             >
                 Löschen
             </button>
         </li>
     `;
+}
+
+function deleteSubtask(event) {
+  const index = Number(event.currentTarget.dataset.index);
+  subtasks.splice(index, 1)
+  renderSubtasks();
+}
+
+const logger = document.getElementById('logger');
+logger.addEventListener("click", logSubtasks);
+
+function logSubtasks() {
+  console.log(subtasks);
+
 }
