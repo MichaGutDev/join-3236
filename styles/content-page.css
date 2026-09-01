@@ -25,8 +25,40 @@
     font-size: 16px;
     font-weight: 400;
     line-height: 120%;
+    margin-bottom: 24px;
 }
 
 .text-highlight {
     color: var(--color-login-privacy-policy);
+}
+
+.how-to-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+}
+
+.how-to-list li p {
+    margin-bottom: 0;
+}
+
+.how-to-list li {
+    counter-increment: step;
+    display: flex;
+    gap: 35px;
+}
+
+.how-to-list li::before {
+    content: counter(step) ".";
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.help-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
