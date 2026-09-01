@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join</title>
+    <link rel="stylesheet" href="../styles/fonts.css">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../styles/legal.css">
+    <link rel="shortcut icon" href="../assets/icons/favicon.svg" type="image/x-icon">
+</head>
+
+<body>
+    <aside>
+        <div class="aside-join-icon">
+            <img src="../assets/icons/main-icon.svg" alt="">
+
+        </div>
+
+
+        <nav class="sidebar-nav">
+            <a href="summary.html" class="nav-item">
+                <img src="../assets/icons/summary-icon.svg" alt="">
+                <span>Summary</span>
+            </a>
+
+            <a href="add_task.html" class="nav-item ">
+                <img src="../assets/icons/add-task-icon.svg" alt="">
+                <span>Add Task</span>
+            </a>
+
+            <a href="board.html" class="nav-item">
+                <img src="../assets/icons/board-icon.svg" alt="">
+                <span>Board</span>
+            </a>
+
+            <a href="contacts.html" class="nav-item">
+                <img src="../assets/icons/contacts-icon.svg" alt="">
+                <span>Contacts</span>
+            </a>
+        </nav>
+        <nav class="sidebar-footer-nav">
+            <a href="privacy_policy.html" class="footer-nav-item active">
+                <span>Privacy Policy</span>
+            </a>
+
+            <a href="legal_notice.html" class="footer-nav-item">
+                <span>Legal notice</span>
+            </a>
+
+        </nav>
+    </aside>
+
+    <main>
+        <header class="header">
+            <p class="header-title">Kanban Project Management Tool</p>
+
+            <div class="header-actions">
+                <button class="user-avatar" aria-label="Open user menu">
+                    <span id="userInitials">SM</span>
+                </button>
+            </div>
+        </header>
+
+        <div class="legal-content">
+
+            <h1>Privacy Policy</h1>
+
+            <section class="legal-section">
+                <h2>General Information</h2>
+                <p>We take the protection of your personal data seriously. This Privacy Policy explains what data is
+                    collected when you use <span class="legal-highlight">Join</span>, how it is used, and where it is
+                    stored. <span class="legal-highlight">Join</span> is a student project developed as part of a web
+                    development bootcamp at the <span class="legal-highlight">Developer Akademie GmbH</span> and is not
+                    operated as a commercial service.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2>Data Collection & Storage</h2>
+                <p>When you register with an email address and password, or use the guest login, we collect and store
+                    the following information: your name, email address, and any tasks or contacts you create within the
+                    application. This data is stored using <span class="legal-highlight">Google Firebase</span>
+                    (Authentication and Realtime Database), a backend service provided by Google.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2>Usage of Data</h2>
+                <p>Your data is used exclusively for the following purposes:</p>
+                <ul>
+                    <li>Authenticating your account and enabling secure login.</li>
+                    <li>Displaying your name and initials on tasks assigned to you.</li>
+                    <li>Storing and displaying contacts and tasks shared across the team.</li>
+                </ul>
+                <p>We do not sell or share your data with third parties beyond the infrastructure required to operate
+                    <span class="legal-highlight">Join</span> (i.e. Google Firebase).
+                </p>
+            </section>
+
+            <section class="legal-section">
+                <h2>Guest Login</h2>
+                <p>The guest login creates a temporary, anonymous account via Firebase Authentication. No personal
+                    information is required or stored beyond a temporary session identifier, which is deleted when you
+                    sign out.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2>Your Rights</h2>
+                <p>You may request the correction or deletion of your personal data at any time by contacting us using
+                    the details below. As this is an educational project, deletion requests will be handled manually by
+                    the listed students.</p>
+            </section>
+
+            <section class="legal-section">
+                <h2>Contact & Representative</h2>
+                <ul>
+                    <li><strong>Project Name:</strong> Join</li>
+                    <li><strong>Representatives:</strong> Robert van den Boom, Sebastian O., Micha Gut</li>
+                    <li><strong>Address:</strong> Germany</li>
+                    <li><strong>Email:</strong> team@join-project.example</li>
+                </ul>
+            </section>
+
+        </div>
+
+    </main>
+
+    <script type="module" src="../js/firebase-config.js"></script>
+    <script type="module" src="../js/auth-check.js"></script>
+
+</body>
+
+
+</html>
