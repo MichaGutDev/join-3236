@@ -1,4 +1,4 @@
-.legal-content {
+.content-page {
     padding: 96px 0 64px 96px;
     max-width: 1208px;
     display: flex;
@@ -6,24 +6,24 @@
     gap: 24px;
 }
 
-.legal-title-large {
+.title-large {
     font-size: 27px;
     font-weight: 700;
 }
 
-.legal-section h2 {
+.content-section h2 {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 8px;
 }
 
-.legal-section p,
-.legal-section li {
+.content-section p,
+.content-section li {
     font-size: 16px;
     font-weight: 400;
     line-height: 120%;
 }
 
-.legal-highlight {
+.text-highlight {
     color: var(--color-login-privacy-policy);
 }
