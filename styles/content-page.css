@@ -1,3 +1,5 @@
+/* Page Layout */
+
 .content-page {
     padding: 96px 0 64px 96px;
     max-width: 1208px;
@@ -5,6 +7,11 @@
     flex-direction: column;
     gap: 24px;
 }
+
+/* End Page Layout */
+
+
+/* Titles & Text */
 
 .title-large {
     font-size: 27px;
@@ -32,6 +39,11 @@
     color: var(--color-login-privacy-policy);
 }
 
+/* End Titles & Text */
+
+
+/* How-To Step List (Help page) */
+
 .how-to-list {
     list-style: none;
     padding-left: 0;
@@ -41,14 +53,14 @@
     flex-direction: column;
 }
 
-.how-to-list li p {
-    margin-bottom: 0;
-}
-
 .how-to-list li {
     counter-increment: step;
     display: flex;
     gap: 35px;
+}
+
+.how-to-list li p {
+    margin-bottom: 0;
 }
 
 .how-to-list li::before {
@@ -57,8 +69,15 @@
     font-weight: 700;
 }
 
+/* End How-To Step List */
+
+
+/* Help Title Row */
+
 .help-title-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
+
+/* End Help Title Row */
