@@ -32,7 +32,6 @@
   font-family: "Inter", sans-serif;
 }
 
-
 /* Utilities */
 
 .visually-hidden {
@@ -49,7 +48,6 @@
 
 /* End Utilities */
 
-
 /* Basis-Typografie */
 
 h1 {
@@ -58,7 +56,6 @@ h1 {
 }
 
 /* End Basis-Typografie */
-
 
 /* Page Layout (Body, Main) */
 
@@ -76,7 +73,6 @@ main {
 }
 
 /* End Page Layout */
-
 
 /* Header */
 
@@ -144,6 +140,55 @@ main {
 
 /* End Header */
 
+/* User Menu */
+
+.user-menu-wrapper {
+  position: relative;
+}
+
+.user-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  width: 150px;
+  border-radius: 20px 0 20px 20px;
+  background-color: var(--color-primary);
+  box-shadow: 0 0 4px rgb(0 0 0 / 40%);
+}
+
+.user-menu-item {
+  display: flex;
+  align-items: center;
+  width: 130px;
+  height: 46px;
+  padding: 8px 16px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 120%;
+  color: #cdcdcd;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.user-menu-item:hover {
+  border-radius: 8px;
+  background-color: var(--color-nav-active);
+}
+
+button.user-menu-item {
+  border: none;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* End User Menu */
 
 /* Aside / Sidebar Navigation */
 
@@ -194,7 +239,8 @@ aside img {
   height: 20px;
 }
 
-.nav-item.active, .footer-nav-item.active {
+.nav-item.active,
+.footer-nav-item.active {
   background-color: var(--color-nav-active);
 }
 
