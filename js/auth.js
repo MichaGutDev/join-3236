@@ -196,10 +196,15 @@ function togglePasswordVisibility(inputId, iconId) {
 }
 
 
-function togglePrivacyCheckbox() {
+function updateSignupButtonState() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirm-password").value.trim();
     const checkbox = document.getElementById('privacy-policy');
     const button = document.getElementById('signup-submit')
-    button.disabled = !checkbox.checked;
+    button.disabled = !(name && email && password && confirmPassword && checkbox.checked);
+   
 }
 
 
@@ -217,8 +222,18 @@ if (signupForm) {
 
 const privacyCheckbox = document.getElementById('privacy-policy');
 if (privacyCheckbox) {
-    privacyCheckbox.addEventListener('change', togglePrivacyCheckbox);
+    privacyCheckbox.addEventListener('change', updateSignupButtonState);
 }
+
+
+const textFields = ['name', 'email', 'password', 'confirm-password'];
+
+textFields.forEach(id => {
+    const field = document.getElementById(id);
+    if (field) {
+        field.addEventListener('input', updateSignupButtonState);
+    }
+});
 
 
 const guestButton = document.getElementById('guest-login');
