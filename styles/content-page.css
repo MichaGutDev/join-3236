@@ -1,0 +1,83 @@
+/* Page Layout */
+
+.content-page {
+    padding: 96px 0 64px 96px;
+    max-width: 1208px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* End Page Layout */
+
+
+/* Titles & Text */
+
+.title-large {
+    font-size: 27px;
+    font-weight: 700;
+}
+
+.title-medium {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.content-section h2 {
+    margin-bottom: 8px;
+}
+
+.content-section p,
+.content-section li {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
+    margin-bottom: 24px;
+}
+
+.text-highlight {
+    color: var(--color-login-privacy-policy);
+}
+
+/* End Titles & Text */
+
+
+/* How-To Step List (Help page) */
+
+.how-to-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+    counter-reset: step;
+    display: flex;
+    flex-direction: column;
+}
+
+.how-to-list li {
+    counter-increment: step;
+    display: flex;
+    gap: 35px;
+}
+
+.how-to-list li p {
+    margin-bottom: 0;
+}
+
+.how-to-list li::before {
+    content: counter(step) ".";
+    font-size: 27px;
+    font-weight: 700;
+}
+
+/* End How-To Step List */
+
+
+/* Help Title Row */
+
+.help-title-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* End Help Title Row */

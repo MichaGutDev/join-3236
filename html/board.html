@@ -20,40 +20,60 @@
 
 
         <nav class="sidebar-nav">
-            <a href="#" class="nav-item">
+            <a href="summary.html" class="nav-item">
                 <img src="../assets/icons/summary-icon.svg" alt="">
                 <span>Summary</span>
             </a>
 
-            <a href="#" class="nav-item ">
+            <a href="add_task.html" class="nav-item ">
                 <img src="../assets/icons/add-task-icon.svg" alt="">
                 <span>Add Task</span>
             </a>
 
-            <a href="#" class="nav-item active">
+            <a href="board.html" class="nav-item active">
                 <img src="../assets/icons/board-icon.svg" alt="">
                 <span>Board</span>
             </a>
 
-            <a href="#" class="nav-item">
+            <a href="contacts.html" class="nav-item">
                 <img src="../assets/icons/contacts-icon.svg" alt="">
                 <span>Contacts</span>
+            </a>
+        </nav>
+        <nav class="sidebar-footer-nav">
+            <a href="privacy_policy.html" class="footer-nav-item">
+                <span>Privacy Policy</span>
+            </a>
+
+            <a href="legal_notice.html" class="footer-nav-item">
+                <span>Legal notice</span>
             </a>
         </nav>
     </aside>
 
     <main>
         <header class="header">
-            <h2 class="header-title">Kanban Project Management Tool</h2>
+            <p class="header-title">Kanban Project Management Tool</p>
 
             <div class="header-actions">
-                <button class="help-button" aria-label="Help">
+                <a href="help.html" class="help-button" aria-label="Help">
                     <img src="../assets/icons/help-questionmark-icon.svg" alt="">
-                </button>
+                </a>
 
-                <button class="user-avatar" aria-label="Open user menu">
-                    <span id="userInitials">SM</span>
-                </button>
+                <div class="user-menu-wrapper">
+                    <button class="user-avatar" aria-label="Open user menu">
+                        <span id="userInitials">SM</span>
+                    </button>
+                    <div class="user-menu">
+                        <a href="legal_notice.html" class="user-menu-item">
+                            <span>Legal Notice</span>
+                        </a>
+                        <a href="privacy_policy.html" class="user-menu-item">
+                            <span>Privacy Policy</span>
+                        </a>
+                        <button id="logout-button" class="user-menu-item">Log out</button>
+                    </div>
+                </div>
             </div>
         </header>
 
@@ -179,7 +199,7 @@
 
     </main>
 
-    <script src="../script.js"></script>
+    <script type="module" src="../script.js"></script>
     <!-- <script src="../js/add_task.js"></script> -->
     <script src="../js/board.js"></script>
     <!-- 
