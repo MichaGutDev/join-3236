@@ -108,11 +108,41 @@
             </div>
         </section>
     </main>
-    <!-- <div class="dialog-container"></div> convert to Dialog Element -->
+    <!--  convert to Dialog Element -->
+    <dialog id="dialog" class="dialog-container" >
+        <div class="dialog">
+
+            <div class="dialog-topic">
+                Join Logo
+                <p>text</p>
+                <div>underline</div>
+            </div>
+
+            <div class="dialog-content">
+                <button>X</button>
+                <div>
+                    <span>Initials</span>
+                    <div>
+                        <input class="dialog-input" type="text">
+                        <input class="dialog-input" type="email">
+                        <input class="dialog-input" type="tel">
+                        <div>
+                            <button>Delete</button>
+                            <button>Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </dialog>
+    <!-- convert to Dialog Element -->
 
 
 </body>
 <script src="../script.js"></script>
 <script src="../js/contact.js"></script>
+<script type="module" src="../js/firebase-config.js"></script>
+<script type="module" src="../js/auth-check.js"></script>
 
 </html>
