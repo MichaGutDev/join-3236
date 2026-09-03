@@ -52,8 +52,7 @@ function handleFirebaseLogin(email, password) {
         .then(() => {
             window.location.href = 'html/summary.html';
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(() => {
             showError('login-error', ['email', 'password'], 'Check your email and password. Please try again.');
             loginSubmit.disabled = false;
         });
@@ -115,8 +114,7 @@ function handleFirebaseSignUp(name, email, password) {
             const newContactRef = push(ref(database, "contacts"));
             set(newContactRef, { name, email, phone: "", color: "#000000", userId: userCredential.user.uid });
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(() => {
             showError('signup-error', ['email'], 'Registration failed. Please try again.');
             signupSubmit.disabled = false;
         });
@@ -161,8 +159,7 @@ function guestLogin() {
         .then(() => {
             window.location.href = 'html/summary.html';
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(() => {
             guestButton.disabled = false;
 
         });

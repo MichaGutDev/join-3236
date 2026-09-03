@@ -27,8 +27,7 @@ function logout() {
         .then(() => {
             window.location.replace("../index.html");
         })
-        .catch((error) => {
-            console.log(error);
+        .catch(() => {
             logoutButton.disabled = false;
 
         });
