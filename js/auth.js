@@ -99,7 +99,7 @@ function signUp(event) {
 
 
 /**
- * Creates a new user account with Firebase using email and password.
+ * Creates a new user account with Firebase using email and password, and writes a corresponding contact entry to the database.
  * 
  * @param {string} name - The user's name.
  * @param {string} email - The user's email address.
@@ -196,6 +196,9 @@ function togglePasswordVisibility(inputId, iconId) {
 }
 
 
+/**
+ * Checks all required signup fields and the privacy checkbox, then enables or disables the submit button accordingly.
+ */
 function updateSignupButtonState() {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
@@ -203,8 +206,7 @@ function updateSignupButtonState() {
     const confirmPassword = document.getElementById("confirm-password").value.trim();
     const checkbox = document.getElementById('privacy-policy');
     const button = document.getElementById('signup-submit')
-    button.disabled = !(name && email && password && confirmPassword && checkbox.checked);
-   
+    button.disabled = !(name && email && password && confirmPassword && checkbox.checked);   
 }
 
 
