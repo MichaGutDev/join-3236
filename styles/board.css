@@ -27,6 +27,10 @@
     border: 2px dashed var(--color-form-box);
 }
 
+.dragging {
+    transform: rotate(5deg);
+}
+
 .initials-container {
     display: flex;
     justify-content: space-between;

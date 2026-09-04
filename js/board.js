@@ -61,7 +61,7 @@ function init() {
 
 function returnTaskHTML(task) { // takes full object
     return `
-        <li class="task-box" draggable="true" ondragstart="startDragging(${task.id})">
+        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
             <h4>${task.title}</h4>
             <span class="task-descr">${task.description}</span>
@@ -172,8 +172,14 @@ function insertTask(task) {
 }
 
 
-function startDragging(id) {
+function startDragging(event, id) {
     currentDraggedTaskId = id;
+    event.target.classList.add('dragging');
+}
+
+
+function stopDragging(event) {
+     event.target.classList.remove('dragging');
 }
 
 
