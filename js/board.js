@@ -1,3 +1,5 @@
+let currentDraggedTaskId;
+
 const taskContainerMap = {
     "To Do" : document.getElementById('to_do'),
     "In Progress" : document.getElementById('in_progress'),
@@ -59,7 +61,7 @@ function init() {
 
 function returnTaskHTML(task) { // takes full object
     return `
-        <li class="task-box">
+        <li class="task-box" draggable="true" ondragstart="startDragging(${task.id})">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
             <h4>${task.title}</h4>
             <span class="task-descr">${task.description}</span>
@@ -167,4 +169,9 @@ function insertTask(task) {
             document.getElementById(key).value = value;
         }
     });
+}
+
+
+function startDragging(id) {
+    currentDraggedTaskId = id;
 }
