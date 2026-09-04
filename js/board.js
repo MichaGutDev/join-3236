@@ -185,5 +185,15 @@ function allowDrop(event) {
 function moveTaskTo(status) {
     const draggedTask = tasks.find(task => task.id === currentDraggedTaskId);
     draggedTask.status = status;
+    document.querySelector('.drag-area-highlight')?.classList.remove('drag-area-highlight');
     displayTasks();
+}
+
+
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight');
+}
+
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight');
 }

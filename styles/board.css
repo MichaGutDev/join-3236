@@ -23,6 +23,10 @@
     gap: 8px;
 }
 
+.drag-area-highlight {
+    border: 2px dashed var(--color-form-box);
+}
+
 .initials-container {
     display: flex;
     justify-content: space-between;
