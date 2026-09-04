@@ -79,10 +79,12 @@ function returnTaskHTML(task) { // takes full object
 
 /**
  * Renders all tasks into the respective containers.
+ * 
+ * @param {Array} [taskList=tasks] - Optional list of tasks to render.
  */
-function displayTasks() {
+function displayTasks(taskList = tasks) {
     clearTaskHTML();
-    tasks.forEach(task => {
+    taskList.forEach(task => {
         taskContainerMap[task.status].innerHTML += returnTaskHTML(task)
     });
 }
