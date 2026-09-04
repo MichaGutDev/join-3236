@@ -172,22 +172,43 @@ function insertTask(task) {
 }
 
 
+/**
+ * Stores the id of the dragged task and applies a visual dragging style to the element.
+ * 
+ * @param {DragEvent} event 
+ * @param {number} id 
+ */
 function startDragging(event, id) {
     currentDraggedTaskId = id;
     event.target.classList.add('dragging');
 }
 
 
+/**
+ * Removes the visual dragging style from the element.
+ * 
+ * @param {DragEvent} event 
+ */
 function stopDragging(event) {
      event.target.classList.remove('dragging');
 }
 
 
+/**
+ * Prevents the browser's default behavior during dragover, allowing the element to become a valid drop target.
+ * 
+ * @param {DragEvent} event 
+ */
 function allowDrop(event) {
     event.preventDefault();
 }
 
 
+/**
+ * Finds the dragged task by its id, updates its status, removes the drop-target highlight, and re-renders the board.
+ * 
+ * @param {string} status 
+ */
 function moveTaskTo(status) {
     const draggedTask = tasks.find(task => task.id === currentDraggedTaskId);
     draggedTask.status = status;
@@ -196,10 +217,21 @@ function moveTaskTo(status) {
 }
 
 
+/**
+ * Adds the dashed highlight style to the column with the given id.
+ * 
+ * @param {string} id 
+ */
 function highlight(id) {
     document.getElementById(id).classList.add('drag-area-highlight');
 }
 
+
+/**
+ * Removes the dashed highlight style from the column with the given id.
+ * 
+ * @param {string} id 
+ */
 function removeHighlight(id) {
     document.getElementById(id).classList.remove('drag-area-highlight');
 }

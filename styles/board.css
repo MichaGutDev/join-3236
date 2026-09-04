@@ -23,6 +23,8 @@
     gap: 8px;
 }
 
+/* Drag & Drop */
+
 .drag-area-highlight {
     border: 2px dashed var(--color-form-box);
 }
@@ -30,6 +32,9 @@
 .dragging {
     transform: rotate(5deg);
 }
+
+/* End Drag & Drop */
+
 
 .initials-container {
     display: flex;
