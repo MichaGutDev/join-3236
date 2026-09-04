@@ -80,28 +80,28 @@
         <div class="board-wrapper">
             <section class="task-col">
                 <h3 class="taskgroup-header">To Do:</h3>
-                <ul id="to_do">
+                <ul id="to_do" ondragover="allowDrop(event)" ondrop="moveTaskTo('To Do')">
 
                 </ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">In Progress:</h3>
-                <ul id="in_progress">
+                <ul id="in_progress" ondragover="allowDrop(event)" ondrop="moveTaskTo('In Progress')">
                     <li></li>
                 </ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Awaiting Feedback:</h3>
-                <ul id="await_feedback">
+                <ul id="await_feedback" ondragover="allowDrop(event)" ondrop="moveTaskTo('Awaiting Feedback')">
                     <li></li>
                 </ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Done:</h3>
-                <ul id="done">
+                <ul id="done" ondragover="allowDrop(event)" ondrop="moveTaskTo('Done')">
                     <li></li>
                 </ul>
             </section>

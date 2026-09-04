@@ -175,3 +175,15 @@ function insertTask(task) {
 function startDragging(id) {
     currentDraggedTaskId = id;
 }
+
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+
+function moveTaskTo(status) {
+    const draggedTask = tasks.find(task => task.id === currentDraggedTaskId);
+    draggedTask.status = status;
+    displayTasks();
+}
