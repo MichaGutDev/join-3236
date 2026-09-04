@@ -16,6 +16,7 @@
 }
 
 .board-search {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,6 +47,16 @@ padding-left: 16px;
 .board-add-task-btn {
     width: 160px;
     padding: 16px 12px;
+}
+
+#no-results-message {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    text-align: left;
+    color: var(--color-form-box);
+    font-size: 14px;
 }
 
 /* End Board Title Row */

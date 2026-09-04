@@ -82,14 +82,16 @@
             <h1>Board</h1>
             <div class="board-actions">
                 <div class="board-search">
-                    <input type="text" placeholder="Find Task">
+                    <input id="search-task" type="text" placeholder="Find Task">
                     <img src="../assets/icons/search.svg" alt="Find Task">
+                    <p id="no-results-message" hidden>No matching tasks found.</p>
                 </div>
                 <a href="add_task.html" class="btn btn-primary board-add-task-btn">Add task
                     <img src="../assets/icons/add.svg" alt="">
                 </a>
             </div>
         </div>
+
 
         <div class="board-wrapper">
             <section class="task-col">
@@ -216,6 +218,7 @@
     <script type="module" src="../script.js"></script>
     <!-- <script src="../js/add_task.js"></script> -->
     <script src="../js/board.js"></script>
+    <script src="../js/search.js"></script>
     <!-- 
     <script type="module" src="../js/firebase-config.js"></script>
     <script type="module" src="../js/auth-check.js"></script> -->
