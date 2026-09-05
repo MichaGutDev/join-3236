@@ -1,3 +1,5 @@
+let currentDraggedTaskId;
+
 const taskContainerMap = {
     "To Do" : document.getElementById('to_do'),
     "In Progress" : document.getElementById('in_progress'),
@@ -59,7 +61,7 @@ function init() {
 
 function returnTaskHTML(task) { // takes full object
     return `
-        <li class="task-box">
+        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
             <h4>${task.title}</h4>
             <span class="task-descr">${task.description}</span>
@@ -169,4 +171,69 @@ function insertTask(task) {
             document.getElementById(key).value = value;
         }
     });
+}
+
+
+/**
+ * Stores the id of the dragged task and applies a visual dragging style to the element.
+ * 
+ * @param {DragEvent} event 
+ * @param {number} id 
+ */
+function startDragging(event, id) {
+    currentDraggedTaskId = id;
+    event.target.classList.add('dragging');
+}
+
+
+/**
+ * Removes the visual dragging style from the element.
+ * 
+ * @param {DragEvent} event 
+ */
+function stopDragging(event) {
+     event.target.classList.remove('dragging');
+}
+
+
+/**
+ * Prevents the browser's default behavior during dragover, allowing the element to become a valid drop target.
+ * 
+ * @param {DragEvent} event 
+ */
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+
+/**
+ * Finds the dragged task by its id, updates its status, removes the drop-target highlight, and re-renders the board.
+ * 
+ * @param {string} status 
+ */
+function moveTaskTo(status) {
+    const draggedTask = tasks.find(task => task.id === currentDraggedTaskId);
+    draggedTask.status = status;
+    document.querySelector('.drag-area-highlight')?.classList.remove('drag-area-highlight');
+    displayTasks();
+}
+
+
+/**
+ * Adds the dashed highlight style to the column with the given id.
+ * 
+ * @param {string} id 
+ */
+function highlight(id) {
+    document.getElementById(id).classList.add('drag-area-highlight');
+}
+
+
+/**
+ * Removes the dashed highlight style from the column with the given id.
+ * 
+ * @param {string} id 
+ */
+function removeHighlight(id) {
+    document.getElementById(id).classList.remove('drag-area-highlight');
 }
