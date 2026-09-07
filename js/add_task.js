@@ -1,21 +1,21 @@
 import { database } from './firebase-config.js';
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-// const task = [
-//   {
-//     id: 1,
-//     title: "Create login page",
-//     description: "Build the basic structure and styling for the login page.",
-//     dueDate: "2026-08-25",
-//     prio: "urgent",
-//     category: "User Story",
-//     assignedTo: ["contactId1", "contactId2"],
-//     status: "To Do",
-//     subtasks: [
-//       { subtask: "Create HTML structure", completion: true },
-//       { subtask: "Add responsive styling", completion: false },
-//     ],
-//   }
-// ];
+const task = [
+  {
+    id: 1,
+    title: "Create login page",
+    description: "Build the basic structure and styling for the login page.",
+    dueDate: "2026-08-25",
+    prio: "urgent",
+    category: "User Story",
+    assignedTo: ["contactId1", "contactId2"],
+    status: "To Do",
+    subtasks: [
+      { subtask: "Create HTML structure", completion: true },
+      { subtask: "Add responsive styling", completion: false },
+    ],
+  }
+];
 const formRef = document.querySelector('#task-form');
 
 formRef.addEventListener("submit", (event) => {
@@ -65,12 +65,12 @@ async function createTaskObject(formData) {
 //   ]
 // });
 
-async function addTask(task) {
-  const tasksRef = ref(database, "tasks");
-  const newTaskRef = push(tasksRef);
+// async function addTask(task) {
+//   const tasksRef = ref(database, "tasks");
+//   const newTaskRef = push(tasksRef);
 
-  await set(newTaskRef, task);
-}
+//   await set(newTaskRef, task);
+// }
 
 let subtasks = [];
 
@@ -133,5 +133,6 @@ logger.addEventListener("click", logSubtasks);
 
 function logSubtasks() {
   console.log(subtasks);
-
+  console.log(valueLog);
 }
+

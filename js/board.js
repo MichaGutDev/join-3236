@@ -141,37 +141,191 @@ function returnSubtaskValues(subtaskList) {
 }
 
 const taskDialogRef = document.getElementById("task-edit-dialog");
-function openTaskEdit() {
-    // insertTask(insertTaskTest);
+function openTaskDialog() {
     taskDialogRef.showModal();
 }
 
-function closeTaskEdit() {
+function closeTaskDialog() {
     taskDialogRef.close();
 }
 
-let insertTaskTest = {
-        id: 1,
-        title: "Create login page",
-        description: "Build the basic structure and styling for the login page.",
-        // dueDate: "2026-08-25",
-        // priority: "urgent",
-        category: "User Story",
-        assignedTo: ["contactId1", "contactId2"],
+// let insertTaskTest = {
+//         id: 1,
+//         title: "Create login page",
+//         description: "Build the basic structure and styling for the login page.",
+//         // dueDate: "2026-08-25",
+//         // priority: "urgent",
+//         category: "User Story",
+//         assignedTo: ["contactId1", "contactId2"],
+//         status: "To Do",
+//         subtasks: [
+//             { subtask: "Create HTML structure", completion: true },
+//             { subtask: "Add responsive styling", completion: false },
+//         ],
+//     };
+
+// function insertTask(task) {
+//     Object.entries(task).forEach(([key, value]) => {
+//         if (key !== "id") {
+//             document.getElementById(key).value = value;
+//         }
+//     });
+// }
+
+
+function renderAddTaskForm(status) {
+    taskDialogRef.innerHTML = "";
+    taskDialogRef.innerHTML = returnTaskForm();
+    if (task) {
+        document.getElementById('status')
+    }
+}
+
+
+function returnTaskForm() {
+    `<section class="form-wrapper">
+            <form id="task-form">
+                <!-- Title -->
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" id="title" name="title" placeholder="Enter a title" required>
+                </div>
+
+                <!-- Description -->
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" placeholder="Enter a description" required></textarea>
+                </div>
+
+                <!-- Due Date -->
+                <div class="form-group">
+                    <label for="due-date">Due Date</label>
+                    <input type="date" id="due-date" name="dueDate" required>
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <fieldset class="priority">
+                        <legend>Priority</legend>
+
+                        <label class="priority-high">
+                            <input type="radio" name="priority" value="urgent">
+                            <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
+                        </label>
+
+                        <label class="priority-medium">
+                            <input type="radio" name="priority" value="medium" checked>
+                            <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="">
+                        </label>
+
+                        <label class="priority-low">
+                            <input type="radio" name="priority" value="low">
+                            <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
+                        </label>
+                    </fieldset>
+                </div>
+
+                <!-- Status -->
+                <div class="form-group">
+                    <fieldset class="status">
+                        <legend>Status</legend>
+
+                        <label>
+                            <input type="radio" name="status" value="To Do">
+                            <span>To Do</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="status" value="In Progress" checked>
+                            <span>In Progress</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="status" value="Awaiting Feedback">
+                            <span>Awaiting Feedback</span>
+                        </label>
+                    </fieldset>
+                </div>
+
+                <!-- Category -->
+                <div class="form-group">
+                    <label for="category">Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">Select category</option>
+                        <option value="User Story">User Story</option>
+                        <option value="Technical Task">Technical Task</option>
+                    </select>
+                </div>
+
+                <!-- Assigned To -->
+                <div class="form-group">
+                    <label for="assigned-to">Assigned To</label>
+
+                    <select id="assigned-to" name="assignedTo" multiple>
+                        <option value="contactId1">Contact 1</option>
+                        <option value="contactId2">Contact 2</option>
+                        <option value="contactId3">Contact 3</option>
+                    </select>
+                </div>
+
+                <!-- Subtasks -->
+                <div class="form-group">
+                    <label for="new-subtask">Subtasks</label>
+
+                    <div class="subtask-input">
+                        <input type="text" id="new-subtask" placeholder="Add new subtask">
+
+                        <button type="button" id="add-subtask-btn" class="btn-primary">
+                            Add
+                        </button>
+                    </div>
+
+                    <ul id="subtask-list" class="subtask-list">
+                        <!-- Subtasks hier rendern -->
+                    </ul>
+                </div>
+
+                <div class="form-actions">
+                    <button type="reset" class="btn-secondary">Clear</button>
+                    <button type="submit" class="btn-primary">Create Task</button>
+                </div>
+            </form>
+        </section>`
+}
+
+let test = 
+
+    {
+        id: 2,
+        title: "Design task cards",
+        description: "Create the layout for task cards on the board.",
+        dueDate: "2026-08-28",
+        priority: "medium",
+        category: "Technical Task",
+        assignedTo: ["contactId3"],
         status: "To Do",
         subtasks: [
-            { subtask: "Create HTML structure", completion: true },
-            { subtask: "Add responsive styling", completion: false },
+            { subtask: "Create card layout", completion: false },
+            { subtask: "Add priority icons", completion: false },
         ],
     };
 
-function insertTask(task) {
-    Object.entries(task).forEach(([key, value]) => {
-        if (key !== "id") {
-            document.getElementById(key).value = value;
+let currentlyViewedTask;
+
+function insertTask() {
+    Object.entries(test).forEach(([key, val]) => {
+        if (key !== "subtasks" && key !== "assignedTo" && key !== "id") {
+            console.log(key, val);
+            
+            document.getElementById(`${key}`).value = val;
         }
+        
+        
     });
 }
+
+
+
 
 
 /**
