@@ -253,3 +253,7 @@ if (confirmPasswordInput) {
     document.getElementById('confirm-password-icon').addEventListener('click', () => togglePasswordVisibility('confirm-password', 'confirm-password-icon'));
 }
 
+const splashScreen = document.getElementById('splash-screen');
+setTimeout(() => {
+    splashScreen.classList.add("splash-hidden");
+}, 200)
