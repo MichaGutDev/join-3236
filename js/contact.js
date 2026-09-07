@@ -16,7 +16,7 @@ let ticker = null;
 
 async function init() {
     await testFetch();
-    openDialog();
+    // openDialog();
     console.log("Init");
     console.log(contact);
 
@@ -30,6 +30,11 @@ async function addContact() {
 function openDialog() {
     let dialog = document.getElementById('dialog');
     dialog.showModal();
+}
+
+function closeDialog() {
+    let dialog = document.getElementById('dialog');
+    dialog.close();
 }
 
 

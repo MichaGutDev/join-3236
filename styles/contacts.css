@@ -34,6 +34,7 @@ a {
 
 .button-add-new-contact {
     width: 100%;
+    color: white;
 }
 
 .add-new-contact-box {
@@ -249,6 +250,10 @@ a {
     align-content: center;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
 .dialog {
     background-color: white;
     height: 600px;
@@ -272,6 +277,21 @@ a {
     display: flex;
     flex-direction: column;
     border-radius: 0 20px 20px 0;
+}
+
+.dialog-close-btn {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 20px;
+}
+
+.dialog-close-btn button {
+    background-color: transparent;
+    border: none;
+}
+
+.dialog-aside-split {
+    display: flex;
 }
 
 .dialog-input {

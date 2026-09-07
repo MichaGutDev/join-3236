@@ -78,7 +78,7 @@
 
         <section class="section-main-content">
             <div class="contact-list-container">
-                <button class="btn button-add-new-contact btn-primary">
+                <button onclick="openDialog(addContact)" class="btn button-add-new-contact btn-primary">
                     <span>Add New Contact</span>
                     <div class="add-new-contact-box">
                         <img class="add-new-contact-icon" src="/assets/icons/add-contact-icon.svg" alt="">
@@ -129,7 +129,7 @@
         </section>
     </main>
     <!--  convert to Dialog Element -->
-    <dialog id="dialog" class="dialog-container" >
+    <dialog onclick="closeDialog()" id="dialog" class="dialog-container">
         <div class="dialog">
 
             <div class="dialog-topic">
@@ -139,13 +139,19 @@
             </div>
 
             <div class="dialog-content">
-                <button>X</button>
-                <div>
-                    <span>Initials</span>
+                <div class="dialog-close-btn">
+                    <button onclick="closeDialog()">X</button>
+                </div>
+                <div class="dialog-aside-split">
                     <div>
-                        <input class="dialog-input" type="text">
-                        <input class="dialog-input" type="email">
-                        <input class="dialog-input" type="tel">
+                        <span>initials</span>
+                    </div>
+                    <div>
+                        <div>
+                            <input class="dialog-input" type="text" placeholder="Vor-, Nachname">
+                            <input class="dialog-input" type="email" placeholder="example@email.com">
+                            <input class="dialog-input" type="tel" placeholder="Telefonnummer">
+                        </div>
                         <div>
                             <button>Delete</button>
                             <button>Save</button>
