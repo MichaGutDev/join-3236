@@ -47,7 +47,7 @@ async function createTaskObject(formData) {
     }
   });
   valueLog.push(data);
-  // await addTask(data); // ENABLE THIS HERE TO UPLOAD
+  // await saveTask(data); // ENABLE THIS HERE TO UPLOAD
 }
 
 // const newTaskRef = push(ref(database, 'tasks'));
@@ -64,18 +64,29 @@ async function createTaskObject(formData) {
 //     { title: "Formular bauen", done: false }
 //   ]
 // });
+let editingTaskId = null;
+// async function saveTask(task, id = null) {
+//     if (id) {
+//         const taskRef = ref(database, `tasks/${id}`);
+//         await set(taskRef, task);
+//         return;
+//     }
 
-// async function addTask(task) {
-//   const tasksRef = ref(database, "tasks");
-//   const newTaskRef = push(tasksRef);
+//     const tasksRef = ref(database, "tasks");
+//     const newTaskRef = push(tasksRef);
 
-//   await set(newTaskRef, task);
+//     await set(newTaskRef, task);
 // }
 
+
+
+
+
+
+// FROM HERE ON: SUBSTASKS
 let subtasks = [];
 
 const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
-
 addSubtaskBtnRef.addEventListener("click", addSubtask);
 
 function addSubtask() {
@@ -135,4 +146,3 @@ function logSubtasks() {
   console.log(subtasks);
   console.log(valueLog);
 }
-

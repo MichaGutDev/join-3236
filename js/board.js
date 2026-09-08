@@ -1,10 +1,10 @@
 let currentDraggedTaskId;
 
 const taskContainerMap = {
-    "To Do" : document.getElementById('to_do'),
-    "In Progress" : document.getElementById('in_progress'),
-    "Awaiting Feedback" : document.getElementById('await_feedback'),
-    "Done" : document.getElementById('done'),
+    "To Do": document.getElementById('to_do'),
+    "In Progress": document.getElementById('in_progress'),
+    "Awaiting Feedback": document.getElementById('await_feedback'),
+    "Done": document.getElementById('done'),
 }
 
 const taskTest = [
@@ -95,7 +95,7 @@ function displayTasks(taskList = tasks) {
  * Clears all HTML Task Containers.
  */
 function clearTaskHTML() {
-    Object.values(taskContainerMap).forEach(taskContainer => {taskContainer.innerHTML = ""});
+    Object.values(taskContainerMap).forEach(taskContainer => { taskContainer.innerHTML = "" });
 }
 
 /**
@@ -140,14 +140,32 @@ function returnSubtaskValues(subtaskList) {
     return [counter, subtaskList.length]
 }
 
-const taskDialogRef = document.getElementById("task-edit-dialog");
-function openTaskDialog() {
-    taskDialogRef.showModal();
-}
 
-function closeTaskDialog() {
-    taskDialogRef.close();
-}
+
+
+
+
+
+
+
+// !!! THIS IS IN ADD_TASK !!!
+//
+// async function saveTask(task, id = null) {
+//     if (id) {
+//         const taskRef = ref(database, `tasks/${id}`);
+//         await set(taskRef, task);
+//         return;
+//     }
+
+//     const tasksRef = ref(database, "tasks");
+//     const newTaskRef = push(tasksRef);
+
+//     await set(newTaskRef, task);
+// }
+
+
+// _____________________________________________________________________________________________
+
 
 // let insertTaskTest = {
 //         id: 1,
@@ -172,15 +190,74 @@ function closeTaskDialog() {
 //     });
 // }
 
+let editingTaskId = null;
+const taskDialogRef = document.getElementById("task-edit-dialog");
 
-function renderAddTaskForm(status) {
+function closeTaskDialog() {
+    taskDialogRef.close();
+}
+
+function openTaskDialog() {
+    taskDialogRef.showModal();
+}
+
+function renderTaskForm() {
     taskDialogRef.innerHTML = "";
     taskDialogRef.innerHTML = returnTaskForm();
+}
+
+function openTaskForm(status = null, task = null) {
+    renderTaskForm();
+    if (status) {
+        setTaskStatus(status);
+    }
+
     if (task) {
-        document.getElementById('status')
+        insertTaskToEdit(task);
     }
 }
 
+function setTaskStatus(status) {
+    document.getElementById(`${status}`).value = status; // Check
+}
+
+function insertTaskToEdit(task) {
+    fillBasicTaskForm(task);
+    fillAssignedContacts(task.assignedTo);
+    // fillSubtasks(task.subtasks);
+}
+
+function fillBasicTaskForm(task) { // CURRENTLY TEST
+    Object.entries(test).forEach(([key, val]) => {
+        if (key !== "subtasks" && key !== "assignedTo" && key !== "id") {
+            document.getElementById(`${key}`).value = val;
+        }
+    });
+}
+
+function fillAssignedContacts(task) {
+    const formAssignedToRef = document.getElementById('assigned-to');
+    const assigned = task.assignedTo; // [contact1, contact2]
+    formAssignedToRef.innerHTML = "";
+    assigned.forEach(contact => {
+        formAssignedToRef.innerHTML += `
+        <div>${contact}</div>
+        `
+    });
+}
+
+// function fillSubtasks(task) {
+//     let subtasks = task.subtasks;
+//     subtasks.forEach(subtask => {
+//         subtask.
+//     });
+// }
+
+
+
+function insertTask() {
+
+}
 
 function returnTaskForm() {
     `<section class="form-wrapper">
@@ -293,37 +370,23 @@ function returnTaskForm() {
         </section>`
 }
 
-let test = 
+let test =
+{
+    id: 2,
+    title: "Design task cards",
+    description: "Create the layout for task cards on the board.",
+    dueDate: "2026-08-28",
+    priority: "medium",
+    category: "Technical Task",
+    assignedTo: ["contactId3"],
+    status: "To Do",
+    subtasks: [
+        { subtask: "Create card layout", completion: false },
+        { subtask: "Add priority icons", completion: false },
+    ],
+};
 
-    {
-        id: 2,
-        title: "Design task cards",
-        description: "Create the layout for task cards on the board.",
-        dueDate: "2026-08-28",
-        priority: "medium",
-        category: "Technical Task",
-        assignedTo: ["contactId3"],
-        status: "To Do",
-        subtasks: [
-            { subtask: "Create card layout", completion: false },
-            { subtask: "Add priority icons", completion: false },
-        ],
-    };
-
-let currentlyViewedTask;
-
-function insertTask() {
-    Object.entries(test).forEach(([key, val]) => {
-        if (key !== "subtasks" && key !== "assignedTo" && key !== "id") {
-            console.log(key, val);
-            
-            document.getElementById(`${key}`).value = val;
-        }
-        
-        
-    });
-}
-
+//____________________________________________________________________________
 
 
 
@@ -346,7 +409,7 @@ function startDragging(event, id) {
  * @param {DragEvent} event 
  */
 function stopDragging(event) {
-     event.target.classList.remove('dragging');
+    event.target.classList.remove('dragging');
 }
 
 
