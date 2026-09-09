@@ -302,12 +302,24 @@
 
   .auth-card {
     max-width: 396px;
-    padding: 32px 24px;
+    padding: 32px 16px;
     gap: 24px;
   }
 
+  .back-arrow {
+    top: 40px;
+    left: 40px;
+  }
+
+  .toast {
+    max-width: calc(100vw - 32px);
+    height: auto;
+    padding: 16px 24px;
+    text-align: center;
+  }
+
   .auth-card h1 {
-    font-size: 47px;
+    font-size: clamp(32px, 12.05vw, 47px);
     font-weight: 700;
     line-height: 120%;
   }
