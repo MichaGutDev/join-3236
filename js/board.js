@@ -55,30 +55,6 @@ function init() {
     displayTasks();
 }
 
-
-// rework here : progress bar into seperate function, that returns the html and progress of the bar, if there are tasks present
-
-
-function returnTaskHTML(task) { // takes full object
-    return `
-        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
-            <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
-            <h4>${task.title}</h4>
-            <span class="task-descr">${task.description}</span>
-            <div class="subtask-progress-container">
-                <div class="progress-bar-outer">
-                    <div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
-                </div>
-                <span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>
-            </div>
-            <div class="initials-container">
-                <div class="user-avatar">RB</div>
-                <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
-            </div>
-        </li>
-    `
-}
-
 /**
  * Renders all tasks into the respective containers.
  * 
@@ -141,13 +117,6 @@ function returnSubtaskValues(subtaskList) {
 }
 
 
-
-
-
-
-
-
-
 // !!! THIS IS IN ADD_TASK !!!
 //
 // async function saveTask(task, id = null) {
@@ -162,6 +131,31 @@ function returnSubtaskValues(subtaskList) {
 
 //     await set(newTaskRef, task);
 // }
+
+
+
+// rework here : progress bar into seperate function, that returns the html and progress of the bar, if there are tasks present
+
+
+function returnTaskHTML(task) { // takes full object
+    return `
+        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
+            <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
+            <h4>${task.title}</h4>
+            <span class="task-descr">${task.description}</span>
+            <div class="subtask-progress-container">
+                <div class="progress-bar-outer">
+                    <div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
+                </div>
+                <span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>
+            </div>
+            <div class="initials-container">
+                <div class="user-avatar">RB</div>
+                <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
+            </div>
+        </li>
+    `
+}
 
 
 // _____________________________________________________________________________________________
@@ -189,6 +183,9 @@ function returnSubtaskValues(subtaskList) {
 //         }
 //     });
 // }
+
+
+
 
 let editingTaskId = null;
 const taskDialogRef = document.getElementById("task-edit-dialog");
@@ -223,7 +220,7 @@ function setTaskStatus(status) {
 
 function insertTaskToEdit(task) {
     fillBasicTaskForm(task);
-    fillAssignedContacts(task.assignedTo);
+    // fillAssignedContacts(task.assignedTo);
     // fillSubtasks(task.subtasks);
 }
 
@@ -235,15 +232,63 @@ function fillBasicTaskForm(task) { // CURRENTLY TEST
     });
 }
 
+
+// Have current Contact List in a Local List after Login? 
+// -> Update this OnValue 
+// First DL happens after Login?
+
+
+// Take current Contact list
+
+let testAssignedToContacts = ["contactId1", "contactId3", "contactId5",];
+let testContacts = {
+    "-P172TkBoJkR3BQpTtUa": {
+        "color": "#000000",
+        "email": "el@join.de",
+        "name": "elfenant",
+        "phone": "",
+        "userId": "PiL0J2aZNBf99FUlLpwpiTkLQb22"
+    },
+    "-P173Ri_JHcY2-qkoLAy": {
+        "color": "#000000",
+        "email": "a@tesmail.de",
+        "name": "alfa",
+        "phone": "",
+        "userId": "kZ3YCrMZuVMZCPGLWRNMsaB2Acb2"
+    },
+    "userTicker": 0 // contact/user.len ???
+};
+
+
 function fillAssignedContacts(task) {
     const formAssignedToRef = document.getElementById('assigned-to');
     const assigned = task.assignedTo; // [contact1, contact2]
     formAssignedToRef.innerHTML = "";
-    assigned.forEach(contact => {
-        formAssignedToRef.innerHTML += `
-        <div>${contact}</div>
-        `
+    formAssignedToRef.innerHTML = returnAssignedToHTML(testContacts, testAssignedToContacts); // later task.assignedTo
+}
+
+// handle edge case (user no longer active, cant be assigned to)
+function returnAssignedToHTML(contacts, selectedContacts = null) {
+    let html;
+    contacts.forEach(contact => {
+        // html
+        // 
+        if (isAssignedContact(contact, selectedContacts)) {
+            html += `<option value="${contact.userID}}" selected>${contact.name}}</option>`;
+        } else {
+            html += `<option value="${contact.userID}">${contact.name}</option>`;
+        }
+
     });
+}
+
+function isAssignedContact(contact, selectedContacts) {
+    for (let index = 0; index < selectedContacts.length; index++) {
+        const selectedContact = selectedContacts[index];
+        if (contact === selectedContact) {
+            return true;
+        }
+    }
 }
 
 // function fillSubtasks(task) {
