@@ -96,6 +96,12 @@ main {
   color: #000000;
 }
 
+.header-logo-mobile {
+  display: none;
+  height: 40px;
+  width: auto;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -269,3 +275,59 @@ aside img {
 }
 
 /* End Aside / Sidebar Navigation */
+
+/* Responsive: Sidebar wird zur Bottom-Nav (Team-Breakpoint 768px) */
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0 16px;
+  }
+
+  .header-title {
+    display: none;
+  }
+
+  .header-logo-mobile {
+    display: block;
+  }
+
+  aside {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    height: 80px;
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .aside-join-icon,
+  .sidebar-footer-nav {
+    display: none;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+  }
+
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  main {
+    padding-bottom: 80px;
+  }
+}
+
+/* End Responsive Bottom-Nav */
