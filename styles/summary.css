@@ -199,7 +199,7 @@
 
 @media screen and (max-width: 768px) {
     .summary-content {
-        padding: 16px;
+        padding: 48px 16px 16px;
         gap: 24px;
     }
 
@@ -214,7 +214,19 @@
     }
 
     .summary-subtitle {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-left: 0;
+        padding-left: 0;
         font-size: 20px;
+    }
+
+    .summary-subtitle::after {
+        content: "";
+        width: 90px;
+        height: 3px;
+        background-color: var(--color-underscore);
     }
 
     .summary-metrics {
