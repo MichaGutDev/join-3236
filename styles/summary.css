@@ -1,8 +1,9 @@
 /* Content Wrapper */
 
 .summary-content {
-    padding-top: 110px;
-    padding-left: 98px;
+    padding-top: clamp(16px, 5vw, 110px);
+    padding-right: 16px;
+    padding-left: clamp(16px, 6vw, 98px);
     max-width: 1440px;
     display: flex;
     flex-direction: column;
@@ -35,7 +36,7 @@
 
 .summary-metrics {
     display: flex;
-    gap: 80px;
+    gap: clamp(24px, 5vw, 80px);
 }
 
 .summary-cards {
@@ -190,6 +191,12 @@
 
 /* Responsive */
 
+@media screen and (max-width: 1280px) {
+    .summary-greeting {
+        display: none;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .summary-content {
         padding: 16px;
@@ -212,10 +219,6 @@
 
     .summary-metrics {
         gap: 0;
-    }
-
-    .summary-greeting {
-        display: none;
     }
 
     .summary-cards {
