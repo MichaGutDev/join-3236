@@ -41,6 +41,7 @@
 .summary-cards {
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     gap: 28px;
 }
 
@@ -169,6 +170,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
 }
 
 .summary-greeting-welcome {
@@ -184,3 +186,74 @@
 }
 
 /* End Greeting */
+
+
+/* Responsive */
+
+@media screen and (max-width: 768px) {
+    .summary-content {
+        padding: 16px;
+        gap: 24px;
+    }
+
+    .summary-content h1 {
+        font-size: 47px;
+    }
+
+    .summary-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .summary-subtitle {
+        font-size: 20px;
+    }
+
+    .summary-metrics {
+        gap: 0;
+    }
+
+    .summary-greeting {
+        display: none;
+    }
+
+    .summary-cards {
+        gap: 24px;
+    }
+
+    .summary-cards-row {
+        gap: 24px;
+    }
+
+    .summary-card {
+        width: 186px;
+        height: 110px;
+        padding: 16px;
+    }
+
+    .summary-card--urgent {
+        width: 396px;
+    }
+
+    .summary-card--compact {
+        width: 116px;
+        height: 116px;
+        padding: 12px 8px;
+    }
+
+    .summary-card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .summary-card-number {
+        font-size: 47px;
+    }
+
+    .summary-card-label {
+        font-size: 16px;
+    }
+}
+
+/* End Responsive */
