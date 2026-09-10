@@ -196,6 +196,11 @@ button.user-menu-item {
   width: 100%;
 }
 
+/* Help im User-Menü: nur mobil (desktop hat das ?-Icon im Header) */
+.user-menu-item--help {
+  display: none;
+}
+
 /* End User Menu */
 
 /* Aside / Sidebar Navigation */
@@ -293,6 +298,14 @@ aside img {
 
   .help-button {
     display: none;
+  }
+
+  .user-menu-item--help {
+    display: flex;
+  }
+
+  .user-menu {
+    gap: 0;
   }
 
   .user-avatar {
