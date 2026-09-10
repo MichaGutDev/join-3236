@@ -234,6 +234,8 @@
     }
 
     .summary-cards {
+        width: 100%;
+        max-width: 396px;
         gap: 24px;
     }
 
@@ -242,19 +244,32 @@
     }
 
     .summary-card {
-        width: 186px;
+        flex: 1;
+        min-width: 0;
+        width: auto;
         height: 110px;
         padding: 16px;
     }
 
     .summary-card--urgent {
-        width: 396px;
+        flex: none;
+        width: 100%;
+        gap: 0;
+    }
+
+    .summary-card-data {
+        height: 68px;
+        margin-left: 20px;
+        padding-left: 20px;
     }
 
     .summary-card--compact {
-        width: 116px;
         height: 116px;
         padding: 12px 8px;
+    }
+
+    .summary-card--compact .summary-card-label {
+        width: auto;
     }
 
     .summary-card-icon {
@@ -263,11 +278,19 @@
     }
 
     .summary-card-number {
-        font-size: 47px;
+        font-size: clamp(36px, 11vw, 47px);
     }
 
     .summary-card-label {
-        font-size: 16px;
+        font-size: clamp(14px, 3.7vw, 16px);
+    }
+
+    .urgent-card-date {
+        font-size: clamp(16px, 4.9vw, 21px);
+    }
+
+    .urgent-card-preview {
+        font-size: clamp(14px, 3.7vw, 16px);
     }
 }
 
