@@ -96,6 +96,10 @@ main {
   color: #000000;
 }
 
+.header-logo-mobile {
+  display: none;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -192,6 +196,10 @@ button.user-menu-item {
   width: 100%;
 }
 
+.user-menu-item--help {
+  display: none;
+}
+
 /* End User Menu */
 
 /* Aside / Sidebar Navigation */
@@ -269,3 +277,88 @@ aside img {
 }
 
 /* End Aside / Sidebar Navigation */
+
+/* Responsive */
+
+@media screen and (max-width: 1024px) {
+  .header {
+    padding: 0 16px;
+  }
+
+  .header-title {
+    display: none;
+  }
+
+  .header-logo-mobile {
+    display: block;
+    width: 32px;
+    height: auto;
+  }
+
+  .help-button {
+    display: none;
+  }
+
+  .user-menu-item--help {
+    display: flex;
+  }
+
+  .user-menu {
+    gap: 0;
+  }
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  aside {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    width: 100%;
+    max-width: none;
+    min-height: 0;
+    height: 80px;
+    flex-direction: row;
+    padding: 0;
+  }
+
+  .aside-join-icon,
+  .sidebar-footer-nav {
+    display: none;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+  }
+
+  .nav-item {
+    width: 80px;
+    height: 76px;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 1px;
+    text-align: center;
+  }
+
+  .nav-item img {
+    width: 24px;
+    height: 24px;
+  }
+
+  main {
+    padding-bottom: 80px;
+  }
+}
+
+/* End Responsive */
