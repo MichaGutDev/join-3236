@@ -196,7 +196,6 @@ button.user-menu-item {
   width: 100%;
 }
 
-/* Help im User-Menü: nur mobil (desktop hat das ?-Icon im Header) */
 .user-menu-item--help {
   display: none;
 }
@@ -279,7 +278,7 @@ aside img {
 
 /* End Aside / Sidebar Navigation */
 
-/* Responsive Nav: Sidebar wird zur Bottom-Nav (nur Nav, Content unangetastet) */
+/* Responsive */
 
 @media screen and (max-width: 1024px) {
   .header {
@@ -362,4 +361,4 @@ aside img {
   }
 }
 
-/* End Responsive Nav */
+/* End Responsive */
