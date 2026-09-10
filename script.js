@@ -4,16 +4,32 @@ import { signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-aut
 
 
 /**
- * Toggles the visibility of the user menu when the avatar is clicked. 
+ * Toggles the visibility of the user menu when the avatar is clicked.
  */
 function showMenu() {
     const userMenu = document.querySelector('.user-menu');
     userMenu.classList.toggle('open');
 }
 
+
+/**
+ * Closes the user menu when a click occurs outside of it.
+ *
+ * @param {MouseEvent} event
+ * @returns {void}
+ */
+function closeMenuOutside(event) {
+    const wrapper = document.querySelector('.user-menu-wrapper');
+    const userMenu = document.querySelector('.user-menu');
+    if (userMenu && wrapper && !wrapper.contains(event.target)) {
+        userMenu.classList.remove('open');
+    }
+}
+
 const avatarButton = document.querySelector('.user-avatar');
 if (avatarButton) {
     avatarButton.addEventListener('click', showMenu);
+    document.addEventListener('click', closeMenuOutside);
 }
 
 
