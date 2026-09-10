@@ -50,6 +50,7 @@ function handleFirebaseLogin(email, password) {
 
     signInWithEmailAndPassword(auth, email, password)
         .then(() => {
+            sessionStorage.setItem('showGreeting', 'true');
             window.location.href = 'html/summary.html';
         })
         .catch(() => {
@@ -157,6 +158,7 @@ function guestLogin() {
 
     signInAnonymously(auth)
         .then(() => {
+            sessionStorage.setItem('showGreeting', 'true');
             window.location.href = 'html/summary.html';
         })
         .catch(() => {
