@@ -347,9 +347,14 @@ aside img {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 4px;
     padding: 8px 1px;
     text-align: center;
+  }
+
+  .nav-item img {
+    width: 24px;
+    height: 24px;
   }
 
   main {
