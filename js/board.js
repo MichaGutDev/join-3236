@@ -1,12 +1,30 @@
 let currentDraggedTaskId;
-
+let editingTaskId = null;
+const taskDialogRef = document.getElementById("task-edit-dialog");
+const assignedToRef = document.getElementById("assigned-to");
 const taskContainerMap = {
     "To Do": document.getElementById('to_do'),
     "In Progress": document.getElementById('in_progress'),
     "Awaiting Feedback": document.getElementById('await_feedback'),
     "Done": document.getElementById('done'),
 }
-
+let testAssignedToContacts = ["contactId1", "contactId3", "contactId5",];
+let testContacts = {
+    "-P172TkBoJkR3BQpTtUa": {
+        "color": "#000000",
+        "email": "el@join.de",
+        "name": "elfenant",
+        "phone": "",
+        "userId": "PiL0J2aZNBf99FUlLpwpiTkLQb22"
+    },
+    "-P173Ri_JHcY2-qkoLAy": {
+        "color": "#000000",
+        "email": "a@tesmail.de",
+        "name": "alfa",
+        "phone": "",
+        "userId": "kZ3YCrMZuVMZCPGLWRNMsaB2Acb2"
+    },
+};
 const taskTest = [
     {
         id: 1,
@@ -48,8 +66,6 @@ const taskTest = [
         subtasks: [],
     },
 ];
-
-
 
 function init() {
     displayTasks();
@@ -116,28 +132,7 @@ function returnSubtaskValues(subtaskList) {
     return [counter, subtaskList.length]
 }
 
-
-// !!! THIS IS IN ADD_TASK !!!
-//
-// async function saveTask(task, id = null) {
-//     if (id) {
-//         const taskRef = ref(database, `tasks/${id}`);
-//         await set(taskRef, task);
-//         return;
-//     }
-
-//     const tasksRef = ref(database, "tasks");
-//     const newTaskRef = push(tasksRef);
-
-//     await set(newTaskRef, task);
-// }
-
-
-
-// rework here : progress bar into seperate function, that returns the html and progress of the bar, if there are tasks present
-
-
-function returnTaskHTML(task) { // takes full object
+function returnTaskHTML(task) {
     return `
         <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
@@ -156,7 +151,6 @@ function returnTaskHTML(task) { // takes full object
         </li>
     `
 }
-
 
 // _____________________________________________________________________________________________
 
@@ -183,12 +177,6 @@ function returnTaskHTML(task) { // takes full object
 //         }
 //     });
 // }
-
-
-
-
-let editingTaskId = null;
-const taskDialogRef = document.getElementById("task-edit-dialog");
 
 function closeTaskDialog() {
     taskDialogRef.close();
@@ -219,7 +207,7 @@ function setTaskStatus(status) {
 }
 
 function insertTaskToEdit(task) {
-    fillBasicTaskForm(task);
+    fillBasicTaskForm(task); // Works, check again tho
     // fillAssignedContacts(task.assignedTo);
     // fillSubtasks(task.subtasks);
 }
@@ -232,34 +220,12 @@ function fillBasicTaskForm(task) { // CURRENTLY TEST
     });
 }
 
+function fillAssignedContacts() {
+    const assignedTo = [...assignedToRef.selectedOptions]
+    .map(option => option.value);
+}
 
-// Have current Contact List in a Local List after Login? 
-// -> Update this OnValue 
-// First DL happens after Login?
-
-
-// Take current Contact list
-
-let testAssignedToContacts = ["contactId1", "contactId3", "contactId5",];
-let testContacts = {
-    "-P172TkBoJkR3BQpTtUa": {
-        "color": "#000000",
-        "email": "el@join.de",
-        "name": "elfenant",
-        "phone": "",
-        "userId": "PiL0J2aZNBf99FUlLpwpiTkLQb22"
-    },
-    "-P173Ri_JHcY2-qkoLAy": {
-        "color": "#000000",
-        "email": "a@tesmail.de",
-        "name": "alfa",
-        "phone": "",
-        "userId": "kZ3YCrMZuVMZCPGLWRNMsaB2Acb2"
-    },
-    "userTicker": 0 // contact/user.len ???
-};
-
-
+// _______________________________________________________________
 function fillAssignedContacts(task) {
     const formAssignedToRef = document.getElementById('assigned-to');
     const assigned = task.assignedTo; // [contact1, contact2]
@@ -290,15 +256,7 @@ function isAssignedContact(contact, selectedContacts) {
         }
     }
 }
-
-// function fillSubtasks(task) {
-//     let subtasks = task.subtasks;
-//     subtasks.forEach(subtask => {
-//         subtask.
-//     });
-// }
-
-
+// _______________________________________________________________
 
 function insertTask() {
 
@@ -433,9 +391,6 @@ let test =
 
 //____________________________________________________________________________
 
-
-
-
 /**
  * Stores the id of the dragged task and applies a visual dragging style to the element.
  * 
@@ -447,7 +402,6 @@ function startDragging(event, id) {
     event.target.classList.add('dragging');
 }
 
-
 /**
  * Removes the visual dragging style from the element.
  * 
@@ -456,7 +410,6 @@ function startDragging(event, id) {
 function stopDragging(event) {
     event.target.classList.remove('dragging');
 }
-
 
 /**
  * Prevents the browser's default behavior during dragover, allowing the element to become a valid drop target.
