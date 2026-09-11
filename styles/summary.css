@@ -1,8 +1,9 @@
 /* Content Wrapper */
 
 .summary-content {
-    padding-top: 110px;
-    padding-left: 98px;
+    padding-top: clamp(16px, 5vw, 110px);
+    padding-right: 16px;
+    padding-left: clamp(16px, 6vw, 98px);
     max-width: 1440px;
     display: flex;
     flex-direction: column;
@@ -35,12 +36,13 @@
 
 .summary-metrics {
     display: flex;
-    gap: 80px;
+    gap: clamp(24px, 5vw, 80px);
 }
 
 .summary-cards {
     display: flex;
     flex-direction: column;
+    flex-shrink: 0;
     gap: 28px;
 }
 
@@ -169,6 +171,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    min-width: 0;
 }
 
 .summary-greeting-welcome {
@@ -184,3 +187,138 @@
 }
 
 /* End Greeting */
+
+
+/* Greeting Overlay (nach Login, Mobile) */
+
+.greeting-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    background-color: var(--color-bg-main);
+}
+
+.greeting-overlay.visible {
+    display: flex;
+}
+
+.greeting-overlay.fade-out {
+    opacity: 0;
+    transition: opacity 400ms ease-in;
+}
+
+/* End Greeting Overlay */
+
+
+/* Responsive */
+
+@media screen and (max-width: 1280px) {
+    .summary-greeting {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .summary-content {
+        padding: 48px 16px 16px;
+        gap: 24px;
+    }
+
+    .summary-content h1 {
+        font-size: 47px;
+    }
+
+    .summary-title {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .summary-subtitle {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-left: 0;
+        padding-left: 0;
+        font-size: 20px;
+    }
+
+    .summary-subtitle::after {
+        content: "";
+        width: 90px;
+        height: 3px;
+        background-color: var(--color-underscore);
+    }
+
+    .summary-metrics {
+        gap: 0;
+    }
+
+    .summary-cards {
+        width: 100%;
+        max-width: 396px;
+        gap: 24px;
+    }
+
+    .summary-cards-row {
+        gap: 24px;
+    }
+
+    .summary-card {
+        flex: 1;
+        min-width: 0;
+        width: auto;
+        height: 110px;
+        padding: 16px;
+    }
+
+    .summary-card--urgent {
+        flex: none;
+        width: 100%;
+        gap: 0;
+    }
+
+    .summary-card-data {
+        height: 68px;
+        margin-left: 20px;
+        padding-left: 20px;
+    }
+
+    .summary-card--compact {
+        height: 116px;
+        padding: 12px 8px;
+    }
+
+    .summary-card--compact .summary-card-label {
+        width: auto;
+    }
+
+    .summary-card-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .summary-card-number {
+        font-size: clamp(36px, 11vw, 47px);
+    }
+
+    .summary-card-label {
+        font-size: clamp(14px, 3.7vw, 16px);
+    }
+
+    .urgent-card-date {
+        font-size: clamp(16px, 4.9vw, 21px);
+    }
+
+    .urgent-card-preview {
+        font-size: clamp(14px, 3.7vw, 16px);
+    }
+}
+
+/* End Responsive */
