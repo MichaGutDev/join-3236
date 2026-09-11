@@ -1,13 +1,19 @@
 import { database } from './firebase-config.js';
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 
+let valueLog = [];
+let editingTaskId = null;
+let subtasks = [];
 const formRef = document.querySelector('#task-form');
+const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+const logger = document.getElementById('logger');
 
+logger.addEventListener("click", logSubtasks);
+addSubtaskBtnRef.addEventListener("click", addSubtask);
 formRef.addEventListener("submit", (event) => {
   event.preventDefault();
   getValues();
 });
-
 
 async function getValues() {
     const formData = new FormData(formRef);
@@ -24,7 +30,7 @@ function createTaskObject(formData) {
         title: formData.get("title"),
         description: formData.get("description"),
         dueDate: formData.get("dueDate"),
-        prio: formData.get("prio"),
+        prio: formData.get("priority"),
         category: formData.get("category"),
         assignedTo: formData.getAll("assignedTo"),
         subtasks: [...subtasks],
@@ -32,18 +38,23 @@ function createTaskObject(formData) {
     };
 }
 
-async function saveTask(task, id = null) {
-    if (id) {
-        const taskRef = ref(database, `tasks/${id}`);
-        await set(taskRef, task);
-        return;
-    }
+// function renderContactTopics(topics) {
+//     const container = document.getElementById("contact-topics");
+//     container.innerHTML = array.map(generateContactTopicHTML).join("");
+// }
 
-    const tasksRef = ref(database, "tasks");
-    const newTaskRef = push(tasksRef);
+// async function saveTask(task, id = null) {
+//     if (id) {
+//         const taskRef = ref(database, `tasks/${id}`);
+//         await set(taskRef, task);
+//         return;
+//     }
 
-    await set(newTaskRef, task);
-}
+//     const tasksRef = ref(database, "tasks");
+//     const newTaskRef = push(tasksRef);
+
+//     await set(newTaskRef, task);
+// }
 
 function resetTaskForm() {
     formRef.reset();
@@ -52,15 +63,6 @@ function resetTaskForm() {
 
     renderSubtasks();
 }
-
-let valueLog = [];
-let editingTaskId = null;
-
-// FROM HERE ON: SUBSTASKS
-let subtasks = [];
-
-const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
-addSubtaskBtnRef.addEventListener("click", addSubtask);
 
 function addSubtask() {
   const subTaskInputRef = document.getElementById("new-subtask");
@@ -111,9 +113,6 @@ function deleteSubtask(event) {
   subtasks.splice(index, 1)
   renderSubtasks();
 }
-
-const logger = document.getElementById('logger');
-logger.addEventListener("click", logSubtasks);
 
 function logSubtasks() {
   console.log(subtasks);
