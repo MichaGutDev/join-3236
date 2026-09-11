@@ -369,6 +369,36 @@ aside img {
   main {
     padding-bottom: 80px;
   }
+
+  .guest aside {
+    justify-content: space-between;
+  }
+
+  .guest .sidebar-nav {
+    width: auto;
+  }
+
+  .guest .sidebar-footer-nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: auto;
+    gap: 0;
+    margin-top: 0;
+    padding-bottom: 0;
+  }
+
+  .guest .footer-nav-item {
+    width: auto;
+    height: 76px;
+    padding: 8px 12px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+  }
 }
 
 /* End Responsive */
