@@ -342,4 +342,41 @@
   }
 }
 
+@media screen and (max-width: 768px) and (max-height: 800px) {
+  .auth-body {
+    gap: 1rem;
+    padding: 1.5rem 16px;
+  }
+
+  .auth-icon {
+    width: 48px;
+    height: 58.5px;
+  }
+
+  .auth-card {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .auth-card h1 {
+    font-size: clamp(28px, 10vw, 36px);
+  }
+
+  .auth-card h1::after {
+    margin-top: 4px;
+  }
+
+  .auth-field-group {
+    gap: 4px;
+  }
+
+  .auth-actions {
+    gap: 8px;
+  }
+
+  .auth-actions .btn {
+    height: 44px;
+  }
+}
+
 /* End media queries */
