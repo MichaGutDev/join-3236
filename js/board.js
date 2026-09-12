@@ -1,12 +1,30 @@
 let currentDraggedTaskId;
-
+let editingTaskId = null;
+const taskDialogRef = document.getElementById("task-edit-dialog");
+const assignedToRef = document.getElementById("assigned-to");
 const taskContainerMap = {
-    "To Do" : document.getElementById('to_do'),
-    "In Progress" : document.getElementById('in_progress'),
-    "Awaiting Feedback" : document.getElementById('await_feedback'),
-    "Done" : document.getElementById('done'),
+    "To Do": document.getElementById('to_do'),
+    "In Progress": document.getElementById('in_progress'),
+    "Awaiting Feedback": document.getElementById('await_feedback'),
+    "Done": document.getElementById('done'),
 }
-
+let testAssignedToContacts = ["contactId1", "contactId3", "contactId5",];
+let testContacts = {
+    "-P172TkBoJkR3BQpTtUa": {
+        "color": "#000000",
+        "email": "el@join.de",
+        "name": "elfenant",
+        "phone": "",
+        "userId": "PiL0J2aZNBf99FUlLpwpiTkLQb22"
+    },
+    "-P173Ri_JHcY2-qkoLAy": {
+        "color": "#000000",
+        "email": "a@tesmail.de",
+        "name": "alfa",
+        "phone": "",
+        "userId": "kZ3YCrMZuVMZCPGLWRNMsaB2Acb2"
+    },
+};
 const taskTest = [
     {
         id: 1,
@@ -49,34 +67,8 @@ const taskTest = [
     },
 ];
 
-
-
 function init() {
     displayTasks();
-}
-
-
-// rework here : progress bar into seperate function, that returns the html and progress of the bar, if there are tasks present
-
-
-function returnTaskHTML(task) { // takes full object
-    return `
-        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
-            <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
-            <h4>${task.title}</h4>
-            <span class="task-descr">${task.description}</span>
-            <div class="subtask-progress-container">
-                <div class="progress-bar-outer">
-                    <div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
-                </div>
-                <span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>
-            </div>
-            <div class="initials-container">
-                <div class="user-avatar">RB</div>
-                <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
-            </div>
-        </li>
-    `
 }
 
 /**
@@ -95,7 +87,7 @@ function displayTasks(taskList = tasks) {
  * Clears all HTML Task Containers.
  */
 function clearTaskHTML() {
-    Object.values(taskContainerMap).forEach(taskContainer => {taskContainer.innerHTML = ""});
+    Object.values(taskContainerMap).forEach(taskContainer => { taskContainer.innerHTML = "" });
 }
 
 /**
@@ -140,39 +132,203 @@ function returnSubtaskValues(subtaskList) {
     return [counter, subtaskList.length]
 }
 
-const taskDialogRef = document.getElementById("task-edit-dialog");
-function openTaskEdit() {
-    // insertTask(insertTaskTest);
-    taskDialogRef.showModal();
+function returnTaskHTML(task) {
+    return `
+        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
+            <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
+            <h4>${task.title}</h4>
+            <span class="task-descr">${task.description}</span>
+            <div class="subtask-progress-container">
+                <div class="progress-bar-outer">
+                    <div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
+                </div>
+                <span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>
+            </div>
+            <div class="initials-container">
+                <div class="user-avatar">RB</div>
+                <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
+            </div>
+        </li>
+    `
 }
 
-function closeTaskEdit() {
+// _____________________________________________________________________________________________
+
+
+// let insertTaskTest = {
+//         id: 1,
+//         title: "Create login page",
+//         description: "Build the basic structure and styling for the login page.",
+//         // dueDate: "2026-08-25",
+//         // priority: "urgent",
+//         category: "User Story",
+//         assignedTo: ["contactId1", "contactId2"],
+//         status: "To Do",
+//         subtasks: [
+//             { subtask: "Create HTML structure", completion: true },
+//             { subtask: "Add responsive styling", completion: false },
+//         ],
+//     };
+
+// function insertTask(task) {
+//     Object.entries(task).forEach(([key, value]) => {
+//         if (key !== "id") {
+//             document.getElementById(key).value = value;
+//         }
+//     });
+// }
+
+let test =
+{
+    id: 2,
+    title: "Design task cards",
+    description: "Create the layout for task cards on the board.",
+    dueDate: "2026-08-28",
+    priority: "medium",
+    category: "Technical Task",
+    assignedTo: ["contactId3"],
+    status: "To Do",
+    subtasks: [
+        { subtask: "Create card layout", completion: false },
+        { subtask: "Add priority icons", completion: false },
+    ],
+};
+
+let test2 = {
+    "title": "Test 1254",
+    "description": "Update to Version 12454786",
+    "dueDate": "2026-09-18",
+    "prio": "urgent",
+    "category": "User Story",
+    "assignedTo": [
+        "contactId2",
+        "contactId3",
+        "contactId3",
+        "contactId3"
+    ],
+    "subtasks": [
+        {
+            "description": "ghdfhdf",
+            "completion": false
+        },
+        {
+            "description": "ghkhgk",
+            "completion": false
+        },
+        {
+            "description": "ergreh",
+            "completion": false
+        },
+        {
+            "description": "sdgsdg",
+            "completion": false
+        }
+    ],
+    "status": "In Progress"
+};
+
+function closeTaskDialog() {
     taskDialogRef.close();
 }
 
-let insertTaskTest = {
-        id: 1,
-        title: "Create login page",
-        description: "Build the basic structure and styling for the login page.",
-        // dueDate: "2026-08-25",
-        // priority: "urgent",
-        category: "User Story",
-        assignedTo: ["contactId1", "contactId2"],
-        status: "To Do",
-        subtasks: [
-            { subtask: "Create HTML structure", completion: true },
-            { subtask: "Add responsive styling", completion: false },
-        ],
-    };
+/**
+ * Renders the Dialog Content and opens the Modal
+ * @param {string} id 
+ * @param {string} mode 
+ */
+function openTaskDialog(id = null, mode) {
+    renderDialogContent(id, mode);
+    taskDialogRef.showModal();
+}
 
-function insertTask(task) {
-    Object.entries(task).forEach(([key, value]) => {
-        if (key !== "id") {
-            document.getElementById(key).value = value;
+/**
+ * Renders the Dialog Content by ID and selected Mode, else opens normal add-Task-Form
+ * @param {string} id 
+ * @param {string} mode 
+ * @returns 
+ */
+function renderDialogContent(id, mode) {
+    if(id && mode === "edit"){
+        renderTaskForm();
+        insertTaskToEdit(tasks.id);
+        return
+    } else if(id && mode === "view") {
+        renderTaskView(id);
+        return
+    } else {
+        renderTaskForm();
+    }
+}
+
+function insertTaskToEdit(task) {
+    fillBasicTaskForm(task); // Works, check again tho
+
+    // fillAssignedContacts(task.assignedTo);
+    // fillSubtasks(task.subtasks);
+}
+
+function fillBasicTaskForm(task) { // CURRENTLY TEST
+    Object.entries(test).forEach(([key, val]) => {
+        if (key !== "subtasks" && key !== "assignedTo" && key !== "id") {
+            document.getElementById(`${key}`).value = val;
         }
     });
 }
 
+function fillAssignedContacts() {
+    const assignedTo = [...assignedToRef.selectedOptions]
+    .map(option => option.value);
+}
+
+function renderContacts(contacts, assignedTo = []) {
+    const selectRef = document.getElementById("assigned-to");
+
+    selectRef.innerHTML = "";
+
+    contacts.forEach(contact => {
+        const option = document.createElement("option");
+
+        option.value = contact.id;
+        option.textContent = contact.name;
+        option.selected = assignedTo.includes(contact.id);
+
+        selectRef.appendChild(option);
+    });
+}
+
+// ______________________________ AssignedContacts
+// function fillAssignedContacts(task) {
+//     const formAssignedToRef = document.getElementById('assigned-to');
+//     const assigned = task.assignedTo; // [contact1, contact2]
+//     formAssignedToRef.innerHTML = "";
+//     formAssignedToRef.innerHTML = returnAssignedToHTML(testContacts, testAssignedToContacts); // later task.assignedTo
+// }
+
+// // handle edge case (user no longer active, cant be assigned to)
+// function returnAssignedToHTML(contacts, selectedContacts = null) {
+//     let html;
+//     contacts.forEach(contact => {
+//         // html
+//         // 
+//         if (isAssignedContact(contact, selectedContacts)) {
+//             html += `<option value="${contact.userID}}" selected>${contact.name}}</option>`;
+//         } else {
+//             html += `<option value="${contact.userID}">${contact.name}</option>`;
+//         }
+
+//     });
+// }
+
+// function isAssignedContact(contact, selectedContacts) {
+//     for (let index = 0; index < selectedContacts.length; index++) {
+//         const selectedContact = selectedContacts[index];
+//         if (contact === selectedContact) {
+//             return true;
+//         }
+//     }
+// }
+// _______________________________________________________________
+//____________________________________________________________________________
 
 /**
  * Stores the id of the dragged task and applies a visual dragging style to the element.
@@ -185,16 +341,14 @@ function startDragging(event, id) {
     event.target.classList.add('dragging');
 }
 
-
 /**
  * Removes the visual dragging style from the element.
  * 
  * @param {DragEvent} event 
  */
 function stopDragging(event) {
-     event.target.classList.remove('dragging');
+    event.target.classList.remove('dragging');
 }
-
 
 /**
  * Prevents the browser's default behavior during dragover, allowing the element to become a valid drop target.

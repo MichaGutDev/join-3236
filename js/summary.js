@@ -1,5 +1,6 @@
-import { database } from './firebase-config.js';
-import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { auth, database } from './firebase-config.js';
+import { ref, onValue, get } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
 
 const tasksRef = ref(database, "tasks");
@@ -8,9 +9,10 @@ const tasksRef = ref(database, "tasks");
 /**
  * This helper function counts and writes the corresponding value to the DOM
  * 
- * @param {object} tasksData 
- * @param {string} status 
- * @param {string} elementId 
+ * @param {object} tasksData
+ * @param {string} status
+ * @param {string} elementId
+ * @returns {void}
  */
 function updateCount(tasksData, status, elementId) {
     const count = Object.values(tasksData).filter(task => task.status === status).length;
@@ -21,8 +23,9 @@ function updateCount(tasksData, status, elementId) {
 
 /**
  * Filters, sorts and writes the nearest urgent deadline to the DOM
- * 
- * @param {object} tasksData 
+ *
+ * @param {object} tasksData
+ * @returns {void}
  */
 function updateUrgentDeadline(tasksData) {
     const urgentData = Object.values(tasksData).filter(task => task.priority === "urgent" && task.status !== "Done");
@@ -72,9 +75,38 @@ onValue(tasksRef, (snapshot) => {
 })
 
 
+function displayUserGreeting(user) {
+    // get(ref(database, "contacts")).then((snapshot) => {console.log(snapshot.val());});
+}
+
+
+/**
+ * Shows the greeting overlay once after login on small screens, then fades it out.
+ *
+ * @returns {void}
+ */
+function showGreetingOverlay() {
+    if (sessionStorage.getItem("showGreeting") !== "true" || window.innerWidth > 1280) return;
+    sessionStorage.removeItem("showGreeting");
+
+    const overlay = document.getElementById("greeting-overlay");
+    document.getElementById("greeting-overlay-welcome").textContent = getGreeting();
+    overlay.classList.add("visible");
+
+    setTimeout(() => {
+        overlay.classList.add("fade-out");
+        overlay.addEventListener("transitionend", () => overlay.classList.remove("visible", "fade-out"), { once: true });
+    }, 1200);
+}
+
+
 document.getElementById("greeting-welcome").textContent = getGreeting();
 
 
+showGreetingOverlay();
+
+
+onAuthStateChanged(auth, (user) => { displayUserGreeting(user); });
 
 
 

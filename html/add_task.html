@@ -53,6 +53,7 @@
 
     <main>
         <header class="header">
+            <img src="../assets/icons/login-icon.svg" alt="Join" class="header-logo-mobile">
             <p class="header-title">Kanban Project Management Tool</p>
 
             <div class="header-actions">
@@ -65,6 +66,9 @@
                         <span id="userInitials">SM</span>
                     </button>
                     <div class="user-menu">
+                        <a href="help.html" class="user-menu-item user-menu-item--help">
+                            <span>Help</span>
+                        </a>
                         <a href="legal_notice.html" class="user-menu-item">
                             <span>Legal Notice</span>
                         </a>
@@ -91,6 +95,28 @@
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="description" name="description" placeholder="Enter a description" required></textarea>
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <fieldset class="status">
+                        <legend>Status</legend>
+
+                        <label>
+                            <input type="radio" name="status" value="To Do" checked>
+                            <span>To Do</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="status" value="In Progress">
+                            <span>In Progress</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="status" value="Awaiting Feedback">
+                            <span>Awaiting Feedback</span>
+                        </label>
+                    </fieldset>
                 </div>
 
                 <!-- Due Date -->
@@ -136,9 +162,14 @@
                     <label for="assigned-to">Assigned To</label>
 
                     <select id="assigned-to" name="assignedTo" multiple>
-                        <option value="contactId1">Contact 1</option>
+                        <option value="contactId1" selected>Contact 1</option>
                         <option value="contactId2">Contact 2</option>
-                        <option value="contactId3">Contact 3</option>
+                        <option value="contactId3" selected>Contact 3</option>
+                        <option value="contactId3">Contact 4</option>
+                        <option value="contactId3">Contact 5</option>
+                        <option value="contactId3">Contact 6</option>
+                        <option value="contactId3">Contact 7</option>
+                        <option value="contactId3">Contact 8</option>
                     </select>
                 </div>
 

@@ -1,38 +1,65 @@
+/* Splash Screen */
+
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-color: var(--color-bg-main);
+}
+
+.splash-logo-desktop {
+  width: 274px;
+  height: 334px;
+}
+
+.splash-logo-mobile {
+  width: 100px;
+  height: 122px;
+  display: none;
+}
+
+.splash-hidden {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease-in-out
+}
+
+/* End Splash Screen */
+
 /* Layout (Body, Main, Header) */
 
 .auth-body {
   margin: 0;
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
+  width: 100%;
   background-color: var(--color-bg-main);
+  display: grid;
+  grid-template-columns: minmax(16px, 1fr) minmax(0, 1440px) minmax(16px, 1fr);
+  grid-template-rows: auto 1fr auto;
 }
 
+.auth-header,
 .auth-main {
+  grid-column: 2;
   width: 100%;
-  flex: 1;
-  display: flex;
-  align-items: center;
 }
 
 .auth-header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding-top: 4.2rem;
-  padding-bottom: 5.3rem;
-  width: 100%;
+  padding-bottom: 86px;
 }
 
 .auth-header-content {
   display: flex;
   justify-content: space-between;
-  align-items: start;
+  align-items: center;
   width: 100%;
-  max-width: 1440px;
 }
 
 .auth-header-right {
@@ -44,6 +71,14 @@
 .auth-header-right p {
   font-size: 20px;
   font-weight: 400;
+  margin: 0;
+}
+
+.auth-main {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 3rem;
 }
 
 /* End Layout */
@@ -96,8 +131,10 @@
   outline: none;
   background: transparent;
   flex: 1;
+  min-width: 0;
   font-size: 1.25rem;
   font-weight: 400;
+  line-height: 1.1;
 }
 
 .auth-field input::placeholder {
@@ -145,6 +182,9 @@
   display: flex;
   gap: 32px;
   padding-bottom: 38px;
+  grid-column: 2;
+  width: 100%;
+  justify-content: center;
 }
 
 .auth-footer a {
@@ -194,3 +234,149 @@
 }
 
 /* End Toast */
+
+/* Region media queries */
+
+@media screen and (max-width: 768px) {
+  #splash-screen {
+    background-color: var(--color-primary);
+  }
+
+  .splash-logo-desktop {
+    display: none;
+  }
+
+  .splash-logo-mobile {
+    display: block;
+  }
+
+  .auth-body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem 16px;
+    box-sizing: border-box;
+    min-height: 100vh;
+  }
+
+  .auth-header,
+  .auth-header-content {
+    display: contents;
+  }
+
+  .auth-icon {
+    order: 1;
+    align-self: flex-start;
+    width: 64px;
+    height: 78.03px;
+    margin: 0 0 0 22px;
+  }
+
+  .auth-main {
+    order: 2;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .auth-header-right {
+    order: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 0;
+  }
+
+  .auth-header-right p,
+  .auth-header-right .btn {
+    font-size: 16px;
+  }
+
+  .auth-footer {
+    order: 4;
+    justify-content: center;
+    padding-bottom: 0;
+  }
+
+  .auth-card {
+    max-width: 396px;
+    padding: 32px 16px;
+    gap: 24px;
+  }
+
+  .back-arrow {
+    top: 40px;
+    left: 40px;
+  }
+
+  .toast {
+    max-width: calc(100vw - 32px);
+    height: auto;
+    padding: 16px 24px;
+    text-align: center;
+  }
+
+  .auth-card h1 {
+    font-size: clamp(32px, 12.05vw, 47px);
+    font-weight: 700;
+    line-height: 120%;
+  }
+
+  .auth-card h1::after {
+    width: 64px;
+    margin-top: 8px;
+  }
+
+  .auth-actions {
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .auth-actions .btn {
+    width: 180px;
+    height: 51px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) and (max-height: 800px) {
+  .auth-body {
+    gap: 1rem;
+    padding: 1.5rem 16px;
+  }
+
+  .auth-icon {
+    width: 48px;
+    height: 58.5px;
+  }
+
+  .auth-card {
+    padding: 20px 16px;
+    gap: 16px;
+  }
+
+  .auth-card h1 {
+    font-size: clamp(28px, 10vw, 36px);
+  }
+
+  .auth-card h1::after {
+    margin-top: 4px;
+  }
+
+  .auth-field-group {
+    gap: 4px;
+  }
+
+  .auth-actions {
+    gap: 8px;
+  }
+
+  .auth-actions .btn {
+    height: 44px;
+  }
+}
+
+/* End media queries */

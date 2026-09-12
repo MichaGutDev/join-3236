@@ -54,6 +54,7 @@
 
     <main>
         <header class="header">
+            <img src="../assets/icons/login-icon.svg" alt="Join" class="header-logo-mobile">
             <p class="header-title">Kanban Project Management Tool</p>
 
             <div class="header-actions">
@@ -66,6 +67,9 @@
                         <span id="userInitials">SM</span>
                     </button>
                     <div class="user-menu">
+                        <a href="help.html" class="user-menu-item user-menu-item--help">
+                            <span>Help</span>
+                        </a>
                         <a href="legal_notice.html" class="user-menu-item">
                             <span>Legal Notice</span>
                         </a>
@@ -86,9 +90,9 @@
                     <img src="../assets/icons/search.svg" alt="Find Task">
                     <p id="no-results-message" hidden>No matching tasks found.</p>
                 </div>
-                <a href="add_task.html" class="btn btn-primary board-add-task-btn">Add task
+                <button class="btn btn-primary board-add-task-btn" onclick="openTaskDialog()">Add task
                     <img src="../assets/icons/add.svg" alt="">
-                </a>
+                </button>
             </div>
         </div>
 
@@ -96,37 +100,42 @@
         <div class="board-wrapper">
             <section class="task-col">
                 <h3 class="taskgroup-header">To Do:</h3>
-                <ul id="to_do" ondragover="allowDrop(event); highlight('to_do')" ondragleave="removeHighlight('to_do')" ondrop="moveTaskTo('To Do')">
+                <ul id="to_do" ondragover="allowDrop(event); highlight('to_do')" ondragleave="removeHighlight('to_do')"
+                    ondrop="moveTaskTo('To Do')">
 
                 </ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">In Progress:</h3>
-                <ul id="in_progress" ondragover="allowDrop(event); highlight('in_progress')" ondragleave="removeHighlight('in_progress')" ondrop="moveTaskTo('In Progress')">
+                <ul id="in_progress" ondragover="allowDrop(event); highlight('in_progress')"
+                    ondragleave="removeHighlight('in_progress')" ondrop="moveTaskTo('In Progress')">
                     <li></li>
                 </ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Awaiting Feedback:</h3>
-                <ul id="await_feedback" ondragover="allowDrop(event); highlight('await_feedback')" ondragleave="removeHighlight('await_feedback')" ondrop="moveTaskTo('Awaiting Feedback')">
+                <ul id="await_feedback" ondragover="allowDrop(event); highlight('await_feedback')"
+                    ondragleave="removeHighlight('await_feedback')" ondrop="moveTaskTo('Awaiting Feedback')">
                     <li></li>
                 </ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Done:</h3>
-                <ul id="done" ondragover="allowDrop(event); highlight('done')" ondragleave="removeHighlight('done')" ondrop="moveTaskTo('Done')">
+                <ul id="done" ondragover="allowDrop(event); highlight('done')" ondragleave="removeHighlight('done')"
+                    ondrop="moveTaskTo('Done')">
                     <li></li>
                 </ul>
             </section>
         </div>
 
-        <button onclick="openTaskEdit()">openTaskEditDialog</button>
+        <button onclick="openTaskDialog()">open Task Dialog</button>
 
         <dialog id="task-edit-dialog">
-            <button onclick="closeTaskEdit()">Close</button>
+            <button onclick="closeTaskDialog()">Close</button>
+            <section class="form-wrapper">
             <form id="task-form">
                 <!-- Title -->
                 <div class="form-group">
@@ -138,6 +147,28 @@
                 <div class="form-group">
                     <label for="description">Description</label>
                     <textarea id="description" name="description" placeholder="Enter a description" required></textarea>
+                </div>
+
+                <!-- Priority -->
+                <div class="form-group">
+                    <fieldset class="status">
+                        <legend>Status</legend>
+
+                        <label>
+                            <input type="radio" name="status" value="To Do" checked>
+                            <span>To Do</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="status" value="In Progress">
+                            <span>In Progress</span>
+                        </label>
+
+                        <label>
+                            <input type="radio" name="status" value="Awaiting Feedback">
+                            <span>Awaiting Feedback</span>
+                        </label>
+                    </fieldset>
                 </div>
 
                 <!-- Due Date -->
@@ -183,9 +214,14 @@
                     <label for="assigned-to">Assigned To</label>
 
                     <select id="assigned-to" name="assignedTo" multiple>
-                        <option value="contactId1">Contact 1</option>
+                        <option value="contactId1" selected>Contact 1</option>
                         <option value="contactId2">Contact 2</option>
-                        <option value="contactId3">Contact 3</option>
+                        <option value="contactId3" selected>Contact 3</option>
+                        <option value="contactId3">Contact 4</option>
+                        <option value="contactId3">Contact 5</option>
+                        <option value="contactId3">Contact 6</option>
+                        <option value="contactId3">Contact 7</option>
+                        <option value="contactId3">Contact 8</option>
                     </select>
                 </div>
 
@@ -196,14 +232,14 @@
                     <div class="subtask-input">
                         <input type="text" id="new-subtask" placeholder="Add new subtask">
 
-                        <button type="button" id="add-subtask" class="btn-primary">
+                        <button type="button" id="add-subtask-btn" class="btn-primary">
                             Add
                         </button>
                     </div>
 
-                    <div id="subtask-list" class="subtask-list">
+                    <ul id="subtask-list" class="subtask-list">
                         <!-- Subtasks hier rendern -->
-                    </div>
+                    </ul>
                 </div>
 
                 <div class="form-actions">
@@ -211,17 +247,19 @@
                     <button type="submit" class="btn-primary">Create Task</button>
                 </div>
             </form>
+        </section>
         </dialog>
+
 
     </main>
 
     <script type="module" src="../script.js"></script>
-    <!-- <script src="../js/add_task.js"></script> -->
+    <script type="module" src="../js/add_task.js"></script>
     <script src="../js/board.js"></script>
     <script src="../js/search.js"></script>
-    <!-- 
+    
     <script type="module" src="../js/firebase-config.js"></script>
-    <script type="module" src="../js/auth-check.js"></script> -->
+    <script type="module" src="../js/auth-check.js"></script>
 </body>
 
 
