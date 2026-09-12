@@ -1,3 +1,9 @@
+import { database } from './firebase-config.js';
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
+
+const contactsRef = ref(database, "contacts");
+
 const BASE_URL = "https://join-3236-default-rtdb.europe-west1.firebasedatabase.app";
 
 async function testFetch() {
@@ -60,13 +66,31 @@ function generateContactTopicHTML(topic) {
     `;
 }
 
-function generateContactHTML(contact) {
+function generateContactHTML(id, contact) {
     return `
-        <div class="contact">
-            <div class="contact-initials">${contact.initials}</div>
-            <div class="contact-name">${contact.name}</div>
-            <div class="contact-email">${contact.email}</div>
-            <div class="contact-phone">${contact.phone}</div>
+        <div class="contact-list-item" data-id="${id}">
+            <div class="contact-content">
+                <div class="initials-box">
+                    <div class="contact-initials" style="background-color: ${contact.color}">${getInitials(contact.name)}</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-list-name">${contact.name}</div>
+                    <div class="contact-list-email">${contact.email}</div>
+                </div>
+            </div>
         </div>
     `;
 }
+
+
+function getInitials(name) {
+    return name.split(" ").map(w => w[0]).join("").toUpperCase();
+}
+
+
+onValue(contactsRef, (snapshot) => {
+    const data = snapshot.val() || {};
+    const entries = Object.entries(data);
+    const html = entries.filter(([id, contact]) => typeof contact === "object").map(([id, contact]) => generateContactHTML(id, contact)).join("");
+    document.getElementById("contact_list").innerHTML = html;
+});
