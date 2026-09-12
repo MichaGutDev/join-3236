@@ -68,11 +68,16 @@ function generateContactTopicHTML(topic) {
 
 function generateContactHTML(id, contact) {
     return `
-        <div class="contact" data-id="${id}">
-            <div class="contact-initials">${getInitials(contact.name)}</div>
-            <div class="contact-name">${contact.name}</div>
-            <div class="contact-email">${contact.email}</div>
-            <div class="contact-phone">${contact.phone}</div>
+        <div class="contact-list-item" data-id="${id}">
+            <div class="contact-content">
+                <div class="initials-box">
+                    <div class="contact-initials" style="background-color: ${contact.color}">${getInitials(contact.name)}</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-list-name">${contact.name}</div>
+                    <div class="contact-list-email">${contact.email}</div>
+                </div>
+            </div>
         </div>
     `;
 }
