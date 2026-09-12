@@ -66,13 +66,26 @@ function generateContactTopicHTML(topic) {
     `;
 }
 
-function generateContactHTML(contact) {
+function generateContactHTML(id, contact) {
     return `
-        <div class="contact">
-            <div class="contact-initials">${contact.initials}</div>
+        <div class="contact" data-id="${id}">
+            <div class="contact-initials">${getInitials(contact.name)}</div>
             <div class="contact-name">${contact.name}</div>
             <div class="contact-email">${contact.email}</div>
             <div class="contact-phone">${contact.phone}</div>
         </div>
     `;
 }
+
+
+function getInitials(name) {
+    return name.split(" ").map(w => w[0]).join("").toUpperCase();
+}
+
+
+onValue(contactsRef, (snapshot) => {
+    const data = snapshot.val() || {};
+    const entries = Object.entries(data);
+    const html = entries.filter(([id, contact]) => typeof contact === "object").map(([id, contact]) => generateContactHTML(id, contact)).join("");
+    document.getElementById("contact_list").innerHTML = html;
+});
