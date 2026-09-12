@@ -3,17 +3,17 @@ import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/fireb
 
 let valueLog = [];
 let editingTaskId = null;
-let subtasks = [];
+const subtasks = [];
 const formRef = document.querySelector('#task-form');
 const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
 const logger = document.getElementById('logger');
 
-logger.addEventListener("click", logSubtasks);
 addSubtaskBtnRef.addEventListener("click", addSubtask);
 formRef.addEventListener("submit", (event) => {
   event.preventDefault();
   getValues();
 });
+logger.addEventListener("click", logSubtasks);
 
 async function getValues() {
     const formData = new FormData(formRef);
@@ -37,11 +37,6 @@ function createTaskObject(formData) {
         status: formData.get("status"),
     };
 }
-
-// function renderContactTopics(topics) {
-//     const container = document.getElementById("contact-topics");
-//     container.innerHTML = array.map(generateContactTopicHTML).join("");
-// }
 
 // async function saveTask(task, id = null) {
 //     if (id) {

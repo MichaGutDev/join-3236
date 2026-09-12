@@ -178,36 +178,91 @@ function returnTaskHTML(task) {
 //     });
 // }
 
+let test =
+{
+    id: 2,
+    title: "Design task cards",
+    description: "Create the layout for task cards on the board.",
+    dueDate: "2026-08-28",
+    priority: "medium",
+    category: "Technical Task",
+    assignedTo: ["contactId3"],
+    status: "To Do",
+    subtasks: [
+        { subtask: "Create card layout", completion: false },
+        { subtask: "Add priority icons", completion: false },
+    ],
+};
+
+let test2 = {
+    "title": "Test 1254",
+    "description": "Update to Version 12454786",
+    "dueDate": "2026-09-18",
+    "prio": "urgent",
+    "category": "User Story",
+    "assignedTo": [
+        "contactId2",
+        "contactId3",
+        "contactId3",
+        "contactId3"
+    ],
+    "subtasks": [
+        {
+            "description": "ghdfhdf",
+            "completion": false
+        },
+        {
+            "description": "ghkhgk",
+            "completion": false
+        },
+        {
+            "description": "ergreh",
+            "completion": false
+        },
+        {
+            "description": "sdgsdg",
+            "completion": false
+        }
+    ],
+    "status": "In Progress"
+};
+
 function closeTaskDialog() {
     taskDialogRef.close();
 }
 
-function openTaskDialog() {
+/**
+ * Renders the Dialog Content and opens the Modal
+ * @param {string} id 
+ * @param {string} mode 
+ */
+function openTaskDialog(id = null, mode) {
+    renderDialogContent(id, mode);
     taskDialogRef.showModal();
 }
 
-function renderTaskForm() {
-    taskDialogRef.innerHTML = "";
-    taskDialogRef.innerHTML = returnTaskForm();
-}
-
-function openTaskForm(status = null, task = null) {
-    renderTaskForm();
-    if (status) {
-        setTaskStatus(status);
+/**
+ * Renders the Dialog Content by ID and selected Mode, else opens normal add-Task-Form
+ * @param {string} id 
+ * @param {string} mode 
+ * @returns 
+ */
+function renderDialogContent(id, mode) {
+    if(id && mode === "edit"){
+        renderTaskForm();
+        insertTaskToEdit(tasks.id);
+        return
+    } else if(id && mode === "view") {
+        renderTaskView(id);
+        return
+    } else {
+        renderTaskForm();
     }
-
-    if (task) {
-        insertTaskToEdit(task);
-    }
-}
-
-function setTaskStatus(status) {
-    document.getElementById(`${status}`).value = status; // Check
 }
 
 function insertTaskToEdit(task) {
     fillBasicTaskForm(task); // Works, check again tho
+
     // fillAssignedContacts(task.assignedTo);
     // fillSubtasks(task.subtasks);
 }
@@ -225,170 +280,54 @@ function fillAssignedContacts() {
     .map(option => option.value);
 }
 
-// _______________________________________________________________
-function fillAssignedContacts(task) {
-    const formAssignedToRef = document.getElementById('assigned-to');
-    const assigned = task.assignedTo; // [contact1, contact2]
-    formAssignedToRef.innerHTML = "";
-    formAssignedToRef.innerHTML = returnAssignedToHTML(testContacts, testAssignedToContacts); // later task.assignedTo
-}
+function renderContacts(contacts, assignedTo = []) {
+    const selectRef = document.getElementById("assigned-to");
 
-// handle edge case (user no longer active, cant be assigned to)
-function returnAssignedToHTML(contacts, selectedContacts = null) {
-    let html;
+    selectRef.innerHTML = "";
+
     contacts.forEach(contact => {
-        // html
-        // 
-        if (isAssignedContact(contact, selectedContacts)) {
-            html += `<option value="${contact.userID}}" selected>${contact.name}}</option>`;
-        } else {
-            html += `<option value="${contact.userID}">${contact.name}</option>`;
-        }
+        const option = document.createElement("option");
 
+        option.value = contact.id;
+        option.textContent = contact.name;
+        option.selected = assignedTo.includes(contact.id);
+
+        selectRef.appendChild(option);
     });
 }
 
-function isAssignedContact(contact, selectedContacts) {
-    for (let index = 0; index < selectedContacts.length; index++) {
-        const selectedContact = selectedContacts[index];
-        if (contact === selectedContact) {
-            return true;
-        }
-    }
-}
+// ______________________________ AssignedContacts
+// function fillAssignedContacts(task) {
+//     const formAssignedToRef = document.getElementById('assigned-to');
+//     const assigned = task.assignedTo; // [contact1, contact2]
+//     formAssignedToRef.innerHTML = "";
+//     formAssignedToRef.innerHTML = returnAssignedToHTML(testContacts, testAssignedToContacts); // later task.assignedTo
+// }
+
+// // handle edge case (user no longer active, cant be assigned to)
+// function returnAssignedToHTML(contacts, selectedContacts = null) {
+//     let html;
+//     contacts.forEach(contact => {
+//         // html
+//         // 
+//         if (isAssignedContact(contact, selectedContacts)) {
+//             html += `<option value="${contact.userID}}" selected>${contact.name}}</option>`;
+//         } else {
+//             html += `<option value="${contact.userID}">${contact.name}</option>`;
+//         }
+
+//     });
+// }
+
+// function isAssignedContact(contact, selectedContacts) {
+//     for (let index = 0; index < selectedContacts.length; index++) {
+//         const selectedContact = selectedContacts[index];
+//         if (contact === selectedContact) {
+//             return true;
+//         }
+//     }
+// }
 // _______________________________________________________________
-
-function insertTask() {
-
-}
-
-function returnTaskForm() {
-    `<section class="form-wrapper">
-            <form id="task-form">
-                <!-- Title -->
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" placeholder="Enter a title" required>
-                </div>
-
-                <!-- Description -->
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" placeholder="Enter a description" required></textarea>
-                </div>
-
-                <!-- Due Date -->
-                <div class="form-group">
-                    <label for="due-date">Due Date</label>
-                    <input type="date" id="due-date" name="dueDate" required>
-                </div>
-
-                <!-- Priority -->
-                <div class="form-group">
-                    <fieldset class="priority">
-                        <legend>Priority</legend>
-
-                        <label class="priority-high">
-                            <input type="radio" name="priority" value="urgent">
-                            <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
-                        </label>
-
-                        <label class="priority-medium">
-                            <input type="radio" name="priority" value="medium" checked>
-                            <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="">
-                        </label>
-
-                        <label class="priority-low">
-                            <input type="radio" name="priority" value="low">
-                            <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
-                        </label>
-                    </fieldset>
-                </div>
-
-                <!-- Status -->
-                <div class="form-group">
-                    <fieldset class="status">
-                        <legend>Status</legend>
-
-                        <label>
-                            <input type="radio" name="status" value="To Do">
-                            <span>To Do</span>
-                        </label>
-
-                        <label>
-                            <input type="radio" name="status" value="In Progress" checked>
-                            <span>In Progress</span>
-                        </label>
-
-                        <label>
-                            <input type="radio" name="status" value="Awaiting Feedback">
-                            <span>Awaiting Feedback</span>
-                        </label>
-                    </fieldset>
-                </div>
-
-                <!-- Category -->
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select id="category" name="category" required>
-                        <option value="">Select category</option>
-                        <option value="User Story">User Story</option>
-                        <option value="Technical Task">Technical Task</option>
-                    </select>
-                </div>
-
-                <!-- Assigned To -->
-                <div class="form-group">
-                    <label for="assigned-to">Assigned To</label>
-
-                    <select id="assigned-to" name="assignedTo" multiple>
-                        <option value="contactId1">Contact 1</option>
-                        <option value="contactId2">Contact 2</option>
-                        <option value="contactId3">Contact 3</option>
-                    </select>
-                </div>
-
-                <!-- Subtasks -->
-                <div class="form-group">
-                    <label for="new-subtask">Subtasks</label>
-
-                    <div class="subtask-input">
-                        <input type="text" id="new-subtask" placeholder="Add new subtask">
-
-                        <button type="button" id="add-subtask-btn" class="btn-primary">
-                            Add
-                        </button>
-                    </div>
-
-                    <ul id="subtask-list" class="subtask-list">
-                        <!-- Subtasks hier rendern -->
-                    </ul>
-                </div>
-
-                <div class="form-actions">
-                    <button type="reset" class="btn-secondary">Clear</button>
-                    <button type="submit" class="btn-primary">Create Task</button>
-                </div>
-            </form>
-        </section>`
-}
-
-let test =
-{
-    id: 2,
-    title: "Design task cards",
-    description: "Create the layout for task cards on the board.",
-    dueDate: "2026-08-28",
-    priority: "medium",
-    category: "Technical Task",
-    assignedTo: ["contactId3"],
-    status: "To Do",
-    subtasks: [
-        { subtask: "Create card layout", completion: false },
-        { subtask: "Add priority icons", completion: false },
-    ],
-};
-
 //____________________________________________________________________________
 
 /**
