@@ -22,11 +22,6 @@ async function init() {
 
 }
 
-async function addContact() {
-
-    
-}
-
 function openDialog() {
     let dialog = document.getElementById('dialog');
     dialog.showModal();
@@ -37,7 +32,16 @@ function closeDialog() {
     dialog.close();
 }
 
+function stopBubbleling(event) {
+    event.stopPropagation();
+}
 
+
+
+async function addContact() {
+
+    
+}
 
 
 async function getContact() {
@@ -70,3 +74,4 @@ function generateContactHTML(contact) {
         </div>
     `;
 }
+

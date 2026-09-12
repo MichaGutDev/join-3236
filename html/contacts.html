@@ -130,36 +130,40 @@
     </main>
     <!--  convert to Dialog Element -->
     <dialog onclick="closeDialog()" id="dialog" class="dialog-container">
-        <div class="dialog">
+        <div class="dialog-position">
+            <div onclick="stopBubbleling(event)" class="dialog">
 
-            <div class="dialog-topic">
-                Join Logo
-                <p>text</p>
-                <div>underline</div>
-            </div>
-
-            <div class="dialog-content">
-                <div class="dialog-close-btn">
-                    <button onclick="closeDialog()">X</button>
+                <div class="dialog-topic">
+                    Join Logo
+                    <p>text</p>
+                    <div>underline</div>
                 </div>
-                <div class="dialog-aside-split">
-                    <div>
-                        <span>initials</span>
+
+                <div class="dialog-content">
+                    <div class="dialog-close-btn">
+                        <button onclick="closeDialog()">X</button>
                     </div>
-                    <div>
+                    <div class="dialog-aside-split">
                         <div>
-                            <input class="dialog-input" type="text" placeholder="Vor-, Nachname">
-                            <input class="dialog-input" type="email" placeholder="example@email.com">
-                            <input class="dialog-input" type="tel" placeholder="Telefonnummer">
+                            <span>initials</span>
                         </div>
                         <div>
-                            <button>Delete</button>
-                            <button>Save</button>
+                            <div class="dialog-input-container">
+                                <input class="dialog-input" type="text" placeholder="Vor-, Nachname">
+                                <input class="dialog-input" type="email" placeholder="example@email.com">
+                                <input class="dialog-input" type="tel" placeholder="Telefonnummer">
+                            </div>
+                            <div class="dialog-button-container">
+                                <!-- <button class="dialog-button-general dialog-btn-cancel">Cancel</button> -->
+                                <button class="dialog-button-general dialog-btn-delete">Delete</button>
+                                <button class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
+                                <!-- <button class="dialog-button-general dialog-btn-create-contact">Create contact</button> -->
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </dialog>
     <!-- convert to Dialog Element -->

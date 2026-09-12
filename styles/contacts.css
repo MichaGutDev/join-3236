@@ -63,7 +63,7 @@ a {
 }
 
 .contact-list-item:hover {
-    background-color:  rgb(42, 54, 71);
+    background-color: rgb(42, 54, 71);
     color: white;
     cursor: pointer;
 }
@@ -246,34 +246,49 @@ a {
     min-width: 100%;
     background-color: rgba(0, 0, 0, 0.5);
     overflow: hidden;
-    justify-items: center;
-    align-content: center;
 }
 
 ::-webkit-scrollbar {
     display: none;
 }
 
+.dialog-position {
+    background-color: aqua;
+    height: 0px;
+    width: 0px;
+    top: 50%;
+    left: 50%;
+    right: 50%;
+    bottom: 50%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .dialog {
     background-color: white;
-    height: 600px;
-    width: 800px;
+    min-height: 592px;
+    min-width: 1212px;
     display: flex;
-    border-radius: 20px;
+    border-radius: 30px;
 }
 
 .dialog-topic {
-    background-color: darkblue;
+    background-color: var(--color-primary);
     color: white;
-    height: 100%;
-    min-width: 200px;
+    min-height: 100%;
+    min-width: 453px;
     border-radius: 20px 0 0 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .dialog-content {
-    background-color: red;
-    height: 100%;
-    width: 200px;
+    background-color: white;
+    min-height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     border-radius: 0 20px 20px 0;
@@ -282,7 +297,10 @@ a {
 .dialog-close-btn {
     display: flex;
     justify-content: flex-end;
-    padding-right: 20px;
+    /* padding-right: 20px; */
+    height: 32px;
+    width: 32px;
+
 }
 
 .dialog-close-btn button {
@@ -294,9 +312,55 @@ a {
     display: flex;
 }
 
+.dialog-input-container {
+    height: 215px;
+    width: 422px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 .dialog-input {
-    height: 30px;
+    height: 50px;
+    width: 422px;
     border-radius: 5px;
     filter: none;
     border: solid black 1px;
+}
+
+
+.dialog-button-container {
+    height: 57px;
+    width: 249px;
+    display: flex;
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.dialog-button-general {
+    height: 100%;
+    border-radius: 10px;
+    padding: 0 24px;
+    border: solid black 1px;
+    font-size: 21px;
+}
+
+.dialog-btn-cancel {
+    background-color: white;
+}
+
+.dialog-btn-delete {
+    background-color: white;
+}
+
+.dialog-btn-save {
+    background-color: var(--color-primary);
+    color: white;
+    font-weight: 700;
+    display: flex;
+}
+
+.dialog-btn-create-contact {
+    background-color: var(--color-primary);
+    color: white;
 }
