@@ -253,7 +253,6 @@ a {
 }
 
 .dialog-position {
-    background-color: aqua;
     height: 0px;
     width: 0px;
     top: 50%;
@@ -280,10 +279,40 @@ a {
     min-height: 100%;
     min-width: 453px;
     border-radius: 20px 0 0 20px;
+    padding-left: 28px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: start;
+    gap: 16px;
 }
+
+.dialog-topic-slogan {
+    font-size: 27px;
+    color: white;
+}
+
+.dialog-join-logo {
+    height: 54px;
+    margin-bottom: 16px;
+}
+
+.dialog-topic-title {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+.dialog-topic-underline {
+    background-color: #29ABE2;
+    height: 4px;
+    width: 100px;
+    margin-top: 16px;
+}
+
+
+
+
+
 
 .dialog-content {
     background-color: white;
@@ -291,25 +320,58 @@ a {
     width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
     border-radius: 0 20px 20px 0;
+    padding-top: 28px;
+    padding-right: 58px;
+    padding-bottom: 40px;
 }
 
 .dialog-close-btn {
     display: flex;
     justify-content: flex-end;
-    /* padding-right: 20px; */
-    height: 32px;
-    width: 32px;
-
+    margin-top: 28px;
+    width: 100%;
 }
 
 .dialog-close-btn button {
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    height: 32px;
 }
 
 .dialog-aside-split {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dialog-initials-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 60px;
+}
+
+/* remove backgroundcolor */
+.dialog-initials-container span {
+    background-color: red;
+    height: 120px;
+    width: 120px;
+    border: solid white 3px;
+    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 47px;
+    color: white;
+    font-weight: 500;
 }
 
 .dialog-input-container {
@@ -323,11 +385,39 @@ a {
 .dialog-input {
     height: 50px;
     width: 422px;
-    border-radius: 5px;
+    border-radius: 10px;
     filter: none;
     border: solid black 1px;
+    font-weight: 400;
+    font-size: 20px;
 }
 
+.dialog-input-name {
+    background-image: url("../assets/icons/inputfield-contact-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 20px 20px;
+    padding: 13px 48px 13px 21px;
+    box-sizing: border-box;
+}
+
+.dialog-input-mail {
+    background-image: url("../assets/icons/inputfield-mail-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 20px 20px;
+    padding: 13px 48px 13px 21px;
+    box-sizing: border-box;
+}
+
+.dialog-input-phone {
+    background-image: url("../assets/icons/inputfield-phone-icon.svg");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 20px 20px;
+    padding: 13px 48px 13px 21px;
+    box-sizing: border-box;
+}
 
 .dialog-button-container {
     height: 57px;
@@ -345,6 +435,10 @@ a {
     font-size: 21px;
 }
 
+.dialog-button-general:hover {
+    cursor: pointer;
+}
+
 .dialog-btn-cancel {
     background-color: white;
 }
@@ -358,9 +452,21 @@ a {
     color: white;
     font-weight: 700;
     display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dialog-btn-save img {
+    height: 18px;
+    width: 18x;
 }
 
 .dialog-btn-create-contact {
     background-color: var(--color-primary);
     color: white;
+}
+
+.dialog-btn-create img {
+    height: 18px;
+    width: 18x;
 }

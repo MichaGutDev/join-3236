@@ -82,7 +82,7 @@
 
         <section class="section-main-content">
             <div class="contact-list-container">
-                <button onclick="openDialog(addContact)" class="btn button-add-new-contact btn-primary">
+                <button onclick="createContact()" class="btn button-add-new-contact btn-primary">
                     <span>Add New Contact</span>
                     <div class="add-new-contact-box">
                         <img class="add-new-contact-icon" src="/assets/icons/add-contact-icon.svg" alt="">
@@ -137,34 +137,35 @@
         <div class="dialog-position">
             <div onclick="stopBubbleling(event)" class="dialog">
 
-                <div class="dialog-topic">
-                    Join Logo
-                    <p>text</p>
-                    <div>underline</div>
+                <div id="dialog_topic_area" class="dialog-topic">
+                    <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+                    <h2 class="dialog-topic-title">Edit Contact</h2>
+                    <div class="dialog-topic-underline"></div>
                 </div>
 
                 <div class="dialog-content">
                     <div class="dialog-close-btn">
-                        <button onclick="closeDialog()">X</button>
+                        <button onclick="closeDialog()"><img src="../assets/icons/cancel-icon.svg" alt=""></button>
                     </div>
                     <div class="dialog-aside-split">
-                        <div>
-                            <span>initials</span>
+                        <div class="dialog-initials-container">
+                            <span>TW</span>
                         </div>
                         <div>
                             <div class="dialog-input-container">
-                                <input class="dialog-input" type="text" placeholder="Vor-, Nachname">
-                                <input class="dialog-input" type="email" placeholder="example@email.com">
-                                <input class="dialog-input" type="tel" placeholder="Telefonnummer">
+                                <input id="dialog_input_name" class="dialog-input dialog-input-name" type="text" placeholder="Vor-, Nachname" required>
+                                <input id="dialog_input_mail" class="dialog-input dialog-input-mail" type="email" placeholder="example@email.com" required>
+                                <input id="dialog_input_phone" class="dialog-input dialog-input-phone" type="tel" placeholder="Telefonnummer" required>
                             </div>
-                            <div class="dialog-button-container">
-                                <!-- <button class="dialog-button-general dialog-btn-cancel">Cancel</button> -->
-                                <button class="dialog-button-general dialog-btn-delete">Delete</button>
-                                <button class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
-                                <!-- <button class="dialog-button-general dialog-btn-create-contact">Create contact</button> -->
+                            <div id="dialog_button_area" class="dialog-button-container">
+                                <button onclick="cancelDialog()" class="dialog-button-general dialog-btn-cancel">Cancel</button>
+                                <button onclick="deleteContact()" class="dialog-button-general dialog-btn-delete">Delete</button>
+                                <button onclick="saveContact()" class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
+                                <button onclick="createContact()" class="dialog-button-general dialog-btn-create-contact">Create contact <img src="../assets/icons/check-icon.svg" alt=""></button>
                             </div>
                         </div>
                     </div>
+                    <div></div>
                 </div>
 
             </div>
