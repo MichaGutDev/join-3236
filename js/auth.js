@@ -3,9 +3,22 @@ import { push, set, ref } from "https://www.gstatic.com/firebasejs/12.17.1/fireb
 import { signInWithEmailAndPassword, signInAnonymously, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
 
+const CONTACT_COLORS = ["#FF5733", "#33FF57", "#3357FF", "#FF33FF", "#ff8400", "#00bfff", "#ffea00", "#278300", "#9b0000", "#00008b"];
+
+
+/**
+ * Picks a random color from the contact color palette.
+ *
+ * @returns {string} A hex color code.
+ */
+function getRandomContactColor() {
+    return CONTACT_COLORS[Math.floor(Math.random() * CONTACT_COLORS.length)];
+}
+
+
 /**
  * Validates the email format using a regular expression.
- * 
+ *
  * @param {string} email - The email address to validate.
  * @returns {boolean} True if the email format is valid.
  */
@@ -113,7 +126,7 @@ function handleFirebaseSignUp(name, email, password) {
         .then((userCredential) => {
             showToast();
             const newContactRef = push(ref(database, "contacts"));
-            set(newContactRef, { name, email, phone: "", color: "#000000", userId: userCredential.user.uid });
+            set(newContactRef, { name, email, phone: "", color: getRandomContactColor(), userId: userCredential.user.uid });
         })
         .catch(() => {
             showError('signup-error', ['email'], 'Registration failed. Please try again.');
