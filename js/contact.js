@@ -66,6 +66,13 @@ function generateContactTopicHTML(topic) {
     `;
 }
 
+/**
+ * Builds the HTML for a single contact list item.
+ *
+ * @param {string} id - The Firebase key of the contact.
+ * @param {object} contact - The contact data (name, email, phone, color).
+ * @returns {string} The generated HTML markup.
+ */
 function generateContactHTML(id, contact) {
     return `
         <div class="contact-list-item" data-id="${id}">
@@ -83,6 +90,12 @@ function generateContactHTML(id, contact) {
 }
 
 
+/**
+ * Builds the initials from a contact's full name.
+ *
+ * @param {string} name - The contact's full name.
+ * @returns {string} The uppercase initials.
+ */
 function getInitials(name) {
     return name.split(" ").map(w => w[0]).join("").toUpperCase();
 }
