@@ -22,10 +22,16 @@ async function getValues() {
     // await saveTask(task, editingTaskId);
     logSubtasks();
     resetTaskForm();
+<<<<<<< HEAD
     logSubtasks();
 }
 
 function createTaskObject(formData) {
+=======
+}
+
+function createTaskObject(formData, status = "To Do") {
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
     return {
         title: formData.get("title"),
         description: formData.get("description"),
@@ -34,7 +40,11 @@ function createTaskObject(formData) {
         category: formData.get("category"),
         assignedTo: formData.getAll("assignedTo"),
         subtasks: [...subtasks],
+<<<<<<< HEAD
         status: formData.get("status"),
+=======
+        status,
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
     };
 }
 

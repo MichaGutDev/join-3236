@@ -100,6 +100,10 @@
         <div class="board-wrapper">
             <section class="task-col">
                 <h3 class="taskgroup-header">To Do:</h3>
+<<<<<<< HEAD
+=======
+                <button>+</button>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
                 <ul id="to_do" ondragover="allowDrop(event); highlight('to_do')" ondragleave="removeHighlight('to_do')"
                     ondrop="moveTaskTo('To Do')">
 
@@ -108,6 +112,10 @@
 
             <section class="task-col">
                 <h3 class="taskgroup-header">In Progress:</h3>
+<<<<<<< HEAD
+=======
+                <button>+</button>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
                 <ul id="in_progress" ondragover="allowDrop(event); highlight('in_progress')"
                     ondragleave="removeHighlight('in_progress')" ondrop="moveTaskTo('In Progress')">
                     <li></li>
@@ -116,6 +124,10 @@
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Awaiting Feedback:</h3>
+<<<<<<< HEAD
+=======
+                <button>+</button>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
                 <ul id="await_feedback" ondragover="allowDrop(event); highlight('await_feedback')"
                     ondragleave="removeHighlight('await_feedback')" ondrop="moveTaskTo('Awaiting Feedback')">
                     <li></li>
@@ -135,6 +147,7 @@
 
         <dialog id="task-edit-dialog">
             <button onclick="closeTaskDialog()">Close</button>
+<<<<<<< HEAD
             <section class="form-wrapper">
             <form id="task-form">
                 <!-- Title -->
@@ -142,13 +155,25 @@
                     <label for="title">Title</label>
                     <input type="text" id="title" name="title" placeholder="Enter a title" required>
                 </div>
+=======
+            <section id="task-dialog-content">
+                <div class="form-wrapper">
+                    <form id="task-form">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" placeholder="Enter a title" required>
+                        </div>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
 
-                <!-- Description -->
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" placeholder="Enter a description" required></textarea>
-                </div>
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" placeholder="Enter a description"
+                                required></textarea>
+                        </div>
 
+<<<<<<< HEAD
                 <!-- Priority -->
                 <div class="form-group">
                     <fieldset class="status">
@@ -176,43 +201,47 @@
                     <label for="due-date">Due Date</label>
                     <input type="date" id="due-date" name="dueDate" required>
                 </div>
+=======
+                        <!-- Priority -->
+                        <div class="form-group">
+                            <fieldset class="status">
+                                <legend>Status</legend>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
 
-                <!-- Priority -->
-                <div class="form-group">
-                    <fieldset class="priority">
-                        <legend>Priority</legend>
+                                <label>
+                                    <input type="radio" name="status" value="To Do" checked>
+                                    <span>To Do</span>
+                                </label>
 
-                        <label class="priority-high">
-                            <input type="radio" name="priority" value="urgent">
-                            <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
-                        </label>
+                                <label>
+                                    <input type="radio" name="status" value="In Progress">
+                                    <span>In Progress</span>
+                                </label>
 
-                        <label class="priority-medium">
-                            <input type="radio" name="priority" value="medium" checked>
-                            <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="">
-                        </label>
+                                <label>
+                                    <input type="radio" name="status" value="Awaiting Feedback">
+                                    <span>Awaiting Feedback</span>
+                                </label>
+                            </fieldset>
+                        </div>
 
-                        <label class="priority-low">
-                            <input type="radio" name="priority" value="low">
-                            <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
-                        </label>
-                    </fieldset>
-                </div>
+                        <!-- Due Date -->
+                        <div class="form-group">
+                            <label for="due-date">Due Date</label>
+                            <input type="date" id="due-date" name="dueDate" required>
+                        </div>
 
-                <!-- Category -->
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select id="category" name="category" required>
-                        <option value="">Select category</option>
-                        <option value="User Story">User Story</option>
-                        <option value="Technical Task">Technical Task</option>
-                    </select>
-                </div>
+                        <!-- Priority -->
+                        <div class="form-group">
+                            <fieldset class="priority">
+                                <legend>Priority</legend>
 
-                <!-- Assigned To -->
-                <div class="form-group">
-                    <label for="assigned-to">Assigned To</label>
+                                <label class="priority-high">
+                                    <input type="radio" name="priority" value="urgent">
+                                    <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
+                                </label>
 
+<<<<<<< HEAD
                     <select id="assigned-to" name="assignedTo" multiple>
                         <option value="contactId1" selected>Contact 1</option>
                         <option value="contactId2">Contact 2</option>
@@ -224,14 +253,31 @@
                         <option value="contactId3">Contact 8</option>
                     </select>
                 </div>
+=======
+                                <label class="priority-medium">
+                                    <input type="radio" name="priority" value="medium" checked>
+                                    <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="">
+                                </label>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
 
-                <!-- Subtasks -->
-                <div class="form-group">
-                    <label for="new-subtask">Subtasks</label>
+                                <label class="priority-low">
+                                    <input type="radio" name="priority" value="low">
+                                    <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
+                                </label>
+                            </fieldset>
+                        </div>
 
-                    <div class="subtask-input">
-                        <input type="text" id="new-subtask" placeholder="Add new subtask">
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" required>
+                                <option value="">Select category</option>
+                                <option value="User Story">User Story</option>
+                                <option value="Technical Task">Technical Task</option>
+                            </select>
+                        </div>
 
+<<<<<<< HEAD
                         <button type="button" id="add-subtask-btn" class="btn-primary">
                             Add
                         </button>
@@ -248,6 +294,48 @@
                 </div>
             </form>
         </section>
+=======
+                        <!-- Assigned To -->
+                        <div class="form-group">
+                            <label for="assigned-to">Assigned To</label>
+
+                            <select id="assigned-to" name="assignedTo" multiple>
+                                <option value="contactId1" selected>Contact 1</option>
+                                <option value="contactId2">Contact 2</option>
+                                <option value="contactId3" selected>Contact 3</option>
+                                <option value="contactId3">Contact 4</option>
+                                <option value="contactId3">Contact 5</option>
+                                <option value="contactId3">Contact 6</option>
+                                <option value="contactId3">Contact 7</option>
+                                <option value="contactId3">Contact 8</option>
+                            </select>
+                        </div>
+
+                        <!-- Subtasks -->
+                        <div class="form-group">
+                            <label for="new-subtask">Subtasks</label>
+
+                            <div class="subtask-input">
+                                <input type="text" id="new-subtask" placeholder="Add new subtask">
+
+                                <button type="button" id="add-subtask-btn" class="btn-primary">
+                                    Add
+                                </button>
+                            </div>
+
+                            <ul id="subtask-list" class="subtask-list">
+                                <!-- Subtasks hier rendern -->
+                            </ul>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="reset" class="btn-secondary">Clear</button>
+                            <button type="submit" class="btn-primary">Create Task</button>
+                        </div>
+                    </form>
+                </div>`
+            </section>
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
         </dialog>
 
 
@@ -257,7 +345,11 @@
     <script type="module" src="../js/add_task.js"></script>
     <script src="../js/board.js"></script>
     <script src="../js/search.js"></script>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> e063084bc521f600c1e92f7eaef23164fea18f7b
     <script type="module" src="../js/firebase-config.js"></script>
     <script type="module" src="../js/auth-check.js"></script>
 </body>

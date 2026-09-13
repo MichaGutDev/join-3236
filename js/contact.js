@@ -28,10 +28,33 @@ async function init() {
 
 }
 
-async function addContact() {
+function editContact() {
+    document.getElementById('dialog_topic_area').innerHTML = "";
+    document.getElementById('dialog_topic_area').innerHTML = `
+        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <h2 class="dialog-topic-title">Edit Contact</h2>
+        <div class="dialog-topic-underline"></div>
+    `;
 
-    
+    openDialog();
 }
+
+function createContact() {
+    document.getElementById('dialog_topic_area').innerHTML = "";
+    document.getElementById('dialog_topic_area').innerHTML = `
+        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <h2 class="dialog-topic-title">Add contact</h2>
+        <p class="dialog-topic-slogan">Tasks are better with a team</p>
+        <div class="dialog-topic-underline"></div>
+    `;
+    openDialog();
+}
+
+// dialog_topic_area -> innerHTML
+// dialog_input_name -> value
+// dialog_input_mail -> value
+// dialog_input_phone -> value
+// dialog_button_area -> innerHTML
 
 function openDialog() {
     let dialog = document.getElementById('dialog');
@@ -43,7 +66,16 @@ function closeDialog() {
     dialog.close();
 }
 
+function stopBubbleling(event) {
+    event.stopPropagation();
+}
 
+
+
+async function addContact() {
+
+    
+}
 
 
 async function getContact() {
