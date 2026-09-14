@@ -1,4 +1,6 @@
-// import { initTaskForm } from "./add_task.js";
+import { initTaskForm } from "./add_task.js";
+import { returnTaskHTML, returnAddTaskForm } from "./templates.js";
+
 let currentDraggedTaskId;
 let editingTaskId = null;
 const taskDialogRef = document.getElementById("task-edit-dialog");
@@ -73,6 +75,8 @@ function init() {
     displayTasks();
 }
 
+init();
+
 /**
  * Renders all tasks into the respective containers.
  * 
@@ -98,7 +102,7 @@ function clearTaskHTML() {
  * @param {Array} subtaskList - List of subtasks belonging to a task.
  * @returns {number} Percentage of completed subtasks.
  */
-function returnSubtaskCompletionPercent(subtaskList) {
+export function returnSubtaskCompletionPercent(subtaskList) {
     let completionData = returnSubtaskValues(subtaskList);
     let percentCompletion = completionData[0] / completionData[1] * 100;
     if (!percentCompletion) {
@@ -113,7 +117,7 @@ function returnSubtaskCompletionPercent(subtaskList) {
  * @param {{completion: boolean}[]} subtaskList - List of subtasks.
  * @returns {string} Completion count in the format "completed / total".
  */
-function returnSubtaskCompletionNum(subtaskList) {
+export function returnSubtaskCompletionNum(subtaskList) {
     let completionData = returnSubtaskValues(subtaskList);
     return `${completionData[0]}/${completionData[1]}`
 }

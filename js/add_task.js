@@ -6,7 +6,7 @@ let editingTaskId = null;
 const subtasks = [];
 const logger = document.getElementById('logger');
 
-logger.addEventListener("click", logSubtasks);
+// logger.addEventListener("click", logSubtasks);
 
 export function initTaskForm(taskStatus) {
     const formRef = document.querySelector("#task-form");

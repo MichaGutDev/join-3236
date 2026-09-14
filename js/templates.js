@@ -1,4 +1,6 @@
-function returnAddTaskForm() {
+import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum } from "./board.js";
+
+export function returnAddTaskForm() {
     return `<div class="form-wrapper">
             <form id="task-form">
                 <!-- Title -->
@@ -92,7 +94,7 @@ function returnAddTaskForm() {
         </div>`
 }
 
-function returnTaskHTML(task) {
+export function returnTaskHTML(task) {
     return `
         <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
