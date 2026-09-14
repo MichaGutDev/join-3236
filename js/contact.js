@@ -4,29 +4,6 @@ import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebas
 
 const contactsRef = ref(database, "contacts");
 
-const BASE_URL = "https://join-3236-default-rtdb.europe-west1.firebasedatabase.app";
-
-async function testFetch() {
-    const response = await fetch(`${BASE_URL}/contacts.json`);
-    const data = await response.json();
-    const user = data.user1
-    const ticker = data.userTicker
-    console.log("TestFetch");
-    console.log(response);
-    console.log(user);
-    console.log(ticker);
-}
-
-let contact = [];
-let ticker = null;
-
-async function init() {
-    await testFetch();
-    // openDialog();
-    console.log("Init");
-    console.log(contact);
-
-}
 
 function editContact() {
     document.getElementById('dialog_topic_area').innerHTML = "";
@@ -74,29 +51,9 @@ function stopBubbleling(event) {
 
 async function addContact() {
 
-    
+
 }
 
-
-async function getContact() {
-    const response = await fetch(`${BASE_URL}/contacts.json`);
-    const data = await response.json();
-    // contact.push(data.user0) = ;
-}
-
-function renderContactTopics(topics) {
-    const container = document.getElementById("contact-topics");
-    container.innerHTML = topics.map(generateContactTopicHTML).join("");
-}
-
-function generateContactTopicHTML(topic) {
-    return `
-        <div class="contact-topic">
-            <h3>${topic.title}</h3>
-            <p>${topic.description}</p>
-        </div>
-    `;
-}
 
 /**
  * Builds the HTML for a single contact list item.
