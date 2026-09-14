@@ -96,3 +96,9 @@ onValue(contactsRef, (snapshot) => {
     const html = entries.filter(([id, contact]) => typeof contact === "object").map(([id, contact]) => generateContactHTML(id, contact)).join("");
     document.getElementById("contact_list").innerHTML = html;
 });
+
+
+const addContactBtn = document.getElementById('add-contact-btn');
+if (addContactBtn) {
+    addContactBtn.addEventListener('click', createContact);
+}
