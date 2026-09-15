@@ -102,3 +102,21 @@ const addContactBtn = document.getElementById('add-contact-btn');
 if (addContactBtn) {
     addContactBtn.addEventListener('click', createContact);
 }
+
+
+const dialog = document.getElementById('dialog');
+if (dialog) {
+    dialog.addEventListener('click', closeDialog);
+}
+
+
+const dialogCloseBtn = document.getElementById('dialog-close-btn');
+if (dialogCloseBtn) {
+    dialogCloseBtn.addEventListener('click', closeDialog);
+}
+
+
+const dialogBox = document.getElementById('dialog-box');
+if (dialogBox) {
+    dialogBox.addEventListener('click', stopBubbleling);
+}

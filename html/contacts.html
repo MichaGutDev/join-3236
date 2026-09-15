@@ -133,9 +133,9 @@
         </section>
     </main>
     <!--  convert to Dialog Element -->
-    <dialog onclick="closeDialog()" id="dialog" class="dialog-container">
+    <dialog id="dialog" class="dialog-container">
         <div class="dialog-position">
-            <div onclick="stopBubbleling(event)" class="dialog">
+            <div id="dialog-box" class="dialog">
 
                 <div id="dialog_topic_area" class="dialog-topic">
                     <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
@@ -145,7 +145,7 @@
 
                 <div class="dialog-content">
                     <div class="dialog-close-btn">
-                        <button onclick="closeDialog()"><img src="../assets/icons/cancel-icon.svg" alt=""></button>
+                        <button id="dialog-close-btn"><img src="../assets/icons/cancel-icon.svg" alt=""></button>
                     </div>
                     <div class="dialog-aside-split">
                         <div class="dialog-initials-container">
