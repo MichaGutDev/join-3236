@@ -29,9 +29,15 @@ function createContact() {
 }
 
 
+function saveContact() {
+    
+}
+
+
 function deleteContact() {
     
 }
+
 
 // dialog_topic_area -> innerHTML
 // dialog_input_name -> value
@@ -48,6 +54,11 @@ function openDialog() {
 function closeDialog() {
     let dialog = document.getElementById('dialog');
     dialog.close();
+}
+
+
+function cancelDialog() {
+    
 }
 
 
@@ -145,5 +156,23 @@ if (deleteContactBtnDetails) {
 const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
 if (deleteContactBtnDialog) {
     deleteContactBtnDialog.addEventListener('click', deleteContact);
+}
+
+
+const cancelContactBtnDialog = document.getElementById('cancel-contact-btn-dialog');
+if (cancelContactBtnDialog) {
+    cancelContactBtnDialog.addEventListener('click', cancelDialog);
+}
+
+
+const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
+if (saveContactBtnDialog) {
+    saveContactBtnDialog.addEventListener('click', saveContact);
+}
+
+
+const createContactBtnDialog = document.getElementById('create-contact-btn-dialog');
+if (createContactBtnDialog) {
+    createContactBtnDialog.addEventListener('click', addContact);
 }
 
