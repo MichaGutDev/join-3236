@@ -96,7 +96,7 @@ export function returnAddTaskForm() {
 
 export function returnTaskHTML(task) {
     return `
-        <li class="task-box" draggable="true" ondragstart="startDragging(event, ${task.id})" ondragend="stopDragging(event)">
+        <li class="task-box" draggable="true" data-task-id="${task.id}">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
             <h4>${task.title}</h4>
             <span class="task-descr">${task.description}</span>
