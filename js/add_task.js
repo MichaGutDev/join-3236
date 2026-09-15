@@ -8,7 +8,7 @@ const logger = document.getElementById('logger');
 
 // logger.addEventListener("click", logSubtasks);
 
-export function initTaskForm(taskStatus) {
+export function initTaskForm(taskStatus = "To Do") {
     const formRef = document.querySelector("#task-form");
     const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
 

@@ -101,36 +101,39 @@
             <section class="task-col">
                 <h3 class="taskgroup-header">To Do:</h3>
                 <button>+</button>
-                <ul id="to_do" ondragover="allowDrop(event); highlight('to_do')" ondragleave="removeHighlight('to_do')"
+                <!-- <ul id="to_do" ondragover="allowDrop(event); highlight('to_do')" ondragleave="removeHighlight('to_do')"
                     ondrop="moveTaskTo('To Do')">
 
-                </ul>
+                </ul> -->
+                <ul id="to_do" class="task-column" data-status="To Do"></ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">In Progress:</h3>
                 <button>+</button>
-                <ul id="in_progress" ondragover="allowDrop(event); highlight('in_progress')"
+                <!-- <ul id="in_progress" ondragover="allowDrop(event); highlight('in_progress')"
                     ondragleave="removeHighlight('in_progress')" ondrop="moveTaskTo('In Progress')">
-                    <li></li>
-                </ul>
+                </ul> -->
+                <ul id="in_progress" class="task-column" data-status="In Progress"></ul>
+
+
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Awaiting Feedback:</h3>
                 <button>+</button>
-                <ul id="await_feedback" ondragover="allowDrop(event); highlight('await_feedback')"
+                <!-- <ul id="await_feedback" ondragover="allowDrop(event); highlight('await_feedback')"
                     ondragleave="removeHighlight('await_feedback')" ondrop="moveTaskTo('Awaiting Feedback')">
-                    <li></li>
-                </ul>
+                </ul> -->
+                <ul id="await_feedback" class="task-column" data-status="Awaiting Feedback"></ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Done:</h3>
-                <ul id="done" ondragover="allowDrop(event); highlight('done')" ondragleave="removeHighlight('done')"
+                <!-- <ul id="done" ondragover="allowDrop(event); highlight('done')" ondragleave="removeHighlight('done')"
                     ondrop="moveTaskTo('Done')">
-                    <li></li>
-                </ul>
+                </ul> -->
+                <ul id="done" class="task-column" data-status="Done"></ul>
             </section>
         </div>
 
@@ -263,7 +266,7 @@
     <script type="module" src="../js/templates.js"></script>
     <script type="module" src="../js/add_task.js"></script>
     <script type="module" src="../js/board.js"></script>
-    <script src="../js/search.js"></script>
+    <script type="module" src="../js/search.js"></script>
     <script type="module" src="../js/firebase-config.js"></script>
     <script type="module" src="../js/auth-check.js"></script>
 </body>

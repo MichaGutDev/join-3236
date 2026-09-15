@@ -1,3 +1,5 @@
+import { displayTasks } from "./board.js";
+
 /**
  * Filters tasks by title and description based on the current search input value, and displays the matching results.
  */
