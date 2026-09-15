@@ -108,10 +108,10 @@
                                 <span id="contact_details_name">John Doe</span>
                             </div>
                             <div class="contact-details-actions">
-                                <button onclick="editContact()">
+                                <button id="edit-contact-btn">
                                     <img class="contact-details-icon" src="/assets/icons/edit-icon.svg"
                                         alt="">edit</button>
-                                <button onclick="deleteContact()">
+                                <button id="delete-contact-btn-details">
                                     <img class="contact-details-icon" src="/assets/icons/trash-icon.svg"
                                         alt="">delete</button>
                             </div>
@@ -159,7 +159,7 @@
                             </div>
                             <div id="dialog_button_area" class="dialog-button-container">
                                 <button onclick="cancelDialog()" class="dialog-button-general dialog-btn-cancel">Cancel</button>
-                                <button onclick="deleteContact()" class="dialog-button-general dialog-btn-delete">Delete</button>
+                                <button id="delete-contact-btn-dialog" class="dialog-button-general dialog-btn-delete">Delete</button>
                                 <button onclick="saveContact()" class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
                                 <button onclick="createContact()" class="dialog-button-general dialog-btn-create-contact">Create contact <img src="../assets/icons/check-icon.svg" alt=""></button>
                             </div>

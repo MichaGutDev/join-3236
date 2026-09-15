@@ -16,6 +16,7 @@ function editContact() {
     openDialog();
 }
 
+
 function createContact() {
     document.getElementById('dialog_topic_area').innerHTML = "";
     document.getElementById('dialog_topic_area').innerHTML = `
@@ -25,6 +26,11 @@ function createContact() {
         <div class="dialog-topic-underline"></div>
     `;
     openDialog();
+}
+
+
+function deleteContact() {
+    
 }
 
 // dialog_topic_area -> innerHTML
@@ -38,10 +44,12 @@ function openDialog() {
     dialog.showModal();
 }
 
+
 function closeDialog() {
     let dialog = document.getElementById('dialog');
     dialog.close();
 }
+
 
 function stopBubbleling(event) {
     event.stopPropagation();
@@ -120,3 +128,22 @@ const dialogBox = document.getElementById('dialog-box');
 if (dialogBox) {
     dialogBox.addEventListener('click', stopBubbleling);
 }
+
+
+const editContactBtn = document.getElementById('edit-contact-btn');
+if (editContactBtn) {
+    editContactBtn.addEventListener('click', editContact);
+}
+
+
+const deleteContactBtnDetails = document.getElementById('delete-contact-btn-details');
+if (deleteContactBtnDetails) {
+    deleteContactBtnDetails.addEventListener('click', deleteContact);
+}
+
+
+const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
+if (deleteContactBtnDialog) {
+    deleteContactBtnDialog.addEventListener('click', deleteContact);
+}
+
