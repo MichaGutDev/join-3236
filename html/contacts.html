@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="/styles/buttons.css">
 </head>
 
-<body onload="init()">
+<body>
     <aside>
         <div class="aside-join-icon">
             <img src="/assets/icons/main-icon.svg" alt="">
@@ -82,7 +82,7 @@
 
         <section class="section-main-content">
             <div class="contact-list-container">
-                <button onclick="createContact()" class="btn button-add-new-contact btn-primary">
+                <button class="btn button-add-new-contact btn-primary" id="add-contact-btn">
                     <span>Add New Contact</span>
                     <div class="add-new-contact-box">
                         <img class="add-new-contact-icon" src="/assets/icons/add-contact-icon.svg" alt="">
@@ -108,10 +108,10 @@
                                 <span id="contact_details_name">John Doe</span>
                             </div>
                             <div class="contact-details-actions">
-                                <button onclick="editContact()">
+                                <button id="edit-contact-btn">
                                     <img class="contact-details-icon" src="/assets/icons/edit-icon.svg"
                                         alt="">edit</button>
-                                <button onclick="deleteContact()">
+                                <button id="delete-contact-btn-details">
                                     <img class="contact-details-icon" src="/assets/icons/trash-icon.svg"
                                         alt="">delete</button>
                             </div>
@@ -133,9 +133,9 @@
         </section>
     </main>
     <!--  convert to Dialog Element -->
-    <dialog onclick="closeDialog()" id="dialog" class="dialog-container">
+    <dialog id="dialog" class="dialog-container">
         <div class="dialog-position">
-            <div onclick="stopBubbleling(event)" class="dialog">
+            <div id="dialog-box" class="dialog">
 
                 <div id="dialog_topic_area" class="dialog-topic">
                     <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
@@ -145,7 +145,7 @@
 
                 <div class="dialog-content">
                     <div class="dialog-close-btn">
-                        <button onclick="closeDialog()"><img src="../assets/icons/cancel-icon.svg" alt=""></button>
+                        <button id="dialog-close-btn"><img src="../assets/icons/cancel-icon.svg" alt=""></button>
                     </div>
                     <div class="dialog-aside-split">
                         <div class="dialog-initials-container">
@@ -158,10 +158,10 @@
                                 <input id="dialog_input_phone" class="dialog-input dialog-input-phone" type="tel" placeholder="Telefonnummer" required>
                             </div>
                             <div id="dialog_button_area" class="dialog-button-container">
-                                <button onclick="cancelDialog()" class="dialog-button-general dialog-btn-cancel">Cancel</button>
-                                <button onclick="deleteContact()" class="dialog-button-general dialog-btn-delete">Delete</button>
-                                <button onclick="saveContact()" class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
-                                <button onclick="createContact()" class="dialog-button-general dialog-btn-create-contact">Create contact <img src="../assets/icons/check-icon.svg" alt=""></button>
+                                <button id="cancel-contact-btn-dialog" class="dialog-button-general dialog-btn-cancel">Cancel</button>
+                                <button id="delete-contact-btn-dialog" class="dialog-button-general dialog-btn-delete">Delete</button>
+                                <button id="save-contact-btn-dialog" class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
+                                <button id="create-contact-btn-dialog" class="dialog-button-general dialog-btn-create-contact">Create contact <img src="../assets/icons/check-icon.svg" alt=""></button>
                             </div>
                         </div>
                     </div>

@@ -4,29 +4,6 @@ import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebas
 
 const contactsRef = ref(database, "contacts");
 
-const BASE_URL = "https://join-3236-default-rtdb.europe-west1.firebasedatabase.app";
-
-async function testFetch() {
-    const response = await fetch(`${BASE_URL}/contacts.json`);
-    const data = await response.json();
-    const user = data.user1
-    const ticker = data.userTicker
-    console.log("TestFetch");
-    console.log(response);
-    console.log(user);
-    console.log(ticker);
-}
-
-let contact = [];
-let ticker = null;
-
-async function init() {
-    await testFetch();
-    // openDialog();
-    console.log("Init");
-    console.log(contact);
-
-}
 
 function editContact() {
     document.getElementById('dialog_topic_area').innerHTML = "";
@@ -39,6 +16,7 @@ function editContact() {
     openDialog();
 }
 
+
 function createContact() {
     document.getElementById('dialog_topic_area').innerHTML = "";
     document.getElementById('dialog_topic_area').innerHTML = `
@@ -49,6 +27,17 @@ function createContact() {
     `;
     openDialog();
 }
+
+
+function saveContact() {
+    
+}
+
+
+function deleteContact() {
+    
+}
+
 
 // dialog_topic_area -> innerHTML
 // dialog_input_name -> value
@@ -61,10 +50,17 @@ function openDialog() {
     dialog.showModal();
 }
 
+
 function closeDialog() {
     let dialog = document.getElementById('dialog');
     dialog.close();
 }
+
+
+function cancelDialog() {
+    
+}
+
 
 function stopBubbleling(event) {
     event.stopPropagation();
@@ -74,29 +70,9 @@ function stopBubbleling(event) {
 
 async function addContact() {
 
-    
+
 }
 
-
-async function getContact() {
-    const response = await fetch(`${BASE_URL}/contacts.json`);
-    const data = await response.json();
-    // contact.push(data.user0) = ;
-}
-
-function renderContactTopics(topics) {
-    const container = document.getElementById("contact-topics");
-    container.innerHTML = topics.map(generateContactTopicHTML).join("");
-}
-
-function generateContactTopicHTML(topic) {
-    return `
-        <div class="contact-topic">
-            <h3>${topic.title}</h3>
-            <p>${topic.description}</p>
-        </div>
-    `;
-}
 
 /**
  * Builds the HTML for a single contact list item.
@@ -139,3 +115,64 @@ onValue(contactsRef, (snapshot) => {
     const html = entries.filter(([id, contact]) => typeof contact === "object").map(([id, contact]) => generateContactHTML(id, contact)).join("");
     document.getElementById("contact_list").innerHTML = html;
 });
+
+
+const addContactBtn = document.getElementById('add-contact-btn');
+if (addContactBtn) {
+    addContactBtn.addEventListener('click', createContact);
+}
+
+
+const dialog = document.getElementById('dialog');
+if (dialog) {
+    dialog.addEventListener('click', closeDialog);
+}
+
+
+const dialogCloseBtn = document.getElementById('dialog-close-btn');
+if (dialogCloseBtn) {
+    dialogCloseBtn.addEventListener('click', closeDialog);
+}
+
+
+const dialogBox = document.getElementById('dialog-box');
+if (dialogBox) {
+    dialogBox.addEventListener('click', stopBubbleling);
+}
+
+
+const editContactBtn = document.getElementById('edit-contact-btn');
+if (editContactBtn) {
+    editContactBtn.addEventListener('click', editContact);
+}
+
+
+const deleteContactBtnDetails = document.getElementById('delete-contact-btn-details');
+if (deleteContactBtnDetails) {
+    deleteContactBtnDetails.addEventListener('click', deleteContact);
+}
+
+
+const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
+if (deleteContactBtnDialog) {
+    deleteContactBtnDialog.addEventListener('click', deleteContact);
+}
+
+
+const cancelContactBtnDialog = document.getElementById('cancel-contact-btn-dialog');
+if (cancelContactBtnDialog) {
+    cancelContactBtnDialog.addEventListener('click', cancelDialog);
+}
+
+
+const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
+if (saveContactBtnDialog) {
+    saveContactBtnDialog.addEventListener('click', saveContact);
+}
+
+
+const createContactBtnDialog = document.getElementById('create-contact-btn-dialog');
+if (createContactBtnDialog) {
+    createContactBtnDialog.addEventListener('click', addContact);
+}
+
