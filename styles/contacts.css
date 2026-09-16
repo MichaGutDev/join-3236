@@ -421,7 +421,7 @@ a {
 
 .dialog-button-container {
     height: 57px;
-    width: 249px;
+    width: fit-content;
     display: flex;
     gap: 30px;
     margin-top: 50px;
@@ -433,6 +433,7 @@ a {
     padding: 0 24px;
     border: solid black 1px;
     font-size: 21px;
+    white-space: nowrap;
 }
 
 .dialog-button-general:hover {
@@ -454,6 +455,10 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.dialog-btn-save[hidden] {
+    display: none;
 }
 
 .dialog-btn-save img {
