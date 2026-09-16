@@ -94,7 +94,7 @@
             </div>
             <div class="container-contact-details">
                 <div class="contact-details-header">
-                    <h2 class="contact-details-title">Contacts</h2>
+                    <h1 class="contact-details-title">Contacts</h1>
                     <div class="contact-header-separator"></div>
                     <span class="contact-details-slogan">Better with a Team</span>
                 </div>
@@ -145,25 +145,38 @@
 
                 <div class="dialog-content">
                     <div class="dialog-close-btn">
-                        <button id="dialog-close-btn"><img src="../assets/icons/cancel-icon.svg" alt=""></button>
+                        <button id="dialog-close-btn" aria-label="Close"><img src="../assets/icons/cancel-icon.svg"
+                                alt=""></button>
                     </div>
                     <div class="dialog-aside-split">
                         <div class="dialog-initials-container">
                             <span>TW</span>
                         </div>
-                        <div>
+                        <form id="contact-form">
                             <div class="dialog-input-container">
-                                <input id="dialog_input_name" class="dialog-input dialog-input-name" type="text" placeholder="Vorname Nachname" required>
-                                <input id="dialog_input_mail" class="dialog-input dialog-input-mail" type="email" placeholder="example@email.com" required>
-                                <input id="dialog_input_phone" class="dialog-input dialog-input-phone" type="tel" placeholder="Telefonnummer" required>
+                                <label for="dialog_input_name" class="visually-hidden">Name</label>
+                                <input id="dialog_input_name" class="dialog-input dialog-input-name" type="text"
+                                    placeholder="Vorname Nachname" required>
+                                <label for="dialog_input_mail" class="visually-hidden">Email</label>
+                                <input id="dialog_input_mail" class="dialog-input dialog-input-mail" type="email"
+                                    placeholder="example@email.com" required>
+                                <label for="dialog_input_phone" class="visually-hidden">Phone</label>
+                                <input id="dialog_input_phone" class="dialog-input dialog-input-phone" type="tel"
+                                    placeholder="Telefonnummer" required>
                             </div>
                             <div id="dialog_button_area" class="dialog-button-container">
-                                <button id="cancel-contact-btn-dialog" class="dialog-button-general dialog-btn-cancel">Cancel</button>
-                                <button id="delete-contact-btn-dialog" class="dialog-button-general dialog-btn-delete">Delete</button>
-                                <button id="save-contact-btn-dialog" class="dialog-button-general dialog-btn-save">Save <img src="../assets/icons/check-icon.svg" alt=""></button>
-                                <button id="create-contact-btn-dialog" class="dialog-button-general dialog-btn-create-contact">Create contact <img src="../assets/icons/check-icon.svg" alt=""></button>
+                                <button type="button" id="cancel-contact-btn-dialog"
+                                    class="dialog-button-general dialog-btn-cancel">Cancel</button>
+                                <button type="button" id="delete-contact-btn-dialog"
+                                    class="dialog-button-general dialog-btn-delete">Delete</button>
+                                <button type="button" id="save-contact-btn-dialog"
+                                    class="dialog-button-general dialog-btn-save">Save <img
+                                        src="../assets/icons/check-icon.svg" alt=""></button>
+                                <button type="button" id="create-contact-btn-dialog"
+                                    class="dialog-button-general dialog-btn-create-contact">Create contact <img
+                                        src="../assets/icons/check-icon.svg" alt=""></button>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div></div>
                 </div>
