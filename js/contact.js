@@ -6,22 +6,25 @@ import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 const contactsRef = ref(database, "contacts");
 
 
+/**
+ * Saves changes to the currently edited contact.
+ */
 function saveContact() {
 
 }
 
 
+/**
+ * Deletes the currently selected or edited contact.
+ */
 function deleteContact() {
 
 }
 
 
-// dialog_topic_area -> innerHTML
-// dialog_input_name -> value
-// dialog_input_mail -> value
-// dialog_input_phone -> value
-// dialog_button_area -> innerHTML
-
+/**
+ * Opens the contact dialog and clears any previous error state.
+ */
 function openDialog() {
     let dialog = document.getElementById('dialog');
     clearContactError();
@@ -29,6 +32,9 @@ function openDialog() {
 }
 
 
+/**
+ * Closes the contact dialog and resets the form fields.
+ */
 function closeDialog() {
     let dialog = document.getElementById('dialog');
     CONTACT_FIELD_IDS.forEach((id) => {
@@ -38,11 +44,19 @@ function closeDialog() {
 }
 
 
+/**
+ * Cancels the current dialog action without saving.
+ */
 function cancelDialog() {
 
 }
 
 
+/**
+ * Stops a click event from bubbling up to the dialog backdrop.
+ *
+ * @param {MouseEvent} event
+ */
 function stopBubbleling(event) {
     event.stopPropagation();
 }
@@ -77,25 +91,41 @@ function clearContactError() {
 }
 
 
+/**
+ * Validates the contact form fields and shows an error message if invalid.
+ *
+ * @param {string} name - The entered name.
+ * @param {string} email - The entered email.
+ * @param {string} phone - The entered phone number.
+ * @returns {boolean} True if the form is valid.
+ */
+function isContactFormValid(name, email, phone) {
+    if (!name || !email || !phone) {
+        showContactError(CONTACT_FIELD_IDS, 'Please fill in all fields.');
+        return false;
+    }
+
+    if (!isValidEmail(email)) {
+        showContactError(['dialog_input_mail'], 'Please enter a valid email address.');
+        return false;
+    }
+
+    return true;
+}
+
+
+/**
+ * Reads the contact form, validates it and saves a new contact to Firebase.
+ */
 async function addContact() {
     const name = document.getElementById('dialog_input_name').value.trim();
     const email = document.getElementById('dialog_input_mail').value.trim();
     const phone = document.getElementById('dialog_input_phone').value.trim();
 
     clearContactError();
-
-    if (!name || !email || !phone) {
-        showContactError(CONTACT_FIELD_IDS, 'Please fill in all fields.');
-        return;
-    }
-
-    if (!isValidEmail(email)) {
-        showContactError(['dialog_input_mail'], 'Please enter a valid email address.');
-        return;
-    }
+    if (!isContactFormValid(name, email, phone)) return;
 
     const contact = { name, email, phone, color: getRandomContactColor() };
-
     const newContactRef = push(contactsRef);
     set(newContactRef, contact);
 
@@ -146,6 +176,9 @@ onValue(contactsRef, (snapshot) => {
 });
 
 
+/**
+ * Opens the contact dialog in edit mode.
+ */
 function editContact() {
     setDialogMode(true);
 
@@ -160,6 +193,9 @@ function editContact() {
 }
 
 
+/**
+ * Opens the contact dialog in add mode.
+ */
 function createContact() {
     setDialogMode(false);
 
@@ -174,6 +210,11 @@ function createContact() {
 }
 
 
+/**
+ * Toggles which dialog buttons and avatar are visible depending on add or edit mode.
+ *
+ * @param {boolean} isEdit - True to show edit buttons, false to show add buttons.
+ */
 function setDialogMode(isEdit) {
     const cancelContactBtnDialog = document.getElementById('cancel-contact-btn-dialog');
     cancelContactBtnDialog.hidden = isEdit;
