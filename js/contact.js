@@ -1,5 +1,5 @@
 import { database } from './firebase-config.js';
-import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { push, set, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { getRandomContactColor } from './contact-utils.js';
 
 
@@ -31,12 +31,12 @@ function createContact() {
 
 
 function saveContact() {
-    
+
 }
 
 
 function deleteContact() {
-    
+
 }
 
 
@@ -59,7 +59,7 @@ function closeDialog() {
 
 
 function cancelDialog() {
-    
+
 }
 
 
@@ -70,8 +70,19 @@ function stopBubbleling(event) {
 
 
 async function addContact() {
+    const name = document.getElementById('dialog_input_name').value;
+    const email = document.getElementById('dialog_input_mail').value;
+    const phone = document.getElementById('dialog_input_phone').value;
+    const contact = { name, email, phone, color: getRandomContactColor() };
 
+    const newContactRef = push(contactsRef);
+    set(newContactRef, contact);
 
+    document.getElementById('dialog_input_name').value = "";
+    document.getElementById('dialog_input_mail').value = "";
+    document.getElementById('dialog_input_phone').value = "";
+
+    closeDialog();
 }
 
 
