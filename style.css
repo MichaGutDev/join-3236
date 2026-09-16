@@ -46,6 +46,16 @@
   border: 0;
 }
 
+.error-message {
+  color: var(--color-error);
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.field-error {
+  border-color: var(--color-error);
+}
+
 /* End Utilities */
 
 /* Basis-Typografie */

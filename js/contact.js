@@ -1,6 +1,6 @@
 import { database } from './firebase-config.js';
 import { push, set, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { getRandomContactColor } from './contact-utils.js';
+import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 
 
 const contactsRef = ref(database, "contacts");
@@ -24,12 +24,16 @@ function deleteContact() {
 
 function openDialog() {
     let dialog = document.getElementById('dialog');
+    clearContactError();
     dialog.showModal();
 }
 
 
 function closeDialog() {
     let dialog = document.getElementById('dialog');
+    CONTACT_FIELD_IDS.forEach((id) => {
+        document.getElementById(id).value = "";
+    });
     dialog.close();
 }
 
@@ -45,18 +49,55 @@ function stopBubbleling(event) {
 
 
 
+const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_mail', 'dialog_input_phone'];
+
+
+/**
+ * Shows an error message and highlights the given fields.
+ *
+ * @param {string[]} fieldIds - The ids of the input fields to highlight.
+ * @param {string} message - The error message to display.
+ */
+function showContactError(fieldIds, message) {
+    document.getElementById('contact-form-error').textContent = message;
+    fieldIds.forEach((id) => {
+        document.getElementById(id).classList.add('field-error');
+    });
+}
+
+
+/**
+ * Clears the contact form error message and removes highlighting from all fields.
+ */
+function clearContactError() {
+    document.getElementById('contact-form-error').textContent = "";
+    CONTACT_FIELD_IDS.forEach((id) => {
+        document.getElementById(id).classList.remove('field-error');
+    });
+}
+
+
 async function addContact() {
-    const name = document.getElementById('dialog_input_name').value;
-    const email = document.getElementById('dialog_input_mail').value;
-    const phone = document.getElementById('dialog_input_phone').value;
+    const name = document.getElementById('dialog_input_name').value.trim();
+    const email = document.getElementById('dialog_input_mail').value.trim();
+    const phone = document.getElementById('dialog_input_phone').value.trim();
+
+    clearContactError();
+
+    if (!name || !email || !phone) {
+        showContactError(CONTACT_FIELD_IDS, 'Please fill in all fields.');
+        return;
+    }
+
+    if (!isValidEmail(email)) {
+        showContactError(['dialog_input_mail'], 'Please enter a valid email address.');
+        return;
+    }
+
     const contact = { name, email, phone, color: getRandomContactColor() };
 
     const newContactRef = push(contactsRef);
     set(newContactRef, contact);
-
-    document.getElementById('dialog_input_name').value = "";
-    document.getElementById('dialog_input_mail').value = "";
-    document.getElementById('dialog_input_phone').value = "";
 
     closeDialog();
 }

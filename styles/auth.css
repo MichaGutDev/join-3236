@@ -141,16 +141,6 @@
   color: var(--color-form-box);
 }
 
-.error-message {
-  color: var(--color-error);
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-.auth-field--error {
-  border-color: var(--color-error);
-}
-
 .auth-field-group {
   display: flex;
   flex-direction: column;

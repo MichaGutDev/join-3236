@@ -417,6 +417,10 @@ a {
     font-size: 20px;
 }
 
+.dialog-input.field-error {
+    border-color: var(--color-error);
+}
+
 .dialog-input-name {
     background-image: url("../assets/icons/inputfield-contact-icon.svg");
     background-repeat: no-repeat;
