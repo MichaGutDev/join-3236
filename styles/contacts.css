@@ -364,7 +364,7 @@ a {
     height: 120px;
     width: 120px;
     border: solid white 3px;
-    filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -372,6 +372,31 @@ a {
     font-size: 47px;
     color: white;
     font-weight: 500;
+}
+
+.dialog-initials-container span[hidden] {
+    display: none;
+}
+
+.dialog-avatar-placeholder {
+    height: 120px;
+    width: 120px;
+    border-radius: 50%;
+    background-color: rgba(209, 209, 209, 1);
+    border: solid white 3px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dialog-avatar-placeholder[hidden] {
+    display: none;
+}
+
+.dialog-avatar-placeholder img {
+    height: 43px;
+    width: 43px;
 }
 
 .dialog-input-container {
@@ -390,6 +415,10 @@ a {
     border: solid black 1px;
     font-weight: 400;
     font-size: 20px;
+}
+
+.dialog-input.field-error {
+    border-color: var(--color-error);
 }
 
 .dialog-input-name {
@@ -421,7 +450,7 @@ a {
 
 .dialog-button-container {
     height: 57px;
-    width: 249px;
+    width: fit-content;
     display: flex;
     gap: 30px;
     margin-top: 50px;
@@ -433,6 +462,7 @@ a {
     padding: 0 24px;
     border: solid black 1px;
     font-size: 21px;
+    white-space: nowrap;
 }
 
 .dialog-button-general:hover {
@@ -454,6 +484,10 @@ a {
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.dialog-btn-save[hidden] {
+    display: none;
 }
 
 .dialog-btn-save img {

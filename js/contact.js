@@ -1,76 +1,135 @@
 import { database } from './firebase-config.js';
-import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { push, set, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 
 
 const contactsRef = ref(database, "contacts");
 
 
-function editContact() {
-    document.getElementById('dialog_topic_area').innerHTML = "";
-    document.getElementById('dialog_topic_area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
-        <h2 class="dialog-topic-title">Edit Contact</h2>
-        <div class="dialog-topic-underline"></div>
-    `;
-
-    openDialog();
-}
-
-
-function createContact() {
-    document.getElementById('dialog_topic_area').innerHTML = "";
-    document.getElementById('dialog_topic_area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
-        <h2 class="dialog-topic-title">Add contact</h2>
-        <p class="dialog-topic-slogan">Tasks are better with a team</p>
-        <div class="dialog-topic-underline"></div>
-    `;
-    openDialog();
-}
-
-
+/**
+ * Saves changes to the currently edited contact.
+ */
 function saveContact() {
-    
+
 }
 
 
+/**
+ * Deletes the currently selected or edited contact.
+ */
 function deleteContact() {
-    
+
 }
 
 
-// dialog_topic_area -> innerHTML
-// dialog_input_name -> value
-// dialog_input_mail -> value
-// dialog_input_phone -> value
-// dialog_button_area -> innerHTML
-
+/**
+ * Opens the contact dialog and clears any previous error state.
+ */
 function openDialog() {
     let dialog = document.getElementById('dialog');
+    clearContactError();
     dialog.showModal();
 }
 
 
+/**
+ * Closes the contact dialog and resets the form fields.
+ */
 function closeDialog() {
     let dialog = document.getElementById('dialog');
+    CONTACT_FIELD_IDS.forEach((id) => {
+        document.getElementById(id).value = "";
+    });
     dialog.close();
 }
 
 
+/**
+ * Cancels the current dialog action without saving.
+ */
 function cancelDialog() {
-    
+    closeDialog();
 }
 
 
+/**
+ * Stops a click event from bubbling up to the dialog backdrop.
+ *
+ * @param {MouseEvent} event
+ */
 function stopBubbleling(event) {
     event.stopPropagation();
 }
 
 
 
+const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_mail', 'dialog_input_phone'];
+
+
+/**
+ * Shows an error message and highlights the given fields.
+ *
+ * @param {string[]} fieldIds - The ids of the input fields to highlight.
+ * @param {string} message - The error message to display.
+ */
+function showContactError(fieldIds, message) {
+    document.getElementById('contact-form-error').textContent = message;
+    fieldIds.forEach((id) => {
+        document.getElementById(id).classList.add('field-error');
+    });
+}
+
+
+/**
+ * Clears the contact form error message and removes highlighting from all fields.
+ */
+function clearContactError() {
+    document.getElementById('contact-form-error').textContent = "";
+    CONTACT_FIELD_IDS.forEach((id) => {
+        document.getElementById(id).classList.remove('field-error');
+    });
+}
+
+
+/**
+ * Validates the contact form fields and shows an error message if invalid.
+ *
+ * @param {string} name - The entered name.
+ * @param {string} email - The entered email.
+ * @param {string} phone - The entered phone number.
+ * @returns {boolean} True if the form is valid.
+ */
+function isContactFormValid(name, email, phone) {
+    if (!name || !email || !phone) {
+        showContactError(CONTACT_FIELD_IDS, 'Please fill in all fields.');
+        return false;
+    }
+
+    if (!isValidEmail(email)) {
+        showContactError(['dialog_input_mail'], 'Please enter a valid email address.');
+        return false;
+    }
+
+    return true;
+}
+
+
+/**
+ * Reads the contact form, validates it and saves a new contact to Firebase.
+ */
 async function addContact() {
+    const name = document.getElementById('dialog_input_name').value.trim();
+    const email = document.getElementById('dialog_input_mail').value.trim();
+    const phone = document.getElementById('dialog_input_phone').value.trim();
 
+    clearContactError();
+    if (!isContactFormValid(name, email, phone)) return;
 
+    const contact = { name, email, phone, color: getRandomContactColor() };
+    const newContactRef = push(contactsRef);
+    set(newContactRef, contact);
+
+    closeDialog();
 }
 
 
@@ -109,12 +168,86 @@ function getInitials(name) {
 }
 
 
+function generateContactListHTML(entries) {
+    let lastLetter = "";
+    return entries.map(([id, contact]) => {
+        let html = "";
+        const firstLetter = contact.name[0].toUpperCase();
+        if (firstLetter !== lastLetter) {
+            lastLetter = firstLetter;
+            html += `<div class="contact-list-letter">${firstLetter}</div>`
+        };
+
+        html += generateContactHTML(id, contact);
+        return html;
+
+    })
+        .join("");
+}
+
+
 onValue(contactsRef, (snapshot) => {
     const data = snapshot.val() || {};
     const entries = Object.entries(data);
-    const html = entries.filter(([id, contact]) => typeof contact === "object").map(([id, contact]) => generateContactHTML(id, contact)).join("");
+    const html = generateContactListHTML(entries.filter(([id, contact]) => typeof contact === "object" && contact.name).sort((a, b) => a[1].name.localeCompare(b[1].name)));
     document.getElementById("contact_list").innerHTML = html;
 });
+
+
+/**
+ * Opens the contact dialog in edit mode.
+ */
+function editContact() {
+    setDialogMode(true);
+
+    document.getElementById('dialog_topic_area').innerHTML = "";
+    document.getElementById('dialog_topic_area').innerHTML = `
+        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <h2 class="dialog-topic-title">Edit Contact</h2>
+        <div class="dialog-topic-underline"></div>
+    `;
+
+    openDialog();
+}
+
+
+/**
+ * Opens the contact dialog in add mode.
+ */
+function createContact() {
+    setDialogMode(false);
+
+    document.getElementById('dialog_topic_area').innerHTML = "";
+    document.getElementById('dialog_topic_area').innerHTML = `
+        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <h2 class="dialog-topic-title">Add contact</h2>
+        <p class="dialog-topic-slogan">Tasks are better with a team</p>
+        <div class="dialog-topic-underline"></div>
+    `;
+    openDialog();
+}
+
+
+/**
+ * Toggles which dialog buttons and avatar are visible depending on add or edit mode.
+ *
+ * @param {boolean} isEdit - True to show edit buttons, false to show add buttons.
+ */
+function setDialogMode(isEdit) {
+    const cancelContactBtnDialog = document.getElementById('cancel-contact-btn-dialog');
+    cancelContactBtnDialog.hidden = isEdit;
+    const createContactBtnDialog = document.getElementById('create-contact-btn-dialog');
+    createContactBtnDialog.hidden = isEdit;
+    const dialogAvatarPlaceholder = document.getElementById('dialog-avatar-placeholder');
+    dialogAvatarPlaceholder.hidden = isEdit;
+    const dialogInitials = document.getElementById('dialog-initials');
+    dialogInitials.hidden = !isEdit;
+    const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
+    deleteContactBtnDialog.hidden = !isEdit;
+    const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
+    saveContactBtnDialog.hidden = !isEdit;
+
+}
 
 
 const addContactBtn = document.getElementById('add-contact-btn');

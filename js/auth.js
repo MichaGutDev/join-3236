@@ -1,31 +1,7 @@
 import { auth, database } from './firebase-config.js';
 import { push, set, ref } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { signInWithEmailAndPassword, signInAnonymously, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-
-
-const CONTACT_COLORS = ["#FF5733", "#33FF57", "#3357FF", "#FF33FF", "#ff8400", "#00bfff", "#ffea00", "#278300", "#9b0000", "#00008b"];
-
-
-/**
- * Picks a random color from the contact color palette.
- *
- * @returns {string} A hex color code.
- */
-function getRandomContactColor() {
-    return CONTACT_COLORS[Math.floor(Math.random() * CONTACT_COLORS.length)];
-}
-
-
-/**
- * Validates the email format using a regular expression.
- *
- * @param {string} email - The email address to validate.
- * @returns {boolean} True if the email format is valid.
- */
-function isValidEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
-}
+import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 
 
 /**
@@ -144,7 +120,7 @@ function handleFirebaseSignUp(name, email, password) {
 function showError(errorId, fieldIds, message) {
     document.getElementById(errorId).textContent = message;
     fieldIds.forEach((id) => {
-        document.getElementById(id).parentElement.classList.add('auth-field--error');
+        document.getElementById(id).parentElement.classList.add('field-error');
     });
 }
 
@@ -157,7 +133,7 @@ function showError(errorId, fieldIds, message) {
 function clearError(errorId, fieldIds) {
     document.getElementById(errorId).textContent = "";
     fieldIds.forEach((id) => {
-        document.getElementById(id).parentElement.classList.remove('auth-field--error');
+        document.getElementById(id).parentElement.classList.remove('field-error');
     });
 }
 
