@@ -168,10 +168,28 @@ function getInitials(name) {
 }
 
 
+function generateContactListHTML(entries) {
+    let lastLetter = "";
+    return entries.map(([id, contact]) => {
+        let html = "";
+        const firstLetter = contact.name[0].toUpperCase();
+        if (firstLetter !== lastLetter) {
+            lastLetter = firstLetter;
+            html += `<div class="contact-list-letter">${firstLetter}</div>`
+        };
+
+        html += generateContactHTML(id, contact);
+        return html;
+
+    })
+        .join("");
+}
+
+
 onValue(contactsRef, (snapshot) => {
     const data = snapshot.val() || {};
     const entries = Object.entries(data);
-    const html = entries.filter(([id, contact]) => typeof contact === "object").sort((a, b) => a[1].name.localeCompare(b[1].name)).map(([id, contact]) => generateContactHTML(id, contact)).join("");
+    const html = generateContactListHTML(entries.filter(([id, contact]) => typeof contact === "object" && contact.name).sort((a, b) => a[1].name.localeCompare(b[1].name)));
     document.getElementById("contact_list").innerHTML = html;
 });
 
