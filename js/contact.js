@@ -124,7 +124,7 @@ function getInitials(name) {
 onValue(contactsRef, (snapshot) => {
     const data = snapshot.val() || {};
     const entries = Object.entries(data);
-    const html = entries.filter(([id, contact]) => typeof contact === "object").map(([id, contact]) => generateContactHTML(id, contact)).join("");
+    const html = entries.filter(([id, contact]) => typeof contact === "object").sort((a, b) => a[1].name.localeCompare(b[1].name)).map(([id, contact]) => generateContactHTML(id, contact)).join("");
     document.getElementById("contact_list").innerHTML = html;
 });
 
