@@ -6,30 +6,6 @@ import { getRandomContactColor } from './contact-utils.js';
 const contactsRef = ref(database, "contacts");
 
 
-function editContact() {
-    document.getElementById('dialog_topic_area').innerHTML = "";
-    document.getElementById('dialog_topic_area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
-        <h2 class="dialog-topic-title">Edit Contact</h2>
-        <div class="dialog-topic-underline"></div>
-    `;
-
-    openDialog();
-}
-
-
-function createContact() {
-    document.getElementById('dialog_topic_area').innerHTML = "";
-    document.getElementById('dialog_topic_area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
-        <h2 class="dialog-topic-title">Add contact</h2>
-        <p class="dialog-topic-slogan">Tasks are better with a team</p>
-        <div class="dialog-topic-underline"></div>
-    `;
-    openDialog();
-}
-
-
 function saveContact() {
 
 }
@@ -127,6 +103,47 @@ onValue(contactsRef, (snapshot) => {
     const html = entries.filter(([id, contact]) => typeof contact === "object").sort((a, b) => a[1].name.localeCompare(b[1].name)).map(([id, contact]) => generateContactHTML(id, contact)).join("");
     document.getElementById("contact_list").innerHTML = html;
 });
+
+
+function editContact() {
+    setDialogMode(true);
+
+    document.getElementById('dialog_topic_area').innerHTML = "";
+    document.getElementById('dialog_topic_area').innerHTML = `
+        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <h2 class="dialog-topic-title">Edit Contact</h2>
+        <div class="dialog-topic-underline"></div>
+    `;
+
+    openDialog();
+}
+
+
+function createContact() {
+    setDialogMode(false);
+
+    document.getElementById('dialog_topic_area').innerHTML = "";
+    document.getElementById('dialog_topic_area').innerHTML = `
+        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <h2 class="dialog-topic-title">Add contact</h2>
+        <p class="dialog-topic-slogan">Tasks are better with a team</p>
+        <div class="dialog-topic-underline"></div>
+    `;
+    openDialog();
+}
+
+
+function setDialogMode(isEdit) {
+    const cancelContactBtnDialog = document.getElementById('cancel-contact-btn-dialog');
+    cancelContactBtnDialog.hidden = isEdit;
+    const createContactBtnDialog = document.getElementById('create-contact-btn-dialog');
+    createContactBtnDialog.hidden = isEdit;
+    const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
+    deleteContactBtnDialog.hidden = !isEdit;
+    const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
+    saveContactBtnDialog.hidden = !isEdit;
+
+}
 
 
 const addContactBtn = document.getElementById('add-contact-btn');
