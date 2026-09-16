@@ -48,7 +48,7 @@ function closeDialog() {
  * Cancels the current dialog action without saving.
  */
 function cancelDialog() {
-
+    closeDialog();
 }
 
 
