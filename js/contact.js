@@ -138,6 +138,10 @@ function setDialogMode(isEdit) {
     cancelContactBtnDialog.hidden = isEdit;
     const createContactBtnDialog = document.getElementById('create-contact-btn-dialog');
     createContactBtnDialog.hidden = isEdit;
+    const dialogAvatarPlaceholder = document.getElementById('dialog-avatar-placeholder');
+    dialogAvatarPlaceholder.hidden = isEdit;
+    const dialogInitials = document.getElementById('dialog-initials');
+    dialogInitials.hidden = !isEdit;
     const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
     deleteContactBtnDialog.hidden = !isEdit;
     const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
