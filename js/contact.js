@@ -192,18 +192,6 @@ function generateContactListHTML(entries) {
 }
 
 
-onValue(contactsRef, (snapshot) => {
-    const data = snapshot.val() || {};
-    const entries = Object.entries(data);
-
-    const validContacts = entries.filter(([id, contact]) => typeof contact === "object" && contact.name);
-    const sortedContacts = validContacts.sort((a, b) => a[1].name.localeCompare(b[1].name));
-
-    const html = generateContactListHTML(sortedContacts);
-    document.getElementById("contact_list").innerHTML = html;
-});
-
-
 /**
  * Opens the contact dialog in edit mode.
  */
@@ -258,6 +246,18 @@ function setDialogMode(isEdit) {
     saveContactBtnDialog.hidden = !isEdit;
 
 }
+
+
+onValue(contactsRef, (snapshot) => {
+    const data = snapshot.val() || {};
+    const entries = Object.entries(data);
+
+    const validContacts = entries.filter(([id, contact]) => typeof contact === "object" && contact.name);
+    const sortedContacts = validContacts.sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+    const html = generateContactListHTML(sortedContacts);
+    document.getElementById("contact_list").innerHTML = html;
+});
 
 
 const addContactBtn = document.getElementById('add-contact-btn');
