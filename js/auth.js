@@ -245,6 +245,8 @@ if (confirmPasswordInput) {
 }
 
 const splashScreen = document.getElementById('splash-screen');
-setTimeout(() => {
-    splashScreen.classList.add("splash-hidden");
-}, 200)
+if (splashScreen) {
+    setTimeout(() => {
+        splashScreen.classList.add("splash-hidden");
+    }, 200);
+}
