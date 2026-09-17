@@ -168,6 +168,12 @@ function getInitials(name) {
 }
 
 
+/**
+ * Builds the HTML for the full contact list, inserting a letter heading before each new group.
+ *
+ * @param {Array} entries - Sorted [id, contact] pairs.
+ * @returns {string} The generated HTML markup.
+ */
 function generateContactListHTML(entries) {
     let lastLetter = "";
     return entries.map(([id, contact]) => {
@@ -189,7 +195,11 @@ function generateContactListHTML(entries) {
 onValue(contactsRef, (snapshot) => {
     const data = snapshot.val() || {};
     const entries = Object.entries(data);
-    const html = generateContactListHTML(entries.filter(([id, contact]) => typeof contact === "object" && contact.name).sort((a, b) => a[1].name.localeCompare(b[1].name)));
+
+    const validContacts = entries.filter(([id, contact]) => typeof contact === "object" && contact.name);
+    const sortedContacts = validContacts.sort((a, b) => a[1].name.localeCompare(b[1].name));
+
+    const html = generateContactListHTML(sortedContacts);
     document.getElementById("contact_list").innerHTML = html;
 });
 
