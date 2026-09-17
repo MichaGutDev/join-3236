@@ -1,5 +1,7 @@
 import { initTaskForm } from "./add_task.js";
 import { returnTaskHTML, returnAddTaskForm } from "./templates.js";
+import { listenToTasks } from "./db.js";
+let tasks = [];
 let taskStatus = "To Do";
 let currentDraggedTaskId;
 let editingTaskId = null;
@@ -15,7 +17,10 @@ const taskContainerMap = {
 
 function init() {
     initDragAndDrop();
+    listenToTasks((updatedTasks) => {
+    tasks = updatedTasks;
     displayTasks();
+});
 }
 
 init();
@@ -363,11 +368,13 @@ let test =
     dueDate: "2026-08-28",
     priority: "medium",
     category: "Technical Task",
-    assignedTo: ["contactId3"],
+    assignedTo: ["contactId3", "contactID5"],
     status: "To Do",
     subtasks: [
         { description: "Create card layout", completion: false },
+        { description: "Align all cards", completion: true },
         { description: "Add priority icons", completion: false },
+        { description: "Add priority change buttons", completion: false },
     ],
 };
 
