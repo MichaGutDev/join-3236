@@ -1,3 +1,7 @@
+import { database } from "./firebase-config.js";
+
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+
 const tasksRef = ref(database, "tasks");
 
 

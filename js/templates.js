@@ -102,9 +102,9 @@ export function returnTaskHTML(task) {
             <span class="task-descr">${task.description}</span>
             <div class="subtask-progress-container">
                 <div class="progress-bar-outer">
-                    <div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
+                    
                 </div>
-                <span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>
+                
             </div>
             <div class="initials-container">
                 <div class="user-avatar">RB</div>
@@ -113,3 +113,6 @@ export function returnTaskHTML(task) {
         </li>
     `
 }
+
+//<div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
+//<span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>

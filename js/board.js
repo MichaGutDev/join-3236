@@ -18,9 +18,9 @@ const taskContainerMap = {
 function init() {
     initDragAndDrop();
     listenToTasks((updatedTasks) => {
-    tasks = updatedTasks;
-    displayTasks();
-});
+        tasks = updatedTasks;
+        displayTasks();
+    });
 }
 
 init();
