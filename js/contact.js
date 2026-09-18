@@ -4,6 +4,9 @@ import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 
 
 const contactsRef = ref(database, "contacts");
+const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_mail', 'dialog_input_phone'];
+let contactsData = {};
+let selectedContactId = null;
 
 
 /**
@@ -61,9 +64,6 @@ function stopBubbleling(event) {
     event.stopPropagation();
 }
 
-
-
-const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_mail', 'dialog_input_phone'];
 
 
 /**
@@ -248,8 +248,26 @@ function setDialogMode(isEdit) {
 }
 
 
+function handleContactClick(event) {
+    const contactItem = event.target.closest('.contact-list-item');
+    if (contactItem === null) {
+        return;
+    }
+
+    const id = contactItem.dataset.id;
+    const contact = contactsData[id];
+    document.getElementById('contact_details_name').textContent = contact.name;
+    document.getElementById('contact_details_email').textContent = contact.email;
+    document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
+    document.getElementById('contact_details_phone').textContent = contact.phone;
+    document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+    selectedContactId = id;
+}
+
+
 onValue(contactsRef, (snapshot) => {
     const data = snapshot.val() || {};
+    contactsData = data;
     const entries = Object.entries(data);
 
     const validContacts = entries.filter(([id, contact]) => typeof contact === "object" && contact.name);
@@ -319,3 +337,8 @@ if (createContactBtnDialog) {
     createContactBtnDialog.addEventListener('click', addContact);
 }
 
+
+const contactList = document.getElementById('contact_list');
+if (contactList) {
+    contactList.addEventListener('click', handleContactClick);
+}
