@@ -45,7 +45,7 @@ async function updateUserInitials(user) {
  * @param {string} userId - The Firebase Auth user id.
  * @returns {Promise<object|undefined>} The matching contact, if any.
  */
-async function findContactByUserId(userId) {
+export async function findContactByUserId(userId) {
     const snapshot = await get(ref(database, "contacts"));
     const contacts = snapshot.val() || {};
     return Object.values(contacts).find((contact) => contact.userId === userId);

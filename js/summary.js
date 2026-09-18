@@ -1,6 +1,7 @@
 import { auth, database } from './firebase-config.js';
 import { ref, onValue, get } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { findContactByUserId } from './auth-check.js';
 
 
 const tasksRef = ref(database, "tasks");
@@ -46,13 +47,14 @@ function updateUrgentDeadline(tasksData) {
 /**
  * Determines the greeting text based on the current time of day.
  *
+ * @param {string} [suffix] - Text appended after the greeting word.
  * @returns {string} The greeting text.
  */
-function getGreeting() {
+function getGreeting(suffix = ",") {
     const hour = new Date().getHours();
-    if (hour < 12) return "Good morning,";
-    else if (hour < 18) return "Good afternoon,";
-    else return "Good evening,";
+    if (hour < 12) return `Good morning${suffix}`;
+    else if (hour < 18) return `Good afternoon${suffix}`;
+    else return `Good evening${suffix}`;
 }
 
 
@@ -75,8 +77,26 @@ onValue(tasksRef, (snapshot) => {
 })
 
 
-function displayUserGreeting(user) {
-    // get(ref(database, "contacts")).then((snapshot) => {console.log(snapshot.val());});
+/**
+ * Shows the guest greeting (no name) or fills in the logged in user's contact name.
+ *
+ * @param {object} user - The Firebase Auth user object.
+ * @returns {Promise<void>}
+ */
+async function displayUserGreeting(user) {
+    const nameRefs = [document.getElementById("greeting-name"), document.getElementById("greeting-overlay-name")];
+
+    if (user.isAnonymous) {
+        document.getElementById("greeting-welcome").textContent = getGreeting("!");
+        document.getElementById("greeting-overlay-welcome").textContent = getGreeting("!");
+        nameRefs.forEach(ref => ref.style.display = "none");
+        return;
+    }
+
+    const contact = await findContactByUserId(user.uid);
+    if (contact) {
+        nameRefs.forEach(ref => ref.textContent = contact.name);
+    }
 }
 
 
