@@ -215,6 +215,10 @@ function editContact() {
     document.getElementById('dialog_input_email').value = contact.email;
     document.getElementById('dialog_input_phone').value = contact.phone;
 
+    const dialogInitials = document.getElementById('dialog-initials');
+    dialogInitials.textContent = getInitials(contact.name);
+    dialogInitials.style.backgroundColor = contact.color;
+
 
     document.getElementById('dialog_topic_area').innerHTML = "";
     document.getElementById('dialog_topic_area').innerHTML = `
