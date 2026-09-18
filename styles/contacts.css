@@ -1,7 +1,7 @@
 /* General */
 
 a {
-    color: #007CEE;
+    color: var(--color-contact-mail);
 }
 
 .section-main-content {
@@ -98,7 +98,7 @@ a {
 .contact-list-email {
     width: fit-content;
     text-align: left;
-    color: #007CEE;
+    color: var(--color-contact-mail);
 }
 
 .contact-content {
@@ -166,7 +166,7 @@ a {
 .contact-details-slogan {
     width: 235px;
     font-size: 27px;
-    font-weight: 40;
+    font-weight: 400;
     text-align: end;
     color: var(--color-primary);
 }
@@ -242,7 +242,7 @@ a {
     font-weight: bold;
 }
 
-#contact_details_phone {
+.contact-details-connect .contact-details-phone {
     font-weight: inherit;
 }
 

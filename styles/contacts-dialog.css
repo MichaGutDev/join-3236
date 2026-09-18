@@ -133,7 +133,8 @@
     padding-bottom: 60px;
 }
 
-.dialog-initials-container span {
+.dialog-initials-container span,
+.dialog-avatar-placeholder {
     height: 120px;
     width: 120px;
     border: solid white 3px;
@@ -142,34 +143,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dialog-initials-container span {
     font-size: 47px;
     color: white;
     font-weight: 500;
 }
 
-.dialog-initials-container span[hidden] {
-    display: none;
-}
-
 .dialog-avatar-placeholder {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
     background-color: rgba(209, 209, 209, 1);
-    border: solid white 3px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dialog-avatar-placeholder[hidden] {
-    display: none;
 }
 
 .dialog-avatar-placeholder img {
     height: 43px;
     width: 43px;
+}
+
+.dialog-initials-container span[hidden],
+.dialog-avatar-placeholder[hidden] {
+    display: none;
 }
 
 /* End Dialog Avatar */
@@ -199,31 +192,26 @@
     border-color: var(--color-error);
 }
 
-.dialog-input-name {
-    background-image: url("../assets/icons/inputfield-contact-icon.svg");
+.dialog-input-name,
+.dialog-input-email,
+.dialog-input-phone {
     background-repeat: no-repeat;
     background-position: right 16px center;
     background-size: 20px 20px;
     padding: 13px 48px 13px 21px;
     box-sizing: border-box;
+}
+
+.dialog-input-name {
+    background-image: url("../assets/icons/inputfield-contact-icon.svg");
 }
 
 .dialog-input-email {
     background-image: url("../assets/icons/inputfield-mail-icon.svg");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 20px 20px;
-    padding: 13px 48px 13px 21px;
-    box-sizing: border-box;
 }
 
 .dialog-input-phone {
     background-image: url("../assets/icons/inputfield-phone-icon.svg");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 20px 20px;
-    padding: 13px 48px 13px 21px;
-    box-sizing: border-box;
 }
 
 /* End Dialog Form Inputs */

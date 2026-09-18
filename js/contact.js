@@ -267,7 +267,7 @@ function handleContactClick(event) {
 /**
  * Renders a contact's data into the details panel.
  *
- * @param {object} contact - The contact data (name, email, phone).
+ * @param {object} contact - The contact data (name, email, phone, color).
  */
 function renderContactDetails(contact) {
     document.getElementById('contact_details_name').textContent = contact.name;
@@ -275,6 +275,7 @@ function renderContactDetails(contact) {
     document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
     document.getElementById('contact_details_phone').textContent = contact.phone;
     document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+    document.querySelector('.contact-details-initials').style.backgroundColor = contact.color;
 }
 
 
