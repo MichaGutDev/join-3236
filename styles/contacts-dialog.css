@@ -1,3 +1,5 @@
+/* Dialog Overlay */
+
 .dialog-container {
     position: fixed;
     min-height: 100%;
@@ -23,6 +25,11 @@
     align-items: center;
 }
 
+/* End Dialog Overlay */
+
+
+/* Dialog Box */
+
 .dialog {
     background-color: white;
     min-height: 592px;
@@ -30,6 +37,11 @@
     display: flex;
     border-radius: 30px;
 }
+
+/* End Dialog Box */
+
+
+/* Dialog Topic */
 
 .dialog-topic {
     background-color: var(--color-primary);
@@ -67,6 +79,10 @@
     margin-top: 16px;
 }
 
+/* End Dialog Topic */
+
+
+/* Dialog Content */
 
 .dialog-content {
     background-color: white;
@@ -102,6 +118,11 @@
     justify-content: space-between;
     align-items: center;
 }
+
+/* End Dialog Content */
+
+
+/* Dialog Avatar */
 
 .dialog-initials-container {
     height: 100%;
@@ -150,6 +171,11 @@
     height: 43px;
     width: 43px;
 }
+
+/* End Dialog Avatar */
+
+
+/* Dialog Form Inputs */
 
 .dialog-input-container {
     height: 215px;
@@ -200,6 +226,11 @@
     box-sizing: border-box;
 }
 
+/* End Dialog Form Inputs */
+
+
+/* Dialog Buttons */
+
 .dialog-button-container {
     height: 57px;
     width: fit-content;
@@ -221,3 +252,5 @@
     height: 18px;
     width: 18px;
 }
+
+/* End Dialog Buttons */
