@@ -1,10 +1,11 @@
 import { database } from './firebase-config.js';
 import { push, set, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { getRandomContactColor, isValidEmail } from './contact-utils.js';
+import { getInitials, generateContactListHTML } from './contact-templates.js';
 
 
 const contactsRef = ref(database, "contacts");
-const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_mail', 'dialog_input_phone'];
+const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
 let contactsData = {};
 let selectedContactId = null;
 
@@ -13,7 +14,19 @@ let selectedContactId = null;
  * Saves changes to the currently edited contact.
  */
 function saveContact() {
+    const name = document.getElementById('dialog_input_name').value.trim();
+    const email = document.getElementById('dialog_input_email').value.trim();
+    const phone = document.getElementById('dialog_input_phone').value.trim();
 
+    clearContactError();
+    if (!isContactFormValid(name, email, phone)) return;
+
+    const contact = { name, email, phone, color: contactsData[selectedContactId].color };
+    const contactRef = ref(database, "contacts/" + selectedContactId);
+    set(contactRef, contact);
+
+    renderContactDetails(contact);
+    closeDialog();
 }
 
 
@@ -106,7 +119,7 @@ function isContactFormValid(name, email, phone) {
     }
 
     if (!isValidEmail(email)) {
-        showContactError(['dialog_input_mail'], 'Please enter a valid email address.');
+        showContactError(['dialog_input_email'], 'Please enter a valid email address.');
         return false;
     }
 
@@ -119,7 +132,7 @@ function isContactFormValid(name, email, phone) {
  */
 async function addContact() {
     const name = document.getElementById('dialog_input_name').value.trim();
-    const email = document.getElementById('dialog_input_mail').value.trim();
+    const email = document.getElementById('dialog_input_email').value.trim();
     const phone = document.getElementById('dialog_input_phone').value.trim();
 
     clearContactError();
@@ -134,69 +147,20 @@ async function addContact() {
 
 
 /**
- * Builds the HTML for a single contact list item.
- *
- * @param {string} id - The Firebase key of the contact.
- * @param {object} contact - The contact data (name, email, phone, color).
- * @returns {string} The generated HTML markup.
- */
-function generateContactHTML(id, contact) {
-    return `
-        <div class="contact-list-item" data-id="${id}" tabindex="0" role="button">
-            <div class="contact-content">
-                <div class="initials-box">
-                    <div class="contact-initials" style="background-color: ${contact.color}">${getInitials(contact.name)}</div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-list-name">${contact.name}</div>
-                    <div class="contact-list-email">${contact.email}</div>
-                </div>
-            </div>
-        </div>
-    `;
-}
-
-
-/**
- * Builds the initials from a contact's full name.
- *
- * @param {string} name - The contact's full name.
- * @returns {string} The uppercase initials.
- */
-function getInitials(name) {
-    return name.split(" ").map(w => w[0]).join("").toUpperCase();
-}
-
-
-/**
- * Builds the HTML for the full contact list, inserting a letter heading before each new group.
- *
- * @param {Array} entries - Sorted [id, contact] pairs.
- * @returns {string} The generated HTML markup.
- */
-function generateContactListHTML(entries) {
-    let lastLetter = "";
-    return entries.map(([id, contact]) => {
-        let html = "";
-        const firstLetter = contact.name[0].toUpperCase();
-        if (firstLetter !== lastLetter) {
-            lastLetter = firstLetter;
-            html += `<div class="contact-list-letter">${firstLetter}</div>`
-        };
-
-        html += generateContactHTML(id, contact);
-        return html;
-
-    })
-        .join("");
-}
-
-
-/**
  * Opens the contact dialog in edit mode.
  */
 function editContact() {
     setDialogMode(true);
+
+    const contact = contactsData[selectedContactId];
+    document.getElementById('dialog_input_name').value = contact.name;
+    document.getElementById('dialog_input_email').value = contact.email;
+    document.getElementById('dialog_input_phone').value = contact.phone;
+
+    const dialogInitials = document.getElementById('dialog-initials');
+    dialogInitials.textContent = getInitials(contact.name);
+    dialogInitials.style.backgroundColor = contact.color;
+
 
     document.getElementById('dialog_topic_area').innerHTML = "";
     document.getElementById('dialog_topic_area').innerHTML = `
@@ -261,16 +225,29 @@ function handleContactClick(event) {
 
     const id = contactItem.dataset.id;
     const contact = contactsData[id];
-    document.getElementById('contact_details_name').textContent = contact.name;
-    document.getElementById('contact_details_email').textContent = contact.email;
-    document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
-    document.getElementById('contact_details_phone').textContent = contact.phone;
-    document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+
+    renderContactDetails(contact);
+
     document.getElementById('contact_details').hidden = false;
     selectedContactId = id;
 
     document.querySelector('.contact-list-item.active')?.classList.remove('active');
     contactItem.classList.add('active');
+}
+
+
+/**
+ * Renders a contact's data into the details panel.
+ *
+ * @param {object} contact - The contact data (name, email, phone).
+ */
+function renderContactDetails(contact) {
+    document.getElementById('contact_details_name').textContent = contact.name;
+    document.getElementById('contact_details_email').textContent = contact.email;
+    document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
+    document.getElementById('contact_details_phone').textContent = contact.phone;
+    document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+
 }
 
 
