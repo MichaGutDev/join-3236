@@ -1,5 +1,5 @@
 import { database } from './firebase-config.js';
-import { push, set, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { push, set, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
 
@@ -34,7 +34,12 @@ function saveContact() {
  * Deletes the currently selected or edited contact.
  */
 function deleteContact() {
+    const contactRef = ref(database, "contacts/" + selectedContactId);
+    remove(contactRef);
 
+    document.getElementById('contact_details').hidden = true;
+
+    closeDialog();
 }
 
 
