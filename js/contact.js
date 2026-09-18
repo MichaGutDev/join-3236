@@ -142,7 +142,7 @@ async function addContact() {
  */
 function generateContactHTML(id, contact) {
     return `
-        <div class="contact-list-item" data-id="${id}">
+        <div class="contact-list-item" data-id="${id}" tabindex="0" role="button">
             <div class="contact-content">
                 <div class="initials-box">
                     <div class="contact-initials" style="background-color: ${contact.color}">${getInitials(contact.name)}</div>
@@ -248,6 +248,11 @@ function setDialogMode(isEdit) {
 }
 
 
+/**
+ * Shows the details of the contact that was clicked or activated via keyboard, and highlights it in the list.
+ *
+ * @param {MouseEvent|KeyboardEvent} event
+ */
 function handleContactClick(event) {
     const contactItem = event.target.closest('.contact-list-item');
     if (contactItem === null) {
@@ -261,7 +266,23 @@ function handleContactClick(event) {
     document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
     document.getElementById('contact_details_phone').textContent = contact.phone;
     document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+    document.getElementById('contact_details').hidden = false;
     selectedContactId = id;
+
+    document.querySelector('.contact-list-item.active')?.classList.remove('active');
+    contactItem.classList.add('active');
+}
+
+
+/**
+ * Activates a contact via keyboard (Enter or Space), same as a click.
+ *
+ * @param {KeyboardEvent} event
+ */
+function handleContactKeydown(event) {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    handleContactClick(event);
 }
 
 
@@ -341,4 +362,5 @@ if (createContactBtnDialog) {
 const contactList = document.getElementById('contact_list');
 if (contactList) {
     contactList.addEventListener('click', handleContactClick);
+    contactList.addEventListener('keydown', handleContactKeydown);
 }

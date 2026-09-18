@@ -68,6 +68,11 @@ a {
     cursor: pointer;
 }
 
+.contact-list-item.active {
+    background-color: rgb(42, 54, 71);
+    color: white;
+}
+
 .contact-list-name {
     text-align: left;
 }
