@@ -1,10 +1,11 @@
 import { database } from './firebase-config.js';
-import { push, set, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { push, get, set, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
 
 
 const contactsRef = ref(database, "contacts");
+const tasksRef = ref(database, "tasks");
 const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
 let contactsData = {};
 let selectedContactId = null;
@@ -39,7 +40,27 @@ function deleteContact() {
 
     document.getElementById('contact_details').hidden = true;
 
+    removeContactFromTasks(selectedContactId);
+
     closeDialog();
+}
+
+
+async function removeContactFromTasks(contactId) {
+    const snapshot = await get(tasksRef);
+    const tasksData = snapshot.val();
+    const taskEntries = Object.entries(tasksData);
+
+    taskEntries.forEach(([taskId, task]) => {
+        const isAssigned = task.assignedTo.includes(contactId);
+
+        if (isAssigned) {
+            const updatedAssignedTo = task.assignedTo.filter(id => id !== contactId);
+            set(ref(database, "tasks/" + taskId + "/assignedTo"), updatedAssignedTo);
+        }
+    });
+
+
 }
 
 
