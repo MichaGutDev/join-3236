@@ -1,9 +1,3 @@
-.test {
-    background-color: lightblue;
-    height: 50px;
-    width: 50px;
-}
-
 a {
     color: #007CEE;
 }
@@ -18,9 +12,6 @@ a {
 }
 
 .contact-list-container {
-    border-right: solid black 1px;
-    /* remove this line */
-
     height: calc(100vh - 80px);
     min-width: 424px;
     width: 424px;
@@ -34,6 +25,7 @@ a {
 
 .button-add-new-contact {
     width: 100%;
+    height: 56px;
     color: white;
 }
 
@@ -63,13 +55,13 @@ a {
 }
 
 .contact-list-item:hover {
-    background-color: rgb(42, 54, 71);
+    background-color: var(--color-primary);
     color: white;
     cursor: pointer;
 }
 
 .contact-list-item.active {
-    background-color: rgb(42, 54, 71);
+    background-color: var(--color-primary);
     color: white;
 }
 
@@ -126,7 +118,6 @@ a {
 
 .contact-details-header {
     height: 73px;
-    /* width: 569px; */
     margin-top: 100px;
     display: flex;
     justify-content: space-between;
@@ -148,7 +139,7 @@ a {
 }
 
 .contact-header-separator {
-    background-color: #29ABE2;
+    background-color: var(--color-underscore);
     height: 59px;
     width: 3px;
     border-radius: 3px;
@@ -222,8 +213,6 @@ a {
 }
 
 
-
-/* background color removed */
 .contact-details-initials {
     background-color: rgb(255, 132, 0);
     height: 120px;
@@ -237,275 +226,4 @@ a {
     font-size: 47px;
     color: white;
     font-weight: 500;
-}
-
-
-
-
-
-
-
-.dialog-container {
-    position: fixed;
-    min-height: 100%;
-    min-width: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-}
-
-::-webkit-scrollbar {
-    display: none;
-}
-
-.dialog-position {
-    height: 0px;
-    width: 0px;
-    top: 50%;
-    left: 50%;
-    right: 50%;
-    bottom: 50%;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dialog {
-    background-color: white;
-    min-height: 592px;
-    min-width: 1212px;
-    display: flex;
-    border-radius: 30px;
-}
-
-.dialog-topic {
-    background-color: var(--color-primary);
-    color: white;
-    min-height: 100%;
-    min-width: 453px;
-    border-radius: 20px 0 0 20px;
-    padding-left: 28px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    gap: 16px;
-}
-
-.dialog-topic-slogan {
-    font-size: 27px;
-    color: white;
-}
-
-.dialog-join-logo {
-    height: 54px;
-    margin-bottom: 16px;
-}
-
-.dialog-topic-title {
-    font-size: 61px;
-    font-weight: 700;
-}
-
-.dialog-topic-underline {
-    background-color: #29ABE2;
-    height: 4px;
-    width: 100px;
-    margin-top: 16px;
-}
-
-
-
-
-
-
-.dialog-content {
-    background-color: white;
-    min-height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    border-radius: 0 20px 20px 0;
-    padding-top: 28px;
-    padding-right: 58px;
-    padding-bottom: 40px;
-}
-
-.dialog-close-btn {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 28px;
-    width: 100%;
-}
-
-.dialog-close-btn button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    height: 32px;
-}
-
-.dialog-aside-split {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.dialog-initials-container {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 60px;
-}
-
-/* remove backgroundcolor */
-.dialog-initials-container span {
-    background-color: red;
-    height: 120px;
-    width: 120px;
-    border: solid white 3px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 47px;
-    color: white;
-    font-weight: 500;
-}
-
-.dialog-initials-container span[hidden] {
-    display: none;
-}
-
-.dialog-avatar-placeholder {
-    height: 120px;
-    width: 120px;
-    border-radius: 50%;
-    background-color: rgba(209, 209, 209, 1);
-    border: solid white 3px;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.dialog-avatar-placeholder[hidden] {
-    display: none;
-}
-
-.dialog-avatar-placeholder img {
-    height: 43px;
-    width: 43px;
-}
-
-.dialog-input-container {
-    height: 215px;
-    width: 422px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.dialog-input {
-    height: 50px;
-    width: 422px;
-    border-radius: 10px;
-    filter: none;
-    border: solid black 1px;
-    font-weight: 400;
-    font-size: 20px;
-}
-
-.dialog-input.field-error {
-    border-color: var(--color-error);
-}
-
-.dialog-input-name {
-    background-image: url("../assets/icons/inputfield-contact-icon.svg");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 20px 20px;
-    padding: 13px 48px 13px 21px;
-    box-sizing: border-box;
-}
-
-.dialog-input-mail {
-    background-image: url("../assets/icons/inputfield-mail-icon.svg");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 20px 20px;
-    padding: 13px 48px 13px 21px;
-    box-sizing: border-box;
-}
-
-.dialog-input-phone {
-    background-image: url("../assets/icons/inputfield-phone-icon.svg");
-    background-repeat: no-repeat;
-    background-position: right 16px center;
-    background-size: 20px 20px;
-    padding: 13px 48px 13px 21px;
-    box-sizing: border-box;
-}
-
-.dialog-button-container {
-    height: 57px;
-    width: fit-content;
-    display: flex;
-    gap: 30px;
-    margin-top: 50px;
-}
-
-.dialog-button-general {
-    height: 100%;
-    border-radius: 10px;
-    padding: 0 24px;
-    border: solid black 1px;
-    font-size: 21px;
-    white-space: nowrap;
-}
-
-.dialog-button-general:hover {
-    cursor: pointer;
-}
-
-.dialog-btn-cancel {
-    background-color: white;
-}
-
-.dialog-btn-delete {
-    background-color: white;
-}
-
-.dialog-btn-save {
-    background-color: var(--color-primary);
-    color: white;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.dialog-btn-save[hidden] {
-    display: none;
-}
-
-.dialog-btn-save img {
-    height: 18px;
-    width: 18x;
-}
-
-.dialog-btn-create-contact {
-    background-color: var(--color-primary);
-    color: white;
-}
-
-.dialog-btn-create img {
-    height: 18px;
-    width: 18x;
 }
