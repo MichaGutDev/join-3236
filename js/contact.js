@@ -46,6 +46,12 @@ function deleteContact() {
 }
 
 
+/**
+ * Removes a contact id from the assignedTo list of every task that has it.
+ *
+ * @param {string} contactId - The id of the deleted contact.
+ * @returns {Promise<void>}
+ */
 async function removeContactFromTasks(contactId) {
     const snapshot = await get(tasksRef);
     const tasksData = snapshot.val();
@@ -59,8 +65,6 @@ async function removeContactFromTasks(contactId) {
             set(ref(database, "tasks/" + taskId + "/assignedTo"), updatedAssignedTo);
         }
     });
-
-
 }
 
 
@@ -102,7 +106,6 @@ function cancelDialog() {
 function stopBubbleling(event) {
     event.stopPropagation();
 }
-
 
 
 /**
@@ -234,7 +237,6 @@ function setDialogMode(isEdit) {
     deleteContactBtnDialog.hidden = !isEdit;
     const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
     saveContactBtnDialog.hidden = !isEdit;
-
 }
 
 
@@ -273,7 +275,6 @@ function renderContactDetails(contact) {
     document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
     document.getElementById('contact_details_phone').textContent = contact.phone;
     document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
-
 }
 
 
