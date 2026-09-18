@@ -9,7 +9,9 @@ a {
 }
 
 .separator {
-    border-bottom: solid rgb(218, 218, 218) 1px;
+    width: 100%;
+    border-bottom: solid rgb(209, 209, 209) 1px;
+    border-radius: 3px;
 }
 
 /* End General */
@@ -53,6 +55,9 @@ a {
 .contact-list {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .contact-list-item {
@@ -62,27 +67,38 @@ a {
     background-color: var(--color-bg-main);
     width: 100%;
     gap: 20px;
-    padding: 20px 0
+    padding: 16px 0
 }
 
 .contact-list-item:hover {
     background-color: var(--color-primary);
     color: white;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .contact-list-item.active {
     background-color: var(--color-primary);
     color: white;
+    border-radius: 10px;
+}
+
+.contact-list-letter {
+    font-size: 20px;
+    padding: 17px 36px;
 }
 
 .contact-list-name {
     text-align: left;
+    font-size: 20px;
+    padding-bottom: 5px;
 }
 
 .contact-list-email {
     width: fit-content;
     text-align: left;
+    color: #007CEE;
+;
 }
 
 .contact-content {
@@ -103,8 +119,8 @@ a {
 .contact-initials {
     border: solid white 2px;
     color: white;
-    height: 36px;
-    width: 36px;
+    height: 42px;
+    width: 42px;
     border-radius: 50%;
     display: flex;
     justify-content: center;

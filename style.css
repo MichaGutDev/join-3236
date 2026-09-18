@@ -266,8 +266,8 @@ aside img {
 }
 
 .nav-item img {
-  width: 20px;
-  height: 20px;
+  max-width: 30px;
+  max-height: 25px;
 }
 
 .nav-item.active,
