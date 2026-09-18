@@ -4,7 +4,7 @@ import { getRandomContactColor, isValidEmail } from './contact-utils.js';
 
 
 const contactsRef = ref(database, "contacts");
-const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_mail', 'dialog_input_phone'];
+const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
 let contactsData = {};
 let selectedContactId = null;
 
@@ -106,7 +106,7 @@ function isContactFormValid(name, email, phone) {
     }
 
     if (!isValidEmail(email)) {
-        showContactError(['dialog_input_mail'], 'Please enter a valid email address.');
+        showContactError(['dialog_input_email'], 'Please enter a valid email address.');
         return false;
     }
 
@@ -119,7 +119,7 @@ function isContactFormValid(name, email, phone) {
  */
 async function addContact() {
     const name = document.getElementById('dialog_input_name').value.trim();
-    const email = document.getElementById('dialog_input_mail').value.trim();
+    const email = document.getElementById('dialog_input_email').value.trim();
     const phone = document.getElementById('dialog_input_phone').value.trim();
 
     clearContactError();
@@ -200,7 +200,7 @@ function editContact() {
 
     const contact = contactsData[selectedContactId];
     document.getElementById('dialog_input_name').value = contact.name;
-    document.getElementById('dialog_input_mail').value = contact.email;
+    document.getElementById('dialog_input_email').value = contact.email;
     document.getElementById('dialog_input_phone').value = contact.phone;
 
 
