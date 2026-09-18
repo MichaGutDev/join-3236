@@ -13,7 +13,19 @@ let selectedContactId = null;
  * Saves changes to the currently edited contact.
  */
 function saveContact() {
+    const name = document.getElementById('dialog_input_name').value.trim();
+    const email = document.getElementById('dialog_input_email').value.trim();
+    const phone = document.getElementById('dialog_input_phone').value.trim();
 
+    clearContactError();
+    if (!isContactFormValid(name, email, phone)) return;
+
+    const contact = { name, email, phone, color: contactsData[selectedContactId].color };
+    const contactRef = ref(database, "contacts/" + selectedContactId);
+    set(contactRef, contact);
+
+    renderContactDetails(contact);
+    closeDialog();
 }
 
 
@@ -267,16 +279,29 @@ function handleContactClick(event) {
 
     const id = contactItem.dataset.id;
     const contact = contactsData[id];
-    document.getElementById('contact_details_name').textContent = contact.name;
-    document.getElementById('contact_details_email').textContent = contact.email;
-    document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
-    document.getElementById('contact_details_phone').textContent = contact.phone;
-    document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+
+    renderContactDetails(contact);
+
     document.getElementById('contact_details').hidden = false;
     selectedContactId = id;
 
     document.querySelector('.contact-list-item.active')?.classList.remove('active');
     contactItem.classList.add('active');
+}
+
+
+/**
+ * Renders a contact's data into the details panel.
+ *
+ * @param {object} contact - The contact data (name, email, phone).
+ */
+function renderContactDetails(contact) {
+    document.getElementById('contact_details_name').textContent = contact.name;
+    document.getElementById('contact_details_email').textContent = contact.email;
+    document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
+    document.getElementById('contact_details_phone').textContent = contact.phone;
+    document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+
 }
 
 
