@@ -45,6 +45,9 @@ export function generateContactListHTML(entries) {
         let html = "";
         const firstLetter = contact.name[0].toUpperCase();
         if (firstLetter !== lastLetter) {
+            if (lastLetter !== "") {
+                html += `<div class="separator"></div>`;
+            }
             lastLetter = firstLetter;
             html += `<div class="contact-list-letter">${firstLetter}</div>`
         };
