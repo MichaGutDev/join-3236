@@ -198,6 +198,12 @@ function generateContactListHTML(entries) {
 function editContact() {
     setDialogMode(true);
 
+    const contact = contactsData[selectedContactId];
+    document.getElementById('dialog_input_name').value = contact.name;
+    document.getElementById('dialog_input_mail').value = contact.email;
+    document.getElementById('dialog_input_phone').value = contact.phone;
+
+
     document.getElementById('dialog_topic_area').innerHTML = "";
     document.getElementById('dialog_topic_area').innerHTML = `
         <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
