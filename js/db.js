@@ -1,13 +1,14 @@
 import { database } from "./firebase-config.js";
 
-import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { ref, onValue, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 
 const tasksRef = ref(database, "tasks");
-
 
 export function listenToTasks(callback) {
 
     onValue(tasksRef, (snapshot) => {
+        console.log("got data at time: " + Date.now());
+
         const taskData = snapshot.val();
 
         const tasks = taskData
@@ -17,6 +18,7 @@ export function listenToTasks(callback) {
             : [];
 
         callback(tasks);
+        
     });
 }
 
@@ -26,16 +28,10 @@ export function listenToTasks(callback) {
 //     console.log(taskData);
 // });
 
-function updateTasks(taskData) {
-  tasks.length = 0;
-  if (!taskData) {
-    console.log("Did not find taskData");
-    return
-  };
-  const updatedTasks = Object.entries(taskData).map(([id, task])=>{
-    return {...task, id};}
-  )
-  tasks.push(...updatedTasks);
+export function updateTaskStatus(id, status) {
+    const updates = {};
+    updates[`/tasks/${id}/status`] = status;
+    return update(ref(database), updates);
 }
 
 const tasks = [];

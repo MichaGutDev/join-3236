@@ -1,7 +1,9 @@
 import { initTaskForm } from "./add_task.js";
 import { returnTaskHTML, returnAddTaskForm } from "./templates.js";
-import { listenToTasks } from "./db.js";
+import { listenToTasks, updateTaskStatus } from "./db.js";
 import { filterTasks } from "./search.js";
+import { database } from "./firebase-config.js";
+import { ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 let tasks = [];
 let currentDraggedTaskId;
 const taskContainerMap = {
@@ -36,6 +38,8 @@ export function displayTasks(taskList = tasks) {
         taskContainerMap[task.status].innerHTML += returnTaskHTML(task)
     });
     initDraggableTasks();
+    console.log("finished render at: " + Date.now());
+
 }
 
 function search() {
@@ -174,7 +178,7 @@ function renderContacts(contacts, assignedTo = []) {
  * @param {DragEvent} event 
  */
 function startDragging(event) {
-    currentDraggedTaskId = Number(event.currentTarget.dataset.taskId);
+    currentDraggedTaskId = event.currentTarget.dataset.taskId;    
     event.currentTarget.classList.add("dragging");
 }
 
@@ -192,15 +196,11 @@ function stopDragging(event) {
 //  * 
 //  * @param {string} status 
 //  */
-function moveTaskTo(event) {
+async function moveTaskTo(event) {
     event.preventDefault();
-
     const status = event.currentTarget.dataset.status;
-    const draggedTask = tasks.find(task => task.id === currentDraggedTaskId);
-    if (!draggedTask) return;
-    draggedTask.status = status;
-    document.querySelector('.drag-area-highlight')?.classList.remove('drag-area-highlight');
-    displayTasks();
+    await updateTaskStatus(currentDraggedTaskId, status);
+    document.querySelector(".drag-area-highlight")?.classList.remove("drag-area-highlight");
 }
 
 function initDragAndDrop() {
