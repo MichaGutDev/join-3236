@@ -38,8 +38,6 @@ export function displayTasks(taskList = tasks) {
         taskContainerMap[task.status].innerHTML += returnTaskHTML(task)
     });
     initDraggableTasks();
-    console.log("finished render at: " + Date.now());
-
 }
 
 function search() {

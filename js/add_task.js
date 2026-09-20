@@ -1,66 +1,53 @@
 import { database } from './firebase-config.js';
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { saveTask } from "./db.js";
 
 let valueLog = [];
 let editingTaskId = null;
 const subtasks = [];
-const logger = document.getElementById('logger');
 
-// logger.addEventListener("click", logSubtasks);
+
+let formRef;
+
 
 export function initTaskForm(taskStatus = "To Do") {
-    const formRef = document.querySelector("#task-form");
-    const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+  formRef = document.querySelector("#task-form");
+  const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
 
-    addSubtaskBtnRef.addEventListener("click", addSubtask);
+  addSubtaskBtnRef.addEventListener("click", addSubtask);
 
-    formRef.addEventListener("submit", (event) => {
-        event.preventDefault();
-        getValues(formRef, taskStatus);
-    });
+  formRef.addEventListener("submit", (event) => {
+    event.preventDefault();
+    getValues(taskStatus);
+  });
 }
 
 async function getValues(status) {
-    const formData = new FormData(formRef);
-    const task = createTaskObject(formData, status);
-    valueLog.push(task);
-    // await saveTask(task, editingTaskId);
-    logSubtasks();
-    resetTaskForm();
+  const formData = new FormData(formRef);
+  const task = createTaskObject(formData, status);
+  valueLog.push(task);
+  await saveTask(task, editingTaskId);
+  resetTaskForm();
 }
 
 function createTaskObject(formData, status = "To Do") {
-    return {
-        title: formData.get("title"),
-        description: formData.get("description"),
-        dueDate: formData.get("dueDate"),
-        prio: formData.get("priority"),
-        category: formData.get("category"),
-        assignedTo: formData.getAll("assignedTo"),
-        subtasks: [...subtasks],
-        status,
-    };
+  return {
+    title: formData.get("title"),
+    description: formData.get("description"),
+    dueDate: formData.get("dueDate"),
+    priority: formData.get("priority"),
+    category: formData.get("category"),
+    assignedTo: formData.getAll("assignedTo"),
+    status,
+    subtasks: [...subtasks],
+  };
 }
 
-// async function saveTask(task, id = null) {
-//     if (id) {
-//         const taskRef = ref(database, `tasks/${id}`);
-//         await set(taskRef, task);
-//         return;
-//     }
-
-//     const tasksRef = ref(database, "tasks");
-//     const newTaskRef = push(tasksRef);
-
-//     await set(newTaskRef, task);
-// }
-
 function resetTaskForm() {
-    formRef.reset();
-    subtasks.length = 0;
-    editingTaskId = null;
-
-    renderSubtasks();
+  formRef.reset();
+  subtasks.length = 0;
+  editingTaskId = null;
+  renderSubtasks();
 }
 
 function addSubtask() {
@@ -113,7 +100,4 @@ function deleteSubtask(event) {
   renderSubtasks();
 }
 
-function logSubtasks() {
-  console.log(subtasks);
-  console.log(valueLog);
-}
+initTaskForm();

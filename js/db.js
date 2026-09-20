@@ -1,37 +1,37 @@
 import { database } from "./firebase-config.js";
 
-import { ref, onValue, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { ref, onValue, update, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 
 const tasksRef = ref(database, "tasks");
 
 export function listenToTasks(callback) {
-
     onValue(tasksRef, (snapshot) => {
-        console.log("got data at time: " + Date.now());
-
         const taskData = snapshot.val();
-
         const tasks = taskData
             ? Object.entries(taskData).map(([id, task]) => {
                 return { ...task, id };
             })
             : [];
-
         callback(tasks);
-        
     });
 }
-
-// onValue(tasksRef, (snapshot) => {
-//     const taskData = snapshot.val();
-
-//     console.log(taskData);
-// });
 
 export function updateTaskStatus(id, status) {
     const updates = {};
     updates[`/tasks/${id}/status`] = status;
     return update(ref(database), updates);
+}
+
+
+export async function saveTask(task, id = null) {
+    if (id) {
+        const taskRef = ref(database, `tasks/${id}`);
+        await set(taskRef, task);
+        return;
+    }
+    const tasksRef = ref(database, "tasks");
+    const newTaskRef = push(tasksRef);
+    await set(newTaskRef, task);
 }
 
 const tasks = [];
@@ -60,19 +60,19 @@ const users = [
 
 
 // {
-  //   id: 1,
-  //   title: "Create login page",
-  //   description: "Build the basic structure and styling for the login page.",
-  //   dueDate: "2026-08-25",
-  //   priority: "urgent",
-  //   category: "User Story",
-  //   assignedTo: ["contactId1", "contactId2"],
-  //   status: "To Do",
-  //   subtasks: [
-  //     { subtask: "Create HTML structure", completion: true },
-  //     { subtask: "Add responsive styling", completion: false },
-  //   ],
-  // },
+//     id: 1,
+//     title: "Create login page",
+//     description: "Build the basic structure and styling for the login page.",
+//     dueDate: "2026-08-25",
+//     priority: "urgent",
+//     category: "User Story",
+//     assignedTo: ["contactId1", "contactId2"],
+//     status: "To Do",
+//     subtasks: [
+//       { subtask: "Create HTML structure", completion: true },
+//       { subtask: "Add responsive styling", completion: false },
+//     ],
+//   },
   // {
   //   id: 2,
   //   title: "Design task cards",
