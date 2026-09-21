@@ -24,6 +24,7 @@ a {
     min-width: 424px;
     width: 424px;
     overflow-y: auto;
+    scrollbar-gutter: stable;
     gap: 12px;
     display: flex;
     flex-direction: column;
