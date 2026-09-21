@@ -349,6 +349,42 @@ if (deleteContactBtnDetails) {
 }
 
 
+const contactMenuBtn = document.getElementById('contact-menu-btn');
+if (contactMenuBtn) {
+    contactMenuBtn.addEventListener('click', () => {
+        document.getElementById('contact-menu').classList.toggle('open');
+    });
+}
+
+
+/**
+ * Closes the contact menu when a click occurs outside of it.
+ *
+ * @param {MouseEvent} event
+ */
+function closeContactMenuOutside(event) {
+    const wrapper = document.querySelector('.contact-menu-wrapper');
+    const menu = document.getElementById('contact-menu');
+    if (menu && wrapper && !wrapper.contains(event.target)) {
+        menu.classList.remove('open');
+    }
+}
+
+document.addEventListener('click', closeContactMenuOutside);
+
+
+const editContactBtnMobile = document.getElementById('edit-contact-btn-mobile');
+if (editContactBtnMobile) {
+    editContactBtnMobile.addEventListener('click', editContact);
+}
+
+
+const deleteContactBtnMobile = document.getElementById('delete-contact-btn-mobile');
+if (deleteContactBtnMobile) {
+    deleteContactBtnMobile.addEventListener('click', deleteContact);
+}
+
+
 const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
 if (deleteContactBtnDialog) {
     deleteContactBtnDialog.addEventListener('click', deleteContact);
