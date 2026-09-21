@@ -92,36 +92,37 @@ a {
 
 .contact-list-name {
     text-align: left;
-    font-size: 20px;
+    font-size: clamp(14px, 4vw, 20px);
     padding-bottom: 5px;
 }
 
 .contact-list-email {
     width: fit-content;
     text-align: left;
+    font-size: clamp(12px, 3.5vw, 16px);
     color: var(--color-contact-mail);
 }
 
 .contact-content {
     display: flex;
-    gap: 20px;
+    gap: clamp(8px, 4vw, 20px);
 }
 
 .initials-box {
-    min-height: 42px;
-    min-width: 42px;
-    width: 42px;
+    min-height: clamp(32px, 8vw, 42px);
+    min-width: clamp(32px, 8vw, 42px);
+    width: clamp(32px, 8vw, 42px);
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 24px;
+    margin-left: clamp(8px, 4vw, 24px);
 }
 
 .contact-initials {
     border: solid white 2px;
     color: white;
-    height: 42px;
-    width: 42px;
+    height: clamp(32px, 8vw, 42px);
+    width: clamp(32px, 8vw, 42px);
     border-radius: 50%;
     display: flex;
     justify-content: center;
