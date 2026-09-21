@@ -142,33 +142,35 @@ a {
 
 .container-contact-details {
     height: 100%;
-    width: calc(100% - 38px);
+    flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding-left: 100px;
+    padding-right: 16px;
 }
 
 .contact-details-header {
     height: 73px;
     margin-top: 100px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 24px;
+    width: 100%;
 }
 
 .contact-details-title {
     height: 100%;
-    width: 274px;
-    font-size: 61px;
+    flex-shrink: 0;
+    font-size: clamp(36px, 4vw, 61px);
     font-weight: 700;
 }
 
 .contact-details-slogan {
-    width: 235px;
-    font-size: 27px;
+    min-width: 0;
+    font-size: clamp(18px, 2vw, 27px);
     font-weight: 400;
-    text-align: end;
     color: var(--color-primary);
 }
 
@@ -188,14 +190,18 @@ a {
 .contact-details-item {
     display: flex;
     align-items: center;
+    width: 100%;
 }
 
 .contact-details-name {
-    padding-left: 50px;
+    padding-left: clamp(16px, 4vw, 50px);
+    min-width: 0;
+    flex: 1;
 }
 
 .contact-details-name-text {
-    font-size: 47px;
+    font-size: clamp(28px, 3.5vw, 47px);
+    overflow-wrap: break-word;
 }
 
 .contact-details-actions {
@@ -249,29 +255,24 @@ a {
 
 .contact-details-initials {
     background-color: rgb(255, 132, 0);
-    height: 120px;
-    width: 120px;
+    height: clamp(72px, 9vw, 120px);
+    width: clamp(72px, 9vw, 120px);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     border: solid white 3px;
     filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.5));
-    font-size: 47px;
+    font-size: clamp(28px, 3.5vw, 47px);
     color: white;
     font-weight: 500;
+    flex-shrink: 0;
 }
 
 /* End Contact Details */
 
 
 /* Responsive */
-
-@media screen and (max-width: 1280px) {
-    .container-contact-details {
-        display: none;
-    }
-}
 
 @media screen and (max-width: 1024px) {
     .contact-list-container {

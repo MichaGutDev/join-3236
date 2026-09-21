@@ -261,6 +261,15 @@ function handleContactClick(event) {
 
     document.querySelector('.contact-list-item.active')?.classList.remove('active');
     contactItem.classList.add('active');
+    document.querySelector('.section-main-content').classList.add('detail-open');
+}
+
+
+/**
+ * Hides the contact details panel and shows the contact list again (mobile).
+ */
+function closeContactDetails() {
+    document.querySelector('.section-main-content').classList.remove('detail-open');
 }
 
 
@@ -368,4 +377,10 @@ const contactList = document.getElementById('contact_list');
 if (contactList) {
     contactList.addEventListener('click', handleContactClick);
     contactList.addEventListener('keydown', handleContactKeydown);
+}
+
+
+const backBtn = document.getElementById('contact-back-btn');
+if (backBtn) {
+    backBtn.addEventListener('click', closeContactDetails);
 }
