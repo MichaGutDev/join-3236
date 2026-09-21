@@ -262,3 +262,33 @@ a {
 }
 
 /* End Contact Details */
+
+
+/* Responsive */
+
+@media screen and (max-width: 1280px) {
+    .container-contact-details {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .contact-list-container {
+        height: calc(100vh - 160px);
+        box-shadow: none;
+    }
+
+    .section-main-content {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 428px) {
+    .contact-list-container {
+        width: 100%;
+        min-width: 0;
+        padding: 24px clamp(16px, 8vw, 36px) 0 clamp(16px, 8vw, 36px);
+    }
+}
+
+/* End Responsive */

@@ -8,10 +8,6 @@
     overflow: hidden;
 }
 
-::-webkit-scrollbar {
-    display: none;
-}
-
 .dialog-position {
     height: 0px;
     width: 0px;
