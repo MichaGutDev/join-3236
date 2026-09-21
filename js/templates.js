@@ -114,5 +114,53 @@ export function returnTaskHTML(task) {
     `
 }
 
+export function returnTaskView(task) {
+    return `
+        <article class="task-detail">
+            <header class="task-detail-header">
+                <span class="task-category ${task.category.replace(/\s+/g, '-').toLowerCase()}">
+                    ${task.category}
+                </span>
+                <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+            </header>
+
+            <h2 class="task-title">
+                ${task.title}
+            </h2>
+            <p class="task-description">
+                ${task.description}
+            </p>
+
+            <dl class="task-information">
+                <div>
+                    <dt>Due date:</dt>
+                    <dd class="task-due-date">${task.dueDate}</dd>
+                </div>
+                <div>
+                    <dt>Priority:</dt>
+                    <dd class="task-priority">${task.priority}</dd>
+                </div>
+            </dl>
+
+            <section class="task-assigned">
+                <h3>Assigned To:</h3>
+                <ul class="task-assigned-list">
+                </ul>
+            </section>
+
+            <section class="task-subtasks">
+                <h3>Subtasks</h3>
+                <ul class="task-subtask-list">
+                </ul>
+            </section>
+
+            <footer class="task-actions">
+                <button type="button" class="delete-task-btn">Delete</button>
+                <button type="button" class="edit-task-btn">Edit</button>
+            </footer>
+        </article>
+    `
+}
+
 //<div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
 //<span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>

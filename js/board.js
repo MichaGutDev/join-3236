@@ -1,5 +1,5 @@
 import { initTaskForm } from "./add_task.js";
-import { returnTaskHTML, returnAddTaskForm } from "./templates.js";
+import { returnTaskHTML, returnAddTaskForm, returnTaskView } from "./templates.js";
 import { listenToTasks, updateTaskStatus } from "./db.js";
 import { filterTasks } from "./search.js";
 import { database } from "./firebase-config.js";
@@ -12,20 +12,42 @@ const taskContainerMap = {
     "Awaiting Feedback": document.getElementById('await_feedback'),
     "Done": document.getElementById('done'),
 }
-const taskDialogRef = document.getElementById("task-edit-dialog");
+const taskDialogRef = document.getElementById("task-dialog");
 const taskDialogContentRef = document.getElementById("task-dialog-content");
 const searchInputRef = document.getElementById('search-task');
 searchInputRef.addEventListener("input", search);
 
 function init() {
     initDragAndDrop();
+    initTaskClickListener()
     listenToTasks((updatedTasks) => {
         tasks = updatedTasks;
         displayTasks();
     });
 }
 
-init();
+function initTaskClickListener() {
+    const boardWrapperRef = document.querySelector(".board-wrapper");
+    boardWrapperRef.addEventListener("click", openTask);
+}
+
+function initTaskView(task) {
+    // work in progress
+}
+
+function openTask(event) {
+    const taskElement = event.target.closest(".task-box");
+
+    if (!taskElement) return;
+
+    const taskId = taskElement.dataset.taskId;
+    const task = tasks.find(task => task.id === taskId);
+
+    if (!task) return;
+
+    taskDialogRef.innerHTML = returnTaskView(task);
+    openTaskDialog();
+}
 
 /**
  * Renders all tasks into the respective containers.
@@ -97,6 +119,7 @@ function returnSubtaskValues(subtaskList) {
     return [counter, subtaskList.length]
 }
 
+
 /**
  * Closes Task Dialog Modal
  */
@@ -109,8 +132,8 @@ function closeTaskDialog() {
  * @param {string} id 
  * @param {string} mode 
  */
-function openTaskDialog(id = null, mode) {
-    renderDialogContent(id, mode);
+function openTaskDialog() {
+    document.getElementById('close-task-dialog').addEventListener("click", closeTaskDialog);
     taskDialogRef.showModal();
 }
 
@@ -176,7 +199,7 @@ function renderContacts(contacts, assignedTo = []) {
  * @param {DragEvent} event 
  */
 function startDragging(event) {
-    currentDraggedTaskId = event.currentTarget.dataset.taskId;    
+    currentDraggedTaskId = event.currentTarget.dataset.taskId;
     event.currentTarget.classList.add("dragging");
 }
 
@@ -231,3 +254,5 @@ function highlight(event) {
 function removeHighlight(event) {
     event.currentTarget.classList.remove("drag-highlight");
 }
+
+init();
