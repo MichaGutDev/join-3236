@@ -1,4 +1,4 @@
-import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum } from "./board.js";
+import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum, returnSubtaskProgressHTML } from "./board.js";
 
 export function returnAddTaskForm() {
     return `<div class="form-wrapper">
@@ -100,12 +100,7 @@ export function returnTaskHTML(task) {
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
             <h4>${task.title}</h4>
             <span class="task-descr">${task.description}</span>
-            <div class="subtask-progress-container">
-                <div class="progress-bar-outer">
-                    
-                </div>
-                
-            </div>
+            ${returnSubtaskProgressHTML(task.subtasks)}
             <div class="initials-container">
                 <div class="user-avatar">RB</div>
                 <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
@@ -116,7 +111,7 @@ export function returnTaskHTML(task) {
 
 export function returnTaskView(task) {
     return `
-        <article class="task-detail">
+        <article class="task-detail" data-task-id="${task.id}">
             <header class="task-detail-header">
                 <span class="task-category ${task.category.replace(/\s+/g, '-').toLowerCase()}">
                     ${task.category}
@@ -162,5 +157,43 @@ export function returnTaskView(task) {
     `
 }
 
-//<div class="progress-bar" style="width: ${returnSubtaskCompletionPercent(task.subtasks)}%;"></div>
-//<span>${returnSubtaskCompletionNum(task.subtasks)} Subtasks</span>
+function returnSubtasksHTML(subtasks) {
+    if (!subtasks || subtasks.length === 0) {
+        return "";
+    }
+
+    return `
+        <section class="task-subtasks">
+            <h3>Subtasks</h3>
+
+            <ul class="task-subtask-list">
+                ${subtasks.map(({ description, completion }, index) =>
+        `
+                        <li class="subtask-item">
+                            <input
+                                class="subtask-item-input"
+                                type="checkbox"
+                                data-subtask-index="${index}"
+                                ${completion ? "checked" : ""}
+                            >
+
+                            <span class="subtask-description">
+                                ${description}
+                            </span>
+                        </li>`).join("")}
+            </ul>
+        </section>
+    `;
+}
+
+export function returnSubtaskCompletionHTML(subtaskStats) {
+    return `
+        <div class="subtask-progress-container">
+            <div class="progress-bar">
+                <div class="progress-bar-fill" style="width: ${subtaskStats.percentage}%">
+                </div>
+            </div>
+            <span>${subtaskStats.completed}/${subtaskStats.total} Subtasks</span>
+        </div>
+    `;
+}

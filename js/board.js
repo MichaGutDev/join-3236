@@ -1,6 +1,6 @@
 import { initTaskForm } from "./add_task.js";
-import { returnTaskHTML, returnAddTaskForm, returnTaskView } from "./templates.js";
-import { listenToTasks, updateTaskStatus } from "./db.js";
+import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML } from "./templates.js";
+import { listenToTasks, updateTaskStatus, updateSubtaskCompletion } from "./db.js";
 import { filterTasks } from "./search.js";
 import { database } from "./firebase-config.js";
 import { ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
@@ -26,13 +26,29 @@ function init() {
     });
 }
 
+function initSubtaskClickListener() {
+    const taskDialogRef = document.getElementById("task-dialog");
+    taskDialogRef.addEventListener("click", handleSubtaskCompletion);
+}
+
+function handleSubtaskCompletion(event) {
+    const subtaskElement = event.target.closest(".subtask-item-input");
+
+    if (!subtaskElement) return;
+
+    const taskElement = event.target.closest(".task-detail");
+
+    const taskId = taskElement.dataset.taskId;
+    const subtaskIndex = subtaskElement.dataset.subtaskIndex;
+    const completion = subtaskElement.checked;
+
+    updateSubtaskCompletion(taskId, subtaskIndex, completion);
+}
+
+
 function initTaskClickListener() {
     const boardWrapperRef = document.querySelector(".board-wrapper");
     boardWrapperRef.addEventListener("click", openTask);
-}
-
-function initTaskView(task) {
-    // work in progress
 }
 
 function openTask(event) {
@@ -46,6 +62,7 @@ function openTask(event) {
     if (!task) return;
 
     taskDialogRef.innerHTML = returnTaskView(task);
+    initSubtaskClickListener();
     openTaskDialog();
 }
 
@@ -75,6 +92,27 @@ function search() {
  */
 function clearTaskHTML() {
     Object.values(taskContainerMap).forEach(taskContainer => { taskContainer.innerHTML = "" });
+}
+
+
+export function returnSubtaskProgressHTML(subtasks) {
+    if (!subtasks || subtasks.length === 0) {
+        return "";
+    }
+    const subtaskStats = getSubtaskStats(subtasks);
+    return returnSubtaskCompletionHTML(subtaskStats);
+}
+
+function getSubtaskStats(subtasks) {
+    const subtaskStats = {
+        completed: 0,
+        total: 0,
+        percentage: 0
+    };
+    subtaskStats.completed = subtasks.filter(subtask => subtask.completion).length;
+    subtaskStats.total = subtasks.length;
+    subtaskStats.percentage = Math.round(subtaskStats.completed / subtaskStats.total * 100);
+    return subtaskStats;
 }
 
 /**
@@ -145,14 +183,14 @@ function openTaskDialog() {
  */
 function renderDialogContent(id, mode) {
     if (id && mode === "edit") {
-        insertTaskForm();
+        // insertTaskForm();
         insertTaskToEdit(tasks.id); //in progress
         return
     } else if (id && mode === "view") {
         renderTaskView(id); // open task
         return
     } else {
-        insertTaskForm();
+        // insertTaskForm();
     }
 }
 
@@ -180,6 +218,17 @@ function fillBasicTaskForm(task) { // CURRENTLY TEST
         }
     });
 }
+
+
+
+
+
+
+
+
+
+
+
 
 function renderContacts(contacts, assignedTo = []) {
     const selectRef = document.getElementById("assigned-to");
