@@ -28,6 +28,7 @@ function saveContact() {
 
     renderContactDetails(contact);
     closeDialog();
+    showContactToast('Contact successfully edited');
 }
 
 
@@ -43,6 +44,7 @@ function deleteContact() {
     removeContactFromTasks(selectedContactId);
 
     closeDialog();
+    showContactToast('Contact successfully deleted');
 }
 
 
@@ -65,6 +67,22 @@ async function removeContactFromTasks(contactId) {
             set(ref(database, "tasks/" + taskId + "/assignedTo"), updatedAssignedTo);
         }
     });
+}
+
+
+/**
+ * Shows a toast with the given message for a short moment.
+ *
+ * @param {string} message - The text to display in the toast.
+ */
+function showContactToast(message) {
+    const toast = document.getElementById('contact-toast');
+    toast.textContent = message;
+    toast.style.display = 'flex';
+
+    setTimeout(() => {
+        toast.style.display = 'none';
+    }, 1500);
 }
 
 
@@ -172,6 +190,7 @@ async function addContact() {
     set(newContactRef, contact);
 
     closeDialog();
+    showContactToast('Contact successfully created');
 }
 
 
