@@ -49,12 +49,10 @@ export function generateContactListHTML(entries) {
                 html += `<div class="separator"></div>`;
             }
             lastLetter = firstLetter;
-            html += `<div class="contact-list-letter">${firstLetter}</div>`
-        };
+            html += `<div class="contact-list-letter">${firstLetter}</div>`;
+        }
 
         html += generateContactHTML(id, contact);
         return html;
-
-    })
-        .join("");
+    }).join("");
 }

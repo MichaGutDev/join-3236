@@ -190,7 +190,6 @@ function editContact() {
     dialogInitials.textContent = getInitials(contact.name);
     dialogInitials.style.backgroundColor = contact.color;
 
-
     document.getElementById('dialog_topic_area').innerHTML = "";
     document.getElementById('dialog_topic_area').innerHTML = `
         <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
@@ -369,6 +368,7 @@ function closeContactMenuOutside(event) {
         menu.classList.remove('open');
     }
 }
+
 
 document.addEventListener('click', closeContactMenuOutside);
 

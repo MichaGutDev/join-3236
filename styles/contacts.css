@@ -69,7 +69,7 @@ a {
     background-color: var(--color-bg-main);
     width: 100%;
     gap: 20px;
-    padding: 16px 0
+    padding: 16px 0;
 }
 
 .contact-list-item:hover {
