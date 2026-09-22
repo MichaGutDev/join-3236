@@ -14,7 +14,7 @@ let selectedContactId = null;
 /**
  * Saves changes to the currently edited contact.
  */
-function saveContact() {
+async function saveContact() {
     const name = document.getElementById('dialog_input_name').value.trim();
     const email = document.getElementById('dialog_input_email').value.trim();
     const phone = document.getElementById('dialog_input_phone').value.trim();
@@ -24,7 +24,9 @@ function saveContact() {
 
     const contact = { name, email, phone, color: contactsData[selectedContactId].color };
     const contactRef = ref(database, "contacts/" + selectedContactId);
-    set(contactRef, contact);
+
+    document.getElementById('save-contact-btn-dialog').disabled = true;
+    await set(contactRef, contact);
 
     renderContactDetails(contact);
     closeDialog();
@@ -35,16 +37,30 @@ function saveContact() {
 /**
  * Deletes the currently selected or edited contact.
  */
-function deleteContact() {
+async function deleteContact() {
     const contactRef = ref(database, "contacts/" + selectedContactId);
-    remove(contactRef);
+
+    setDeleteButtonsDisabled(true);
+    await remove(contactRef);
 
     document.getElementById('contact_details').hidden = true;
 
-    removeContactFromTasks(selectedContactId);
+    await removeContactFromTasks(selectedContactId);
 
     closeDialog();
     showContactToast('Contact successfully deleted');
+}
+
+
+/**
+ * Enables or disables all buttons that can trigger a contact deletion.
+ *
+ * @param {boolean} disabled - True to disable the buttons.
+ */
+function setDeleteButtonsDisabled(disabled) {
+    document.getElementById('delete-contact-btn-details').disabled = disabled;
+    document.getElementById('delete-contact-btn-mobile').disabled = disabled;
+    document.getElementById('delete-contact-btn-dialog').disabled = disabled;
 }
 
 
@@ -104,6 +120,9 @@ function closeDialog() {
     CONTACT_FIELD_IDS.forEach((id) => {
         document.getElementById(id).value = "";
     });
+    document.getElementById('save-contact-btn-dialog').disabled = false;
+    document.getElementById('create-contact-btn-dialog').disabled = false;
+    setDeleteButtonsDisabled(false);
     dialog.close();
 }
 
@@ -187,7 +206,9 @@ async function addContact() {
 
     const contact = { name, email, phone, color: getRandomContactColor() };
     const newContactRef = push(contactsRef);
-    set(newContactRef, contact);
+
+    document.getElementById('create-contact-btn-dialog').disabled = true;
+    await set(newContactRef, contact);
 
     closeDialog();
     showContactToast('Contact successfully created');
