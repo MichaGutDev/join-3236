@@ -263,6 +263,7 @@
         height: 80dvh;
         width: 90%;
         max-width: 396px;
+        overflow: hidden;
     }
 
     .dialog-topic {
@@ -325,6 +326,10 @@
         margin-top: -60px;
     }
 
+    .dialog-form {
+        width: 100%;
+    }
+
     .dialog-input-container {
         width: 100%;
         height: auto;
@@ -340,8 +345,13 @@
     .dialog-button-container {
         width: 100%;
         height: 51px;
+        gap: 8px;
         margin-top: 24px;
         justify-content: center;
+    }
+
+    .dialog-cancel-btn {
+        display: none;
     }
 }
 
