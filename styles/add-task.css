@@ -4,10 +4,37 @@
     display: none;
 }
 
-.form-group {
-    display: flex;
+.form-wrapper {
     flex-direction: column;
+    padding-left: 117px;
+}
+
+.form-wrapper h1 {
+    margin-top: 124px;
+    margin-bottom: 48px;
+}
+
+.form-group {
     gap: 8px;
+}
+
+.priority {
+    border: none;
+    padding: 0;
+    margin: 0;
+}
+
+.priority legend {
+    margin-bottom: 8px;
+}
+
+.priority label {
+    background-color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    padding: 16px 10px;
+    width: 136px;
+    border-radius: 10px;
 }
 
 .form-group label {
@@ -20,6 +47,7 @@
 .task-input {
     box-sizing: border-box;
     width: 100%;
+    height: 48px;
     border-radius: 10px;
     border: 1px solid var(--color-form-box);
     background-color: white;
