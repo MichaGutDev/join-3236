@@ -1,0 +1,40 @@
+/* Add Task Form */
+
+.status {
+    display: none;
+}
+
+.task-form-columns {
+    display: flex;
+    gap: 32px;
+}
+
+.task-form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.task-form-divider {
+    width: 1px;
+    background-color: var(--color-underscore);
+}
+
+/* End Add Task Form */
+
+
+/* Responsive */
+
+@media screen and (max-width: 1024px) {
+    .task-form-columns {
+        flex-direction: column;
+    }
+
+    .task-form-divider {
+        display: none;
+    }
+}
+
+/* End Responsive */
