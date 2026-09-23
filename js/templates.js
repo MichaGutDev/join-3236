@@ -1,4 +1,5 @@
 import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum, returnSubtaskProgressHTML } from "./board.js";
+import { getInitials } from "./contact-templates.js";
 
 export function returnAddTaskForm() {
     return `<div class="form-wrapper">
@@ -143,11 +144,7 @@ export function returnTaskView(task) {
                 </ul>
             </section>
 
-            <section class="task-subtasks">
-                <h3>Subtasks</h3>
-                <ul class="task-subtask-list">
-                </ul>
-            </section>
+            ${returnSubtasksHTML(task.subtasks)}
 
             <footer class="task-actions">
                 <button type="button" class="delete-task-btn">Delete</button>
@@ -196,4 +193,19 @@ export function returnSubtaskCompletionHTML(subtaskStats) {
             <span>${subtaskStats.completed}/${subtaskStats.total} Subtasks</span>
         </div>
     `;
+}
+
+export function returnContactHTML(contact) {
+    return `
+        ${returnContactInitialsHTML(contact)}
+        <span> ${contact.name} </span>
+        `
+}
+
+export function returnContactInitialsHTML(contact) {
+    return `
+        <div class="initials-box">
+            <div class="contact-initials" style="background-color: ${contact.color}">${getInitials(contact.name)}</div>
+        </div>
+        `
 }

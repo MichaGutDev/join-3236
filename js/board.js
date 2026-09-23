@@ -2,9 +2,8 @@ import { initTaskForm } from "./add_task.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion } from "./db.js";
 import { filterTasks } from "./search.js";
-import { database } from "./firebase-config.js";
-import { ref, push, set, update } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 let tasks = [];
+let contacts = [];
 let currentDraggedTaskId;
 const taskContainerMap = {
     "To Do": document.getElementById('to_do'),
@@ -28,7 +27,7 @@ function init() {
 
 function initSubtaskClickListener() {
     const taskDialogRef = document.getElementById("task-dialog");
-    taskDialogRef.addEventListener("click", handleSubtaskCompletion);
+    taskDialogRef.addEventListener("change", handleSubtaskCompletion);
 }
 
 function handleSubtaskCompletion(event) {
@@ -94,7 +93,6 @@ function clearTaskHTML() {
     Object.values(taskContainerMap).forEach(taskContainer => { taskContainer.innerHTML = "" });
 }
 
-
 export function returnSubtaskProgressHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) {
         return "";
@@ -113,6 +111,38 @@ function getSubtaskStats(subtasks) {
     subtaskStats.total = subtasks.length;
     subtaskStats.percentage = Math.round(subtaskStats.completed / subtaskStats.total * 100);
     return subtaskStats;
+}
+
+function returnAssignedToHTML(assignedToList, showName = false) {
+    if (!assignedToList || assignedToList.length === 0) {
+        return "";
+    }
+
+    const assignedToHTML = assignedToList.map(contactID =>
+        returnAssignedToHTML(
+            contacts.find(contact => contact.id === contactID),
+            showName
+        )
+    );
+
+    return assignedToHTML.join("");
+}
+
+
+function returnContactHTML(contact, showName = false) {
+    if (!contact) {
+        return "";
+    }
+    return `
+    <div style="background: ${contact.color}; color: white;" >${getInitials(contact.name)}</div>
+    ${showName ? returnNameHTML(contact.name) : ""}
+    `;
+}
+
+function returnNameHTML(name) {
+    return `
+        <span>${name}</span>
+    `;
 }
 
 /**
