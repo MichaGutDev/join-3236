@@ -4,6 +4,34 @@
     display: none;
 }
 
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+    color: var(--color-primary);
+}
+
+.task-input {
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--color-form-box);
+    background-color: white;
+    padding: 12px 21px;
+}
+
+.task-textarea {
+    height: 120px;
+    padding: 18px 16px;
+    resize: vertical;
+}
+
 .task-form-columns {
     display: flex;
     gap: 32px;
