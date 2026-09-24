@@ -4,6 +4,11 @@
     display: none;
 }
 
+.subtask-add-btn,
+.debug-logger-btn {
+    display: none;
+}
+
 .form-wrapper {
     flex-direction: column;
     max-width: 1208px;
