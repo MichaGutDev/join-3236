@@ -37,6 +37,7 @@
 .form-wrapper {
     flex-direction: column;
     max-width: 1208px;
+    min-width: 0;
     padding-left: 117px;
     padding-right: 24px;
 }
@@ -114,6 +115,7 @@ select.task-input {
 .task-form-columns {
     display: flex;
     gap: 32px;
+    min-width: 0;
 }
 
 .task-form-column {
@@ -155,16 +157,11 @@ select.task-input {
 
     .form-wrapper h1 {
         margin-top: 48px;
+        font-size: 47px;
     }
 
     .form-actions-buttons {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 80px;
         justify-content: flex-end;
-        padding: 16px 24px;
-        background-color: var(--color-bg-main);
     }
 }
 
@@ -191,6 +188,7 @@ select.task-input {
 
     .priority label {
         flex: 1;
+        width: auto;
         min-width: 0;
         padding: clamp(8px, 4vw, 16px) clamp(4px, 2vw, 10px);
         gap: 4px;
@@ -203,6 +201,9 @@ select.task-input {
     }
 
     .form-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
         padding: 16px clamp(12px, 5vw, 24px);
     }
 
