@@ -63,6 +63,18 @@
     width: 20px;
 }
 
+.priority-high:has(input:checked) {
+    background-color: #FF3D00;
+}
+
+.priority-medium:has(input:checked) {
+    background-color: #FFA800;
+}
+
+.priority-low:has(input:checked) {
+    background-color: #7AE229;
+}
+
 .priority legend {
     margin-bottom: 8px;
     font-size: 20px;
