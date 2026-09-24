@@ -156,14 +156,63 @@ select.task-input {
         margin-top: 48px;
     }
 
-    .form-actions {
+    .form-actions-buttons {
         position: fixed;
         left: 0;
         right: 0;
         bottom: 80px;
-        margin-top: 0;
+        justify-content: flex-end;
         padding: 16px 24px;
         background-color: var(--color-bg-main);
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .form-wrapper {
+        padding-left: clamp(16px, 6vw, 24px);
+        padding-right: clamp(16px, 6vw, 24px);
+    }
+
+    .task-input {
+        font-size: 16px;
+        padding: 12px clamp(10px, 4vw, 21px);
+    }
+
+    .form-group label,
+    .priority legend {
+        font-size: 16px;
+    }
+
+    .priority {
+        justify-content: flex-start;
+        gap: clamp(8px, 3vw, 16px);
+    }
+
+    .priority label {
+        flex: 1;
+        min-width: 0;
+        padding: clamp(8px, 4vw, 16px) clamp(4px, 2vw, 10px);
+        gap: 4px;
+        font-size: 16px;
+    }
+
+    .priority label img {
+        width: 14px;
+        height: auto;
+    }
+
+    .form-actions {
+        padding: 16px clamp(12px, 5vw, 24px);
+    }
+
+    .form-actions .btn-primary {
+        width: clamp(140px, 45vw, 183px);
+        font-size: 16px;
+    }
+
+    .form-actions .btn-secondary {
+        width: clamp(90px, 28vw, 110px);
+        font-size: clamp(14px, 3.5vw, 21px);
     }
 }
 
