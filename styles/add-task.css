@@ -9,6 +9,25 @@
     display: none;
 }
 
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 124px;
+}
+
+.form-actions .btn-primary {
+    width: 183px;
+    height: 56px;
+    white-space: nowrap;
+}
+
+.form-actions .btn-secondary {
+    width: 110px;
+    height: 56px;
+    white-space: nowrap;
+}
+
 .form-wrapper {
     flex-direction: column;
     max-width: 1208px;
