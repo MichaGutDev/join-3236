@@ -11,9 +11,14 @@
 
 .form-actions {
     display: flex;
-    justify-content: flex-end;
-    gap: 16px;
+    align-items: center;
+    justify-content: space-between;
     margin-top: 124px;
+}
+
+.form-actions-buttons {
+    display: flex;
+    gap: 16px;
 }
 
 .form-actions .btn-primary {
