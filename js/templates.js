@@ -1,4 +1,4 @@
-import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum, returnSubtaskProgressHTML } from "./board.js";
+import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum, returnSubtaskProgressHTML, returnAssignedToHTML } from "./board.js";
 import { getInitials } from "./contact-templates.js";
 
 export function returnAddTaskForm() {
@@ -103,7 +103,7 @@ export function returnTaskHTML(task) {
             <span class="task-descr">${task.description}</span>
             ${returnSubtaskProgressHTML(task.subtasks)}
             <div class="initials-container">
-                <div class="user-avatar">RB</div>
+                ${returnAssignedToHTML(task.assignedTo)}
                 <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
             </div>
         </li>

@@ -1,13 +1,36 @@
 import { database } from './firebase-config.js';
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { saveTask } from "./db.js";
+import { saveTask, listenToContacts } from "./db.js";
 
 let valueLog = [];
 let editingTaskId = null;
 const subtasks = [];
-
-
 let formRef;
+let contacts = [];
+let contactsRendered = false;
+
+function init() {
+  listenToContacts((updatedContacts) => {
+    contacts = updatedContacts;
+    if (!contactsRendered) {
+      renderContacts(contacts);
+      contactsRendered = true;
+    }
+  })
+  renderContacts(contacts);
+}
+
+export function renderContacts(contacts, assignedTo = []) {
+  const selectRef = document.getElementById("assigned-to");
+  selectRef.innerHTML = "";
+  contacts.forEach(contact => {
+    const option = document.createElement("option");
+    option.value = contact.id;
+    option.textContent = contact.name;
+    option.selected = assignedTo.includes(contact.id);
+    selectRef.appendChild(option);
+  });
+}
 
 
 export function initTaskForm(taskStatus = "To Do") {
@@ -48,6 +71,7 @@ function resetTaskForm() {
   subtasks.length = 0;
   editingTaskId = null;
   renderSubtasks();
+  renderContacts(contacts);
 }
 
 function addSubtask() {
@@ -100,4 +124,5 @@ function deleteSubtask(event) {
   renderSubtasks();
 }
 
+init();
 initTaskForm();

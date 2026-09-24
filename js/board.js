@@ -1,7 +1,8 @@
-import { initTaskForm } from "./add_task.js";
+import { initTaskForm, renderContacts } from "./add_task.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML } from "./templates.js";
-import { listenToTasks, updateTaskStatus, updateSubtaskCompletion } from "./db.js";
+import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts } from "./db.js";
 import { filterTasks } from "./search.js";
+import { getInitials } from "./contact-templates.js";
 let tasks = [];
 let contacts = [];
 let currentDraggedTaskId;
@@ -23,6 +24,8 @@ function init() {
         tasks = updatedTasks;
         displayTasks();
     });
+    listenToContacts((updatedContacts) => {
+        contacts = updatedContacts;});
 }
 
 function initSubtaskClickListener() {
@@ -113,18 +116,17 @@ function getSubtaskStats(subtasks) {
     return subtaskStats;
 }
 
-function returnAssignedToHTML(assignedToList, showName = false) {
+export function returnAssignedToHTML(assignedToList, showName = false) {
     if (!assignedToList || assignedToList.length === 0) {
         return "";
     }
 
     const assignedToHTML = assignedToList.map(contactID =>
-        returnAssignedToHTML(
+        returnContactHTML(
             contacts.find(contact => contact.id === contactID),
             showName
         )
     );
-
     return assignedToHTML.join("");
 }
 
@@ -134,7 +136,7 @@ function returnContactHTML(contact, showName = false) {
         return "";
     }
     return `
-    <div style="background: ${contact.color}; color: white;" >${getInitials(contact.name)}</div>
+    <div class="user-avatar" style="background: ${contact.color};">${getInitials(contact.name)}</div>
     ${showName ? returnNameHTML(contact.name) : ""}
     `;
 }
@@ -260,17 +262,17 @@ function fillBasicTaskForm(task) { // CURRENTLY TEST
 
 
 
-function renderContacts(contacts, assignedTo = []) {
-    const selectRef = document.getElementById("assigned-to");
-    selectRef.innerHTML = "";
-    contacts.forEach(contact => {
-        const option = document.createElement("option");
-        option.value = contact.id;
-        option.textContent = contact.name;
-        option.selected = assignedTo.includes(contact.id);
-        selectRef.appendChild(option);
-    });
-}
+// export function renderContacts(contacts, assignedTo = []) {
+//     const selectRef = document.getElementById("assigned-to");
+//     selectRef.innerHTML = "";
+//     contacts.forEach(contact => {
+//         const option = document.createElement("option");
+//         option.value = contact.id;
+//         option.textContent = contact.name;
+//         option.selected = assignedTo.includes(contact.id);
+//         selectRef.appendChild(option);
+//     });
+// }
 
 /**
  * Stores the id of the dragged task and applies a visual dragging style to the element.
