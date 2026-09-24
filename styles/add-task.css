@@ -23,6 +23,12 @@
     border: none;
     padding: 0;
     margin: 0;
+    justify-content: space-between;
+}
+
+.priority-high img,
+.priority-low img {
+    width: 20px;
 }
 
 .priority legend {
