@@ -1,13 +1,144 @@
-/* Add Task Form */
+/* Hidden Elements (not part of Figma design) */
 
-.status {
-    display: none;
-}
-
+.status,
 .subtask-add-btn,
 .debug-logger-btn {
     display: none;
 }
+
+/* End Hidden Elements */
+
+
+/* Layout */
+
+.form-wrapper {
+    flex-direction: column;
+    max-width: 1208px;
+    min-width: 0;
+    padding-left: 117px;
+    padding-right: 24px;
+}
+
+.form-wrapper h1 {
+    margin-top: 124px;
+    margin-bottom: 48px;
+}
+
+.task-form-columns {
+    display: flex;
+    gap: 32px;
+    min-width: 0;
+}
+
+.task-form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+    min-width: 0;
+}
+
+.task-form-divider {
+    width: 1px;
+    background-color: var(--color-form-box);
+}
+
+/* End Layout */
+
+
+/* Form Group & Labels */
+
+.form-group {
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+    color: var(--color-primary);
+}
+
+/* End Form Group & Labels */
+
+
+/* Inputs */
+
+.task-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px solid var(--color-form-box);
+    background-color: white;
+    padding: 12px 21px;
+    font-size: 20px;
+}
+
+select.task-input {
+    appearance: none;
+    background-image: url("../assets/icons/arrow-drop-down.svg");
+    background-repeat: no-repeat;
+    background-position: right 22px center;
+}
+
+.task-textarea {
+    height: 120px;
+    padding: 18px 16px;
+    resize: vertical;
+}
+
+/* End Inputs */
+
+
+/* Priority */
+
+.priority {
+    border: none;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+}
+
+.priority legend {
+    margin-bottom: 8px;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 120%;
+    color: var(--color-primary);
+}
+
+.priority label {
+    background-color: white;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+    justify-content: center;
+    padding: 16px 10px;
+    width: 136px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+
+.priority-high img,
+.priority-low img {
+    width: 20px;
+}
+
+.priority-high:has(input:checked) {
+    background-color: #FF3D00;
+}
+
+.priority-medium:has(input:checked) {
+    background-color: #FFA800;
+}
+
+.priority-low:has(input:checked) {
+    background-color: #7AE229;
+}
+
+/* End Priority */
+
+
+/* Form Actions */
 
 .form-actions {
     display: flex;
@@ -34,116 +165,7 @@
     white-space: nowrap;
 }
 
-.form-wrapper {
-    flex-direction: column;
-    max-width: 1208px;
-    min-width: 0;
-    padding-left: 117px;
-    padding-right: 24px;
-}
-
-.form-wrapper h1 {
-    margin-top: 124px;
-    margin-bottom: 48px;
-}
-
-.form-group {
-    gap: 8px;
-}
-
-.priority {
-    border: none;
-    padding: 0;
-    margin: 0;
-    justify-content: space-between;
-}
-
-.priority-high img,
-.priority-low img {
-    width: 20px;
-}
-
-.priority-high:has(input:checked) {
-    background-color: #FF3D00;
-}
-
-.priority-medium:has(input:checked) {
-    background-color: #FFA800;
-}
-
-.priority-low:has(input:checked) {
-    background-color: #7AE229;
-}
-
-.priority legend {
-    margin-bottom: 8px;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 120%;
-    color: var(--color-primary);
-}
-
-.priority label {
-    background-color: white;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-    justify-content: center;
-    padding: 16px 10px;
-    width: 136px;
-    border-radius: 10px;
-    font-size: 20px;
-}
-
-.form-group label {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 120%;
-    color: var(--color-primary);
-}
-
-.task-input {
-    box-sizing: border-box;
-    width: 100%;
-    height: 48px;
-    border-radius: 10px;
-    border: 1px solid var(--color-form-box);
-    background-color: white;
-    padding: 12px 21px;
-    font-size: 20px;
-}
-
-select.task-input {
-    appearance: none;
-    background-image: url("../assets/icons/arrow-drop-down.svg");
-    background-repeat: no-repeat;
-    background-position: right 22px center;
-}
-
-.task-textarea {
-    height: 120px;
-    padding: 18px 16px;
-    resize: vertical;
-}
-
-.task-form-columns {
-    display: flex;
-    gap: 32px;
-    min-width: 0;
-}
-
-.task-form-column {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    flex: 1;
-    min-width: 0;
-}
-
-.task-form-divider {
-    width: 1px;
-    background-color: var(--color-form-box);
-}
-
-/* End Add Task Form */
+/* End Form Actions */
 
 
 /* Responsive */
