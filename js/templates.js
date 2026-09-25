@@ -1,4 +1,4 @@
-import { returnSubtaskCompletionPercent, returnSubtaskCompletionNum, returnSubtaskProgressHTML, returnAssignedToHTML } from "./board.js";
+import { returnSubtaskProgressHTML, returnAssignedToHTML } from "./board.js";
 import { getInitials } from "./contact-templates.js";
 
 export function returnAddTaskForm() {
@@ -71,21 +71,7 @@ export function returnAddTaskForm() {
                 </div>
 
                 <!-- Subtasks -->
-                <div class="form-group">
-                    <label for="new-subtask">Subtasks</label>
-
-                    <div class="subtask-input">
-                        <input type="text" id="new-subtask" placeholder="Add new subtask">
-
-                        <button type="button" id="add-subtask-btn" class="btn-primary">
-                            Add
-                        </button>
-                    </div>
-
-                    <ul id="subtask-list" class="subtask-list">
-                        <!-- Subtasks hier rendern -->
-                    </ul>
-                </div>
+                ${returnSubtasksHTML(task.subtasks)}
 
                 <div class="form-actions">
                     <button type="reset" class="btn-secondary">Clear</button>

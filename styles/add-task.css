@@ -118,6 +118,10 @@ select.task-input {
     font-size: 20px;
 }
 
+.priority label:hover {
+    cursor: pointer;
+}
+
 .priority-high img,
 .priority-low img {
     width: 20px;

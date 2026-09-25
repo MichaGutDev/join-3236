@@ -65,7 +65,24 @@ function openTask(event) {
 
     taskDialogRef.innerHTML = returnTaskView(task);
     initSubtaskClickListener();
+    initEditTaskButton(task)
     openTaskDialog();
+}
+
+function initEditTaskButton(task) {
+    const editTaskBtnRef = document.querySelector(".edit-task-btn");
+    editTaskBtnRef.addEventListener("click", () => {
+        openEditTask(task);
+    });
+}
+
+function openEditTask(task){
+    taskDialogRef.innerHTML = "";
+    taskDialogRef.innerHTML += returnAddTaskForm(task);
+    initTaskForm();
+    // html clear(listener zurücksetzen?) -> form rein 
+    // initForm & form listener etc. 
+    // insertTask
 }
 
 /**
@@ -130,7 +147,6 @@ export function returnAssignedToHTML(assignedToList, showName = false) {
     return assignedToHTML.join("");
 }
 
-
 function returnContactHTML(contact, showName = false) {
     if (!contact) {
         return "";
@@ -146,49 +162,6 @@ function returnNameHTML(name) {
         <span>${name}</span>
     `;
 }
-
-/**
- * Calculates the percentage of completed subtasks.
- *
- * @param {Array} subtaskList - List of subtasks belonging to a task.
- * @returns {number} Percentage of completed subtasks.
- */
-export function returnSubtaskCompletionPercent(subtaskList) {
-    let completionData = returnSubtaskValues(subtaskList);
-    let percentCompletion = completionData[0] / completionData[1] * 100;
-    if (!percentCompletion) {
-        percentCompletion = 0;
-    }
-    return percentCompletion
-}
-
-/**
- * Returns the number of completed subtasks and total subtasks.
- *
- * @param {{completion: boolean}[]} subtaskList - List of subtasks.
- * @returns {string} Completion count in the format "completed / total".
- */
-export function returnSubtaskCompletionNum(subtaskList) {
-    let completionData = returnSubtaskValues(subtaskList);
-    return `${completionData[0]}/${completionData[1]}`
-}
-
-/**
- * Counts completed subtasks and returns completion statistics.
- *
- * @param {{subtask: string, completion: boolean}[]} subtaskList
- * @returns {[number, number]} Completed subtasks and total subtasks.
- */
-function returnSubtaskValues(subtaskList) {
-    let counter = 0;
-    subtaskList.forEach(subtask => {
-        if (subtask.completion === true) {
-            counter++;
-        }
-    });
-    return [counter, subtaskList.length]
-}
-
 
 /**
  * Closes Task Dialog Modal
@@ -207,60 +180,12 @@ function openTaskDialog() {
     taskDialogRef.showModal();
 }
 
-/**
- * Renders the Dialog Content by ID and selected Mode, else opens normal add-Task-Form
- * @param {string} id 
- * @param {string} mode 
- * @returns 
- */
-function renderDialogContent(id, mode) {
-    if (id && mode === "edit") {
-        // insertTaskForm();
-        insertTaskToEdit(tasks.id); //in progress
-        return
-    } else if (id && mode === "view") {
-        renderTaskView(id); // open task
-        return
-    } else {
-        // insertTaskForm();
-    }
-}
-
-function insertTaskForm() {
-    renderTaskForm();
-    initTaskForm();
-}
-
-function renderTaskForm() {
-    taskDialogContentRef.innerHTML = "";
-    taskDialogContentRef.innerHTML = returnAddTaskForm();
-}
-
 function insertTaskToEdit(task) {
     fillBasicTaskForm(task); // Works, check again tho
     renderContacts(contacts, task.assignedTo);
 
     // fillSubtasks(task.subtasks);
 }
-
-function fillBasicTaskForm(task) { // CURRENTLY TEST
-    Object.entries(test).forEach(([key, val]) => {
-        if (key !== "subtasks" && key !== "assignedTo" && key !== "id") {
-            document.getElementById(`${key}`).value = val;
-        }
-    });
-}
-
-
-
-
-
-
-
-
-
-
-
 
 // export function renderContacts(contacts, assignedTo = []) {
 //     const selectRef = document.getElementById("assigned-to");
