@@ -190,7 +190,7 @@ h3, h4 {
     filter: brightness(0) invert(1);
 }
 
-.priority-high:has(input:checked) {
+.priority-urgent:has(input:checked) {
     background-color: red;
     color: white;
 }

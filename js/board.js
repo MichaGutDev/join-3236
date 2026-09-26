@@ -1,5 +1,5 @@
-import { initTaskForm, renderContacts } from "./add_task.js";
-import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML } from "./templates.js";
+import { initTaskForm, renderContacts, setFormSubtasks } from "./add_task.js";
+import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML, returnSubtasksHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts } from "./db.js";
 import { filterTasks } from "./search.js";
 import { getInitials } from "./contact-templates.js";
@@ -13,7 +13,6 @@ const taskContainerMap = {
     "Done": document.getElementById('done'),
 }
 const taskDialogRef = document.getElementById("task-dialog");
-const taskDialogContentRef = document.getElementById("task-dialog-content");
 const searchInputRef = document.getElementById('search-task');
 searchInputRef.addEventListener("input", search);
 
@@ -25,7 +24,8 @@ function init() {
         displayTasks();
     });
     listenToContacts((updatedContacts) => {
-        contacts = updatedContacts;});
+        contacts = updatedContacts;
+    });
 }
 
 function initSubtaskClickListener() {
@@ -46,6 +46,9 @@ function handleSubtaskCompletion(event) {
 
     updateSubtaskCompletion(taskId, subtaskIndex, completion);
 }
+
+
+//_________open Task________________
 
 
 function initTaskClickListener() {
@@ -76,15 +79,46 @@ function initEditTaskButton(task) {
     });
 }
 
-function openEditTask(task){
-    taskDialogRef.innerHTML = "";
-    taskDialogRef.innerHTML += returnAddTaskForm(task);
-    initTaskForm();
-    // html clear(listener zurücksetzen?) -> form rein 
-    // initForm & form listener etc. 
-    // insertTask
+/**
+ * Closes Task Dialog Modal
+ */
+function closeTaskDialog() {
+    taskDialogRef.close();
 }
 
+/**
+ * Renders the Dialog Content and opens the Modal
+ * @param {string} id 
+ * @param {string} mode 
+ */
+function openTaskDialog() {
+    document.getElementById('close-task-dialog').addEventListener("click", closeTaskDialog);
+    taskDialogRef.showModal();
+}
+
+
+//_________Edit Task________________
+
+
+function openEditTask(task) {
+    taskDialogRef.innerHTML = returnAddTaskForm();
+
+    fillBasicTaskForm(task);
+    renderContacts(contacts, task.assignedTo);
+    setFormSubtasks(task.subtasks);
+
+    initTaskForm(task.status, task.id);
+}
+
+function fillBasicTaskForm(task) { // CURRENTLY TEST
+    document.getElementById("title").value = task.title;
+    document.getElementById("description").value = task.description;
+    document.getElementById("dueDate").value = task.dueDate;
+    document.getElementById("category").value = task.category;
+    document.getElementById(task.priority).checked = true;
+}
+
+//_________render Tasks & search________________
 /**
  * Renders all tasks into the respective containers.
  * 
@@ -113,6 +147,7 @@ function clearTaskHTML() {
     Object.values(taskContainerMap).forEach(taskContainer => { taskContainer.innerHTML = "" });
 }
 
+//_________Subtask Progress & AssignedTo for template________________
 export function returnSubtaskProgressHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) {
         return "";
@@ -163,41 +198,9 @@ function returnNameHTML(name) {
     `;
 }
 
-/**
- * Closes Task Dialog Modal
- */
-function closeTaskDialog() {
-    taskDialogRef.close();
-}
 
-/**
- * Renders the Dialog Content and opens the Modal
- * @param {string} id 
- * @param {string} mode 
- */
-function openTaskDialog() {
-    document.getElementById('close-task-dialog').addEventListener("click", closeTaskDialog);
-    taskDialogRef.showModal();
-}
+//_________Drag and Drop________________
 
-function insertTaskToEdit(task) {
-    fillBasicTaskForm(task); // Works, check again tho
-    renderContacts(contacts, task.assignedTo);
-
-    // fillSubtasks(task.subtasks);
-}
-
-// export function renderContacts(contacts, assignedTo = []) {
-//     const selectRef = document.getElementById("assigned-to");
-//     selectRef.innerHTML = "";
-//     contacts.forEach(contact => {
-//         const option = document.createElement("option");
-//         option.value = contact.id;
-//         option.textContent = contact.name;
-//         option.selected = assignedTo.includes(contact.id);
-//         selectRef.appendChild(option);
-//     });
-// }
 
 /**
  * Stores the id of the dragged task and applies a visual dragging style to the element.

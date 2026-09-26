@@ -1,9 +1,6 @@
 import { database } from './firebase-config.js';
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { saveTask, listenToContacts } from "./db.js";
-
-let valueLog = [];
-let editingTaskId = null;
 const subtasks = [];
 let formRef;
 let contacts = [];
@@ -20,20 +17,11 @@ function init() {
   renderContacts(contacts);
 }
 
-export function renderContacts(contacts, assignedTo = []) {
-  const selectRef = document.getElementById("assigned-to");
-  selectRef.innerHTML = "";
-  contacts.forEach(contact => {
-    const option = document.createElement("option");
-    option.value = contact.id;
-    option.textContent = contact.name;
-    option.selected = assignedTo.includes(contact.id);
-    selectRef.appendChild(option);
-  });
-}
+
+//_________(add) Task Form________________
 
 
-export function initTaskForm(taskStatus = "To Do") {
+export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
   formRef = document.querySelector("#task-form");
   const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
 
@@ -41,14 +29,13 @@ export function initTaskForm(taskStatus = "To Do") {
 
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
-    getValues(taskStatus);
+    getValues(taskStatus, editingTaskId);
   });
 }
 
-async function getValues(status) {
+async function getValues(status, editingTaskId) {
   const formData = new FormData(formRef);
   const task = createTaskObject(formData, status);
-  valueLog.push(task);
   await saveTask(task, editingTaskId);
   resetTaskForm();
 }
@@ -69,10 +56,13 @@ function createTaskObject(formData, status = "To Do") {
 function resetTaskForm() {
   formRef.reset();
   subtasks.length = 0;
-  editingTaskId = null;
-  renderSubtasks();
+  renderSubtasks(subtasks);
   renderContacts(contacts);
 }
+
+
+//_________Subtasks________________
+
 
 function addSubtask() {
   const subTaskInputRef = document.getElementById("new-subtask");
@@ -80,16 +70,17 @@ function addSubtask() {
     description: subTaskInputRef.value,
     completion: false
   });
-  renderSubtasks();
+  renderSubtasks(subtasks);
   document.getElementById("new-subtask").value = "";
 }
 
-function updateSubtaskDelButtons() {
-  const deleteSubtaskButtons = document.querySelectorAll(".subtask-delete-btn");
-  deleteSubtaskButtons.forEach(button => { button.addEventListener("click", deleteSubtask); });
+function deleteSubtask(event) {
+  const index = Number(event.currentTarget.dataset.index);
+  subtasks.splice(index, 1)
+  renderSubtasks(subtasks);
 }
 
-function renderSubtasks() {
+export function renderSubtasks(subtasks) {
   const subTaskListRef = document.getElementById('subtask-list');
   subTaskListRef.innerHTML = "";
   for (let index = 0; index < subtasks.length; index++) {
@@ -118,10 +109,33 @@ function returnSubtaskHTML(subtask, index) {
     `;
 }
 
-function deleteSubtask(event) {
-  const index = Number(event.currentTarget.dataset.index);
-  subtasks.splice(index, 1)
-  renderSubtasks();
+function updateSubtaskDelButtons() {
+  const deleteSubtaskButtons = document.querySelectorAll(".subtask-delete-btn");
+  deleteSubtaskButtons.forEach(button => { button.addEventListener("click", deleteSubtask); });
+}
+
+export function setFormSubtasks(taskSubtasks = []) {
+    subtasks.length = 0;
+    taskSubtasks.forEach(subtask => {
+        subtasks.push({ ...subtask });
+    });
+    renderSubtasks(subtasks);
+}
+
+
+//_________Contacts________________
+
+
+export function renderContacts(contacts, assignedTo = []) {
+  const selectRef = document.getElementById("assigned-to");
+  selectRef.innerHTML = "";
+  contacts.forEach(contact => {
+    const option = document.createElement("option");
+    option.value = contact.id;
+    option.textContent = contact.name;
+    option.selected = assignedTo.includes(contact.id);
+    selectRef.appendChild(option);
+  });
 }
 
 init();

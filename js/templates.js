@@ -1,84 +1,107 @@
 import { returnSubtaskProgressHTML, returnAssignedToHTML } from "./board.js";
 import { getInitials } from "./contact-templates.js";
+import { renderContacts } from "./add_task.js";
 
 export function returnAddTaskForm() {
-    return `<div class="form-wrapper">
-            <form id="task-form">
-                <!-- Title -->
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" id="title" name="title" placeholder="Enter a title" required>
+    return` <form id="task-form" class="task-form">
+                <div class="task-form-columns">
+                    <div class="task-form-column">
+                        <!-- Title -->
+                        <div class="form-group">
+                            <label for="title">Title</label>
+                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title"
+                                required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" class="task-input task-textarea"
+                                placeholder="Enter a description" required></textarea>
+                        </div>
+
+                        <!-- Due Date -->
+                        <div class="form-group">
+                            <label for="dueDate">Due Date</label>
+                            <input type="date" id="dueDate" name="dueDate" class="task-input" required>
+                        </div>
+                    </div>
+
+                    <div class="task-form-divider"></div>
+
+                    <div class="task-form-column">
+                        <!-- Priority -->
+                        <div class="form-group">
+                            <fieldset class="priority">
+                                <legend>Priority</legend>
+
+                                <label class="priority-urgent">
+                                    <input type="radio" name="priority" value="urgent" id="urgent">
+                                    <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
+                                </label>
+
+                                <label class="priority-medium">
+                                    <input type="radio" name="priority" value="medium" id="medium">
+                                    <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="" checked>
+                                </label>
+
+                                <label class="priority-low">
+                                    <input type="radio" name="priority" value="low" id="low">
+                                    <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
+                                </label>
+                            </fieldset>
+                        </div>
+
+                        <!-- Assigned To -->
+                        <div class="form-group">
+                            <label for="assigned-to">Assigned To</label>
+
+                            <select id="assigned-to" name="assignedTo" class="task-input" multiple>
+                                <option value="" selected>Select contacts to assign</option>
+                            </select>
+                        </div>
+
+                        <!-- Category -->
+                        <div class="form-group">
+                            <label for="category">Category</label>
+                            <select id="category" name="category" class="task-input" required>
+                                <option value="">Select task category</option>
+                                <option value="User Story">User Story</option>
+                                <option value="Technical Task">Technical Task</option>
+                            </select>
+                        </div>
+
+                        <!-- Subtasks -->
+                        <div class="form-group">
+                            <label for="new-subtask">Subtasks</label>
+
+                            <div class="subtask-input">
+                                <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask">
+
+                                <button type="button" id="add-subtask-btn" class="btn-primary subtask-add-btn">
+                                    Add
+                                </button>
+                            </div>
+
+                            <ul id="subtask-list" class="subtask-list">
+                                <!-- Subtasks hier rendern -->
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
-                <!-- Description -->
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description" name="description" placeholder="Enter a description" required></textarea>
-                </div>
-
-                <!-- Due Date -->
-                <div class="form-group">
-                    <label for="due-date">Due Date</label>
-                    <input type="date" id="due-date" name="dueDate" required>
-                </div>
-
-                <!-- Priority -->
-                <div class="form-group">
-                    <fieldset class="priority">
-                        <legend>Priority</legend>
-
-                        <label class="priority-high">
-                            <input type="radio" name="priority" value="urgent">
-                            <span>Urgent</span><img src="../assets/icons/prio-urgent.svg" alt="">
-                        </label>
-
-                        <label class="priority-medium">
-                            <input type="radio" name="priority" value="medium" checked>
-                            <span>Medium</span><img src="../assets/icons/prio-medium.svg" alt="">
-                        </label>
-
-                        <label class="priority-low">
-                            <input type="radio" name="priority" value="low">
-                            <span>Low</span><img src="../assets/icons/prio-low.svg" alt="">
-                        </label>
-                    </fieldset>
-                </div>
-
-                <!-- Category -->
-                <div class="form-group">
-                    <label for="category">Category</label>
-                    <select id="category" name="category" required>
-                        <option value="">Select category</option>
-                        <option value="User Story">User Story</option>
-                        <option value="Technical Task">Technical Task</option>
-                    </select>
-                </div>
-
-                <!-- Assigned To -->
-                <div class="form-group">
-                    <label for="assigned-to">Assigned To</label>
-
-                    <select id="assigned-to" name="assignedTo" multiple>
-                        <option value="contactId1" selected>Contact 1</option>
-                        <option value="contactId2">Contact 2</option>
-                        <option value="contactId3" selected>Contact 3</option>
-                        <option value="contactId3">Contact 4</option>
-                        <option value="contactId3">Contact 5</option>
-                        <option value="contactId3">Contact 6</option>
-                        <option value="contactId3">Contact 7</option>
-                        <option value="contactId3">Contact 8</option>
-                    </select>
-                </div>
-
-                <!-- Subtasks -->
-                ${returnSubtasksHTML(task.subtasks)}
 
                 <div class="form-actions">
-                    <button type="reset" class="btn-secondary">Clear</button>
-                    <button type="submit" class="btn-primary">Create Task</button>
+                    <p class="required-note"><span class="error-message">*</span>This field is required</p>
+
+                    <div class="form-actions-buttons">
+                        <button type="reset" class="btn btn-secondary">Clear
+                            <img src="../assets/icons/cancel-icon.svg" alt=""></button>
+                        <button type="submit" class="btn btn-primary">Create Task
+                            <img src="../assets/icons/check-icon.svg" alt=""></button>
+                    </div>
                 </div>
             </form>
-        </div>`
+            `
 }
 
 export function returnTaskHTML(task) {
@@ -140,7 +163,7 @@ export function returnTaskView(task) {
     `
 }
 
-function returnSubtasksHTML(subtasks) {
+export function returnSubtasksHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) {
         return "";
     }
