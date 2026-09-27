@@ -15,6 +15,8 @@ const taskContainerMap = {
 const taskDialogRef = document.getElementById("task-dialog");
 const searchInputRef = document.getElementById('search-task');
 searchInputRef.addEventListener("input", search);
+taskDialogRef.addEventListener("click", backdropClose);
+
 
 function init() {
     initDragAndDrop();
@@ -69,6 +71,7 @@ function openTask(event) {
     taskDialogRef.innerHTML = returnTaskView(task);
     initSubtaskClickListener();
     initEditTaskButton(task)
+    initCloseTaskButton();
     openTaskDialog();
 }
 
@@ -80,22 +83,29 @@ function initEditTaskButton(task) {
 }
 
 /**
+ * Renders the Dialog Content and opens the Modal
+ */
+function openTaskDialog() {
+    taskDialogRef.showModal();
+}
+
+/**
  * Closes Task Dialog Modal
  */
 function closeTaskDialog() {
     taskDialogRef.close();
 }
 
-/**
- * Renders the Dialog Content and opens the Modal
- * @param {string} id 
- * @param {string} mode 
- */
-function openTaskDialog() {
-    document.getElementById('close-task-dialog').addEventListener("click", closeTaskDialog);
-    taskDialogRef.showModal();
+function initCloseTaskButton() {
+    const closeBtnRef = document.getElementById("close-task-dialog");
+    closeBtnRef.addEventListener("click", closeTaskDialog);
 }
 
+function backdropClose(event) {
+    if (event.target === event.currentTarget) {
+        closeTaskDialog();
+    }
+}
 
 //_________Edit Task________________
 
@@ -108,6 +118,7 @@ function openEditTask(task) {
     setFormSubtasks(task.subtasks);
 
     initTaskForm(task.status, task.id);
+    initCancelBtn(task);
 }
 
 function fillBasicTaskForm(task) { // CURRENTLY TEST
@@ -118,7 +129,34 @@ function fillBasicTaskForm(task) { // CURRENTLY TEST
     document.getElementById(task.priority).checked = true;
 }
 
+function initCancelBtn(task) {
+    const cancelBtnRef = document.getElementById('cancel-btn');
+    const submitBtnRef = document.getElementById('submit-btn');
+    submitBtnRef.innerHTML = "Ok"
+    cancelBtnRef.addEventListener("click", () => {
+        cancelEdit(task);
+    });
+}
+
+function cancelEdit(task) {
+    taskDialogRef.innerHTML = returnTaskView(task);
+    initEditTaskButton(task);
+    initCloseTaskButton();
+}
+
+// OPTIONAL RESET:
+// Add a reset button with type="button" and call resetEditForm(task)
+// in its click listener to restore the original task values.
+// function resetEditForm(task) {
+//     fillBasicTaskForm(task);
+//     renderContacts(contacts, task.assignedTo);
+//     setFormSubtasks(task.subtasks);
+// }
+
+
 //_________render Tasks & search________________
+
+
 /**
  * Renders all tasks into the respective containers.
  * 

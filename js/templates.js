@@ -94,9 +94,9 @@ export function returnAddTaskForm() {
                     <p class="required-note"><span class="error-message">*</span>This field is required</p>
 
                     <div class="form-actions-buttons">
-                        <button type="reset" class="btn btn-secondary">Clear
+                        <button type="button" class="btn btn-secondary" id="cancel-btn">Cancel
                             <img src="../assets/icons/cancel-icon.svg" alt=""></button>
-                        <button type="submit" class="btn btn-primary">Create Task
+                        <button type="submit" class="btn btn-primary" id="submit-btn">Create Task
                             <img src="../assets/icons/check-icon.svg" alt=""></button>
                     </div>
                 </div>
