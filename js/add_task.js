@@ -5,6 +5,7 @@ const subtasks = [];
 let formRef;
 let contacts = [];
 let contactsRendered = false;
+let createTaskBtnRef;
 
 function init() {
   listenToContacts((updatedContacts) => {
@@ -17,6 +18,14 @@ function init() {
   renderContacts(contacts);
 }
 
+function validateForm() {
+  const formData = new FormData(formRef);
+  const title = formData.get("title").trim();
+  const dueDate = formData.get("dueDate");
+  const category = formData.get("category");
+  return title !== "" && dueDate !== "" && category !== "";
+}
+
 
 //_________(add) Task Form________________
 
@@ -26,10 +35,16 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
   const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
 
   addSubtaskBtnRef.addEventListener("click", addSubtask);
-
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
     getValues(taskStatus, editingTaskId);
+  });
+
+  createTaskBtnRef = document.getElementById('create-task-btn');
+  createTaskBtnRef.disabled = !validateForm();
+
+  formRef.addEventListener("input", () => {
+    createTaskBtnRef.disabled = !validateForm();
   });
 }
 
@@ -115,11 +130,11 @@ function updateSubtaskDelButtons() {
 }
 
 export function setFormSubtasks(taskSubtasks = []) {
-    subtasks.length = 0;
-    taskSubtasks.forEach(subtask => {
-        subtasks.push({ ...subtask });
-    });
-    renderSubtasks(subtasks);
+  subtasks.length = 0;
+  taskSubtasks.forEach(subtask => {
+    subtasks.push({ ...subtask });
+  });
+  renderSubtasks(subtasks);
 }
 
 

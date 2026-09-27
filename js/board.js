@@ -200,7 +200,20 @@ export function displayTasks(taskList = tasks) {
     taskList.forEach(task => {
         taskContainerMap[task.status].innerHTML += returnTaskHTML(task)
     });
+    renderEmptyColumnMessages()
     initDraggableTasks();
+}
+
+function renderEmptyColumnMessages() {
+    Object.values(taskContainerMap).forEach(element => {
+        if (element.children.length === 0) {
+            element.innerHTML = returnNoTaskHTML();
+        }        
+    });
+}
+
+function returnNoTaskHTML() {
+    return`<div>No Tasks here</div>`
 }
 
 function search() {
