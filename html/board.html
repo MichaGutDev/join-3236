@@ -89,7 +89,7 @@
                     <img src="../assets/icons/search.svg" alt="Find Task">
                     <p id="no-results-message" hidden>No matching tasks found.</p>
                 </div>
-                <button class="btn btn-primary board-add-task-btn">Add task
+                <button class="btn btn-primary board-add-task-btn add-task-btn" data-status="To Do">Add task
                     <img src="../assets/icons/add.svg" alt="">
                 </button>
             </div>
@@ -99,13 +99,13 @@
         <div class="board-wrapper">
             <section class="task-col">
                 <h3 class="taskgroup-header">To Do:</h3>
-                <button>+</button>
+                <button class="add-task-btn" data-status="To Do">+</button>
                 <ul id="to_do" class="task-column" data-status="To Do"></ul>
             </section>
 
             <section class="task-col">
                 <h3 class="taskgroup-header">In Progress:</h3>
-                <button>+</button>
+                <button class="add-task-btn" data-status="In Progress">+</button>
                 <ul id="in_progress" class="task-column" data-status="In Progress"></ul>
 
 
@@ -113,7 +113,7 @@
 
             <section class="task-col">
                 <h3 class="taskgroup-header">Awaiting Feedback:</h3>
-                <button>+</button>
+                <button class="add-task-btn" data-status="Awaiting Feedback">+</button>
                 <ul id="await_feedback" class="task-column" data-status="Awaiting Feedback"></ul>
             </section>
 

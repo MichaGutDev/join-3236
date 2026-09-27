@@ -3,7 +3,8 @@ import { getInitials } from "./contact-templates.js";
 import { renderContacts } from "./add_task.js";
 
 export function returnAddTaskForm() {
-    return` <form id="task-form" class="task-form">
+    return` <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+            <form id="task-form" class="task-form">
                 <div class="task-form-columns">
                     <div class="task-form-column">
                         <!-- Title -->

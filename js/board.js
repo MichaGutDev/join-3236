@@ -17,6 +17,15 @@ const searchInputRef = document.getElementById('search-task');
 searchInputRef.addEventListener("input", search);
 taskDialogRef.addEventListener("click", backdropClose);
 
+function initAddTaskButtons() {
+    const addTaskBtnRefs = document.querySelectorAll('.add-task-btn');
+    addTaskBtnRefs.forEach(button => {
+        button.addEventListener("click", (event)=> {
+            openAddTask(event.currentTarget.dataset.status);
+            // console.log(event.currentTarget.dataset.status);
+        })
+    });
+}
 
 function init() {
     initDragAndDrop();
@@ -28,6 +37,7 @@ function init() {
     listenToContacts((updatedContacts) => {
         contacts = updatedContacts;
     });
+    initAddTaskButtons();
 }
 
 function initSubtaskClickListener() {
@@ -117,6 +127,16 @@ function backdropClose(event) {
 
 //_________Edit Task________________
 
+function openAddTask(status) {
+    taskDialogRef.innerHTML = returnAddTaskForm();
+
+    renderContacts(contacts);
+    setFormSubtasks();
+
+    initTaskForm(status);
+    initCloseTaskButton();
+    openTaskDialog();
+}
 
 function openEditTask(task) {
     taskDialogRef.innerHTML = returnAddTaskForm();
