@@ -1,6 +1,6 @@
 import { initTaskForm, renderContacts, setFormSubtasks } from "./add_task.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML, returnSubtasksHTML } from "./templates.js";
-import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts } from "./db.js";
+import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
 import { getInitials } from "./contact-templates.js";
 let tasks = [];
@@ -70,8 +70,7 @@ function openTask(event) {
 
     taskDialogRef.innerHTML = returnTaskView(task);
     initSubtaskClickListener();
-    initEditTaskButton(task)
-    initCloseTaskButton();
+    initTaskDialogButtons(task)
     openTaskDialog();
 }
 
@@ -99,6 +98,15 @@ function closeTaskDialog() {
 function initCloseTaskButton() {
     const closeBtnRef = document.getElementById("close-task-dialog");
     closeBtnRef.addEventListener("click", closeTaskDialog);
+}
+
+function initDeleteTaskButton(task) {
+    const deleteBtnRef = document.getElementById("delete-task-btn");
+
+    deleteBtnRef.addEventListener("click", async () => {
+        await deleteTask(task.id);
+        closeTaskDialog();
+    });
 }
 
 function backdropClose(event) {
@@ -140,8 +148,13 @@ function initCancelBtn(task) {
 
 function cancelEdit(task) {
     taskDialogRef.innerHTML = returnTaskView(task);
-    initEditTaskButton(task);
+    initTaskDialogButtons(task);
+}
+
+function initTaskDialogButtons(task) {
     initCloseTaskButton();
+    initEditTaskButton(task);
+    initDeleteTaskButton(task);
 }
 
 // OPTIONAL RESET:

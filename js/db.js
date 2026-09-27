@@ -1,5 +1,5 @@
 import { database } from "./firebase-config.js";
-import { ref, onValue, update, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { ref, onValue, update, push, set, remove } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 
 const tasksRef = ref(database, "tasks");
 const contactsRef = ref(database, "contacts");
@@ -39,6 +39,12 @@ export function updateSubtaskCompletion(id, index, completion) {
     updates[`/tasks/${id}/subtasks/${index}/completion`] = completion;
     return update(ref(database), updates);
 }
+
+export function deleteTask(id) {
+    const taskRef = ref(database, `tasks/${id}`);
+    return remove(taskRef);
+}
+
 
 export function listenToContacts(callback) {
     onValue(contactsRef, (snapshot) => {

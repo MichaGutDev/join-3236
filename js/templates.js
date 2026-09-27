@@ -156,7 +156,7 @@ export function returnTaskView(task) {
             ${returnSubtasksHTML(task.subtasks)}
 
             <footer class="task-actions">
-                <button type="button" class="delete-task-btn">Delete</button>
+                <button type="button" class="delete-task-btn" id="delete-task-btn">Delete</button>
                 <button type="button" class="edit-task-btn">Edit</button>
             </footer>
         </article>
