@@ -21,3 +21,15 @@ export function isValidEmail(email) {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return emailRegex.test(email);
 }
+
+
+/**
+ * Validates the phone number format using a regular expression.
+ *
+ * @param {string} phone - The phone number to validate.
+ * @returns {boolean} True if the phone number format is valid.
+ */
+export function isValidPhone(phone) {
+    const phoneRegex = /^\+?[0-9\s\-()]{6,}$/;
+    return phoneRegex.test(phone);
+}

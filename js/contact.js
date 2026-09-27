@@ -1,6 +1,6 @@
 import { database } from './firebase-config.js';
 import { push, get, set, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { getRandomContactColor, isValidEmail } from './contact-utils.js';
+import { getRandomContactColor, isValidEmail, isValidPhone } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
 
 
@@ -186,6 +186,11 @@ function isContactFormValid(name, email, phone) {
 
     if (!isValidEmail(email)) {
         showContactError(['dialog_input_email'], 'Please enter a valid email address.');
+        return false;
+    }
+
+    if (!isValidPhone(phone)) {
+        showContactError(['dialog_input_phone'], 'Please enter a valid phone number.');
         return false;
     }
 
