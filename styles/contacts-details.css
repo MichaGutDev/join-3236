@@ -1,4 +1,4 @@
-/* Contact Details */
+/* Layout */
 
 .container-contact-details {
     height: 100%;
@@ -10,6 +10,17 @@
     padding-left: 100px;
     padding-right: 16px;
 }
+
+.contact-details-container {
+    height: 100%;
+    width: 100%;
+    padding-top: 50px;
+}
+
+/* End Layout */
+
+
+/* Header */
 
 .contact-details-header {
     height: 73px;
@@ -41,12 +52,22 @@
     border-radius: 3px;
 }
 
+/* End Header */
+
+
+/* Back Button (Mobile) */
+
 .contact-back-btn {
     display: none;
     border: none;
     background: transparent;
     cursor: pointer;
 }
+
+/* End Back Button (Mobile) */
+
+
+/* Contact Options Menu (Mobile) */
 
 .contact-menu-wrapper {
     display: none;
@@ -114,11 +135,10 @@
     background-color: var(--color-bg-main);
 }
 
-.contact-details-container {
-    height: 100%;
-    width: 100%;
-    padding-top: 50px;
-}
+/* End Contact Options Menu (Mobile) */
+
+
+/* Details Content */
 
 .contact-details-item {
     display: flex;
@@ -157,6 +177,11 @@
     margin-right: 4px;
 }
 
+/* End Details Content */
+
+
+/* Contact Info */
+
 .contact-details-info {
     height: 74px;
     margin: 20px 0;
@@ -186,6 +211,11 @@
     font-weight: inherit;
 }
 
+/* End Contact Info */
+
+
+/* Initials */
+
 .contact-details-initials {
     background-color: rgb(255, 132, 0);
     height: clamp(72px, 9vw, 120px);
@@ -202,7 +232,7 @@
     flex-shrink: 0;
 }
 
-/* End Contact Details */
+/* End Initials */
 
 
 /* Responsive */
