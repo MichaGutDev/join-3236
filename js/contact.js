@@ -1,23 +1,38 @@
 import { database } from './firebase-config.js';
 import { push, get, set, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
-import { getRandomContactColor, isValidEmail, isValidPhone } from './contact-utils.js';
+import { getRandomContactColor } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
+import {
+    openDialog, closeDialog, cancelDialog, stopBubbleling, setDeleteButtonsDisabled,
+    clearContactError, isContactFormValid, showContactToast, editContact, createContact
+} from './contact-dialog.js';
 
 
 const contactsRef = ref(database, "contacts");
 const tasksRef = ref(database, "tasks");
-const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
 let contactsData = {};
 let selectedContactId = null;
+
+
+/**
+ * Reads the current values from the contact form fields.
+ *
+ * @returns {{name: string, email: string, phone: string}} The trimmed form values.
+ */
+function getContactFormValues() {
+    return {
+        name: document.getElementById('dialog_input_name').value.trim(),
+        email: document.getElementById('dialog_input_email').value.trim(),
+        phone: document.getElementById('dialog_input_phone').value.trim(),
+    };
+}
 
 
 /**
  * Saves changes to the currently edited contact.
  */
 async function saveContact() {
-    const name = document.getElementById('dialog_input_name').value.trim();
-    const email = document.getElementById('dialog_input_email').value.trim();
-    const phone = document.getElementById('dialog_input_phone').value.trim();
+    const { name, email, phone } = getContactFormValues();
 
     clearContactError();
     if (!isContactFormValid(name, email, phone)) return;
@@ -53,18 +68,6 @@ async function deleteContact() {
 
 
 /**
- * Enables or disables all buttons that can trigger a contact deletion.
- *
- * @param {boolean} disabled - True to disable the buttons.
- */
-function setDeleteButtonsDisabled(disabled) {
-    document.getElementById('delete-contact-btn-details').disabled = disabled;
-    document.getElementById('delete-contact-btn-mobile').disabled = disabled;
-    document.getElementById('delete-contact-btn-dialog').disabled = disabled;
-}
-
-
-/**
  * Removes a contact id from the assignedTo list of every task that has it.
  *
  * @param {string} contactId - The id of the deleted contact.
@@ -87,124 +90,10 @@ async function removeContactFromTasks(contactId) {
 
 
 /**
- * Shows a toast with the given message for a short moment.
- *
- * @param {string} message - The text to display in the toast.
- */
-function showContactToast(message) {
-    const toast = document.getElementById('contact-toast');
-    toast.textContent = message;
-    toast.style.display = 'flex';
-
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 1500);
-}
-
-
-/**
- * Opens the contact dialog and clears any previous error state.
- */
-function openDialog() {
-    let dialog = document.getElementById('dialog');
-    clearContactError();
-    dialog.showModal();
-}
-
-
-/**
- * Closes the contact dialog and resets the form fields.
- */
-function closeDialog() {
-    let dialog = document.getElementById('dialog');
-    CONTACT_FIELD_IDS.forEach((id) => {
-        document.getElementById(id).value = "";
-    });
-    document.getElementById('save-contact-btn-dialog').disabled = false;
-    document.getElementById('create-contact-btn-dialog').disabled = false;
-    setDeleteButtonsDisabled(false);
-    dialog.close();
-}
-
-
-/**
- * Cancels the current dialog action without saving.
- */
-function cancelDialog() {
-    closeDialog();
-}
-
-
-/**
- * Stops a click event from bubbling up to the dialog backdrop.
- *
- * @param {MouseEvent} event
- */
-function stopBubbleling(event) {
-    event.stopPropagation();
-}
-
-
-/**
- * Shows an error message and highlights the given fields.
- *
- * @param {string[]} fieldIds - The ids of the input fields to highlight.
- * @param {string} message - The error message to display.
- */
-function showContactError(fieldIds, message) {
-    document.getElementById('contact-form-error').textContent = message;
-    fieldIds.forEach((id) => {
-        document.getElementById(id).classList.add('field-error');
-    });
-}
-
-
-/**
- * Clears the contact form error message and removes highlighting from all fields.
- */
-function clearContactError() {
-    document.getElementById('contact-form-error').textContent = "";
-    CONTACT_FIELD_IDS.forEach((id) => {
-        document.getElementById(id).classList.remove('field-error');
-    });
-}
-
-
-/**
- * Validates the contact form fields and shows an error message if invalid.
- *
- * @param {string} name - The entered name.
- * @param {string} email - The entered email.
- * @param {string} phone - The entered phone number.
- * @returns {boolean} True if the form is valid.
- */
-function isContactFormValid(name, email, phone) {
-    if (!name || !email || !phone) {
-        showContactError(CONTACT_FIELD_IDS, 'Please fill in all fields.');
-        return false;
-    }
-
-    if (!isValidEmail(email)) {
-        showContactError(['dialog_input_email'], 'Please enter a valid email address.');
-        return false;
-    }
-
-    if (!isValidPhone(phone)) {
-        showContactError(['dialog_input_phone'], 'Please enter a valid phone number.');
-        return false;
-    }
-
-    return true;
-}
-
-
-/**
  * Reads the contact form, validates it and saves a new contact to Firebase.
  */
 async function addContact() {
-    const name = document.getElementById('dialog_input_name').value.trim();
-    const email = document.getElementById('dialog_input_email').value.trim();
-    const phone = document.getElementById('dialog_input_phone').value.trim();
+    const { name, email, phone } = getContactFormValues();
 
     clearContactError();
     if (!isContactFormValid(name, email, phone)) return;
@@ -221,66 +110,14 @@ async function addContact() {
 
 
 /**
- * Opens the contact dialog in edit mode.
- */
-function editContact() {
-    setDialogMode(true);
-
-    const contact = contactsData[selectedContactId];
-    document.getElementById('dialog_input_name').value = contact.name;
-    document.getElementById('dialog_input_email').value = contact.email;
-    document.getElementById('dialog_input_phone').value = contact.phone;
-
-    const dialogInitials = document.getElementById('dialog-initials');
-    dialogInitials.textContent = getInitials(contact.name);
-    dialogInitials.style.backgroundColor = contact.color;
-
-    document.getElementById('dialog_topic_area').innerHTML = "";
-    document.getElementById('dialog_topic_area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
-        <h2 class="dialog-topic-title">Edit Contact</h2>
-        <div class="dialog-topic-underline"></div>
-    `;
-
-    openDialog();
-}
-
-
-/**
- * Opens the contact dialog in add mode.
- */
-function createContact() {
-    setDialogMode(false);
-
-    document.getElementById('dialog_topic_area').innerHTML = "";
-    document.getElementById('dialog_topic_area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
-        <h2 class="dialog-topic-title">Add contact</h2>
-        <p class="dialog-topic-slogan">Tasks are better with a team</p>
-        <div class="dialog-topic-underline"></div>
-    `;
-    openDialog();
-}
-
-
-/**
- * Toggles which dialog buttons and avatar are visible depending on add or edit mode.
+ * Marks the given contact list item as active and shows the detail panel.
  *
- * @param {boolean} isEdit - True to show edit buttons, false to show add buttons.
+ * @param {HTMLElement} contactItem - The clicked contact list item.
  */
-function setDialogMode(isEdit) {
-    const cancelContactBtnDialog = document.getElementById('cancel-contact-btn-dialog');
-    cancelContactBtnDialog.hidden = isEdit;
-    const createContactBtnDialog = document.getElementById('create-contact-btn-dialog');
-    createContactBtnDialog.hidden = isEdit;
-    const dialogAvatarPlaceholder = document.getElementById('dialog-avatar-placeholder');
-    dialogAvatarPlaceholder.hidden = isEdit;
-    const dialogInitials = document.getElementById('dialog-initials');
-    dialogInitials.hidden = !isEdit;
-    const deleteContactBtnDialog = document.getElementById('delete-contact-btn-dialog');
-    deleteContactBtnDialog.hidden = !isEdit;
-    const saveContactBtnDialog = document.getElementById('save-contact-btn-dialog');
-    saveContactBtnDialog.hidden = !isEdit;
+function markContactAsActive(contactItem) {
+    document.querySelector('.contact-list-item.active')?.classList.remove('active');
+    contactItem.classList.add('active');
+    document.querySelector('.section-main-content').classList.add('detail-open');
 }
 
 
@@ -303,9 +140,7 @@ function handleContactClick(event) {
     document.getElementById('contact_details').hidden = false;
     selectedContactId = id;
 
-    document.querySelector('.contact-list-item.active')?.classList.remove('active');
-    contactItem.classList.add('active');
-    document.querySelector('.section-main-content').classList.add('detail-open');
+    markContactAsActive(contactItem);
 }
 
 
@@ -383,7 +218,7 @@ if (dialogBox) {
 
 const editContactBtn = document.getElementById('edit-contact-btn');
 if (editContactBtn) {
-    editContactBtn.addEventListener('click', editContact);
+    editContactBtn.addEventListener('click', () => editContact(contactsData[selectedContactId]));
 }
 
 
@@ -420,7 +255,7 @@ document.addEventListener('click', closeContactMenuOutside);
 
 const editContactBtnMobile = document.getElementById('edit-contact-btn-mobile');
 if (editContactBtnMobile) {
-    editContactBtnMobile.addEventListener('click', editContact);
+    editContactBtnMobile.addEventListener('click', () => editContact(contactsData[selectedContactId]));
 }
 
 
