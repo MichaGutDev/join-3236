@@ -115,7 +115,8 @@ select.task-input {
     padding: 16px 10px;
     width: 136px;
     border-radius: 10px;
-    font-size: 20px;
+    font-size: 21px;
+    font-weight: 700;
 }
 
 .priority label:hover {
@@ -129,6 +130,7 @@ select.task-input {
 
 .priority-high:has(input:checked) {
     background-color: #FF3D00;
+    color: white;
 }
 
 .priority-medium:has(input:checked) {
