@@ -11,6 +11,10 @@
 
 /* Layout */
 
+.task-form {
+    padding: 0;
+}
+
 .form-wrapper {
     flex-direction: column;
     max-width: 1208px;
