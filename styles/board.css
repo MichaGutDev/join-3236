@@ -102,7 +102,12 @@ padding-left: 16px;
 
 .initials-container {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+}
+
+.initials-container img{
+    height: 24px;
 }
 
 .task-box {

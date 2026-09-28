@@ -1,4 +1,4 @@
-import { initTaskForm, renderContacts, setFormSubtasks } from "./add_task.js";
+import { initTaskForm, renderContacts, setFormSubtasks } from "./taskForm.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML, returnSubtasksHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
@@ -147,6 +147,7 @@ function openEditTask(task) {
 
     initTaskForm(task.status, task.id);
     initCancelBtn(task);
+    initCloseTaskButton();
 }
 
 function fillBasicTaskForm(task) { // CURRENTLY TEST
@@ -159,8 +160,8 @@ function fillBasicTaskForm(task) { // CURRENTLY TEST
 
 function initCancelBtn(task) {
     const cancelBtnRef = document.getElementById('cancel-btn');
-    const submitBtnRef = document.getElementById('submit-btn');
-    submitBtnRef.innerHTML = "Ok"
+    const submitBtnRef = document.getElementById('submit-btn-text');
+    submitBtnRef.textContent = "Ok";
     cancelBtnRef.addEventListener("click", () => {
         cancelEdit(task);
     });
