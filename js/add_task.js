@@ -1,6 +1,7 @@
 import { database } from './firebase-config.js';
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { saveTask, listenToContacts } from "./db.js";
+// import { field } from '/firebase/firestore/pipelines';
 const subtasks = [];
 let formRef;
 let contacts = [];
@@ -15,17 +16,8 @@ function init() {
       contactsRendered = true;
     }
   })
-  renderContacts(contacts);
+  // renderContacts(contacts);
 }
-
-function validateForm() {
-  const formData = new FormData(formRef);
-  const title = formData.get("title").trim();
-  const dueDate = formData.get("dueDate");
-  const category = formData.get("category");
-  return title !== "" && dueDate !== "" && category !== "";
-}
-
 
 //_________(add) Task Form________________
 
@@ -33,6 +25,9 @@ function validateForm() {
 export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
   formRef = document.querySelector("#task-form");
   const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+  createTaskBtnRef = document.getElementById('create-task-btn');
+  const dueDateRef = document.getElementById("dueDate");
+  dueDateRef.min = getCurrentDate();
 
   addSubtaskBtnRef.addEventListener("click", addSubtask);
   formRef.addEventListener("submit", (event) => {
@@ -40,12 +35,11 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
     getValues(taskStatus, editingTaskId);
   });
 
-  createTaskBtnRef = document.getElementById('create-task-btn');
-  createTaskBtnRef.disabled = !validateForm();
+  handleFormValidation();
+  formRef.addEventListener("input", handleFormValidation);
 
-  formRef.addEventListener("input", () => {
-    createTaskBtnRef.disabled = !validateForm();
-  });
+
+
 }
 
 async function getValues(status, editingTaskId) {
@@ -75,6 +69,41 @@ function resetTaskForm() {
   renderContacts(contacts);
 }
 
+function handleFormValidation() {
+  const requiredFields = getRequiredFields();
+  handleRequired(requiredFields);
+  createTaskBtnRef.disabled = !validateForm(requiredFields);
+}
+
+function getRequiredFields() {
+  const formData = new FormData(formRef);
+  return {
+    title: formData.get("title").trim(),
+    dueDate: formData.get("dueDate"),
+    category: formData.get("category"),
+  };
+}
+
+function validateForm(requiredFields) {
+  return Object.values(requiredFields).every(value => value !== "");
+}
+
+function handleRequired(requiredFields) {
+  Object.entries(requiredFields).forEach(([key, value]) => {
+    const errorRef = document.getElementById(`${key}-error`);
+    errorRef.classList.toggle("d-none", value !== "");
+  });
+}
+
+function getCurrentDate() {
+  const today = new Date();
+
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
 
 //_________Subtasks________________
 

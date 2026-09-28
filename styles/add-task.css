@@ -1,9 +1,16 @@
 /* Hidden Elements (not part of Figma design) */
 
-.status,
-.subtask-add-btn,
-.debug-logger-btn {
+.subtask-add-btn {
     display: none;
+}
+
+.d-none {
+    display: none;
+}
+
+.form-error {
+    color: red;
+    margin-left: 10px;
 }
 
 /* End Hidden Elements */

@@ -87,35 +87,14 @@
         <section class="form-wrapper">
             <h1>Add Task</h1>
             <form id="task-form" class="task-form">
-                <!-- Status -->
-                <div class="form-group">
-                    <fieldset class="status">
-                        <legend>Status</legend>
-
-                        <label>
-                            <input type="radio" name="status" value="To Do" checked>
-                            <span>To Do</span>
-                        </label>
-
-                        <label>
-                            <input type="radio" name="status" value="In Progress">
-                            <span>In Progress</span>
-                        </label>
-
-                        <label>
-                            <input type="radio" name="status" value="Awaiting Feedback">
-                            <span>Awaiting Feedback</span>
-                        </label>
-                    </fieldset>
-                </div>
-
                 <div class="task-form-columns">
                     <div class="task-form-column">
                         <!-- Title -->
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Title<span class="error-message">*</span></label>
                             <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title"
                                 required>
+                            <span id="title-error" class="form-error">This field is required</span>
                         </div>
 
                         <!-- Description -->
@@ -127,8 +106,9 @@
 
                         <!-- Due Date -->
                         <div class="form-group">
-                            <label for="dueDate">Due Date</label>
+                            <label for="dueDate">Due Date<span class="error-message">*</span></label>
                             <input type="date" id="dueDate" name="dueDate" class="task-input" required>
+                            <span id="dueDate-error" class="form-error">This field is required</span>
                         </div>
                     </div>
 
@@ -176,12 +156,13 @@
 
                         <!-- Category -->
                         <div class="form-group">
-                            <label for="category">Category</label>
+                            <label for="category">Category<span class="error-message">*</span></label>
                             <select id="category" name="category" class="task-input" required>
                                 <option value="">Select task category</option>
                                 <option value="User Story">User Story</option>
                                 <option value="Technical Task">Technical Task</option>
                             </select>
+                            <span id="category-error" class="form-error">This field is required</span>
                         </div>
 
                         <!-- Subtasks -->
@@ -215,7 +196,6 @@
                 </div>
             </form>
         </section>
-        <button id="logger" class="debug-logger-btn">Log Subtask list</button>
     </main>
 
     <script type="module" src="../script.js"></script>
