@@ -126,6 +126,14 @@
   background-color: white;
 }
 
+.password-toggle-btn {
+  display: flex;
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+}
+
 .auth-field input {
   border: none;
   outline: none;

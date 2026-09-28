@@ -39,7 +39,9 @@
                 <label class="auth-field" for="password">
                     <span class="visually-hidden">Required field: password</span>
                     <input type="password" required id="password" placeholder="Password">
-                    <img src="./assets/icons/lock-icon.svg" alt="Lock Icon" id="password-icon">
+                    <button type="button" class="password-toggle-btn" id="password-toggle-btn" aria-label="Show password">
+                        <img src="./assets/icons/lock-icon.svg" alt="" id="password-icon">
+                    </button>
                 </label>
                 <span class="error-message" id="login-error"></span>
             </div>

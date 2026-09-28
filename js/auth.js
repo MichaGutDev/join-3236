@@ -235,13 +235,13 @@ if (guestButton) {
 const passwordInput = document.getElementById('password');
 if (passwordInput) {
     passwordInput.addEventListener('input', () => updatePasswordIcon('password', 'password-icon'));
-    document.getElementById('password-icon').addEventListener('click', () => togglePasswordVisibility('password', 'password-icon'));
+    document.getElementById('password-toggle-btn').addEventListener('click', () => togglePasswordVisibility('password', 'password-icon'));
 }
 
 const confirmPasswordInput = document.getElementById('confirm-password');
 if (confirmPasswordInput) {
     confirmPasswordInput.addEventListener('input', () => updatePasswordIcon('confirm-password', 'confirm-password-icon'));
-    document.getElementById('confirm-password-icon').addEventListener('click', () => togglePasswordVisibility('confirm-password', 'confirm-password-icon'));
+    document.getElementById('confirm-password-toggle-btn').addEventListener('click', () => togglePasswordVisibility('confirm-password', 'confirm-password-icon'));
 }
 
 const splashScreen = document.getElementById('splash-screen');
