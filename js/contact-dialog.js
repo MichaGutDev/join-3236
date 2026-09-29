@@ -86,29 +86,57 @@ export function clearContactError() {
 
 
 /**
- * Determines the first validation error for the given contact form values.
+ * Determines the validation error message for a single field's value.
  *
- * @param {string} name - The entered name.
- * @param {string} email - The entered email.
- * @param {string} phone - The entered phone number.
- * @returns {{fields: string[], message: string}|null} The error to show, or null if valid.
+ * @param {string} fieldId - The id of the field being checked.
+ * @param {string} value - The field's current value.
+ * @returns {string|null} The error message, or null if valid.
  */
-function getContactValidationError(name, email, phone) {
-    if (!name || !email || !phone) {
-        return { fields: CONTACT_FIELD_IDS, message: 'Please fill in all fields.' };
+function getFieldError(fieldId, value) {
+    if (!value) return 'This field is required.';
+    if (fieldId === 'dialog_input_email' && !isValidEmail(value)) {
+        return 'Please enter a valid email address.';
     }
-    if (!isValidEmail(email)) {
-        return { fields: ['dialog_input_email'], message: 'Please enter a valid email address.' };
-    }
-    if (!isValidPhone(phone)) {
-        return { fields: ['dialog_input_phone'], message: 'Please enter a valid phone number.' };
+    if (fieldId === 'dialog_input_phone' && !isValidPhone(value)) {
+        return 'Please enter a valid phone number.';
     }
     return null;
 }
 
 
 /**
- * Validates the contact form fields and shows an error message if invalid.
+ * Clears the highlight on a single field, and the shared message if no field is invalid anymore.
+ *
+ * @param {string} fieldId - The id of the field to clear.
+ */
+function clearFieldError(fieldId) {
+    document.getElementById(fieldId).classList.remove('field-error');
+    const stillInvalid = CONTACT_FIELD_IDS.some((id) => document.getElementById(id).classList.contains('field-error'));
+    if (!stillInvalid) {
+        document.getElementById('contact-form-error').textContent = '';
+    }
+}
+
+
+/**
+ * Validates a single contact field on blur and updates its own error state.
+ *
+ * @param {string} fieldId - The id of the field to validate.
+ */
+export function validateContactField(fieldId) {
+    const value = document.getElementById(fieldId).value.trim();
+    const error = getFieldError(fieldId, value);
+
+    if (error) {
+        showContactError([fieldId], error);
+    } else {
+        clearFieldError(fieldId);
+    }
+}
+
+
+/**
+ * Validates all contact form fields, highlighting each invalid field individually.
  *
  * @param {string} name - The entered name.
  * @param {string} email - The entered email.
@@ -116,11 +144,18 @@ function getContactValidationError(name, email, phone) {
  * @returns {boolean} True if the form is valid.
  */
 export function isContactFormValid(name, email, phone) {
-    const error = getContactValidationError(name, email, phone);
-    if (!error) return true;
+    const values = { dialog_input_name: name, dialog_input_email: email, dialog_input_phone: phone };
+    let isValid = true;
 
-    showContactError(error.fields, error.message);
-    return false;
+    Object.entries(values).forEach(([fieldId, value]) => {
+        const error = getFieldError(fieldId, value);
+        if (error) {
+            showContactError([fieldId], error);
+            isValid = false;
+        }
+    });
+
+    return isValid;
 }
 
 
