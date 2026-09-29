@@ -3,6 +3,18 @@ import { getInitials } from './contact-templates.js';
 
 
 const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
+const ERROR_SPAN_SUFFIXES = { dialog_input_name: 'name', dialog_input_email: 'email', dialog_input_phone: 'phone' };
+
+
+/**
+ * Returns the id of the error message span belonging to the given field.
+ *
+ * @param {string} fieldId - The id of the input field.
+ * @returns {string} The id of the field's error message span.
+ */
+function getErrorSpanId(fieldId) {
+    return `contact-form-error-${ERROR_SPAN_SUFFIXES[fieldId]}`;
+}
 
 
 /**
@@ -61,26 +73,24 @@ export function setDeleteButtonsDisabled(disabled) {
 
 
 /**
- * Shows an error message and highlights the given fields.
+ * Shows an error message and highlights the given field.
  *
- * @param {string[]} fieldIds - The ids of the input fields to highlight.
+ * @param {string} fieldId - The id of the input field to highlight.
  * @param {string} message - The error message to display.
  */
-export function showContactError(fieldIds, message) {
-    document.getElementById('contact-form-error').textContent = message;
-    fieldIds.forEach((id) => {
-        document.getElementById(id).classList.add('field-error');
-    });
+export function showContactError(fieldId, message) {
+    document.getElementById(getErrorSpanId(fieldId)).textContent = message;
+    document.getElementById(fieldId).classList.add('field-error');
 }
 
 
 /**
- * Clears the contact form error message and removes highlighting from all fields.
+ * Clears all contact form error messages and removes highlighting from all fields.
  */
 export function clearContactError() {
-    document.getElementById('contact-form-error').textContent = "";
     CONTACT_FIELD_IDS.forEach((id) => {
         document.getElementById(id).classList.remove('field-error');
+        document.getElementById(getErrorSpanId(id)).textContent = '';
     });
 }
 
@@ -105,16 +115,13 @@ function getFieldError(fieldId, value) {
 
 
 /**
- * Clears the highlight on a single field, and the shared message if no field is invalid anymore.
+ * Clears the highlight and error message on a single field.
  *
  * @param {string} fieldId - The id of the field to clear.
  */
 function clearFieldError(fieldId) {
     document.getElementById(fieldId).classList.remove('field-error');
-    const stillInvalid = CONTACT_FIELD_IDS.some((id) => document.getElementById(id).classList.contains('field-error'));
-    if (!stillInvalid) {
-        document.getElementById('contact-form-error').textContent = '';
-    }
+    document.getElementById(getErrorSpanId(fieldId)).textContent = '';
 }
 
 
@@ -128,7 +135,7 @@ export function validateContactField(fieldId) {
     const error = getFieldError(fieldId, value);
 
     if (error) {
-        showContactError([fieldId], error);
+        showContactError(fieldId, error);
     } else {
         clearFieldError(fieldId);
     }
@@ -150,7 +157,7 @@ export function isContactFormValid(name, email, phone) {
     Object.entries(values).forEach(([fieldId, value]) => {
         const error = getFieldError(fieldId, value);
         if (error) {
-            showContactError([fieldId], error);
+            showContactError(fieldId, error);
             isValid = false;
         }
     });

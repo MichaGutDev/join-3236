@@ -162,11 +162,17 @@
 /* Dialog Form Inputs */
 
 .dialog-input-container {
-    height: 215px;
+    min-height: 215px;
     width: 422px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.dialog-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .dialog-input {
