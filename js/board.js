@@ -5,6 +5,8 @@ import { filterTasks } from "./search.js";
 import { getInitials } from "./contact-templates.js";
 let tasks = [];
 let contacts = [];
+let tasksLoaded = false;
+let contactsLoaded = false;
 let currentDraggedTaskId;
 const taskContainerMap = {
     "To Do": document.getElementById('to_do'),
@@ -16,6 +18,24 @@ const taskDialogRef = document.getElementById("task-dialog");
 const searchInputRef = document.getElementById('search-task');
 searchInputRef.addEventListener("input", search);
 taskDialogRef.addEventListener("click", backdropClose);
+
+function renderBoardWhenReady() {
+    if (tasksLoaded && contactsLoaded) {
+        displayTasks();
+    }
+}
+
+listenToTasks((updatedTasks) => {
+    tasks = updatedTasks;
+    tasksLoaded = true;
+    renderBoardWhenReady();
+});
+
+listenToContacts((updatedContacts) => {
+    contacts = updatedContacts;
+    contactsLoaded = true;
+    renderBoardWhenReady();
+});
 
 function initAddTaskButtons() {
     const addTaskBtnRefs = document.querySelectorAll('.add-task-btn');
@@ -133,7 +153,7 @@ function openAddTask(status) {
     renderContacts(contacts);
     setFormSubtasks();
 
-    initTaskForm(status);
+    initTaskForm(status, null, closeTaskDialog);
     initCloseTaskButton();
     openTaskDialog();
 }
@@ -145,7 +165,7 @@ function openEditTask(task) {
     renderContacts(contacts, task.assignedTo);
     setFormSubtasks(task.subtasks);
 
-    initTaskForm(task.status, task.id);
+    initTaskForm(task.status, task.id, closeTaskDialog);
     initCancelBtn(task);
     initCloseTaskButton();
 }
@@ -255,7 +275,7 @@ function getSubtaskStats(subtasks) {
 
 export function returnAssignedToHTML(assignedToList, showName = false) {
     if (!assignedToList || assignedToList.length === 0) {
-        return "";
+        return "<div></div>";
     }
 
     const assignedToHTML = assignedToList.map(contactID =>

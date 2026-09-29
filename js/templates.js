@@ -11,8 +11,7 @@ export function returnAddTaskForm() {
                         <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
-                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title"
-                                required>
+                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title">
                             <span id="title-error" class="form-error">This field is required</span>
                         </div>
 
@@ -20,13 +19,13 @@ export function returnAddTaskForm() {
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" class="task-input task-textarea"
-                                placeholder="Enter a description" required></textarea>
+                                placeholder="Enter a description"></textarea>
                         </div>
 
                         <!-- Due Date -->
                         <div class="form-group">
                             <label for="dueDate">Due Date<span class="error-message">*</span></label>
-                            <input type="date" id="dueDate" name="dueDate" class="task-input" required>
+                            <input type="date" id="dueDate" name="dueDate" class="task-input">
                             <span id="dueDate-error" class="form-error">This field is required</span>
                         </div>
                     </div>
@@ -61,22 +60,14 @@ export function returnAddTaskForm() {
                             <label for="assigned-to">Assigned To</label>
 
                             <select id="assigned-to" name="assignedTo" class="task-input">
-                                <option value="" selected>Select contacts to assign</option>
-                                <option value="contactId1">Contact 1</option>
-                                <option value="contactId2">Contact 2</option>
-                                <option value="contactId3">Contact 3</option>
-                                <option value="contactId3">Contact 4</option>
-                                <option value="contactId3">Contact 5</option>
-                                <option value="contactId3">Contact 6</option>
-                                <option value="contactId3">Contact 7</option>
-                                <option value="contactId3">Contact 8</option>
+                                <option value="">Select contacts to assign</option>
                             </select>
                         </div>
 
                         <!-- Category -->
                         <div class="form-group">
                             <label for="category">Category<span class="error-message">*</span></label>
-                            <select id="category" name="category" class="task-input" required>
+                            <select id="category" name="category" class="task-input">
                                 <option value="">Select task category</option>
                                 <option value="User Story">User Story</option>
                                 <option value="Technical Task">Technical Task</option>

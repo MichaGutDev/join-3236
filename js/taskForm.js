@@ -3,7 +3,7 @@ let formRef;
 let createTaskBtnRef;
 const subtasks = [];
 
-export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
+export function initTaskForm(taskStatus = "To Do", editingTaskId = null, callback = null) {
   formRef = document.querySelector("#task-form");
   const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
   createTaskBtnRef = document.getElementById('create-task-btn');
@@ -13,7 +13,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
   addSubtaskBtnRef.addEventListener("click", addSubtask);
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
-    getValues(taskStatus, editingTaskId);
+    getValues(taskStatus, editingTaskId, callback);
   });
 
   handleFormValidation();
@@ -22,7 +22,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null) {
 
 export function renderContacts(contacts, assignedTo = []) {
   const selectRef = document.getElementById("assigned-to");
-  selectRef.innerHTML = "";
+  selectRef.innerHTML = '<option value="" selected>Select contacts to assign</option>';
   contacts.forEach(contact => {
     const option = document.createElement("option");
     option.value = contact.id;
@@ -40,11 +40,14 @@ export function setFormSubtasks(taskSubtasks = []) {
   renderSubtasks(subtasks);
 }
 
-async function getValues(status, editingTaskId) {
+async function getValues(status, editingTaskId, callback) {
   const formData = new FormData(formRef);
   const task = createTaskObject(formData, status);
   await saveTask(task, editingTaskId);
   resetTaskForm();
+  if (callback) {
+    callback();
+  }
 }
 
 function createTaskObject(formData, status = "To Do") {
@@ -64,7 +67,6 @@ function resetTaskForm() {
   formRef.reset();
   subtasks.length = 0;
   renderSubtasks(subtasks);
-  renderContacts(contacts);
 }
 
 function addSubtask() {
