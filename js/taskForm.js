@@ -3,26 +3,33 @@ let formRef;
 let createTaskBtnRef;
 const subtasks = [];
 
-export function initTaskForm(taskStatus = "To Do", editingTaskId = null, callback = null) {
+export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave = null) {
   formRef = document.querySelector("#task-form");
-  const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
-  createTaskBtnRef = document.getElementById('create-task-btn');
-  const dueDateRef = document.getElementById("dueDate");
-  dueDateRef.min = getCurrentDate();
-
-  addSubtaskBtnRef.addEventListener("click", addSubtask);
-  formRef.addEventListener("submit", (event) => {
-    event.preventDefault();
-    getValues(taskStatus, editingTaskId, callback);
-  });
-
+  createTaskBtnRef = document.getElementById("create-task-btn");
+  setMinimumDueDate();
+  initTaskListeners(taskStatus, editingTaskId, onSave);
   handleFormValidation();
-  formRef.addEventListener("input", handleFormValidation);
+}
+
+function initTaskListeners(taskStatus, editingTaskId, onSave) {
+    const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+
+    addSubtaskBtnRef.addEventListener("click", addSubtask);
+    formRef.addEventListener("submit", (event) => {
+        event.preventDefault();
+        getValues(taskStatus, editingTaskId, onSave);
+    });
+    formRef.addEventListener("input", handleFormValidation);
+}
+
+function setMinimumDueDate() {
+    const dueDateRef = document.getElementById("dueDate");
+    dueDateRef.min = getCurrentDate();
 }
 
 export function renderContacts(contacts, assignedTo = []) {
   const selectRef = document.getElementById("assigned-to");
-  selectRef.innerHTML = '<option value="" selected>Select contacts to assign</option>';
+  selectRef.innerHTML = "<option value='' selected>Select contacts to assign</option>";
   contacts.forEach(contact => {
     const option = document.createElement("option");
     option.value = contact.id;
@@ -40,13 +47,13 @@ export function setFormSubtasks(taskSubtasks = []) {
   renderSubtasks(subtasks);
 }
 
-async function getValues(status, editingTaskId, callback) {
+async function getValues(status, editingTaskId, onSave) {
   const formData = new FormData(formRef);
   const task = createTaskObject(formData, status);
   await saveTask(task, editingTaskId);
   resetTaskForm();
-  if (callback) {
-    callback();
+  if (onSave) {
+    onSave();
   }
 }
 
@@ -86,7 +93,7 @@ function deleteSubtask(event) {
 }
 
 function renderSubtasks(subtasks) {
-  const subTaskListRef = document.getElementById('subtask-list');
+  const subTaskListRef = document.getElementById("subtask-list");
   subTaskListRef.innerHTML = "";
   for (let index = 0; index < subtasks.length; index++) {
     const subtask = subtasks[index];
