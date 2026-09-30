@@ -1,13 +1,14 @@
-import { initTaskForm, renderContacts, setFormSubtasks } from "./taskForm.js";
-import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML, returnSubtasksHTML } from "./templates.js";
+import { initTaskForm, renderContacts, setFormSubtasks, updateFormContacts } from "./taskForm.js";
+import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML, returnSubtasksHTML, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
 import { getInitials } from "./contact-templates.js";
+
 let tasks = [];
 let contacts = [];
 let tasksLoaded = false;
 let contactsLoaded = false;
-let currentDraggedTaskId;
+let currentDraggedTaskId = null;
 const taskContainerMap = {
     "To Do": document.getElementById('to_do'),
     "In Progress": document.getElementById('in_progress'),
@@ -15,9 +16,14 @@ const taskContainerMap = {
     "Done": document.getElementById('done'),
 }
 const taskDialogRef = document.getElementById("task-dialog");
-const searchInputRef = document.getElementById('search-task');
-searchInputRef.addEventListener("input", search);
-taskDialogRef.addEventListener("click", backdropClose);
+
+// listenToTasks((updatedTasks) => {
+//     tasks = updatedTasks;
+//     displayTasks();
+// });
+// listenToContacts((updatedContacts) => {
+//     contacts = updatedContacts;
+// });
 
 function renderBoardWhenReady() {
     if (tasksLoaded && contactsLoaded) {
@@ -25,91 +31,114 @@ function renderBoardWhenReady() {
     }
 }
 
-listenToTasks((updatedTasks) => {
-    tasks = updatedTasks;
-    tasksLoaded = true;
-    renderBoardWhenReady();
-});
-
-listenToContacts((updatedContacts) => {
-    contacts = updatedContacts;
-    contactsLoaded = true;
-    renderBoardWhenReady();
-});
-
-function initAddTaskButtons() {
-    const addTaskBtnRefs = document.querySelectorAll('.add-task-btn');
-    addTaskBtnRefs.forEach(button => {
-        button.addEventListener("click", (event)=> {
-            openAddTask(event.currentTarget.dataset.status);
-            // console.log(event.currentTarget.dataset.status);
-        })
-    });
-}
-
 function init() {
-    initDragAndDrop();
-    initTaskClickListener()
-    listenToTasks((updatedTasks) => {
-        tasks = updatedTasks;
-        displayTasks();
-    });
-    listenToContacts((updatedContacts) => {
-        contacts = updatedContacts;
-    });
+    initDBListeners();
+    initSearchBar();
     initAddTaskButtons();
+    initDragAndDrop();
+    initTaskClickListener();
+    initDialogListeners();
 }
 
-function initSubtaskClickListener() {
-    const taskDialogRef = document.getElementById("task-dialog");
+function initDialogListeners() {
+    taskDialogRef.addEventListener("click", backdropClose);
     taskDialogRef.addEventListener("change", handleSubtaskCompletion);
 }
 
-function handleSubtaskCompletion(event) {
-    const subtaskElement = event.target.closest(".subtask-item-input");
+function initDBListeners() {
+    listenToTasks((updatedTasks) => {
+        tasks = updatedTasks;
+        tasksLoaded = true;
+        renderBoardWhenReady();
+    });
 
-    if (!subtaskElement) return;
+    listenToContacts((updatedContacts) => {
+        contacts = updatedContacts;
+        contactsLoaded = true;
+        renderBoardWhenReady();
+        updateFormContacts(updatedContacts);
+    });
+}
 
-    const taskElement = event.target.closest(".task-detail");
+function initSearchBar() {
+    const searchInputRef = document.getElementById("search-task");
+    searchInputRef.addEventListener("input", search);
+}
 
-    const taskId = taskElement.dataset.taskId;
-    const subtaskIndex = subtaskElement.dataset.subtaskIndex;
-    const completion = subtaskElement.checked;
-
-    updateSubtaskCompletion(taskId, subtaskIndex, completion);
+function initAddTaskButtons() {
+    const addTaskBtnRefs = document.querySelectorAll(".add-task-btn");
+    addTaskBtnRefs.forEach(button => {
+        button.addEventListener("click", (event) => {
+            openAddTask(event.currentTarget.dataset.status);
+        });
+    });
 }
 
 
-//_________open Task________________
 
+//_________render Tasks & search________________
+
+function search(event) {
+    const searchTerm = event.target.value.toLowerCase();
+    const filteredTasks = filterTasks(tasks, searchTerm);
+
+    displayTasks(filteredTasks);
+
+    const noResultsMessage = document.getElementById("no-results-message");
+    noResultsMessage.hidden = filteredTasks.length !== 0;
+}
+
+/**
+ * Renders all tasks into the respective containers.
+ * 
+ * @param {Array} [taskList=tasks] - Optional list of tasks to render.
+ */
+export function displayTasks(taskList = tasks) {
+    clearTaskHTML();
+    taskList.forEach(task => {
+        taskContainerMap[task.status].innerHTML += returnTaskHTML(task, contacts)
+    });
+    renderEmptyColumnMessages()
+    initDraggableTasks();
+}
+
+function renderEmptyColumnMessages() {
+    Object.values(taskContainerMap).forEach(element => {
+        if (element.children.length === 0) {
+            element.innerHTML = returnNoTaskHTML();
+        }
+    });
+}
+
+/**
+ * Clears all HTML Task Containers.
+ */
+function clearTaskHTML() {
+    Object.values(taskContainerMap).forEach(taskContainer => {
+        taskContainer.innerHTML = ""
+    });
+}
+
+function openAddTask(status) {
+    taskDialogRef.innerHTML = returnAddTaskForm();
+
+    renderContacts(contacts);
+    setFormSubtasks();
+
+    initTaskForm(status, null, closeTaskDialog);
+    initCloseTaskButton();
+    openTaskDialog();
+}
 
 function initTaskClickListener() {
     const boardWrapperRef = document.querySelector(".board-wrapper");
     boardWrapperRef.addEventListener("click", openTask);
 }
 
-function openTask(event) {
-    const taskElement = event.target.closest(".task-box");
 
-    if (!taskElement) return;
+// ____DIALOG____
 
-    const taskId = taskElement.dataset.taskId;
-    const task = tasks.find(task => task.id === taskId);
 
-    if (!task) return;
-
-    taskDialogRef.innerHTML = returnTaskView(task);
-    initSubtaskClickListener();
-    initTaskDialogButtons(task)
-    openTaskDialog();
-}
-
-function initEditTaskButton(task) {
-    const editTaskBtnRef = document.querySelector(".edit-task-btn");
-    editTaskBtnRef.addEventListener("click", () => {
-        openEditTask(task);
-    });
-}
 
 /**
  * Renders the Dialog Content and opens the Modal
@@ -144,58 +173,45 @@ function backdropClose(event) {
         closeTaskDialog();
     }
 }
+// ____DIALOG____ENDE
 
-//_________Edit Task________________
 
-function openAddTask(status) {
-    taskDialogRef.innerHTML = returnAddTaskForm();
+//_________open Task________________
 
-    renderContacts(contacts);
-    setFormSubtasks();
+function openTask(event) {
+    const taskElement = event.target.closest(".task-box");
 
-    initTaskForm(status, null, closeTaskDialog);
-    initCloseTaskButton();
+    if (!taskElement) return;
+
+    const taskId = taskElement.dataset.taskId;
+    const task = tasks.find(task => task.id === taskId);
+
+    if (!task) return;
+
+    taskDialogRef.innerHTML = returnTaskView(task, contacts);
+    initTaskDialogButtons(task)
     openTaskDialog();
 }
 
-function openEditTask(task) {
-    taskDialogRef.innerHTML = returnAddTaskForm();
+function handleSubtaskCompletion(event) {
+    const subtaskElement = event.target.closest(".subtask-item-input");
 
-    fillBasicTaskForm(task);
-    renderContacts(contacts, task.assignedTo);
-    setFormSubtasks(task.subtasks);
+    if (!subtaskElement) return;
 
-    initTaskForm(task.status, task.id, closeTaskDialog);
-    initCancelBtn(task);
-    initCloseTaskButton();
+    const taskElement = event.target.closest(".task-detail");
+
+    const taskId = taskElement.dataset.taskId;
+    const subtaskIndex = subtaskElement.dataset.subtaskIndex;
+    const completion = subtaskElement.checked;
+
+    updateSubtaskCompletion(taskId, subtaskIndex, completion);
 }
 
-function fillBasicTaskForm(task) { // CURRENTLY TEST
-    document.getElementById("title").value = task.title;
-    document.getElementById("description").value = task.description;
-    document.getElementById("dueDate").value = task.dueDate;
-    document.getElementById("category").value = task.category;
-    document.getElementById(task.priority).checked = true;
-}
-
-function initCancelBtn(task) {
-    const cancelBtnRef = document.getElementById('cancel-btn');
-    const submitBtnRef = document.getElementById('submit-btn-text');
-    submitBtnRef.textContent = "Ok";
-    cancelBtnRef.addEventListener("click", () => {
-        cancelEdit(task);
+function initEditTaskButton(task) {
+    const editTaskBtnRef = document.querySelector(".edit-task-btn");
+    editTaskBtnRef.addEventListener("click", () => {
+        openEditTask(task);
     });
-}
-
-function cancelEdit(task) {
-    taskDialogRef.innerHTML = returnTaskView(task);
-    initTaskDialogButtons(task);
-}
-
-function initTaskDialogButtons(task) {
-    initCloseTaskButton();
-    initEditTaskButton(task);
-    initDeleteTaskButton(task);
 }
 
 // OPTIONAL RESET:
@@ -208,100 +224,69 @@ function initTaskDialogButtons(task) {
 // }
 
 
-//_________render Tasks & search________________
+//_________Edit Task________________
 
+function openEditTask(task) {
+    taskDialogRef.innerHTML = returnAddTaskForm();
 
-/**
- * Renders all tasks into the respective containers.
- * 
- * @param {Array} [taskList=tasks] - Optional list of tasks to render.
- */
-export function displayTasks(taskList = tasks) {
-    clearTaskHTML();
-    taskList.forEach(task => {
-        taskContainerMap[task.status].innerHTML += returnTaskHTML(task)
+    fillBasicTaskForm(task);
+    renderContacts(contacts, task.assignedTo);
+    setFormSubtasks(task.subtasks);
+
+    initTaskForm(task.status, task.id, closeTaskDialog);
+    initCancelButton(task);
+    initCloseTaskButton();
+}
+
+function fillBasicTaskForm(task) {
+    document.getElementById("title").value = task.title;
+    document.getElementById("description").value = task.description;
+    document.getElementById("dueDate").value = task.dueDate;
+    document.getElementById("category").value = task.category;
+    document.getElementById(task.priority).checked = true;
+}
+
+function initCancelButton(task) {
+    const cancelBtnRef = document.getElementById("cancel-btn");
+    const submitBtnRef = document.getElementById("submit-btn-text");
+    submitBtnRef.textContent = "Ok";
+    cancelBtnRef.addEventListener("click", () => {
+        cancelEdit(task);
     });
-    renderEmptyColumnMessages()
-    initDraggableTasks();
 }
 
-function renderEmptyColumnMessages() {
-    Object.values(taskContainerMap).forEach(element => {
-        if (element.children.length === 0) {
-            element.innerHTML = returnNoTaskHTML();
-        }        
-    });
+function cancelEdit(task) {
+    taskDialogRef.innerHTML = returnTaskView(task, contacts);
+    initTaskDialogButtons(task);
 }
 
-function returnNoTaskHTML() {
-    return`<div>No Tasks here</div>`
-}
-
-function search() {
-    const searchTerm = searchInputRef.value.toLowerCase();
-    const filteredTasks = filterTasks(tasks, searchTerm);
-    displayTasks(filteredTasks);
-    const noResultsMessage = document.getElementById("no-results-message");
-    noResultsMessage.hidden = filteredTasks.length !== 0;
-}
-
-/**
- * Clears all HTML Task Containers.
- */
-function clearTaskHTML() {
-    Object.values(taskContainerMap).forEach(taskContainer => { taskContainer.innerHTML = "" });
+function initTaskDialogButtons(task) {
+    initCloseTaskButton();
+    initEditTaskButton(task);
+    initDeleteTaskButton(task);
 }
 
 //_________Subtask Progress & AssignedTo for template________________
-export function returnSubtaskProgressHTML(subtasks) {
-    if (!subtasks || subtasks.length === 0) {
-        return "";
-    }
-    const subtaskStats = getSubtaskStats(subtasks);
-    return returnSubtaskCompletionHTML(subtaskStats);
-}
+// export function returnSubtaskProgressHTML(subtasks) {
+//     if (!subtasks || subtasks.length === 0) {
+//         return "";
+//     }
+//     const subtaskStats = getSubtaskStats(subtasks);
+//     return returnSubtaskCompletionHTML(subtaskStats);
+// }
 
-function getSubtaskStats(subtasks) {
-    const subtaskStats = {
-        completed: 0,
-        total: 0,
-        percentage: 0
-    };
-    subtaskStats.completed = subtasks.filter(subtask => subtask.completion).length;
-    subtaskStats.total = subtasks.length;
-    subtaskStats.percentage = Math.round(subtaskStats.completed / subtaskStats.total * 100);
-    return subtaskStats;
-}
+// function getSubtaskStats(subtasks) {
+//     const completed = subtasks.filter(subtask => subtask.completion).length;
+//     const total = subtasks.length;
+//     const percentage = Math.round(completed / total * 100);
+//     return {
+//         completed,
+//         total,
+//         percentage
+//     };
+// }
 
-export function returnAssignedToHTML(assignedToList, showName = false) {
-    if (!assignedToList || assignedToList.length === 0) {
-        return "<div></div>";
-    }
 
-    const assignedToHTML = assignedToList.map(contactID =>
-        returnContactHTML(
-            contacts.find(contact => contact.id === contactID),
-            showName
-        )
-    );
-    return assignedToHTML.join("");
-}
-
-function returnContactHTML(contact, showName = false) {
-    if (!contact) {
-        return "";
-    }
-    return `
-    <div class="user-avatar" style="background: ${contact.color};">${getInitials(contact.name)}</div>
-    ${showName ? returnNameHTML(contact.name) : ""}
-    `;
-}
-
-function returnNameHTML(name) {
-    return `
-        <span>${name}</span>
-    `;
-}
 
 
 //_________Drag and Drop________________
@@ -324,6 +309,7 @@ function startDragging(event) {
  */
 function stopDragging(event) {
     event.currentTarget.classList.remove("dragging");
+    currentDraggedTaskId = null;
 }
 
 // /**
@@ -333,16 +319,20 @@ function stopDragging(event) {
 //  */
 async function moveTaskTo(event) {
     event.preventDefault();
+
+    const taskId = currentDraggedTaskId;
     const status = event.currentTarget.dataset.status;
-    await updateTaskStatus(currentDraggedTaskId, status);
-    document.querySelector(".drag-area-highlight")?.classList.remove("drag-area-highlight");
+
+    event.currentTarget.classList.remove("drag-area-highlight");
+
+    await updateTaskStatus(taskId, status);
 }
 
 function initDragAndDrop() {
     const taskColumns = document.querySelectorAll(".task-column");
     taskColumns.forEach(column => {
         column.addEventListener("dragover", allowDrop);
-        column.addEventListener("dragenter", highlight);
+        // column.addEventListener("dragenter", highlight);
         column.addEventListener("dragleave", removeHighlight);
         column.addEventListener("drop", moveTaskTo);
     });
@@ -359,14 +349,18 @@ function initDraggableTasks() {
 
 function allowDrop(event) {
     event.preventDefault();
+    event.currentTarget.classList.add("drag-area-highlight")
 }
 
-function highlight(event) {
-    event.currentTarget.classList.add("drag-highlight");
-}
+// function highlight(event) {
+//     event.currentTarget.classList.add("drag-area-highlight");
+// }
 
 function removeHighlight(event) {
-    event.currentTarget.classList.remove("drag-highlight");
+    if (event.currentTarget.contains(event.relatedTarget)) {
+        return;
+    }
+    event.currentTarget.classList.remove("drag-area-highlight");
 }
 
 init();

@@ -29,7 +29,7 @@ function setMinimumDueDate() {
 
 export function renderContacts(contacts, assignedTo = []) {
   const selectRef = document.getElementById("assigned-to");
-  selectRef.innerHTML = "<option value='' selected>Select contacts to assign</option>";
+  selectRef.innerHTML = "<option value=''>Select contacts to assign</option>";
   contacts.forEach(contact => {
     const option = document.createElement("option");
     option.value = contact.id;
@@ -64,7 +64,7 @@ function createTaskObject(formData, status = "To Do") {
     dueDate: formData.get("dueDate"),
     priority: formData.get("priority"),
     category: formData.get("category"),
-    assignedTo: formData.getAll("assignedTo"),
+    assignedTo: formData.getAll("assignedTo").filter(contactId => contactId !== ""),
     status,
     subtasks: [...subtasks],
   };
@@ -143,6 +143,15 @@ function getCurrentDate() {
   const day = String(today.getDate()).padStart(2, "0");
 
   return `${year}-${month}-${day}`;
+}
+
+export function updateFormContacts(contacts) {
+    const selectRef = document.getElementById("assigned-to");
+    if (!selectRef) return;
+
+    const selectedContacts = [...selectRef.selectedOptions].map(option => option.value).filter(contactId => contactId !== "");
+    
+    renderContacts(contacts, selectedContacts);
 }
 
 
