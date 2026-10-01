@@ -149,6 +149,13 @@ select.task-input {
     height: 120px;
     padding: 18px 16px;
     resize: vertical;
+    background-image: url("../assets/icons/textarea-resizer.svg");
+    background-repeat: no-repeat;
+    background-position: bottom 6px right 6px;
+}
+
+.task-textarea::-webkit-resizer {
+    opacity: 0;
 }
 
 /* End Inputs */
