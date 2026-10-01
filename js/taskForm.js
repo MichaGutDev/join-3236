@@ -33,6 +33,7 @@ function initSubtaskListeners() {
   subTaskInputRef.addEventListener("keydown", handleSubtaskKeydown);
   subtaskListRef.addEventListener("click", handleSubtaskClick);
   subtaskListRef.addEventListener("dblclick", doubleClickEdit);
+  subtaskListRef.addEventListener("keydown", handleSubtaskEditKeydown);
 }
 
 function setMinimumDueDate() {
@@ -116,7 +117,17 @@ function clearSubtaskInput() {
 
 
 
+function handleSubtaskEditKeydown(event) {
+    const inputRef = event.target.closest(".subtask-edit-input");
+    if (!inputRef || event.key !== "Enter") return;
 
+    event.preventDefault();
+
+    const subtaskElementRef = inputRef.closest(".subtask-item");
+    const index = Number(subtaskElementRef.dataset.index);
+
+    confirmSubtaskEdit(index, subtaskElementRef);
+}
 
 
 

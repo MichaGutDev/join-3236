@@ -241,10 +241,14 @@ function fillBasicTaskForm(task) {
 
 
 function initCancelButton(task) {
-    const cancelBtnRef = document.getElementById("cancel-btn");
-    const submitBtnRef = document.getElementById("submit-btn-text");
-    submitBtnRef.textContent = "Ok";
-    cancelBtnRef.addEventListener("click", () => {
+    const cancelButtonRef = document.getElementById("cancel-btn");
+    const submitButtonRef = document.getElementById("submit-btn-text");
+    const cancelButtonTextRef = document.getElementById("cancel-btn-text");
+    cancelButtonRef.type = "button";
+    submitButtonRef.textContent = "Ok";
+    cancelButtonTextRef.textContent = "Cancel"
+
+    cancelButtonRef.addEventListener("click", () => {
         cancelEdit(task);
     });
 }

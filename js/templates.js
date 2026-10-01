@@ -10,7 +10,8 @@ export function returnAddTaskForm() {
                         <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
-                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title">
+                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title"
+                                required>
                             <span id="title-error" class="form-error">This field is required</span>
                         </div>
 
@@ -24,7 +25,7 @@ export function returnAddTaskForm() {
                         <!-- Due Date -->
                         <div class="form-group">
                             <label for="dueDate">Due Date<span class="error-message">*</span></label>
-                            <input type="date" id="dueDate" name="dueDate" class="task-input">
+                            <input type="date" id="dueDate" name="dueDate" class="task-input task-date-input">
                             <span id="dueDate-error" class="form-error">This field is required</span>
                         </div>
                     </div>
@@ -58,8 +59,8 @@ export function returnAddTaskForm() {
                         <div class="form-group">
                             <label for="assigned-to">Assigned To</label>
 
-                            <select id="assigned-to" name="assignedTo" class="task-input">
-                                <option value="">Select contacts to assign</option>
+                            <select id="assigned-to" name="assignedTo" class="task-input" >
+                                <option>Select contacts to assign</option>
                             </select>
                         </div>
 
@@ -81,9 +82,17 @@ export function returnAddTaskForm() {
                             <div class="subtask-input">
                                 <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask">
 
-                                <button type="button" id="add-subtask-btn" class="btn-primary subtask-add-btn">
-                                    Add
-                                </button>
+                                <div class="subtask-input-actions d-none">
+                                    <button type="button" id="clear-subtask-btn" class="subtask-icon-btn subtask-clear-btn"
+                                        aria-label="Clear subtask input">
+                                        <img src="../assets/icons/cancel-icon.svg" alt="">
+                                    </button>
+                                    <div class="subtask-input-divider"></div>
+                                    <button type="button" id="add-subtask-btn" class="subtask-icon-btn subtask-confirm-btn"
+                                        aria-label="Add subtask">
+                                        <img src="../assets/icons/check-icon.svg" alt="">
+                                    </button>
+                                </div>
                             </div>
 
                             <ul id="subtask-list" class="subtask-list">
@@ -97,7 +106,7 @@ export function returnAddTaskForm() {
                     <p class="required-note"><span class="error-message">*</span>This field is required</p>
 
                     <div class="form-actions-buttons">
-                        <button type="reset" class="btn btn-secondary" id="cancel-btn">Cancel
+                        <button type="reset" class="btn btn-secondary" id="cancel-btn"><span id="cancel-btn-text">Clear</span>
                             <img src="../assets/icons/cancel-icon.svg" alt=""></button>
                         <button type="submit" class="btn btn-primary" id="create-task-btn" disabled><span id="submit-btn-text">Create Task</span>
                             <img src="../assets/icons/check-icon.svg" alt=""></button>
@@ -105,7 +114,7 @@ export function returnAddTaskForm() {
                 </div>
             </form>
         </section>
-            `
+        `
 }
 
 export function returnTaskHTML(task, contacts) {
