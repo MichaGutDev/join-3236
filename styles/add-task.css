@@ -1,9 +1,5 @@
 /* Hidden Elements (not part of Figma design) */
 
-/* .subtask-add-btn {
-    display: none;
-} */
-
 .d-none {
     display: none;
 }
@@ -91,6 +87,51 @@ select.task-input {
     background-image: url("../assets/icons/arrow-drop-down.svg");
     background-repeat: no-repeat;
     background-position: right 22px center;
+}
+
+.subtask-input {
+    position: relative;
+}
+
+.subtask-input .task-input {
+    padding-right: 80px;
+}
+
+.subtask-input-actions {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.subtask-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.subtask-icon-btn img {
+    width: 16px;
+    height: 16px;
+}
+
+.subtask-confirm-btn img {
+    filter: brightness(0);
+}
+
+.subtask-input-divider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--color-form-box);
 }
 
 .task-textarea {

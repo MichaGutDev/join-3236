@@ -164,9 +164,17 @@
                             <div class="subtask-input">
                                 <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask">
 
-                                <button type="button" id="add-subtask-btn" class="btn-primary subtask-add-btn">
-                                    Add
-                                </button>
+                                <div class="subtask-input-actions">
+                                    <button type="button" id="clear-subtask-btn" class="subtask-icon-btn"
+                                        aria-label="Clear subtask input">
+                                        <img src="../assets/icons/cancel-icon.svg" alt="">
+                                    </button>
+                                    <div class="subtask-input-divider"></div>
+                                    <button type="button" id="add-subtask-btn" class="subtask-icon-btn subtask-confirm-btn"
+                                        aria-label="Add subtask">
+                                        <img src="../assets/icons/check-icon.svg" alt="">
+                                    </button>
+                                </div>
                             </div>
 
                             <ul id="subtask-list" class="subtask-list">
