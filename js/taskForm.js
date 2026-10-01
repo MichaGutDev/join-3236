@@ -12,19 +12,30 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave 
 }
 
 function initTaskListeners(taskStatus, editingTaskId, onSave) {
-    const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+  initSubtaskListeners();
 
-    addSubtaskBtnRef.addEventListener("click", addSubtask);
-    formRef.addEventListener("submit", (event) => {
-        event.preventDefault();
-        getValues(taskStatus, editingTaskId, onSave);
-    });
-    formRef.addEventListener("input", handleFormValidation);
+  formRef.addEventListener("submit", (event) => {
+    event.preventDefault();
+    getValues(taskStatus, editingTaskId, onSave);
+  });
+  formRef.addEventListener("input", handleFormValidation);
+}
+
+function initSubtaskListeners() {
+  const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
+  const subTaskInputRef = document.getElementById("new-subtask");
+  const subtaskListRef = document.getElementById("subtask-list");
+
+  addSubtaskBtnRef.addEventListener("click", addSubtask);
+  subTaskInputRef.addEventListener("keydown", handleSubtaskKeydown);
+  subtaskListRef.addEventListener("click", handleSubtaskClick);
+  subtaskListRef.addEventListener("dblclick", doubleClickEdit);
+  
 }
 
 function setMinimumDueDate() {
-    const dueDateRef = document.getElementById("dueDate");
-    dueDateRef.min = getCurrentDate();
+  const dueDateRef = document.getElementById("dueDate");
+  dueDateRef.min = getCurrentDate();
 }
 
 export function renderContacts(contacts, assignedTo = []) {
@@ -76,18 +87,41 @@ function resetTaskForm() {
   renderSubtasks(subtasks);
 }
 
-function addSubtask() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function addSubtask(event) {
   const subTaskInputRef = document.getElementById("new-subtask");
+  const description = subTaskInputRef.value.trim();
+
+  if (description === "") return;
+
   subtasks.push({
-    description: subTaskInputRef.value,
+    description,
     completion: false
   });
+
   renderSubtasks(subtasks);
-  document.getElementById("new-subtask").value = "";
+  subTaskInputRef.value = "";
 }
 
-function deleteSubtask(event) {
-  const index = Number(event.currentTarget.dataset.index);
+function deleteSubtask(index) {
   subtasks.splice(index, 1)
   renderSubtasks(subtasks);
 }
@@ -99,13 +133,109 @@ function renderSubtasks(subtasks) {
     const subtask = subtasks[index];
     subTaskListRef.innerHTML += returnSubtaskHTML(subtask, index);
   }
-  updateSubtaskDelButtons();
 }
 
-function updateSubtaskDelButtons() {
-  const deleteSubtaskButtons = document.querySelectorAll(".subtask-delete-btn");
-  deleteSubtaskButtons.forEach(button => { button.addEventListener("click", deleteSubtask); });
+function handleSubtaskKeydown(event) {
+  if (event.key !== "Enter") return;
+
+  event.preventDefault();
+  addSubtask();
 }
+
+
+function doubleClickEdit(event) {
+    if (event.target.closest(".subtask-edit-input")) return;
+
+    const subtaskElementRef = event.target.closest(".subtask-item");
+    if (!subtaskElementRef) return;
+
+    const index = Number(subtaskElementRef.dataset.index);
+    editSubtask(index);
+}
+
+function handleSubtaskClick(event) {
+  const subtaskElementRef = event.target.closest(".subtask-item");
+  if (!subtaskElementRef) return;
+
+  const index = Number(subtaskElementRef.dataset.index);
+  const subtaskDeleteButtonRef = event.target.closest(".subtask-delete-btn");
+  const subtaskEditButtonRef = event.target.closest(".subtask-edit-btn");
+  const cancelEditButtonRef = event.target.closest(".subtask-edit-cancel-btn");
+  const confirmEditButtonRef = event.target.closest(".subtask-edit-confirm-btn");
+
+
+  if (subtaskEditButtonRef) editSubtask(index);
+  if (subtaskDeleteButtonRef) deleteSubtask(index);
+  if (cancelEditButtonRef) renderSubtasks(subtasks);
+  if (confirmEditButtonRef) confirmSubtaskEdit(index, subtaskElementRef);
+}
+
+function confirmSubtaskEdit(index, subtaskElementRef) {
+    const inputRef = subtaskElementRef.querySelector(".subtask-edit-input");
+    const description = inputRef.value.trim();
+    if (description === "") return;
+    subtasks[index].description = description;
+    renderSubtasks(subtasks);
+}
+
+function editSubtask(index) {
+  const subtaskListRef = document.getElementById("subtask-list");
+  const subtaskElement = subtaskListRef.querySelector(`[data-index="${index}"]`);
+  subtaskElement.innerHTML = returnSubtaskEditHTML(index);
+}
+
+function returnSubtaskEditHTML(index) {
+  return `
+    <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${subtasks[index].description}">
+    <button type="button" class="subtask-edit-cancel-btn">X</button>
+    <button type="button" class="subtask-edit-confirm-btn">✓</button>
+  `
+}
+
+function returnSubtaskHTML(subtask, index) {
+  return `
+        <li class="subtask-item" data-index="${index}">
+            <span class="subtask-description">
+                ${subtask.description}
+            </span>
+
+            <button
+                type="button"
+                class="subtask-edit-btn"
+                aria-label="Subtask ${subtask.description} editieren"
+            >
+                Edit
+            </button>
+            <button
+                type="button"
+                class="subtask-delete-btn"
+                aria-label="Subtask ${subtask.description} löschen"
+            >
+                Delete
+            </button>
+        </li>
+    `;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function getRequiredFields() {
   const formData = new FormData(formRef);
@@ -146,30 +276,12 @@ function getCurrentDate() {
 }
 
 export function updateFormContacts(contacts) {
-    const selectRef = document.getElementById("assigned-to");
-    if (!selectRef) return;
+  const selectRef = document.getElementById("assigned-to");
+  if (!selectRef) return;
 
-    const selectedContacts = [...selectRef.selectedOptions].map(option => option.value).filter(contactId => contactId !== "");
-    
-    renderContacts(contacts, selectedContacts);
+  const selectedContacts = [...selectRef.selectedOptions].map(option => option.value).filter(contactId => contactId !== "");
+
+  renderContacts(contacts, selectedContacts);
 }
 
 
-function returnSubtaskHTML(subtask, index) {
-  return `
-        <li class="subtask-item">
-            <span class="subtask-description">
-                ${subtask.description}
-            </span>
-
-            <button
-                type="button"
-                class="subtask-delete-btn"
-                aria-label="Subtask ${subtask.description} löschen"
-                data-index="${index}"
-            >
-                Löschen
-            </button>
-        </li>
-    `;
-}

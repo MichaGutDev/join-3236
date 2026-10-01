@@ -195,15 +195,15 @@ function openTask(event) {
 
 
 function handleSubtaskCompletion(event) {
-    const subtaskElement = event.target.closest(".subtask-item-input");
+    const subtaskInputRef = event.target.closest(".subtask-item-input");
+    if (!subtaskInputRef) return;
 
-    if (!subtaskElement) return;
+    const subtaskElementRef = event.target.closest(".subtask-item");
+    const taskElementRef = event.target.closest(".task-detail");
 
-    const taskElement = event.target.closest(".task-detail");
-
-    const taskId = taskElement.dataset.taskId;
-    const subtaskIndex = subtaskElement.dataset.subtaskIndex;
-    const completion = subtaskElement.checked;
+    const taskId = taskElementRef.dataset.taskId;
+    const subtaskIndex = subtaskElementRef.dataset.subtaskIndex;
+    const completion = subtaskInputRef.checked;
 
     updateSubtaskCompletion(taskId, subtaskIndex, completion);
 }

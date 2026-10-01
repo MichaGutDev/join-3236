@@ -180,11 +180,11 @@ export function returnSubtasksHTML(subtasks) {
             <ul class="task-subtask-list">
                 ${subtasks.map(({ description, completion }, index) =>
         `
-                        <li class="subtask-item">
+                        <li class="subtask-item" data-subtask-index="${index}">
                             <input
                                 class="subtask-item-input"
                                 type="checkbox"
-                                data-subtask-index="${index}"
+                                
                                 ${completion ? "checked" : ""}
                             >
 
