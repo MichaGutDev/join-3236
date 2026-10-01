@@ -102,6 +102,20 @@ select.task-input {
     background-image: url("../assets/icons/event.svg");
 }
 
+.task-date-input:invalid::-webkit-datetime-edit-text,
+.task-date-input:invalid::-webkit-datetime-edit-day-field,
+.task-date-input:invalid::-webkit-datetime-edit-month-field,
+.task-date-input:invalid::-webkit-datetime-edit-year-field {
+    color: var(--color-input-placeholder);
+}
+
+.task-date-input:valid::-webkit-datetime-edit-text,
+.task-date-input:valid::-webkit-datetime-edit-day-field,
+.task-date-input:valid::-webkit-datetime-edit-month-field,
+.task-date-input:valid::-webkit-datetime-edit-year-field {
+    color: black;
+}
+
 .subtask-input {
     position: relative;
 }
