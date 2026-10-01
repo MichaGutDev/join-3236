@@ -1,8 +1,7 @@
 import { initTaskForm, renderContacts, setFormSubtasks, updateFormContacts } from "./taskForm.js";
-import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnSubtaskCompletionHTML, returnSubtasksHTML, returnNoTaskHTML } from "./templates.js";
+import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
-import { getInitials } from "./contact-templates.js";
 
 let tasks = [];
 let contacts = [];
@@ -17,19 +16,13 @@ const taskContainerMap = {
 }
 const taskDialogRef = document.getElementById("task-dialog");
 
-// listenToTasks((updatedTasks) => {
-//     tasks = updatedTasks;
-//     displayTasks();
-// });
-// listenToContacts((updatedContacts) => {
-//     contacts = updatedContacts;
-// });
 
 function renderBoardWhenReady() {
     if (tasksLoaded && contactsLoaded) {
         displayTasks();
     }
 }
+
 
 function init() {
     initDBListeners();
@@ -40,10 +33,12 @@ function init() {
     initDialogListeners();
 }
 
+
 function initDialogListeners() {
     taskDialogRef.addEventListener("click", backdropClose);
     taskDialogRef.addEventListener("change", handleSubtaskCompletion);
 }
+
 
 function initDBListeners() {
     listenToTasks((updatedTasks) => {
@@ -60,10 +55,12 @@ function initDBListeners() {
     });
 }
 
+
 function initSearchBar() {
     const searchInputRef = document.getElementById("search-task");
     searchInputRef.addEventListener("input", search);
 }
+
 
 function initAddTaskButtons() {
     const addTaskBtnRefs = document.querySelectorAll(".add-task-btn");
@@ -75,9 +72,7 @@ function initAddTaskButtons() {
 }
 
 
-
 //_________render Tasks & search________________
-
 function search(event) {
     const searchTerm = event.target.value.toLowerCase();
     const filteredTasks = filterTasks(tasks, searchTerm);
@@ -87,6 +82,7 @@ function search(event) {
     const noResultsMessage = document.getElementById("no-results-message");
     noResultsMessage.hidden = filteredTasks.length !== 0;
 }
+
 
 /**
  * Renders all tasks into the respective containers.
@@ -102,6 +98,7 @@ export function displayTasks(taskList = tasks) {
     initDraggableTasks();
 }
 
+
 function renderEmptyColumnMessages() {
     Object.values(taskContainerMap).forEach(element => {
         if (element.children.length === 0) {
@@ -109,6 +106,7 @@ function renderEmptyColumnMessages() {
         }
     });
 }
+
 
 /**
  * Clears all HTML Task Containers.
@@ -118,6 +116,7 @@ function clearTaskHTML() {
         taskContainer.innerHTML = ""
     });
 }
+
 
 function openAddTask(status) {
     taskDialogRef.innerHTML = returnAddTaskForm();
@@ -130,6 +129,7 @@ function openAddTask(status) {
     openTaskDialog();
 }
 
+
 function initTaskClickListener() {
     const boardWrapperRef = document.querySelector(".board-wrapper");
     boardWrapperRef.addEventListener("click", openTask);
@@ -137,15 +137,13 @@ function initTaskClickListener() {
 
 
 // ____DIALOG____
-
-
-
 /**
  * Renders the Dialog Content and opens the Modal
  */
 function openTaskDialog() {
     taskDialogRef.showModal();
 }
+
 
 /**
  * Closes Task Dialog Modal
@@ -154,10 +152,12 @@ function closeTaskDialog() {
     taskDialogRef.close();
 }
 
+
 function initCloseTaskButton() {
     const closeBtnRef = document.getElementById("close-task-dialog");
     closeBtnRef.addEventListener("click", closeTaskDialog);
 }
+
 
 function initDeleteTaskButton(task) {
     const deleteBtnRef = document.getElementById("delete-task-btn");
@@ -168,6 +168,7 @@ function initDeleteTaskButton(task) {
     });
 }
 
+
 function backdropClose(event) {
     if (event.target === event.currentTarget) {
         closeTaskDialog();
@@ -177,7 +178,6 @@ function backdropClose(event) {
 
 
 //_________open Task________________
-
 function openTask(event) {
     const taskElement = event.target.closest(".task-box");
 
@@ -193,6 +193,7 @@ function openTask(event) {
     openTaskDialog();
 }
 
+
 function handleSubtaskCompletion(event) {
     const subtaskElement = event.target.closest(".subtask-item-input");
 
@@ -207,6 +208,7 @@ function handleSubtaskCompletion(event) {
     updateSubtaskCompletion(taskId, subtaskIndex, completion);
 }
 
+
 function initEditTaskButton(task) {
     const editTaskBtnRef = document.querySelector(".edit-task-btn");
     editTaskBtnRef.addEventListener("click", () => {
@@ -214,18 +216,8 @@ function initEditTaskButton(task) {
     });
 }
 
-// OPTIONAL RESET:
-// Add a reset button with type="button" and call resetEditForm(task)
-// in its click listener to restore the original task values.
-// function resetEditForm(task) {
-//     fillBasicTaskForm(task);
-//     renderContacts(contacts, task.assignedTo);
-//     setFormSubtasks(task.subtasks);
-// }
-
 
 //_________Edit Task________________
-
 function openEditTask(task) {
     taskDialogRef.innerHTML = returnAddTaskForm();
 
@@ -238,6 +230,7 @@ function openEditTask(task) {
     initCloseTaskButton();
 }
 
+
 function fillBasicTaskForm(task) {
     document.getElementById("title").value = task.title;
     document.getElementById("description").value = task.description;
@@ -245,6 +238,7 @@ function fillBasicTaskForm(task) {
     document.getElementById("category").value = task.category;
     document.getElementById(task.priority).checked = true;
 }
+
 
 function initCancelButton(task) {
     const cancelBtnRef = document.getElementById("cancel-btn");
@@ -255,10 +249,12 @@ function initCancelButton(task) {
     });
 }
 
+
 function cancelEdit(task) {
     taskDialogRef.innerHTML = returnTaskView(task, contacts);
     initTaskDialogButtons(task);
 }
+
 
 function initTaskDialogButtons(task) {
     initCloseTaskButton();
@@ -266,32 +262,8 @@ function initTaskDialogButtons(task) {
     initDeleteTaskButton(task);
 }
 
-//_________Subtask Progress & AssignedTo for template________________
-// export function returnSubtaskProgressHTML(subtasks) {
-//     if (!subtasks || subtasks.length === 0) {
-//         return "";
-//     }
-//     const subtaskStats = getSubtaskStats(subtasks);
-//     return returnSubtaskCompletionHTML(subtaskStats);
-// }
-
-// function getSubtaskStats(subtasks) {
-//     const completed = subtasks.filter(subtask => subtask.completion).length;
-//     const total = subtasks.length;
-//     const percentage = Math.round(completed / total * 100);
-//     return {
-//         completed,
-//         total,
-//         percentage
-//     };
-// }
-
-
-
 
 //_________Drag and Drop________________
-
-
 /**
  * Stores the id of the dragged task and applies a visual dragging style to the element.
  * 
@@ -302,6 +274,7 @@ function startDragging(event) {
     event.currentTarget.classList.add("dragging");
 }
 
+
 /**
  * Removes the visual dragging style from the element.
  * 
@@ -311,6 +284,7 @@ function stopDragging(event) {
     event.currentTarget.classList.remove("dragging");
     currentDraggedTaskId = null;
 }
+
 
 // /**
 //  * Finds the dragged task by its id, updates its status, removes the drop-target highlight, and re-renders the board.
@@ -328,15 +302,16 @@ async function moveTaskTo(event) {
     await updateTaskStatus(taskId, status);
 }
 
+
 function initDragAndDrop() {
     const taskColumns = document.querySelectorAll(".task-column");
     taskColumns.forEach(column => {
         column.addEventListener("dragover", allowDrop);
-        // column.addEventListener("dragenter", highlight);
         column.addEventListener("dragleave", removeHighlight);
         column.addEventListener("drop", moveTaskTo);
     });
 }
+
 
 function initDraggableTasks() {
     const taskElements = document.querySelectorAll(".task-box");
@@ -347,14 +322,12 @@ function initDraggableTasks() {
     });
 }
 
+
 function allowDrop(event) {
     event.preventDefault();
     event.currentTarget.classList.add("drag-area-highlight")
 }
 
-// function highlight(event) {
-//     event.currentTarget.classList.add("drag-area-highlight");
-// }
 
 function removeHighlight(event) {
     if (event.currentTarget.contains(event.relatedTarget)) {
