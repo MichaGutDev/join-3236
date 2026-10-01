@@ -104,7 +104,7 @@ select.task-input {
     transform: translateY(-50%);
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 4px;
 }
 
 .subtask-icon-btn {
@@ -119,12 +119,14 @@ select.task-input {
     cursor: pointer;
 }
 
-.subtask-icon-btn img {
-    width: 16px;
-    height: 16px;
+.subtask-clear-btn img {
+    width: 13px;
+    height: 13px;
 }
 
 .subtask-confirm-btn img {
+    width: 15px;
+    height: 11px;
     filter: brightness(0);
 }
 
