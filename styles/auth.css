@@ -150,7 +150,7 @@
 }
 
 .auth-field input::placeholder {
-  color: var(--color-form-box);
+  color: var(--color-input-placeholder);
 }
 
 .auth-field-group {

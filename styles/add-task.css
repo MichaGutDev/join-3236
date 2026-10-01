@@ -87,6 +87,10 @@
     border-color: var(--color-input-border-focus);
 }
 
+.task-input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
 select.task-input {
     appearance: none;
     background-image: url("../assets/icons/arrow-drop-down.svg");

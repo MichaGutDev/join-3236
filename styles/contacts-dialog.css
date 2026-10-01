@@ -190,6 +190,10 @@
     border-color: var(--color-input-border-focus);
 }
 
+.dialog-input::placeholder {
+    color: var(--color-input-placeholder);
+}
+
 .dialog-input.field-error {
     border-color: var(--color-error);
 }
