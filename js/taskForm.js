@@ -13,7 +13,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave 
 
 function initTaskListeners(taskStatus, editingTaskId, onSave) {
   initSubtaskListeners();
-
+  formRef.addEventListener("reset", handleFormReset);
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
     getValues(taskStatus, editingTaskId, onSave);
@@ -25,12 +25,14 @@ function initSubtaskListeners() {
   const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
   const subTaskInputRef = document.getElementById("new-subtask");
   const subtaskListRef = document.getElementById("subtask-list");
+  const clearSubtaskButtonRef = document.getElementById("clear-subtask-btn");
 
+  subTaskInputRef.addEventListener("input", toggleSubtaskInputActions);
+  clearSubtaskButtonRef.addEventListener("click", clearSubtaskInput);
   addSubtaskBtnRef.addEventListener("click", addSubtask);
   subTaskInputRef.addEventListener("keydown", handleSubtaskKeydown);
   subtaskListRef.addEventListener("click", handleSubtaskClick);
   subtaskListRef.addEventListener("dblclick", doubleClickEdit);
-  
 }
 
 function setMinimumDueDate() {
@@ -85,6 +87,29 @@ function resetTaskForm() {
   formRef.reset();
   subtasks.length = 0;
   renderSubtasks(subtasks);
+  clearSubtaskInput();
+}
+
+function handleFormReset() {
+    subtasks.length = 0;
+    renderSubtasks(subtasks);
+    clearSubtaskInput();
+}
+
+function toggleSubtaskInputActions(event) {
+    const actionsRef = document.querySelector(".subtask-input-actions");
+    const hasValue = event.target.value.trim() !== "";
+    actionsRef.classList.toggle("d-none", !hasValue);
+}
+
+
+
+
+function clearSubtaskInput() {
+    const subTaskInputRef = document.getElementById("new-subtask");
+    const actionsRef = document.querySelector(".subtask-input-actions");
+    subTaskInputRef.value = "";
+    actionsRef.classList.add("d-none");
 }
 
 
@@ -96,17 +121,7 @@ function resetTaskForm() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-function addSubtask(event) {
+function addSubtask() {
   const subTaskInputRef = document.getElementById("new-subtask");
   const description = subTaskInputRef.value.trim();
 
@@ -118,7 +133,7 @@ function addSubtask(event) {
   });
 
   renderSubtasks(subtasks);
-  subTaskInputRef.value = "";
+  clearSubtaskInput();
 }
 
 function deleteSubtask(index) {
