@@ -180,9 +180,18 @@
     width: 422px;
     border-radius: 10px;
     filter: none;
-    border: solid black 1px;
+    border: 1px solid var(--color-input-border);
     font-weight: 400;
     font-size: 20px;
+}
+
+.dialog-input:focus {
+    outline: none;
+    border-color: var(--color-input-border-focus);
+}
+
+.dialog-input::placeholder {
+    color: var(--color-input-placeholder);
 }
 
 .dialog-input.field-error {

@@ -9,6 +9,10 @@
   --color-form-box: rgb(104, 104, 104);
   --color-outer-form-font: hsl(0, 0%, 27%);
 
+  --color-input-border: #D1D1D1;
+  --color-input-border-focus: #124658;
+  --color-input-placeholder: #D1D1D1;
+
   --color-login-privacy-policy: rgb(18, 70, 88);
   --color-error: rgb(230, 0, 38);
 
