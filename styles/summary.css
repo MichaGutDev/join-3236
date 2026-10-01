@@ -67,6 +67,38 @@
     border-radius: 30px;
     background-color: white;
     box-shadow: 0 0 4px rgb(0 0 0 / 40%);
+    text-decoration: none;
+    color: inherit;
+    transition: width 100ms ease-in-out, height 100ms ease-in-out, background-color 100ms ease-in-out;
+}
+
+.summary-card:hover {
+    background-color: var(--color-primary);
+    width: 282.5px;
+    height: 184px;
+}
+
+.summary-card:hover .summary-card-number,
+.summary-card:hover .summary-card-label,
+.summary-card:hover .urgent-card-date,
+.summary-card:hover .urgent-card-preview {
+    color: white;
+}
+
+.summary-card:hover .summary-card-icon {
+    background-color: white;
+}
+
+.summary-card:hover .summary-card-icon-img {
+    filter: invert(1);
+}
+
+.summary-card--urgent:hover .summary-card-icon {
+    background-color: #FF3D00;
+}
+
+.summary-card--urgent:hover .summary-card-icon-img {
+    filter: none;
 }
 
 .summary-card-icon {
@@ -109,6 +141,11 @@
 
 .summary-card--urgent {
     width: 560px;
+}
+
+.summary-card--urgent:hover {
+    width: 576px;
+    height: 184px;
 }
 
 .summary-card--urgent .summary-card-icon {
@@ -156,6 +193,11 @@
     height: 168px;
     padding: 25px 0;
     gap: 13px;
+}
+
+.summary-card--compact:hover {
+    width: 184px;
+    height: 184px;
 }
 
 .summary-card--compact .summary-card-label {
