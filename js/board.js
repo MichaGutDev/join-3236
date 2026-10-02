@@ -1,4 +1,4 @@
-import { initTaskForm, renderContacts, setFormSubtasks, updateFormContacts } from "./taskForm.js";
+import { initTaskForm, renderContacts, setFormSubtasks, updateFormContacts } from "./task-form.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
