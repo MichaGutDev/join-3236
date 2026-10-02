@@ -21,9 +21,9 @@ let selectedContactId = null;
  */
 function getContactFormValues() {
     return {
-        name: document.getElementById('dialog_input_name').value.trim(),
-        email: document.getElementById('dialog_input_email').value.trim(),
-        phone: document.getElementById('dialog_input_phone').value.trim(),
+        name: document.getElementById('dialog-input-name').value.trim(),
+        email: document.getElementById('dialog-input-email').value.trim(),
+        phone: document.getElementById('dialog-input-phone').value.trim(),
     };
 }
 
@@ -58,7 +58,7 @@ async function deleteContact() {
     setDeleteButtonsDisabled(true);
     await remove(contactRef);
 
-    document.getElementById('contact_details').hidden = true;
+    document.getElementById('contact-details').hidden = true;
 
     await removeContactFromTasks(selectedContactId);
 
@@ -137,7 +137,7 @@ function handleContactClick(event) {
 
     renderContactDetails(contact);
 
-    document.getElementById('contact_details').hidden = false;
+    document.getElementById('contact-details').hidden = false;
     selectedContactId = id;
 
     markContactAsActive(contactItem);
@@ -158,11 +158,11 @@ function closeContactDetails() {
  * @param {object} contact - The contact data (name, email, phone, color).
  */
 function renderContactDetails(contact) {
-    document.getElementById('contact_details_name').textContent = contact.name;
-    document.getElementById('contact_details_email').textContent = contact.email;
-    document.getElementById('contact_details_email').href = 'mailto:' + contact.email;
-    document.getElementById('contact_details_phone').textContent = contact.phone;
-    document.getElementById('contact_details_initials').textContent = getInitials(contact.name);
+    document.getElementById('contact-details-name').textContent = contact.name;
+    document.getElementById('contact-details-email').textContent = contact.email;
+    document.getElementById('contact-details-email').href = 'mailto:' + contact.email;
+    document.getElementById('contact-details-phone').textContent = contact.phone;
+    document.getElementById('contact-details-initials').textContent = getInitials(contact.name);
     document.querySelector('.contact-details-initials').style.backgroundColor = contact.color;
 }
 
@@ -188,7 +188,7 @@ onValue(contactsRef, (snapshot) => {
     const sortedContacts = validContacts.sort((a, b) => a[1].name.localeCompare(b[1].name));
 
     const html = generateContactListHTML(sortedContacts);
-    document.getElementById("contact_list").innerHTML = html;
+    document.getElementById("contact-list").innerHTML = html;
 });
 
 
@@ -216,7 +216,7 @@ if (dialogBox) {
 }
 
 
-const contactFieldIds = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
+const contactFieldIds = ['dialog-input-name', 'dialog-input-email', 'dialog-input-phone'];
 contactFieldIds.forEach((id) => {
     document.getElementById(id)?.addEventListener('blur', () => validateContactField(id));
 });
@@ -295,7 +295,7 @@ if (createContactBtnDialog) {
 }
 
 
-const contactList = document.getElementById('contact_list');
+const contactList = document.getElementById('contact-list');
 if (contactList) {
     contactList.addEventListener('click', handleContactClick);
     contactList.addEventListener('keydown', handleContactKeydown);

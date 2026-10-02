@@ -24,7 +24,7 @@ function checkAuth() {
  * @param {object} user - The Firebase Auth user object.
  */
 async function updateUserInitials(user) {
-    const initialsRef = document.getElementById('userInitials');
+    const initialsRef = document.getElementById('user-initials');
     if (!initialsRef) return;
 
     if (user.isAnonymous) {

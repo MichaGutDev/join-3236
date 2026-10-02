@@ -65,7 +65,7 @@
 
                 <div class="user-menu-wrapper">
                     <button class="user-avatar" aria-label="Open user menu">
-                        <span id="userInitials">SM</span>
+                        <span id="user-initials">SM</span>
                     </button>
                     <div class="user-menu">
                         <a href="help.html" class="user-menu-item user-menu-item--help">
@@ -91,7 +91,7 @@
                         <img class="add-new-contact-icon" src="../assets/icons/add-contact-icon.svg" alt="">
                     </div>
                 </button>
-                <div id="contact_list" class="contact-list">
+                <div id="contact-list" class="contact-list">
 
                 </div>
             </div>
@@ -104,14 +104,14 @@
                         <img src="../assets/icons/arrow-left-line.svg" alt="">
                     </button>
                 </div>
-                <div id="contact_details" class="contact-details-container" hidden>
+                <div id="contact-details" class="contact-details-container" hidden>
                     <div class="contact-details-item">
                         <div class="contact-details-initials">
-                            <span id="contact_details_initials">JW</span>
+                            <span id="contact-details-initials">JW</span>
                         </div>
                         <div class="contact-details-name">
                             <div class="contact-details-name-text">
-                                <span id="contact_details_name">John Doe</span>
+                                <span id="contact-details-name">John Doe</span>
                             </div>
                             <div class="contact-details-actions">
                                 <button id="edit-contact-btn">
@@ -127,11 +127,11 @@
                     <div class="contact-details-connect-container">
                         <div class="contact-details-connect">
                             <span>Email</span>
-                            <a id="contact_details_email" href="mailto:email@example.com">email@example.com</a>
+                            <a id="contact-details-email" href="mailto:email@example.com">email@example.com</a>
                         </div>
                         <div class="contact-details-connect">
                             <span>Phone</span>
-                            <span id="contact_details_phone" class="contact-details-phone">+49 2222 222 2</span>
+                            <span id="contact-details-phone" class="contact-details-phone">+49 2222 222 2</span>
                         </div>
                     </div>
                 </div>
@@ -157,7 +157,7 @@
         <div class="dialog-position">
             <div id="dialog-box" class="dialog">
 
-                <div id="dialog_topic_area" class="dialog-topic">
+                <div id="dialog-topic-area" class="dialog-topic">
                     <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
                     <h2 class="dialog-topic-title">Edit Contact</h2>
                     <div class="dialog-topic-underline"></div>
@@ -178,25 +178,25 @@
                         <form id="contact-form" class="dialog-form" novalidate>
                             <div class="dialog-input-container">
                                 <div class="dialog-input-group">
-                                    <label for="dialog_input_name" class="visually-hidden">Name</label>
-                                    <input id="dialog_input_name" class="dialog-input dialog-input-name" type="text"
+                                    <label for="dialog-input-name" class="visually-hidden">Name</label>
+                                    <input id="dialog-input-name" class="dialog-input dialog-input-name" type="text"
                                         placeholder="Name" required>
                                     <span class="error-message" id="contact-form-error-name"></span>
                                 </div>
                                 <div class="dialog-input-group">
-                                    <label for="dialog_input_email" class="visually-hidden">Email</label>
-                                    <input id="dialog_input_email" class="dialog-input dialog-input-email" type="email"
+                                    <label for="dialog-input-email" class="visually-hidden">Email</label>
+                                    <input id="dialog-input-email" class="dialog-input dialog-input-email" type="email"
                                         placeholder="Email" required>
                                     <span class="error-message" id="contact-form-error-email"></span>
                                 </div>
                                 <div class="dialog-input-group">
-                                    <label for="dialog_input_phone" class="visually-hidden">Phone</label>
-                                    <input id="dialog_input_phone" class="dialog-input dialog-input-phone" type="tel"
+                                    <label for="dialog-input-phone" class="visually-hidden">Phone</label>
+                                    <input id="dialog-input-phone" class="dialog-input dialog-input-phone" type="tel"
                                         placeholder="Phone" required>
                                     <span class="error-message" id="contact-form-error-phone"></span>
                                 </div>
                             </div>
-                            <div id="dialog_button_area" class="dialog-button-container">
+                            <div id="dialog-button-area" class="dialog-button-container">
                                 <button type="button" id="cancel-contact-btn-dialog"
                                     class="btn btn-secondary dialog-cancel-btn">Cancel</button>
                                 <button type="button" id="delete-contact-btn-dialog"

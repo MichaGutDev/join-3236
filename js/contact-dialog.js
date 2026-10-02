@@ -2,8 +2,8 @@ import { isValidEmail, isValidPhone } from './contact-utils.js';
 import { getInitials } from './contact-templates.js';
 
 
-const CONTACT_FIELD_IDS = ['dialog_input_name', 'dialog_input_email', 'dialog_input_phone'];
-const ERROR_SPAN_SUFFIXES = { dialog_input_name: 'name', dialog_input_email: 'email', dialog_input_phone: 'phone' };
+const CONTACT_FIELD_IDS = ['dialog-input-name', 'dialog-input-email', 'dialog-input-phone'];
+const ERROR_SPAN_SUFFIXES = { 'dialog-input-name': 'name', 'dialog-input-email': 'email', 'dialog-input-phone': 'phone' };
 
 
 /**
@@ -104,10 +104,10 @@ export function clearContactError() {
  */
 function getFieldError(fieldId, value) {
     if (!value) return 'This field is required.';
-    if (fieldId === 'dialog_input_email' && !isValidEmail(value)) {
+    if (fieldId === 'dialog-input-email' && !isValidEmail(value)) {
         return 'Please enter a valid email address.';
     }
-    if (fieldId === 'dialog_input_phone' && !isValidPhone(value)) {
+    if (fieldId === 'dialog-input-phone' && !isValidPhone(value)) {
         return 'Please enter a valid phone number.';
     }
     return null;
@@ -151,7 +151,7 @@ export function validateContactField(fieldId) {
  * @returns {boolean} True if the form is valid.
  */
 export function isContactFormValid(name, email, phone) {
-    const values = { dialog_input_name: name, dialog_input_email: email, dialog_input_phone: phone };
+    const values = { 'dialog-input-name': name, 'dialog-input-email': email, 'dialog-input-phone': phone };
     let isValid = true;
 
     Object.entries(values).forEach(([fieldId, value]) => {
@@ -211,15 +211,15 @@ function setDialogMode(isEdit) {
 export function editContact(contact) {
     setDialogMode(true);
 
-    document.getElementById('dialog_input_name').value = contact.name;
-    document.getElementById('dialog_input_email').value = contact.email;
-    document.getElementById('dialog_input_phone').value = contact.phone;
+    document.getElementById('dialog-input-name').value = contact.name;
+    document.getElementById('dialog-input-email').value = contact.email;
+    document.getElementById('dialog-input-phone').value = contact.phone;
 
     const dialogInitials = document.getElementById('dialog-initials');
     dialogInitials.textContent = getInitials(contact.name);
     dialogInitials.style.backgroundColor = contact.color;
 
-    document.getElementById('dialog_topic_area').innerHTML = `
+    document.getElementById('dialog-topic-area').innerHTML = `
         <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
         <h2 class="dialog-topic-title">Edit Contact</h2>
         <div class="dialog-topic-underline"></div>
@@ -235,7 +235,7 @@ export function editContact(contact) {
 export function createContact() {
     setDialogMode(false);
 
-    document.getElementById('dialog_topic_area').innerHTML = `
+    document.getElementById('dialog-topic-area').innerHTML = `
         <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
         <h2 class="dialog-topic-title">Add contact</h2>
         <p class="dialog-topic-slogan">Tasks are better with a team</p>
