@@ -181,6 +181,17 @@ select.task-input {
 /* End Inputs */
 
 
+/* Firefox */
+
+@supports (-moz-appearance: none) {
+    .task-textarea {
+        background-image: none;
+    }
+}
+
+/* End Firefox */
+
+
 /* Priority */
 
 .priority {
