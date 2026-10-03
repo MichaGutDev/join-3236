@@ -1,4 +1,5 @@
 import { saveTask } from "./db.js";
+import { returnSubtaskHTML, returnSubtaskEditHTML } from "./templates.js";
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
@@ -211,54 +212,7 @@ function editSubtask(index) {
   subtaskElement.innerHTML = returnSubtaskEditHTML(subtask, index);
 }
 
-function returnSubtaskEditHTML(subtask, index) {
-  return `
-    <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
-    <button type="button" class="subtask-edit-cancel-btn">X</button>
-    <button type="button" class="subtask-edit-confirm-btn">✓</button>
-  `
-}
 
-function escapeHTML(text) {
-  const characters = [
-    ["&", "&amp;"],
-    ["<", "&lt;"],
-    [">", "&gt;"],
-    ['"', "&quot;"],
-    ["'", "&#039;"]
-  ];
-  characters.forEach(([character, entity]) => {
-    text = text.replaceAll(character, entity);
-  });
-
-  return text;
-}
-
-function returnSubtaskHTML(subtask, index) {
-  const escapedDescription  = escapeHTML(subtask.description);
-  return `
-        <li class="subtask-item" data-index="${index}">
-            <span class="subtask-description">
-                ${escapedDescription}
-            </span>
-
-            <button
-                type="button"
-                class="subtask-edit-btn"
-                aria-label="Subtask ${escapedDescription} editieren"
-            >
-                Edit
-            </button>
-            <button
-                type="button"
-                class="subtask-delete-btn"
-                aria-label="Subtask ${escapedDescription} löschen"
-            >
-                Delete
-            </button>
-        </li>
-    `;
-}
 
 
 

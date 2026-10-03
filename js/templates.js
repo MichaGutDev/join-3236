@@ -1,17 +1,16 @@
 import { getInitials } from "./contact-templates.js";
 
 export function returnAddTaskForm() {
-    return` <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+    return ` <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
             <section class="form-wrapper">
             <h1>Add Task</h1>
-            <form id="task-form" class="task-form">
+            <form id="task-form" class="task-form" novalidate>
                 <div class="task-form-columns">
                     <div class="task-form-column">
                         <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
-                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title"
-                                required>
+                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title">
                             <span id="title-error" class="form-error">This field is required</span>
                         </div>
 
@@ -118,11 +117,13 @@ export function returnAddTaskForm() {
 }
 
 export function returnTaskHTML(task, contacts) {
+    const escapedTitle = escapeHTML(task.title);
+    const escapedDescription = escapeHTML(task.description);
     return `
         <li class="task-box" draggable="true" data-task-id="${task.id}">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
-            <h4>${task.title}</h4>
-            <span class="task-descr">${task.description}</span>
+            <h4>${escapedTitle}</h4>
+            <span class="task-descr">${escapedDescription}</span>
             ${returnSubtaskProgressHTML(task.subtasks)}
             <div class="initials-container">
                 ${returnAssignedToHTML(task.assignedTo, contacts)}
@@ -133,6 +134,8 @@ export function returnTaskHTML(task, contacts) {
 }
 
 export function returnTaskView(task, contacts) {
+    const escapedTitle = escapeHTML(task.title);
+    const escapedDescription = escapeHTML(task.description);
     return `
         <article class="task-detail" data-task-id="${task.id}">
             <header class="task-detail-header">
@@ -143,10 +146,10 @@ export function returnTaskView(task, contacts) {
             </header>
 
             <h2 class="task-title">
-                ${task.title}
+                ${escapedTitle}
             </h2>
             <p class="task-description">
-                ${task.description}
+                ${escapedDescription}
             </p>
 
             <dl class="task-information">
@@ -187,20 +190,22 @@ export function returnSubtasksHTML(subtasks) {
             <h3>Subtasks</h3>
 
             <ul class="task-subtask-list">
-                ${subtasks.map(({ description, completion }, index) =>
-        `
+                ${subtasks.map(({ description, completion }, index) => {
+                    const escapedDescription = escapeHTML(description);
+                    return `
                         <li class="subtask-item" data-subtask-index="${index}">
-                            <input
-                                class="subtask-item-input"
-                                type="checkbox"
-                                
-                                ${completion ? "checked" : ""}
+                                <input
+                                    class="subtask-item-input"
+                                    type="checkbox"
+                                    
+                                    ${completion ? "checked" : ""}
                             >
-
                             <span class="subtask-description">
-                                ${description}
+                                ${escapedDescription}
                             </span>
-                        </li>`).join("")}
+                        </li>
+                        `;
+                }).join("")}
             </ul>
         </section>
     `;
@@ -255,33 +260,71 @@ export function returnAssignedToHTML(assignedToList, contacts, showName = false)
     return assignedToHTML.join("");
 }
 
+
 function returnContactHTML(contact, showName = false) {
     if (!contact) {
         return "";
     }
+    const escapedInitials = escapeHTML(getInitials(contact.name));
     return `
-    <div class="user-avatar" style="background: ${contact.color};">${getInitials(contact.name)}</div>
+    <div class="user-avatar" style="background: ${contact.color};">${escapedInitials}</div>
     ${showName ? returnNameHTML(contact.name) : ""}
     `;
 }
 
+
 function returnNameHTML(name) {
+    const escapedName = escapeHTML(name);
     return `
-        <span>${name}</span>
+        <span>${escapedName}</span>
+    `;
+}
+
+export function returnSubtaskEditHTML(subtask, index) {
+    return `
+    <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
+    <button type="button" class="subtask-edit-cancel-btn">X</button>
+    <button type="button" class="subtask-edit-confirm-btn">✓</button>
+  `
+}
+
+export function returnSubtaskHTML(subtask, index) {
+    const escapedDescription = escapeHTML(subtask.description);
+    return `
+        <li class="subtask-item" data-index="${index}">
+            <span class="subtask-description">
+                ${escapedDescription}
+            </span>
+
+            <button
+                type="button"
+                class="subtask-edit-btn"
+                aria-label="Subtask ${escapedDescription} editieren"
+            >
+                Edit
+            </button>
+            <button
+                type="button"
+                class="subtask-delete-btn"
+                aria-label="Subtask ${escapedDescription} löschen"
+            >
+                Delete
+            </button>
+        </li>
     `;
 }
 
 function escapeHTML(text) {
-  const characters = [
-    ["&", "&amp;"],
-    ["<", "&lt;"],
-    [">", "&gt;"],
-    ['"', "&quot;"],
-    ["'", "&#039;"]
-  ];
-  characters.forEach(([character, entity]) => {
-    text = text.replaceAll(character, entity);
-  });
+    const characters = [
+        ["&", "&amp;"],
+        ["<", "&lt;"],
+        [">", "&gt;"],
+        ['"', "&quot;"],
+        ["'", "&#039;"]
+    ];
+    characters.forEach(([character, entity]) => {
+        text = text.replaceAll(character, entity);
+    });
 
-  return text;
+    return text;
 }
