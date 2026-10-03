@@ -285,8 +285,13 @@ function returnNameHTML(name) {
 export function returnSubtaskEditHTML(subtask, index) {
     return `
     <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
-    <button type="button" class="subtask-edit-cancel-btn">X</button>
-    <button type="button" class="subtask-edit-confirm-btn">✓</button>
+    <button type="button" class="subtask-icon-btn subtask-edit-delete-btn" aria-label="Delete subtask">
+        <img src="../assets/icons/trash-icon.svg" alt="">
+    </button>
+    <div class="subtask-input-divider"></div>
+    <button type="button" class="subtask-icon-btn subtask-confirm-btn subtask-edit-confirm-btn" aria-label="Save subtask">
+        <img src="../assets/icons/check-icon.svg" alt="">
+    </button>
   `
 }
 
@@ -297,21 +302,6 @@ export function returnSubtaskHTML(subtask, index) {
             <span class="subtask-description">
                 ${escapedDescription}
             </span>
-
-            <button
-                type="button"
-                class="subtask-edit-btn"
-                aria-label="Subtask ${escapedDescription} editieren"
-            >
-                Edit
-            </button>
-            <button
-                type="button"
-                class="subtask-delete-btn"
-                aria-label="Subtask ${escapedDescription} löschen"
-            >
-                Delete
-            </button>
         </li>
     `;
 }
