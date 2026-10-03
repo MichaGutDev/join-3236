@@ -339,3 +339,73 @@ h4 {
 .task-detail {
     padding: 2em;
 }
+
+/* Responsive */
+
+@media screen and (max-width: 1024px) {
+    .board-title-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 24px;
+        margin-top: 48px;
+        margin-left: 16px;
+    }
+
+    .board-title-row h1 {
+        font-size: 47px;
+    }
+
+    .board-actions {
+        display: contents;
+    }
+
+    .board-search {
+        grid-row: 2;
+        grid-column: 1 / -1;
+    }
+
+    .board-search input {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .board-add-task-btn {
+        grid-row: 1;
+        grid-column: 2;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+    }
+
+    .board-add-task-text {
+        display: none;
+    }
+
+    .board-wrapper {
+        flex-direction: column;
+        gap: 24px;
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+
+    .task-col > ul {
+        flex-direction: row;
+        min-height: 0;
+        padding: 12px;
+        margin: -12px;
+        overflow-x: auto;
+        scrollbar-width: none;
+    }
+
+    .task-box {
+        flex-shrink: 0;
+        width: 282px;
+    }
+
+    .no-tasks {
+        flex: 1;
+    }
+}
+
+/* End Responsive */
