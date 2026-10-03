@@ -564,15 +564,15 @@ h4 {
 }
 
 .task-dialog:has(.task-form-edit) {
-    --dialog-padding: 40px;
+    --dialog-padding: 48px;
     max-width: 525px;
 }
 
 .task-dialog:has(.task-form-edit) .form-wrapper {
-    padding: 48px 40px;
+    padding: 104px 40px 48px;
 }
 
-.task-form-edit h1,
+.task-dialog:has(.task-form-edit) h1,
 .task-form-edit .required-note,
 .task-form-edit .btn-secondary,
 .task-form-edit .task-form-divider {
@@ -662,6 +662,14 @@ h4 {
 
     .task-dialog .form-wrapper {
         padding: 48px clamp(16px, 6vw, 24px) 24px;
+    }
+
+    .task-dialog:has(.task-form-edit) {
+        --dialog-padding: clamp(16px, 6vw, 24px);
+    }
+
+    .task-dialog:has(.task-form-edit) .form-wrapper {
+        padding: 80px clamp(16px, 6vw, 24px) 24px;
     }
 
     .task-dialog .form-actions {
