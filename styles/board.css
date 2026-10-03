@@ -535,6 +535,10 @@ h4 {
     margin-bottom: 0;
 }
 
+.task-dialog .task-form {
+    padding-bottom: 0;
+}
+
 /* Responsive */
 
 @media screen and (max-width: 1024px) {
@@ -605,7 +609,15 @@ h4 {
 
 @media screen and (max-width: 768px) {
     .task-dialog {
-        --dialog-padding: 24px;
+        --dialog-padding: clamp(16px, 6vw, 24px);
+    }
+
+    .task-dialog .form-wrapper {
+        padding: 48px clamp(16px, 6vw, 24px) 24px;
+    }
+
+    .task-dialog .form-actions {
+        padding: 16px 0;
     }
 
     .task-detail {
@@ -627,6 +639,12 @@ h4 {
     .task-subtasks h3,
     .task-assigned-list span {
         font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .task-dialog {
+        border-radius: 16px;
     }
 }
 
