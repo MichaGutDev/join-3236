@@ -5,6 +5,7 @@
     justify-content: space-between;
     align-items: center;
     margin-left: 64px;
+    margin-right: 16px;
     margin-top: 80px;
     max-width: 1208px;
 }
@@ -65,8 +66,9 @@ padding-left: 16px;
 .board-wrapper {
     display: flex;
     width: 100%;
-    gap: 16px;
+    gap: 26px;
     margin-top: 20px;
+    margin-left: 64px;
 }
 
 .task-col {
@@ -84,7 +86,7 @@ padding-left: 16px;
     min-height: 50vw;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
 }
 
 /* Drag & Drop */
@@ -103,18 +105,45 @@ padding-left: 16px;
 .initials-container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .initials-container img{
-    height: 24px;
+    width: 17px;
+    margin-left: auto;
+    margin-right: 8px;
+}
+
+.contact-avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border: 1px solid white;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 400;
+    color: white;
+}
+
+.contact-avatar + .contact-avatar {
+    margin-left: -8px;
 }
 
 .task-box {
     background-color: white;
     padding: 16px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 4px #00000059;
+    border-radius: 24px;
+    box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 252px;
+}
+
+.task-text {
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -130,9 +159,17 @@ h3, h4 {
 
 .task-category {
     width: fit-content;
-    padding: 8px 15px;
+    padding: 4px 16px;
     border-radius: 8px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 120%;
     color: white;
+}
+
+.task-box h4 {
+    font-size: 16px;
+    line-height: 120%;
 }
 
 .technical-task {
@@ -144,7 +181,13 @@ h3, h4 {
 }
 
 .task-descr {
-    color: var(--color-form-box);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: 16px;
+    line-height: 120%;
+    color: #A8A8A8;
 }
 
 #todo-form {
@@ -159,7 +202,6 @@ h3, h4 {
 }
 
 .form-wrapper {
-    width: 100%;
     display: flex;
     justify-content: center;
 }
@@ -218,17 +260,23 @@ h3, h4 {
     text-align: center;
 }
 
+.subtask-progress-container span {
+    font-size: 16px;
+    line-height: 120%;
+    color: black;
+}
+
 .progress-bar {
-    background-color: rgb(102, 102, 102);
-    width: 52%;
+    background-color: #F4F4F4;
+    width: 110px;
     height: 8px;
     border-radius: 8px;
 }
 
 .progress-bar-fill {
-    background-color: rgb(0, 153, 255);
+    background-color: #4589FF;
     height: 8px;
-    border-radius: 8px;
+    border-radius: 16px;
 }
 
 #task-dialog {

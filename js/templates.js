@@ -122,8 +122,10 @@ export function returnTaskHTML(task, contacts) {
     return `
         <li class="task-box" draggable="true" data-task-id="${task.id}">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
-            <h4>${escapedTitle}</h4>
-            <span class="task-descr">${escapedDescription}</span>
+            <div class="task-text">
+                <h4>${escapedTitle}</h4>
+                <span class="task-descr">${escapedDescription}</span>
+            </div>
             ${returnSubtaskProgressHTML(task.subtasks)}
             <div class="initials-container">
                 ${returnAssignedToHTML(task.assignedTo, contacts)}
@@ -267,7 +269,7 @@ function returnContactHTML(contact, showName = false) {
     }
     const escapedInitials = escapeHTML(getInitials(contact.name));
     return `
-    <div class="user-avatar" style="background: ${contact.color};">${escapedInitials}</div>
+    <div class="contact-avatar" style="background: ${contact.color};">${escapedInitials}</div>
     ${showName ? returnNameHTML(contact.name) : ""}
     `;
 }
