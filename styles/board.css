@@ -22,7 +22,7 @@
     align-items: center;
     height: 48px;
     padding: 8px 16px;
-    border: solid var(--color-form-box) 1px;
+    border: solid var(--color-input-border) 1px;
     color: var(--color-form-box);
     border-radius: 10px;
     background-color: var( --color-active-font);
