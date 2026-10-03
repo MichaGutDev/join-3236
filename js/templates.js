@@ -1,7 +1,7 @@
 import { getInitials } from "./contact-templates.js";
 
 export function returnAddTaskForm() {
-    return ` <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+    return ` <button type="button" id="close-task-dialog" class="task-close-btn" aria-label="Close task"></button>
             <section class="form-wrapper">
             <h1>Add Task</h1>
             <form id="task-form" class="task-form" novalidate>
@@ -144,7 +144,7 @@ export function returnTaskView(task, contacts) {
                 <span class="task-category ${task.category.replace(/\s+/g, '-').toLowerCase()}">
                     ${task.category}
                 </span>
-                <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+                <button type="button" id="close-task-dialog" class="task-close-btn" aria-label="Close task"></button>
             </header>
 
             <h2 class="task-title">
@@ -161,7 +161,7 @@ export function returnTaskView(task, contacts) {
                 </div>
                 <div>
                     <dt>Priority:</dt>
-                    <dd class="task-priority">${task.priority}</dd>
+                    <dd class="task-priority">${task.priority}<img src="../assets/icons/prio-${task.priority}.svg" alt=""></dd>
                 </div>
             </dl>
 
