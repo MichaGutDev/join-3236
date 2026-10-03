@@ -92,7 +92,9 @@ function search(event) {
 export function displayTasks(taskList = tasks) {
     clearTaskHTML();
     taskList.forEach(task => {
-        taskContainerMap[task.status].innerHTML += returnTaskHTML(task, contacts)
+        const containerRef = taskContainerMap[task.status];
+        if(!containerRef) return;
+        containerRef.innerHTML += returnTaskHTML(task, contacts)
     });
     renderEmptyColumnMessages()
     initDraggableTasks();
