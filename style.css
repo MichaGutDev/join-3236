@@ -200,6 +200,7 @@ main {
   color: #cdcdcd;
   text-decoration: none;
   white-space: nowrap;
+  transition: 100ms;
 }
 
 .user-menu-item:hover {

@@ -218,6 +218,7 @@ select.task-input {
     border-radius: 10px;
     font-size: 21px;
     font-weight: 700;
+    transition: 100ms;
 }
 
 .priority label:hover {

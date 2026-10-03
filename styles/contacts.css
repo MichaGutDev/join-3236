@@ -89,6 +89,7 @@ a {
     width: 100%;
     gap: 20px;
     padding: 16px 0;
+    transition: 100ms;
 }
 
 .contact-list-item:hover {
