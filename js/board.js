@@ -223,6 +223,7 @@ function initEditTaskButton(task) {
 //_________Edit Task________________
 function openEditTask(task) {
     taskDialogRef.innerHTML = returnAddTaskForm();
+    document.getElementById("task-form").classList.add("task-form-edit");
 
     fillBasicTaskForm(task);
     renderContacts(contacts, task.assignedTo);

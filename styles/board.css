@@ -234,6 +234,7 @@ h4 {
 .task-descr {
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
     font-size: 16px;
@@ -319,6 +320,29 @@ h4 {
     border: none;
     border-radius: 30px;
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+}
+
+.task-dialog::-webkit-scrollbar {
+    width: 16px;
+}
+
+.task-dialog::-webkit-scrollbar-track {
+    margin: 30px 0;
+    background: white;
+    border-radius: 8px;
+}
+
+.task-dialog::-webkit-scrollbar-thumb {
+    background: #a8a8a8;
+    border: 4px solid white;
+    border-radius: 8px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .task-dialog {
+        scrollbar-width: thin;
+        scrollbar-color: #a8a8a8 white;
+    }
 }
 
 .task-dialog:has(.task-form) {
@@ -537,6 +561,30 @@ h4 {
 
 .task-dialog .task-form {
     padding-bottom: 0;
+}
+
+.task-dialog:has(.task-form-edit) {
+    --dialog-padding: 40px;
+    max-width: 525px;
+}
+
+.task-dialog:has(.task-form-edit) .form-wrapper {
+    padding: 48px 40px;
+}
+
+.task-form-edit h1,
+.task-form-edit .required-note,
+.task-form-edit .btn-secondary,
+.task-form-edit .task-form-divider {
+    display: none;
+}
+
+.task-form-edit .task-form-columns {
+    flex-direction: column;
+}
+
+.task-form-edit .form-actions {
+    justify-content: flex-end;
 }
 
 /* Responsive */
