@@ -165,6 +165,38 @@ select.task-input {
     background-color: var(--color-form-box);
 }
 
+.task-form .contact-avatar {
+    width: 42px;
+    height: 42px;
+    border-width: 2px;
+}
+
+.subtask-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.subtask-item:has(.subtask-edit-input) {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 16px;
+    border-bottom: 1px solid #124658;
+    background-color: white;
+    list-style: none;
+}
+
+.subtask-item .subtask-edit-input {
+    flex: 1;
+    min-width: 0;
+    height: auto;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-size: 16px;
+}
+
 .task-textarea {
     height: 120px;
     padding: 18px 16px;

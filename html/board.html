@@ -88,9 +88,10 @@
                 <div class="board-search">
                     <input id="search-task" type="text" placeholder="Find Task">
                     <img src="../assets/icons/search.svg" alt="Find Task">
-                    <p id="no-results-message" hidden>No matching tasks found.</p>
+                    <p id="no-results-message" class="no-results-message" hidden>No matching tasks found.</p>
                 </div>
-                <button class="btn btn-primary board-add-task-btn add-task-btn" data-status="To Do">Add task
+                <button class="btn btn-primary board-add-task-btn add-task-btn" data-status="To Do" aria-label="Add task">
+                    <span class="board-add-task-text">Add task</span>
                     <img src="../assets/icons/add.svg" alt="">
                 </button>
             </div>
@@ -99,32 +100,32 @@
 
         <div class="board-wrapper">
             <section class="task-col">
-                <h3 class="taskgroup-header">To Do:</h3>
-                <button class="add-task-btn" data-status="To Do">+</button>
+                <h3 class="taskgroup-header">To do</h3>
+                <button class="add-task-btn" data-status="To Do" aria-label="Add task to To do"></button>
                 <ul id="to_do" class="task-column" data-status="To Do"></ul>
             </section>
 
             <section class="task-col">
-                <h3 class="taskgroup-header">In Progress:</h3>
-                <button class="add-task-btn" data-status="In Progress">+</button>
+                <h3 class="taskgroup-header">In progress</h3>
+                <button class="add-task-btn" data-status="In Progress" aria-label="Add task to In progress"></button>
                 <ul id="in_progress" class="task-column" data-status="In Progress"></ul>
 
 
             </section>
 
             <section class="task-col">
-                <h3 class="taskgroup-header">Awaiting Feedback:</h3>
-                <button class="add-task-btn" data-status="Awaiting Feedback">+</button>
+                <h3 class="taskgroup-header">Await feedback</h3>
+                <button class="add-task-btn" data-status="Awaiting Feedback" aria-label="Add task to Await feedback"></button>
                 <ul id="await_feedback" class="task-column" data-status="Awaiting Feedback"></ul>
             </section>
 
             <section class="task-col">
-                <h3 class="taskgroup-header">Done:</h3>
+                <h3 class="taskgroup-header">Done</h3>
                 <ul id="done" class="task-column" data-status="Done"></ul>
             </section>
         </div>
 
-        <dialog id="task-dialog">
+        <dialog id="task-dialog" class="task-dialog">
             <button onclick="closeTaskDialog()">Close</button>
             <section id="task-dialog-content">
                 <div class="form-wrapper">

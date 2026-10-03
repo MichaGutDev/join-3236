@@ -1,7 +1,7 @@
 import { getInitials } from "./contact-templates.js";
 
 export function returnAddTaskForm() {
-    return ` <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+    return ` <button type="button" id="close-task-dialog" class="task-close-btn" aria-label="Close task"></button>
             <section class="form-wrapper">
             <h1>Add Task</h1>
             <form id="task-form" class="task-form" novalidate>
@@ -122,8 +122,10 @@ export function returnTaskHTML(task, contacts) {
     return `
         <li class="task-box" draggable="true" data-task-id="${task.id}">
             <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
-            <h4>${escapedTitle}</h4>
-            <span class="task-descr">${escapedDescription}</span>
+            <div class="task-text">
+                <h4>${escapedTitle}</h4>
+                <span class="task-descr">${escapedDescription}</span>
+            </div>
             ${returnSubtaskProgressHTML(task.subtasks)}
             <div class="initials-container">
                 ${returnAssignedToHTML(task.assignedTo, contacts)}
@@ -142,7 +144,7 @@ export function returnTaskView(task, contacts) {
                 <span class="task-category ${task.category.replace(/\s+/g, '-').toLowerCase()}">
                     ${task.category}
                 </span>
-                <button type="button" id="close-task-dialog" aria-label="Close task">x</button>
+                <button type="button" id="close-task-dialog" class="task-close-btn" aria-label="Close task"></button>
             </header>
 
             <h2 class="task-title">
@@ -159,7 +161,7 @@ export function returnTaskView(task, contacts) {
                 </div>
                 <div>
                     <dt>Priority:</dt>
-                    <dd class="task-priority">${task.priority}</dd>
+                    <dd class="task-priority">${task.priority}<img src="../assets/icons/prio-${task.priority}.svg" alt=""></dd>
                 </div>
             </dl>
 
@@ -223,8 +225,8 @@ export function returnSubtaskCompletionHTML(subtaskStats) {
     `;
 }
 
-export function returnNoTaskHTML() {
-    return `<div>No Tasks here</div>`;
+export function returnNoTaskHTML(columnTitle) {
+    return `<div class="no-tasks">No tasks ${columnTitle}</div>`;
 }
 
 function returnSubtaskProgressHTML(subtasks) {
@@ -267,7 +269,7 @@ function returnContactHTML(contact, showName = false) {
     }
     const escapedInitials = escapeHTML(getInitials(contact.name));
     return `
-    <div class="user-avatar" style="background: ${contact.color};">${escapedInitials}</div>
+    <div class="contact-avatar" style="background: ${contact.color};">${escapedInitials}</div>
     ${showName ? returnNameHTML(contact.name) : ""}
     `;
 }
@@ -283,8 +285,13 @@ function returnNameHTML(name) {
 export function returnSubtaskEditHTML(subtask, index) {
     return `
     <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
-    <button type="button" class="subtask-edit-cancel-btn">X</button>
-    <button type="button" class="subtask-edit-confirm-btn">✓</button>
+    <button type="button" class="subtask-icon-btn subtask-edit-delete-btn" aria-label="Delete subtask">
+        <img src="../assets/icons/trash-icon.svg" alt="">
+    </button>
+    <div class="subtask-input-divider"></div>
+    <button type="button" class="subtask-icon-btn subtask-confirm-btn subtask-edit-confirm-btn" aria-label="Save subtask">
+        <img src="../assets/icons/check-icon.svg" alt="">
+    </button>
   `
 }
 
@@ -295,21 +302,6 @@ export function returnSubtaskHTML(subtask, index) {
             <span class="subtask-description">
                 ${escapedDescription}
             </span>
-
-            <button
-                type="button"
-                class="subtask-edit-btn"
-                aria-label="Subtask ${escapedDescription} editieren"
-            >
-                Edit
-            </button>
-            <button
-                type="button"
-                class="subtask-delete-btn"
-                aria-label="Subtask ${escapedDescription} löschen"
-            >
-                Delete
-            </button>
         </li>
     `;
 }

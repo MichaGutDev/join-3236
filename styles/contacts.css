@@ -58,6 +58,10 @@ a {
     color: white;
 }
 
+.button-add-new-contact:hover {
+    background-color: var(--color-underscore);
+}
+
 .add-new-contact-box {
     height: 32px;
     width: 32px;

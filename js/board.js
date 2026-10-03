@@ -104,7 +104,8 @@ export function displayTasks(taskList = tasks) {
 function renderEmptyColumnMessages() {
     Object.values(taskContainerMap).forEach(element => {
         if (element.children.length === 0) {
-            element.innerHTML = returnNoTaskHTML();
+            const columnTitle = element.closest(".task-col").querySelector(".taskgroup-header").textContent;
+            element.innerHTML = returnNoTaskHTML(columnTitle);
         }
     });
 }
@@ -222,6 +223,7 @@ function initEditTaskButton(task) {
 //_________Edit Task________________
 function openEditTask(task) {
     taskDialogRef.innerHTML = returnAddTaskForm();
+    document.getElementById("task-form").classList.add("task-form-edit");
 
     fillBasicTaskForm(task);
     renderContacts(contacts, task.assignedTo);
