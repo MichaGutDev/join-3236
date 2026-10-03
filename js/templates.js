@@ -225,8 +225,8 @@ export function returnSubtaskCompletionHTML(subtaskStats) {
     `;
 }
 
-export function returnNoTaskHTML() {
-    return `<div>No Tasks here</div>`;
+export function returnNoTaskHTML(columnTitle) {
+    return `<div class="no-tasks">No tasks ${columnTitle}</div>`;
 }
 
 function returnSubtaskProgressHTML(subtasks) {

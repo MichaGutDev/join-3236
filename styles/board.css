@@ -123,6 +123,21 @@
     gap: 16px;
 }
 
+.no-tasks {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border: 1px dashed #A8A8A8;
+    border-radius: 10px;
+    background-color: #E7E7E7;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.16);
+    font-size: 16px;
+    line-height: 120%;
+    color: #A8A8A8;
+;
+}
+
 /* Drag & Drop */
 
 .drag-area-highlight {

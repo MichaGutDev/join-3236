@@ -104,7 +104,8 @@ export function displayTasks(taskList = tasks) {
 function renderEmptyColumnMessages() {
     Object.values(taskContainerMap).forEach(element => {
         if (element.children.length === 0) {
-            element.innerHTML = returnNoTaskHTML();
+            const columnTitle = element.closest(".task-col").querySelector(".taskgroup-header").textContent;
+            element.innerHTML = returnNoTaskHTML(columnTitle);
         }
     });
 }
