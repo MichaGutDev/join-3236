@@ -127,20 +127,3 @@ showGreetingOverlay();
 
 
 onAuthStateChanged(auth, (user) => { displayUserGreeting(user); });
-
-
-
-
-
-
-
-// import { listenToTasks } from "./db.js";
-// let tasks = [];
-// function init() {
-//     initDragAndDrop();
-//     listenToTasks((updatedTasks) => {
-//         tasks = updatedTasks;
-//         displayTasks();
-//     });
-// }
-// init();
