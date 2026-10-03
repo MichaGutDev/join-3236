@@ -50,7 +50,7 @@
     padding: 16px 12px;
 }
 
-#no-results-message {
+.no-results-message {
     position: absolute;
     top: calc(100% + 8px);
     left: 0;
@@ -135,7 +135,6 @@
     font-size: 16px;
     line-height: 120%;
     color: #A8A8A8;
-;
 }
 
 /* Drag & Drop */
@@ -242,17 +241,6 @@ h4 {
     color: #a8a8a8;
 }
 
-#todo-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
-    gap: 20px;
-    margin-left: 50px;
-    margin-top: 50px;
-    background-color: rgba(117, 117, 117, 0.466);
-    max-width: 50%;
-}
-
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -275,8 +263,6 @@ h4 {
 }
 
 .priority label {
-    /* dein Button-Styling */
-    background-color: grey;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -289,18 +275,11 @@ h4 {
     filter: brightness(0) invert(1);
 }
 
-.priority-urgent:has(input:checked) {
-    background-color: red;
-    color: white;
-}
-
 .priority-medium:has(input:checked) {
-    background-color: orange;
     color: white;
 }
 
 .priority-low:has(input:checked) {
-    background-color: green;
     color: white;
 }
 
@@ -331,7 +310,7 @@ h4 {
     border-radius: 16px;
 }
 
-#task-dialog {
+.task-dialog {
     padding: 0;
 }
 

@@ -88,7 +88,7 @@
                 <div class="board-search">
                     <input id="search-task" type="text" placeholder="Find Task">
                     <img src="../assets/icons/search.svg" alt="Find Task">
-                    <p id="no-results-message" hidden>No matching tasks found.</p>
+                    <p id="no-results-message" class="no-results-message" hidden>No matching tasks found.</p>
                 </div>
                 <button class="btn btn-primary board-add-task-btn add-task-btn" data-status="To Do" aria-label="Add task">
                     <span class="board-add-task-text">Add task</span>
@@ -125,7 +125,7 @@
             </section>
         </div>
 
-        <dialog id="task-dialog">
+        <dialog id="task-dialog" class="task-dialog">
             <button onclick="closeTaskDialog()">Close</button>
             <section id="task-dialog-content">
                 <div class="form-wrapper">
