@@ -75,14 +75,15 @@ async function deleteContact() {
  */
 async function removeContactFromTasks(contactId) {
     const snapshot = await get(tasksRef);
-    const tasksData = snapshot.val();
+    const tasksData = snapshot.val() || {};
     const taskEntries = Object.entries(tasksData);
 
     taskEntries.forEach(([taskId, task]) => {
-        const isAssigned = task.assignedTo.includes(contactId);
+        const assignedTo = task.assignedTo || [];
+        const isAssigned = assignedTo.includes(contactId);
 
         if (isAssigned) {
-            const updatedAssignedTo = task.assignedTo.filter(id => id !== contactId);
+            const updatedAssignedTo = assignedTo.filter(id => id !== contactId);
             set(ref(database, "tasks/" + taskId + "/assignedTo"), updatedAssignedTo);
         }
     });
