@@ -270,3 +270,18 @@ function returnNameHTML(name) {
         <span>${name}</span>
     `;
 }
+
+function escapeHTML(text) {
+  const characters = [
+    ["&", "&amp;"],
+    ["<", "&lt;"],
+    [">", "&gt;"],
+    ['"', "&quot;"],
+    ["'", "&#039;"]
+  ];
+  characters.forEach(([character, entity]) => {
+    text = text.replaceAll(character, entity);
+  });
+
+  return text;
+}

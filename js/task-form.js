@@ -1,4 +1,5 @@
 import { saveTask } from "./db.js";
+import {returnSubtaskEditHTML, } from "./templates.js"
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
@@ -92,25 +93,25 @@ function resetTaskForm() {
 }
 
 function handleFormReset() {
-    subtasks.length = 0;
-    renderSubtasks(subtasks);
-    clearSubtaskInput();
+  subtasks.length = 0;
+  renderSubtasks(subtasks);
+  clearSubtaskInput();
 }
 
 function toggleSubtaskInputActions(event) {
-    const actionsRef = document.querySelector(".subtask-input-actions");
-    const hasValue = event.target.value.trim() !== "";
-    actionsRef.classList.toggle("d-none", !hasValue);
+  const actionsRef = document.querySelector(".subtask-input-actions");
+  const hasValue = event.target.value.trim() !== "";
+  actionsRef.classList.toggle("d-none", !hasValue);
 }
 
 
 
 
 function clearSubtaskInput() {
-    const subTaskInputRef = document.getElementById("new-subtask");
-    const actionsRef = document.querySelector(".subtask-input-actions");
-    subTaskInputRef.value = "";
-    actionsRef.classList.add("d-none");
+  const subTaskInputRef = document.getElementById("new-subtask");
+  const actionsRef = document.querySelector(".subtask-input-actions");
+  subTaskInputRef.value = "";
+  actionsRef.classList.add("d-none");
 }
 
 
@@ -118,15 +119,15 @@ function clearSubtaskInput() {
 
 
 function handleSubtaskEditKeydown(event) {
-    const inputRef = event.target.closest(".subtask-edit-input");
-    if (!inputRef || event.key !== "Enter") return;
+  const inputRef = event.target.closest(".subtask-edit-input");
+  if (!inputRef || event.key !== "Enter") return;
 
-    event.preventDefault();
+  event.preventDefault();
 
-    const subtaskElementRef = inputRef.closest(".subtask-item");
-    const index = Number(subtaskElementRef.dataset.index);
+  const subtaskElementRef = inputRef.closest(".subtask-item");
+  const index = Number(subtaskElementRef.dataset.index);
 
-    confirmSubtaskEdit(index, subtaskElementRef);
+  confirmSubtaskEdit(index, subtaskElementRef);
 }
 
 
@@ -170,13 +171,13 @@ function handleSubtaskKeydown(event) {
 
 
 function doubleClickEdit(event) {
-    if (event.target.closest(".subtask-edit-input")) return;
+  if (event.target.closest(".subtask-edit-input")) return;
 
-    const subtaskElementRef = event.target.closest(".subtask-item");
-    if (!subtaskElementRef) return;
+  const subtaskElementRef = event.target.closest(".subtask-item");
+  if (!subtaskElementRef) return;
 
-    const index = Number(subtaskElementRef.dataset.index);
-    editSubtask(index);
+  const index = Number(subtaskElementRef.dataset.index);
+  editSubtask(index);
 }
 
 function handleSubtaskClick(event) {
@@ -197,45 +198,62 @@ function handleSubtaskClick(event) {
 }
 
 function confirmSubtaskEdit(index, subtaskElementRef) {
-    const inputRef = subtaskElementRef.querySelector(".subtask-edit-input");
-    const description = inputRef.value.trim();
-    if (description === "") return;
-    subtasks[index].description = description;
-    renderSubtasks(subtasks);
+  const inputRef = subtaskElementRef.querySelector(".subtask-edit-input");
+  const description = inputRef.value.trim();
+  if (description === "") return;
+  subtasks[index].description = description;
+  renderSubtasks(subtasks);
 }
 
 function editSubtask(index) {
   const subtaskListRef = document.getElementById("subtask-list");
   const subtaskElement = subtaskListRef.querySelector(`[data-index="${index}"]`);
-  subtaskElement.innerHTML = returnSubtaskEditHTML(index);
+  const subtask = subtasks[index];
+  subtaskElement.innerHTML = returnSubtaskEditHTML(subtask, index);
 }
 
-function returnSubtaskEditHTML(index) {
+function returnSubtaskEditHTML(subtask, index) {
   return `
-    <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${subtasks[index].description}">
+    <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
     <button type="button" class="subtask-edit-cancel-btn">X</button>
     <button type="button" class="subtask-edit-confirm-btn">✓</button>
   `
 }
 
+function escapeHTML(text) {
+  const characters = [
+    ["&", "&amp;"],
+    ["<", "&lt;"],
+    [">", "&gt;"],
+    ['"', "&quot;"],
+    ["'", "&#039;"]
+  ];
+  characters.forEach(([character, entity]) => {
+    text = text.replaceAll(character, entity);
+  });
+
+  return text;
+}
+
 function returnSubtaskHTML(subtask, index) {
+  const escapedDescription  = escapeHTML(subtask.description);
   return `
         <li class="subtask-item" data-index="${index}">
             <span class="subtask-description">
-                ${subtask.description}
+                ${escapedDescription}
             </span>
 
             <button
                 type="button"
                 class="subtask-edit-btn"
-                aria-label="Subtask ${subtask.description} editieren"
+                aria-label="Subtask ${escapedDescription} editieren"
             >
                 Edit
             </button>
             <button
                 type="button"
                 class="subtask-delete-btn"
-                aria-label="Subtask ${subtask.description} löschen"
+                aria-label="Subtask ${escapedDescription} löschen"
             >
                 Delete
             </button>
