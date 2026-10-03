@@ -50,6 +50,10 @@
     padding: 16px 12px;
 }
 
+.board-add-task-btn:hover {
+    background-color: var(--color-underscore);
+}
+
 .no-results-message {
     position: absolute;
     top: calc(100% + 8px);
