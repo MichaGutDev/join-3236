@@ -1,5 +1,4 @@
 import { saveTask } from "./db.js";
-import {returnSubtaskEditHTML, } from "./templates.js"
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
