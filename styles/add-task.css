@@ -118,84 +118,10 @@ select.task-input {
     color: black;
 }
 
-.subtask-input {
-    position: relative;
-}
-
-.subtask-input .task-input {
-    padding-right: 80px;
-}
-
-.subtask-input-actions {
-    position: absolute;
-    top: 50%;
-    right: 16px;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.subtask-icon-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-.subtask-clear-btn img {
-    width: 13px;
-    height: 13px;
-}
-
-.subtask-confirm-btn img,
-.subtask-edit-confirm-btn img {
-    width: 15px;
-    height: 11px;
-    filter: brightness(0);
-}
-
-.subtask-input-divider {
-    width: 1px;
-    height: 20px;
-    background-color: var(--color-form-box);
-}
-
 .task-form .contact-avatar {
     width: 42px;
     height: 42px;
     border-width: 2px;
-}
-
-.subtask-list {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.subtask-item:has(.subtask-edit-input) {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 16px;
-    border-bottom: 1px solid var(--color-input-border-focus);
-    background-color: white;
-    list-style: none;
-}
-
-.subtask-item .subtask-edit-input {
-    flex: 1;
-    min-width: 0;
-    height: auto;
-    padding: 0;
-    border: none;
-    border-radius: 0;
-    font-size: 16px;
 }
 
 .task-textarea {
