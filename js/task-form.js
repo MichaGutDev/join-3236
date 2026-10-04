@@ -3,6 +3,8 @@ import { returnSubtaskHTML, returnSubtaskEditHTML } from "./templates.js";
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
+const requiredFieldIds = ["title", "dueDate", "category"];
+
 
 export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave = null) {
   formRef = document.querySelector("#task-form");
@@ -14,6 +16,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave 
 
 function initTaskListeners(taskStatus, editingTaskId, onSave) {
   initSubtaskListeners();
+  initRequiredFieldListeners();
   formRef.addEventListener("reset", handleFormReset);
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -21,6 +24,13 @@ function initTaskListeners(taskStatus, editingTaskId, onSave) {
   });
   formRef.addEventListener("input", handleFormValidation);
 }
+
+function initRequiredFieldListeners() {
+  requiredFieldIds.forEach(id => {
+    formRef.querySelector(`#${id}`).addEventListener("blur", handleRequired);
+  });
+}
+
 
 function initSubtaskListeners() {
   const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
@@ -96,6 +106,14 @@ function handleFormReset() {
   subtasks.length = 0;
   renderSubtasks(subtasks);
   clearSubtaskInput();
+  resetRequiredFields();
+}
+
+function resetRequiredFields() {
+  requiredFieldIds.forEach(id => {
+    document.getElementById(id).classList.remove("field-error");
+    document.getElementById(`${id}-error`).classList.add("d-none");
+  });
 }
 
 function toggleSubtaskInputActions(event) {
@@ -244,16 +262,24 @@ function validateForm(requiredFields) {
   return Object.values(requiredFields).every(value => value !== "");
 }
 
-function handleRequired(requiredFields) {
+function handleRequired2(requiredFields) {
   Object.entries(requiredFields).forEach(([key, value]) => {
     const errorRef = document.getElementById(`${key}-error`);
     errorRef.classList.toggle("d-none", value !== "");
   });
 }
 
+function handleRequired(event) {
+  const fieldRef = event.target;
+  const inputValue = fieldRef.value.trim();
+  const errorRef = document.getElementById(`${fieldRef.id}-error`);
+
+  errorRef.classList.toggle("d-none", inputValue !== "");
+  fieldRef.classList.toggle("field-error", inputValue === "");
+}
+
 function handleFormValidation() {
   const requiredFields = getRequiredFields();
-  handleRequired(requiredFields);
   createTaskBtnRef.disabled = !validateForm(requiredFields);
 }
 

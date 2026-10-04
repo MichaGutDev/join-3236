@@ -11,7 +11,7 @@ export function returnAddTaskForm() {
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
                             <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title">
-                            <span id="title-error" class="form-error">This field is required</span>
+                            <span id="title-error" class="form-error d-none">This field is required</span>
                         </div>
 
                         <!-- Description -->
@@ -25,7 +25,7 @@ export function returnAddTaskForm() {
                         <div class="form-group">
                             <label for="dueDate">Due Date<span class="error-message">*</span></label>
                             <input type="date" id="dueDate" name="dueDate" class="task-input task-date-input">
-                            <span id="dueDate-error" class="form-error">This field is required</span>
+                            <span id="dueDate-error" class="form-error d-none">This field is required</span>
                         </div>
                     </div>
 
@@ -71,7 +71,7 @@ export function returnAddTaskForm() {
                                 <option value="User Story">User Story</option>
                                 <option value="Technical Task">Technical Task</option>
                             </select>
-                            <span id="category-error" class="form-error">This field is required</span>
+                            <span id="category-error" class="form-error d-none">This field is required</span>
                         </div>
 
                         <!-- Subtasks -->
