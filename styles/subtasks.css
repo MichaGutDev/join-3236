@@ -58,8 +58,10 @@
     gap: 8px;
 }
 
-.subtask-item {
+.subtask-list .subtask-item {
     position: relative;
+    padding-right: 72px;
+    overflow-wrap: anywhere;
 }
 
 .subtask-item-actions {
