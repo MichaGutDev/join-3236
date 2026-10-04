@@ -1,0 +1,35 @@
+/* Color Variables */
+
+:root {
+  --color-primary: rgb(42, 54, 71);
+
+  --color-bg-main: rgb(246, 247, 248);
+
+  --color-light-font: rgb(231, 231, 231);
+  --color-active-font: rgb(255, 255, 255);
+
+  --color-form-box: rgb(104, 104, 104);
+  --color-outer-form-font: hsl(0, 0%, 27%);
+
+  --color-input-border: #D1D1D1;
+  --color-input-border-focus: #124658;
+  --color-input-placeholder: #D1D1D1;
+  --color-muted: #A8A8A8;
+
+  --color-login-privacy-policy: rgb(18, 70, 88);
+  --color-error: rgb(230, 0, 38);
+
+  --color-user-story: rgb(0, 56, 255);
+  --color-technical-task: rgb(31, 215, 193);
+  --color-nav-active: rgb(9, 25, 49);
+
+  --color-login-initials: rgb(18, 70, 88);
+
+  --color-underscore: rgb(41, 171, 226);
+
+  --color-contact-mail: rgb(0, 124, 238);
+
+  --color-board-taskgroup: rgb(66, 82, 110);
+}
+
+/* End Color Variables */
