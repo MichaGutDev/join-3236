@@ -153,7 +153,8 @@ select.task-input {
     height: 13px;
 }
 
-.subtask-confirm-btn img {
+.subtask-confirm-btn img,
+.subtask-edit-confirm-btn img {
     width: 15px;
     height: 11px;
     filter: brightness(0);
@@ -182,7 +183,7 @@ select.task-input {
     align-items: center;
     gap: 4px;
     padding: 4px 16px;
-    border-bottom: 1px solid #124658;
+    border-bottom: 1px solid var(--color-input-border-focus);
     background-color: white;
     list-style: none;
 }

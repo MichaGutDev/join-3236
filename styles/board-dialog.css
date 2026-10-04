@@ -22,7 +22,7 @@
 }
 
 .task-dialog::-webkit-scrollbar-thumb {
-    background: #a8a8a8;
+    background: var(--color-muted);
     border: 4px solid white;
     border-radius: 8px;
 }
@@ -30,7 +30,7 @@
 @supports not selector(::-webkit-scrollbar) {
     .task-dialog {
         scrollbar-width: thin;
-        scrollbar-color: #a8a8a8 white;
+        scrollbar-color: var(--color-muted) white;
     }
 }
 
@@ -110,10 +110,7 @@
     filter: brightness(0) invert(1);
 }
 
-.priority-medium:has(input:checked) {
-    color: white;
-}
-
+.priority-medium:has(input:checked),
 .priority-low:has(input:checked) {
     color: white;
 }
@@ -227,7 +224,7 @@
     width: 92px;
     font-size: 20px;
     line-height: 120%;
-    color: #42526e;
+    color: var(--color-board-taskgroup);
 }
 
 .task-information dd {
@@ -258,7 +255,7 @@
     font-size: 20px;
     font-weight: 400;
     line-height: 120%;
-    color: #42526e;
+    color: var(--color-board-taskgroup);
     margin-bottom: 8px;
 }
 
@@ -289,7 +286,7 @@
 }
 
 .subtask-item-input:hover {
-    background-color: #d1d1d1;
+    background-color: var(--color-input-border);
 }
 
 .task-assigned-list {
@@ -321,7 +318,7 @@
     background-repeat: no-repeat;
     font-size: 16px;
     line-height: 120%;
-    color: #2a3647;
+    color: var(--color-primary);
     cursor: pointer;
 }
 
@@ -337,7 +334,7 @@
 .task-actions .edit-task-btn {
     margin-left: 10px;
     padding-left: 42px;
-    border-left: 1px solid #d1d1d1;
+    border-left: 1px solid var(--color-input-border);
     background-image: url("../assets/icons/edit-icon.svg");
     background-position: 10px center;
 }

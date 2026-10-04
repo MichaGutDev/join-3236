@@ -289,7 +289,7 @@ export function returnSubtaskEditHTML(subtask, index) {
         <img src="../assets/icons/trash-icon.svg" alt="">
     </button>
     <div class="subtask-input-divider"></div>
-    <button type="button" class="subtask-icon-btn subtask-confirm-btn subtask-edit-confirm-btn" aria-label="Save subtask">
+    <button type="button" class="subtask-icon-btn subtask-edit-confirm-btn" aria-label="Save subtask">
         <img src="../assets/icons/check-icon.svg" alt="">
     </button>
   `
