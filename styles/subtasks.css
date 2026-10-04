@@ -58,6 +58,26 @@
     gap: 8px;
 }
 
+.subtask-item {
+    position: relative;
+}
+
+.subtask-item-actions {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 100ms;
+}
+
+.subtask-item:hover .subtask-item-actions,
+.subtask-item-actions:focus-within {
+    opacity: 1;
+}
+
 .subtask-item:has(.subtask-edit-input) {
     display: flex;
     align-items: center;
@@ -79,3 +99,13 @@
 }
 
 /* End Subtask List */
+
+/* Responsive */
+
+@media (hover: none) {
+    .subtask-item-actions {
+        opacity: 1;
+    }
+}
+
+/* End Responsive */

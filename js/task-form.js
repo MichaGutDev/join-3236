@@ -185,13 +185,13 @@ function handleSubtaskClick(event) {
   if (!subtaskElementRef) return;
 
   const index = Number(subtaskElementRef.dataset.index);
-  const deleteEditButtonRef = event.target.closest(".subtask-edit-delete-btn");
+  const editButtonRef = event.target.closest(".subtask-edit-btn");
+  const deleteButtonRef = event.target.closest(".subtask-delete-btn, .subtask-edit-delete-btn");
   const confirmEditButtonRef = event.target.closest(".subtask-edit-confirm-btn");
-  const isEditing = subtaskElementRef.querySelector(".subtask-edit-input");
 
-  if (deleteEditButtonRef) deleteSubtask(index);
+  if (editButtonRef) editSubtask(index);
+  else if (deleteButtonRef) deleteSubtask(index);
   else if (confirmEditButtonRef) confirmSubtaskEdit(index, subtaskElementRef);
-  else if (!isEditing) editSubtask(index);
 }
 
 function confirmSubtaskEdit(index, subtaskElementRef) {
