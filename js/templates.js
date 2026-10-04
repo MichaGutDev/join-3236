@@ -302,6 +302,15 @@ export function returnSubtaskHTML(subtask, index) {
             <span class="subtask-description">
                 ${escapedDescription}
             </span>
+            <div class="subtask-item-actions">
+                <button type="button" class="subtask-icon-btn subtask-edit-btn" aria-label="Edit subtask">
+                    <img src="../assets/icons/edit-icon.svg" alt="">
+                </button>
+                <div class="subtask-input-divider"></div>
+                <button type="button" class="subtask-icon-btn subtask-delete-btn" aria-label="Delete subtask">
+                    <img src="../assets/icons/trash-icon.svg" alt="">
+                </button>
+            </div>
         </li>
     `;
 }
