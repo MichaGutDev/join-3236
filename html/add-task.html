@@ -145,7 +145,7 @@
                         <div class="form-group">
                             <label for="assigned-to">Assigned To</label>
 
-                            <select id="assigned-to" name="assignedTo" class="task-input" >
+                            <select id="assigned-to" name="assignedTo" class="task-input">
                                 <option>Select contacts to assign</option>
                             </select>
                         </div>
@@ -169,13 +169,13 @@
                                 <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask">
 
                                 <div class="subtask-input-actions d-none">
-                                    <button type="button" id="clear-subtask-btn" class="subtask-icon-btn subtask-clear-btn"
-                                        aria-label="Clear subtask input">
+                                    <button type="button" id="clear-subtask-btn"
+                                        class="subtask-icon-btn subtask-clear-btn" aria-label="Clear subtask input">
                                         <img src="../assets/icons/cancel-icon.svg" alt="">
                                     </button>
                                     <div class="subtask-input-divider"></div>
-                                    <button type="button" id="add-subtask-btn" class="subtask-icon-btn subtask-confirm-btn"
-                                        aria-label="Add subtask">
+                                    <button type="button" id="add-subtask-btn"
+                                        class="subtask-icon-btn subtask-confirm-btn" aria-label="Add subtask">
                                         <img src="../assets/icons/check-icon.svg" alt="">
                                     </button>
                                 </div>
@@ -200,6 +200,8 @@
                 </div>
             </form>
         </section>
+        <div id="toast" class="toast"></div>
+
     </main>
 
     <script type="module" src="../script.js"></script>

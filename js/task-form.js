@@ -1,5 +1,6 @@
 import { saveTask } from "./db.js";
 import { returnSubtaskHTML, returnSubtaskEditHTML } from "./templates.js";
+import { showToast } from "./toast.js";
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
@@ -75,10 +76,18 @@ export function setFormSubtasks(taskSubtasks = []) {
 async function getValues(status, editingTaskId, onSave) {
   const formData = new FormData(formRef);
   const task = createTaskObject(formData, status);
-  await saveTask(task, editingTaskId);
-  resetTaskForm();
-  if (onSave) {
-    onSave();
+  if (!validateForm(getRequiredFields())) return;
+  try {
+    await saveTask(task, editingTaskId);
+    resetTaskForm();
+    if (onSave) {
+      onSave();
+    }
+  } catch (error) {
+    console.error(error);
+    showToast("Task could not be saved. Please try again.");
+  } finally {
+    handleFormValidation();
   }
 }
 
