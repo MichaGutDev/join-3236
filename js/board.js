@@ -1,4 +1,4 @@
-import { initTaskForm, renderContacts, setFormSubtasks, updateFormContacts } from "./task-form.js";
+import { initTaskForm, setFormSubtasks, setFormAssignedTo } from "./task-form.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
@@ -51,7 +51,7 @@ function initDBListeners() {
         contacts = updatedContacts;
         contactsLoaded = true;
         renderBoardWhenReady();
-        updateFormContacts(updatedContacts);
+        // updateFormContacts(updatedContacts);
     });
 }
 
@@ -124,7 +124,8 @@ function clearTaskHTML() {
 function openAddTask(status) {
     taskDialogRef.innerHTML = returnAddTaskForm();
 
-    renderContacts(contacts);
+    // renderContacts(contacts);
+    setFormAssignedTo();
     setFormSubtasks();
 
     initTaskForm(status, null, closeTaskDialog);
@@ -226,7 +227,8 @@ function openEditTask(task) {
     document.getElementById("task-form").classList.add("task-form-edit");
 
     fillBasicTaskForm(task);
-    renderContacts(contacts, task.assignedTo);
+    // renderContacts(contacts, task.assignedTo);
+    setFormAssignedTo(task.assignedTo);
     setFormSubtasks(task.subtasks);
 
     initTaskForm(task.status, task.id, closeTaskDialog);

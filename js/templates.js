@@ -54,13 +54,18 @@ export function returnAddTaskForm() {
                             </fieldset>
                         </div>
 
-                        <!-- Assigned To -->
-                        <div class="form-group">
-                            <label for="assigned-to">Assigned To</label>
+                        <div class="assigned-to form-group">
+                            <button type="button" id="assigned-to-trigger">
+                                <span>Select contacts to assign</span>
+                                <img src="/assets/icons/arrow-drop-down.svg" alt="">
+                            </button>
 
-                            <select id="assigned-to" name="assignedTo" class="task-input" >
-                                <option>Select contacts to assign</option>
-                            </select>
+                            <div id="assigned-to-dropdown" class="assigned-to-dropdown d-none">
+                                <!-- Contacts kommen später hier rein -->
+                            </div>
+                        </div>
+                        <div id="selected-contacts">
+                            <!-- Selected Contacts kommen später hier rein -->
                         </div>
 
                         <!-- Category -->
@@ -193,8 +198,8 @@ export function returnSubtasksHTML(subtasks) {
 
             <ul class="task-subtask-list">
                 ${subtasks.map(({ description, completion }, index) => {
-                    const escapedDescription = escapeHTML(description);
-                    return `
+        const escapedDescription = escapeHTML(description);
+        return `
                         <li class="subtask-item" data-subtask-index="${index}">
                                 <input
                                     class="subtask-item-input"
@@ -207,7 +212,7 @@ export function returnSubtasksHTML(subtasks) {
                             </span>
                         </li>
                         `;
-                }).join("")}
+    }).join("")}
             </ul>
         </section>
     `;
@@ -328,4 +333,18 @@ function escapeHTML(text) {
     });
 
     return text;
+}
+
+export function returnContactHTML2(contact, isSelected) {
+    const escapedName = escapeHTML(contact.name);
+    const escapedInitials = escapeHTML(getInitials(contact.name));
+    const checkedIcon = `<img class="assigned-checkbox" src="../assets/icons/checkbox-checked.svg">`;
+    const uncheckedIcon = `<img class="assigned-checkbox" src="../assets/icons/checkbox-empty.svg">`;
+    return `
+    <div class="assigned-contact" data-contact-id="${contact.id}">
+        <div class="user-avatar">${escapedInitials}</div>
+        <span>${escapedName}</span>
+        ${isSelected ? checkedIcon : uncheckedIcon}
+    </div>
+    `
 }

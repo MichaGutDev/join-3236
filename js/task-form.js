@@ -1,23 +1,100 @@
-import { saveTask } from "./db.js";
-import { returnSubtaskHTML, returnSubtaskEditHTML } from "./templates.js";
+import { saveTask, listenToContacts } from "./db.js";
+import { returnSubtaskHTML, returnSubtaskEditHTML, returnContactHTML2, returnAssignedToHTML } from "./templates.js";
 import { showToast } from "./toast.js";
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
+let contacts = [];
 const requiredFieldIds = ["title", "dueDate", "category"];
+let selectedContactIds = [];
+
+
+function toggleAssignedContact(contactId) {
+  if (selectedContactIds.includes(contactId)) {
+    selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+  } else {
+    selectedContactIds.push(contactId);
+  }
+  renderAssignedToContacts();
+  renderSelectedContacts();
+}
+
+
+export function setFormAssignedTo(assignedTo = []) {
+  selectedContactIds = [...assignedTo];
+  renderAssignedToContacts();
+}
+
+
+function initContacts() {
+  listenToContacts((updatedContacts) => {
+    contacts = updatedContacts;
+    // updateFormContacts(contacts);
+
+    renderAssignedToContacts();
+    renderSelectedContacts();
+  });
+}
+
+
+function initAssignedToListeners() {
+  const assignedToButtonRef = document.getElementById("assigned-to-trigger");
+  assignedToButtonRef.addEventListener("click", toggleAssignedToDropdown)
+}
+
+
+function toggleAssignedToDropdown() {
+  const assignedToRef = document.getElementById("assigned-to-dropdown");
+  assignedToRef.classList.toggle("d-none")
+}
+
+function renderAssignedToContacts() {
+  const assignedToRef = document.getElementById("assigned-to-dropdown");
+  assignedToRef.innerHTML = contacts
+    .map(contact => {
+      const isSelected = selectedContactIds.includes(contact.id);
+      return returnContactHTML2(contact, isSelected);
+    })
+    .join("");
+}
+
+function handleContactSelection(event) {
+  const selectedContact = event.target.closest(".assigned-contact");
+  if (!selectedContact) return;
+  toggleAssignedContact(selectedContact.dataset.contactId);
+  console.log(selectedContact.dataset.contactId);
+  console.log(selectedContactIds);
+}
+
+function initContactListener() {
+  const assignedToDropDownRef = document.getElementById("assigned-to-dropdown");
+  assignedToDropDownRef.addEventListener("click", handleContactSelection)
+}
+
+function renderSelectedContacts() {
+  const selectedContactsRef = document.getElementById("selected-contacts");
+  selectedContactsRef.innerHTML = returnAssignedToHTML(
+    selectedContactIds,
+    contacts
+  );
+}
 
 
 export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave = null) {
   formRef = document.querySelector("#task-form");
   createTaskBtnRef = document.getElementById("create-task-btn");
+  initContacts();
+  initContactListener();
   setMinimumDueDate();
   initTaskListeners(taskStatus, editingTaskId, onSave);
   handleFormValidation();
 }
 
+
 function initTaskListeners(taskStatus, editingTaskId, onSave) {
   initSubtaskListeners();
   initRequiredFieldListeners();
+  initAssignedToListeners();
   formRef.addEventListener("reset", handleFormReset);
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -25,6 +102,7 @@ function initTaskListeners(taskStatus, editingTaskId, onSave) {
   });
   formRef.addEventListener("input", handleFormValidation);
 }
+
 
 function initRequiredFieldListeners() {
   requiredFieldIds.forEach(id => {
@@ -48,22 +126,25 @@ function initSubtaskListeners() {
   subtaskListRef.addEventListener("keydown", handleSubtaskEditKeydown);
 }
 
+
 function setMinimumDueDate() {
   const dueDateRef = document.getElementById("dueDate");
   dueDateRef.min = getCurrentDate();
 }
 
-export function renderContacts(contacts, assignedTo = []) {
-  const selectRef = document.getElementById("assigned-to");
-  selectRef.innerHTML = "<option value=''>Select contacts to assign</option>";
-  contacts.forEach(contact => {
-    const option = document.createElement("option");
-    option.value = contact.id;
-    option.textContent = contact.name;
-    option.selected = assignedTo.includes(contact.id);
-    selectRef.appendChild(option);
-  });
-}
+
+// export function renderContacts(contacts, assignedTo = []) {
+//   const selectRef = document.getElementById("assigned-to");
+//   selectRef.innerHTML = "<option value=''>Select contacts to assign</option>";
+//   contacts.forEach(contact => {
+//     const option = document.createElement("option");
+//     option.value = contact.id;
+//     option.textContent = contact.name;
+//     option.selected = assignedTo.includes(contact.id);
+//     selectRef.appendChild(option);
+//   });
+// }
+
 
 export function setFormSubtasks(taskSubtasks = []) {
   subtasks.length = 0;
@@ -91,6 +172,7 @@ async function getValues(status, editingTaskId, onSave) {
   }
 }
 
+
 function createTaskObject(formData, status = "To Do") {
   return {
     title: formData.get("title"),
@@ -98,25 +180,28 @@ function createTaskObject(formData, status = "To Do") {
     dueDate: formData.get("dueDate"),
     priority: formData.get("priority"),
     category: formData.get("category"),
-    assignedTo: formData.getAll("assignedTo").filter(contactId => contactId !== ""),
+    assignedTo: [...selectedContactIds],
     status,
     subtasks: [...subtasks],
   };
 }
 
+
 function resetTaskForm() {
   formRef.reset();
-  subtasks.length = 0;
-  renderSubtasks(subtasks);
-  clearSubtaskInput();
 }
+
 
 function handleFormReset() {
   subtasks.length = 0;
+  selectedContactIds = [];
   renderSubtasks(subtasks);
+  renderAssignedToContacts();
+  renderSelectedContacts();
   clearSubtaskInput();
   resetRequiredFields();
 }
+
 
 function resetRequiredFields() {
   requiredFieldIds.forEach(id => {
@@ -125,13 +210,12 @@ function resetRequiredFields() {
   });
 }
 
+
 function toggleSubtaskInputActions(event) {
   const actionsRef = document.querySelector(".subtask-input-actions");
   const hasValue = event.target.value.trim() !== "";
   actionsRef.classList.toggle("d-none", !hasValue);
 }
-
-
 
 
 function clearSubtaskInput() {
@@ -140,9 +224,6 @@ function clearSubtaskInput() {
   subTaskInputRef.value = "";
   actionsRef.classList.add("d-none");
 }
-
-
-
 
 
 function handleSubtaskEditKeydown(event) {
@@ -156,8 +237,6 @@ function handleSubtaskEditKeydown(event) {
 
   confirmSubtaskEdit(index, subtaskElementRef);
 }
-
-
 
 
 function addSubtask() {
@@ -175,10 +254,12 @@ function addSubtask() {
   clearSubtaskInput();
 }
 
+
 function deleteSubtask(index) {
   subtasks.splice(index, 1)
   renderSubtasks(subtasks);
 }
+
 
 function renderSubtasks(subtasks) {
   const subTaskListRef = document.getElementById("subtask-list");
@@ -188,6 +269,7 @@ function renderSubtasks(subtasks) {
     subTaskListRef.innerHTML += returnSubtaskHTML(subtask, index);
   }
 }
+
 
 function handleSubtaskKeydown(event) {
   if (event.key !== "Enter") return;
@@ -207,6 +289,7 @@ function doubleClickEdit(event) {
   editSubtask(index);
 }
 
+
 function handleSubtaskClick(event) {
   const subtaskElementRef = event.target.closest(".subtask-item");
   if (!subtaskElementRef) return;
@@ -221,6 +304,7 @@ function handleSubtaskClick(event) {
   else if (confirmEditButtonRef) confirmSubtaskEdit(index, subtaskElementRef);
 }
 
+
 function confirmSubtaskEdit(index, subtaskElementRef) {
   const inputRef = subtaskElementRef.querySelector(".subtask-edit-input");
   const description = inputRef.value.trim();
@@ -229,33 +313,13 @@ function confirmSubtaskEdit(index, subtaskElementRef) {
   renderSubtasks(subtasks);
 }
 
+
 function editSubtask(index) {
   const subtaskListRef = document.getElementById("subtask-list");
   const subtaskElement = subtaskListRef.querySelector(`[data-index="${index}"]`);
   const subtask = subtasks[index];
   subtaskElement.innerHTML = returnSubtaskEditHTML(subtask, index);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 function getRequiredFields() {
@@ -267,16 +331,11 @@ function getRequiredFields() {
   };
 }
 
+
 function validateForm(requiredFields) {
   return Object.values(requiredFields).every(value => value !== "");
 }
 
-function handleRequired2(requiredFields) {
-  Object.entries(requiredFields).forEach(([key, value]) => {
-    const errorRef = document.getElementById(`${key}-error`);
-    errorRef.classList.toggle("d-none", value !== "");
-  });
-}
 
 function handleRequired(event) {
   const fieldRef = event.target;
@@ -293,7 +352,6 @@ function handleFormValidation() {
 }
 
 
-
 function getCurrentDate() {
   const today = new Date();
 
@@ -304,13 +362,12 @@ function getCurrentDate() {
   return `${year}-${month}-${day}`;
 }
 
-export function updateFormContacts(contacts) {
-  const selectRef = document.getElementById("assigned-to");
-  if (!selectRef) return;
 
-  const selectedContacts = [...selectRef.selectedOptions].map(option => option.value).filter(contactId => contactId !== "");
+// export function updateFormContacts(contacts) {
+//   const selectRef = document.getElementById("assigned-to");
+//   if (!selectRef) return;
 
-  renderContacts(contacts, selectedContacts);
-}
+//   const selectedContacts = [...selectRef.selectedOptions].map(option => option.value).filter(contactId => contactId !== "");
 
-
+//   renderContacts(contacts, selectedContacts);
+// }
