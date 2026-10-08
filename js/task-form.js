@@ -1,4 +1,5 @@
 import { saveTask, listenToContacts } from "./db.js";
+import { filterContacts } from "./search.js";
 import { returnSubtaskHTML, returnSubtaskEditHTML, returnContactHTML2, returnAssignedToHTML } from "./templates.js";
 import { showToast } from "./toast.js";
 let formRef;
@@ -15,7 +16,7 @@ function toggleAssignedContact(contactId) {
   } else {
     selectedContactIds.push(contactId);
   }
-  renderAssignedToContacts();
+  updateAssignedToContacts();
   renderSelectedContacts();
 }
 
@@ -31,7 +32,7 @@ function initContacts() {
     contacts = updatedContacts;
     // updateFormContacts(contacts);
 
-    renderAssignedToContacts();
+    updateAssignedToContacts();
     renderSelectedContacts();
   });
 }
@@ -39,18 +40,28 @@ function initContacts() {
 
 function initAssignedToListeners() {
   const assignedToButtonRef = document.getElementById("assigned-to-trigger");
-  assignedToButtonRef.addEventListener("click", toggleAssignedToDropdown)
+  const assignedToSearchRef = document.getElementById("search-assigned-to");
+
+  assignedToButtonRef.addEventListener("click", toggleAssignedToDropdown);
+  assignedToSearchRef.addEventListener("input", updateAssignedToContacts);
+}
+
+
+function updateAssignedToContacts() {
+  const searchTerm = document.getElementById("search-assigned-to").value;
+  const filteredContacts = filterContacts(contacts, searchTerm);
+  renderAssignedToContacts(filteredContacts);
 }
 
 
 function toggleAssignedToDropdown() {
-  const assignedToRef = document.getElementById("assigned-to-dropdown");
+  const assignedToRef = document.getElementById("assigned-to-wrapper");
   assignedToRef.classList.toggle("d-none")
 }
 
-function renderAssignedToContacts() {
+function renderAssignedToContacts(contactList = contacts) {
   const assignedToRef = document.getElementById("assigned-to-dropdown");
-  assignedToRef.innerHTML = contacts
+  assignedToRef.innerHTML = contactList
     .map(contact => {
       const isSelected = selectedContactIds.includes(contact.id);
       return returnContactHTML2(contact, isSelected);
@@ -80,6 +91,9 @@ function renderSelectedContacts() {
 }
 
 
+
+
+
 export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave = null) {
   formRef = document.querySelector("#task-form");
   createTaskBtnRef = document.getElementById("create-task-btn");
@@ -95,6 +109,7 @@ function initTaskListeners(taskStatus, editingTaskId, onSave) {
   initSubtaskListeners();
   initRequiredFieldListeners();
   initAssignedToListeners();
+  // initAssignedToSearch();
   formRef.addEventListener("reset", handleFormReset);
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -196,7 +211,7 @@ function handleFormReset() {
   subtasks.length = 0;
   selectedContactIds = [];
   renderSubtasks(subtasks);
-  renderAssignedToContacts();
+  updateAssignedToContacts();
   renderSelectedContacts();
   clearSubtaskInput();
   resetRequiredFields();

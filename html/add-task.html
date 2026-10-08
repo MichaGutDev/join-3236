@@ -155,11 +155,19 @@
                                 <span>Select contacts to assign</span>
                                 <img src="/assets/icons/arrow-drop-down.svg" alt="">
                             </button>
-
-                            <div id="assigned-to-dropdown" class="assigned-to-dropdown d-none">
-                                <!-- Contacts kommen später hier rein -->
-                                 <span>test</span>
+                            <div id="assigned-to-wrapper" class="d-none">
+                                <div class="board-search">
+                                    <input id="search-assigned-to" type="text" placeholder="Find Contacts">
+                                    <img src="../assets/icons/search.svg" alt="Find Task">
+                                    <p id="no-results-message" class="no-results-message" hidden>No matching contacts
+                                        found.</p>
+                                </div>
+                                <div id="assigned-to-dropdown" class="assigned-to-dropdown">
+                                    <!-- Contacts kommen später hier rein -->
+                                    <span>test</span>
+                                </div>
                             </div>
+
                         </div>
                         <div id="selected-contacts">
                             <!-- Selected Contacts kommen später hier rein -->
