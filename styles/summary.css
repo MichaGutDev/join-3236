@@ -225,7 +225,7 @@
 .summary-greeting-name {
     font-size: 64px;
     font-weight: 700;
-    color: var(--color-login-privacy-policy);
+    color: var(--color-accent);
 }
 
 /* End Greeting */

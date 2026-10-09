@@ -67,7 +67,7 @@
   font-size: 16px;
 
   font-weight: 700;
-  color: var(--color-login-initials);
+  color: var(--color-accent);
 
   cursor: pointer;
 }

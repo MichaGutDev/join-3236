@@ -49,12 +49,12 @@
 /* Hover States */
 
 .btn-primary:hover {
-  background-color: var(--color-login-privacy-policy);
+  background-color: var(--color-accent);
   box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 }
 
 .btn-secondary:hover {
-  border: 2px solid var(--color-login-privacy-policy);
+  border: 2px solid var(--color-accent);
   box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
 }
 

@@ -198,7 +198,7 @@
 }
 
 .auth-footer a:hover {
-  color: var(--color-login-privacy-policy);
+  color: var(--color-accent);
   font-weight: 700;
 }
 

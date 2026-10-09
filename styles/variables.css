@@ -11,19 +11,19 @@
   --color-form-box: rgb(104, 104, 104);
   --color-outer-form-font: hsl(0, 0%, 27%);
 
-  --color-input-border: rgb(209, 209, 209);
-  --color-input-border-focus: rgb(18, 70, 88);
-  --color-input-placeholder: rgb(209, 209, 209);
+  --color-accent: rgb(18, 70, 88);
+  --color-neutral: rgb(209, 209, 209);
+
+  --color-input-border: var(--color-neutral);
+  --color-input-border-focus: var(--color-accent);
+  --color-input-placeholder: var(--color-neutral);
   --color-muted: rgb(168, 168, 168);
 
-  --color-login-privacy-policy: rgb(18, 70, 88);
   --color-error: rgb(230, 0, 38);
 
   --color-user-story: rgb(0, 56, 255);
   --color-technical-task: rgb(31, 215, 193);
   --color-nav-active: rgb(9, 25, 49);
-
-  --color-login-initials: rgb(18, 70, 88);
 
   --color-underscore: rgb(41, 171, 226);
 
