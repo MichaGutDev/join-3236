@@ -348,7 +348,12 @@
     .dialog-input-container {
         width: 100%;
         height: auto;
+        min-height: 0;
         gap: 16px;
+    }
+
+    .dialog-input-group {
+        gap: 0;
     }
 
     .dialog-input {
