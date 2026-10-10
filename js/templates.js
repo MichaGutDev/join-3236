@@ -350,10 +350,22 @@ export function returnContactHTML2(contact, isSelected) {
     const checkedIcon = `<img class="assigned-checkbox" src="../assets/icons/checkbox-checked.svg">`;
     const uncheckedIcon = `<img class="assigned-checkbox" src="../assets/icons/checkbox-empty.svg">`;
     return `
-    <div class="assigned-contact" data-contact-id="${contact.id}">
-        <div class="user-avatar">${escapedInitials}</div>
-        <span>${escapedName}</span>
-        ${isSelected ? checkedIcon : uncheckedIcon}
-    </div>
+    <label class="assigned-contact" data-contact-id="${contact.id}">
+    <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
+    <span>${escapedName}</span>
+
+    <input
+        type="checkbox"
+        class="assigned-contact-checkbox"
+        value="${contact.id}"
+        ${isSelected ? "checked" : ""}
+    >
+    </label>
     `
 }
+
+//   <div class="assigned-contact" data-contact-id="${contact.id}">
+//       <div class="user-avatar">${escapedInitials}</div>
+//        <span>${escapedName}</span>
+//       ${isSelected ? checkedIcon : uncheckedIcon}
+//    </div>

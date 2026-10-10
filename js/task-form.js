@@ -18,6 +18,8 @@ function toggleAssignedContact(contactId) {
   }
   updateAssignedToContacts();
   renderSelectedContacts();
+  const checkboxRef = document.querySelector(`.assigned-contact-checkbox[value="${CSS.escape(contactId)}"]`);
+  checkboxRef?.focus();
 }
 
 
@@ -41,13 +43,27 @@ function initContacts() {
 function initAssignedToListeners() {
   const assignedToButtonRef = document.getElementById("assigned-to-trigger");
   const assignedToSearchRef = document.getElementById("search-assigned-to");
+  const assignedToDropdownArrowRef = document.getElementById("assigned-to-arrow");
+  const assignedToRef = document.querySelector(".assigned-to");
 
   assignedToButtonRef.addEventListener("click", toggleAssignedToDropdown);
+  assignedToDropdownArrowRef.addEventListener("click", toggleAssignedToDropdown);
   assignedToSearchRef.addEventListener("input", updateAssignedToContacts);
+  assignedToRef.addEventListener("keydown", handleAssignedToKeydown);
 }
 
 
-function updateAssignedToContacts() {
+function handleAssignedToKeydown(event) {
+  const dropdownRef = document.getElementById("assigned-to-wrapper");
+  const isOpen = !dropdownRef.classList.contains("d-none");
+  if (event.key === "Escape" && isOpen) {
+    event.preventDefault();
+    event.stopPropagation();
+    toggleAssignedToDropdown();
+  }
+}
+
+function updateAssignedToContacts(event) {
   const searchTerm = document.getElementById("search-assigned-to").value;
   const filteredContacts = filterContacts(contacts, searchTerm);
   renderAssignedToContacts(filteredContacts);
@@ -55,8 +71,27 @@ function updateAssignedToContacts() {
 
 
 function toggleAssignedToDropdown() {
-  const assignedToRef = document.getElementById("assigned-to-wrapper");
-  assignedToRef.classList.toggle("d-none")
+  const triggerRef = document.getElementById("assigned-to-trigger");
+  const searchInputRef = document.getElementById("search-assigned-to");
+  const dropdownRef = document.getElementById("assigned-to-wrapper");
+  const arrowRef = document.getElementById("assigned-to-arrow");
+
+  dropdownRef.classList.toggle("d-none");
+  triggerRef.classList.toggle("d-none");
+  searchInputRef.classList.toggle("d-none");
+
+  const isOpen = !dropdownRef.classList.contains("d-none");
+  if (isOpen) {
+    searchInputRef.focus();
+  } else {
+    searchInputRef.value = "";
+    updateAssignedToContacts();
+    arrowRef.focus();
+  }
+
+  triggerRef.setAttribute("aria-expanded", String(isOpen));
+  arrowRef.setAttribute("aria-expanded", String(isOpen));
+  arrowRef.setAttribute("aria-label", isOpen ? "Hide contacts" : "Show contacts");
 }
 
 function renderAssignedToContacts(contactList = contacts) {
@@ -69,17 +104,22 @@ function renderAssignedToContacts(contactList = contacts) {
     .join("");
 }
 
+// function handleContactSelection(event) {
+//   const selectedContact = event.target.closest(".assigned-contact");
+//   if (!selectedContact) return;
+//   toggleAssignedContact(selectedContact.dataset.contactId);
+// }
+
 function handleContactSelection(event) {
-  const selectedContact = event.target.closest(".assigned-contact");
-  if (!selectedContact) return;
-  toggleAssignedContact(selectedContact.dataset.contactId);
-  console.log(selectedContact.dataset.contactId);
-  console.log(selectedContactIds);
+  if (!event.target.matches(".assigned-contact-checkbox")) return;
+
+  const contactId = event.target.value;
+  toggleAssignedContact(contactId);
 }
 
 function initContactListener() {
   const assignedToDropDownRef = document.getElementById("assigned-to-dropdown");
-  assignedToDropDownRef.addEventListener("click", handleContactSelection)
+  assignedToDropDownRef.addEventListener("change", handleContactSelection)
 }
 
 function renderSelectedContacts() {

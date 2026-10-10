@@ -142,36 +142,46 @@
                         </div>
 
                         <!-- Assigned To -->
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <label for="assigned-to">Assigned To</label>
 
                             <select id="assigned-to" name="assignedTo" class="task-input">
                                 <option>Select contacts to assign</option>
                             </select>
-                        </div>
+                        </div> -->
 
                         <div class="assigned-to form-group">
-                            <button type="button" id="assigned-to-trigger">
-                                <span>Select contacts to assign</span>
-                                <img src="/assets/icons/arrow-drop-down.svg" alt="">
-                            </button>
-                            <div id="assigned-to-wrapper" class="d-none">
-                                <div class="board-search">
-                                    <input id="search-assigned-to" type="text" placeholder="Find Contacts">
-                                    <img src="../assets/icons/search.svg" alt="Find Task">
-                                    <p id="no-results-message" class="no-results-message" hidden>No matching contacts
-                                        found.</p>
+                                <div class="assigned-to-control">
+                                    <button type="button" id="assigned-to-trigger" aria-expanded="false"
+                                        aria-controls="assigned-to-wrapper">
+                                        <span>Select contacts to assign</span>
+                                    </button>
+
+                                    <input id="search-assigned-to" type="text" placeholder="Find Contacts"
+                                        aria-label="Search contacts to assign" class="d-none">
+
+                                    <button type="button" id="assigned-to-arrow" aria-label="Show contacts"
+                                        aria-expanded="false" aria-controls="assigned-to-wrapper">
+                                        <img src="/assets/icons/arrow-drop-down.svg" alt="">
+                                    </button>
                                 </div>
+
+
+                            <div id="assigned-to-wrapper" class="d-none">
+                                <p id="no-results-message" class="no-results-message" hidden>
+                                    No matching contacts found.
+                                </p>
+
                                 <div id="assigned-to-dropdown" class="assigned-to-dropdown">
-                                    <!-- Contacts kommen später hier rein -->
-                                    <span>test</span>
+                                    <!-- Contacts kommen hier rein -->
                                 </div>
                             </div>
+                        </div>
 
-                        </div>
                         <div id="selected-contacts">
-                            <!-- Selected Contacts kommen später hier rein -->
+                            <!-- Selected Contacts kommen hier rein -->
                         </div>
+
                         <!-- Category -->
                         <div class="form-group">
                             <label for="category">Category<span class="error-message">*</span></label>
