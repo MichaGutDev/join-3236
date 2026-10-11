@@ -141,6 +141,37 @@ select.task-input {
 
 /* Assigned To */
 
+.assigned-to {
+    background-color: white;
+    font-size: 20px;
+    position: relative;
+}
+
+.assigned-to-control {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    box-sizing: border-box;
+    border: 1px solid var(--color-input-border);
+    border-radius: 10px;
+}
+
+.assigned-to-control button {
+    cursor: pointer;
+}
+
+.assigned-to-control:focus-within {
+    border-color: var(--color-accent);
+}
+
+.assigned-to-control button {
+    background-color: white;
+    border: none;
+    font-size: 20px;
+    border-radius: 0px 10px 10px 0px;
+    padding-right: 21px;
+}
+
 .assigned-contact {
     display: flex;
     align-items: center;
@@ -158,13 +189,14 @@ select.task-input {
     overflow-y: auto;
 }
 
-.assigned-contact:hover {
-    background-color: #f5f5f5;
+.assigned-contact:has(.assigned-contact-checkbox:checked) {
+    background-color: var(--color-primary);
+    color: white;
 }
 
-.assigned-contact:focus-within {
-    outline: 2px solid #29abe2;
-    outline-offset: -2px;
+.assigned-contact:hover {
+    background-color: var(--color-nav-active) !important;
+    color: white;
 }
 
 #selected-contacts {
@@ -174,10 +206,66 @@ select.task-input {
     gap: 8px;
 }
 
-#selected-contacts .user-avatar {
-    width: 40px;
-    height: 40px;
+#search-assigned-to {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 20px;
+    padding: 0;
+    height: 100%;
+    border-radius: 10px 0px 0px 10px;
+    padding-left: 21px;
+}
+
+#assigned-to-arrow {
     flex-shrink: 0;
+    align-self: stretch;
+}
+
+#assigned-to-trigger {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    padding: 0;
+    height: 100%;
+    border-radius: 10px 0px 0px 10px;
+    padding-left: 21px;
+}
+
+#assigned-to-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    overflow: hidden;
+}
+
+.assigned-contact-checkbox {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-left: auto;
+    cursor: pointer;
+    background: url("../assets/icons/checkbox-empty.svg") center / contain no-repeat;
+}
+
+.assigned-contact-checkbox:checked {
+    background-image: url("../assets/icons/checkbox-checked.svg");
+    filter: brightness(0) invert(1);
+
+}
+
+.assigned-contact-checkbox:focus-visible {
+    outline: 2px solid var(--color-neutral);
+    outline-offset: 3px;
+    border-radius: 4px;
 }
 
 /* End Assigned To */
@@ -307,7 +395,13 @@ select.task-input {
     .form-actions-buttons {
         justify-content: flex-end;
     }
+
+    #assigned-to-wrapper {
+        position: static;
+    }
 }
+
+/* @media (max-width: 768px) {} */
 
 @media screen and (max-width: 500px) {
     .form-wrapper {
