@@ -184,6 +184,10 @@ select.task-input {
     margin-left: auto;
 }
 
+.assigned-contact-checkbox:hover {
+    filter: brightness(0) invert(1);
+}
+
 .assigned-to-dropdown {
     max-height: 240px;
     overflow-y: auto;
@@ -222,6 +226,9 @@ select.task-input {
 #assigned-to-arrow {
     flex-shrink: 0;
     align-self: stretch;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 #assigned-to-trigger {
