@@ -29,7 +29,6 @@ export async function saveTask(task, id = null) {
         await set(taskRef, task);
         return;
     }
-    const tasksRef = ref(database, "tasks");
     const newTaskRef = push(tasksRef);
     await set(newTaskRef, task);
 }
@@ -57,6 +56,3 @@ export function listenToContacts(callback) {
         callback(contacts);
     });
 }
-
-// listenToContacts((updatedContacts) => {
-//         contacts = updatedContacts;});

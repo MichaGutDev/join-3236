@@ -61,6 +61,7 @@ function handleAssignedToKeydown(event) {
   }
 }
 
+
 function updateAssignedToContacts() {
   const searchTerm = document.getElementById("search-assigned-to").value;
   const filteredContacts = filterContacts(contacts, searchTerm);
@@ -92,6 +93,7 @@ function toggleAssignedToDropdown() {
   arrowRef.setAttribute("aria-label", isOpen ? "Hide contacts" : "Show contacts");
 }
 
+
 function renderAssignedToContacts(contactList = contacts) {
   const assignedToRef = document.getElementById("assigned-to-dropdown");
   assignedToRef.innerHTML = contactList
@@ -114,6 +116,7 @@ function initContactListener() {
   const assignedToDropDownRef = document.getElementById("assigned-to-dropdown");
   assignedToDropDownRef.addEventListener("change", handleContactSelection)
 }
+
 
 function renderSelectedContacts() {
   const selectedContactsRef = document.getElementById("selected-contacts");
@@ -177,26 +180,14 @@ function setMinimumDueDate() {
 }
 
 
-// export function renderContacts(contacts, assignedTo = []) {
-//   const selectRef = document.getElementById("assigned-to");
-//   selectRef.innerHTML = "<option value=''>Select contacts to assign</option>";
-//   contacts.forEach(contact => {
-//     const option = document.createElement("option");
-//     option.value = contact.id;
-//     option.textContent = contact.name;
-//     option.selected = assignedTo.includes(contact.id);
-//     selectRef.appendChild(option);
-//   });
-// }
-
-
 export function setFormSubtasks(taskSubtasks = []) {
   subtasks.length = 0;
   taskSubtasks.forEach(subtask => {
     subtasks.push({ ...subtask });
   });
-  renderSubtasks(subtasks);
+  renderSubtasks();
 }
+
 
 async function getValues(status, editingTaskId, onSave) {
   const formData = new FormData(formRef);
@@ -204,7 +195,7 @@ async function getValues(status, editingTaskId, onSave) {
   if (!validateForm(getRequiredFields())) return;
   try {
     await saveTask(task, editingTaskId);
-    resetTaskForm();
+    formRef.reset();
     if (onSave) {
       onSave();
     }
@@ -217,7 +208,7 @@ async function getValues(status, editingTaskId, onSave) {
 }
 
 
-function createTaskObject(formData, status = "To Do") {
+function createTaskObject(formData, status) {
   return {
     title: formData.get("title"),
     description: formData.get("description"),
@@ -231,15 +222,10 @@ function createTaskObject(formData, status = "To Do") {
 }
 
 
-function resetTaskForm() {
-  formRef.reset();
-}
-
-
 function handleFormReset() {
   subtasks.length = 0;
   selectedContactIds = [];
-  renderSubtasks(subtasks);
+  renderSubtasks();
   updateAssignedToContacts();
   renderSelectedContacts();
   clearSubtaskInput();
@@ -294,18 +280,18 @@ function addSubtask() {
     completion: false
   });
 
-  renderSubtasks(subtasks);
+  renderSubtasks();
   clearSubtaskInput();
 }
 
 
 function deleteSubtask(index) {
-  subtasks.splice(index, 1)
-  renderSubtasks(subtasks);
+  subtasks.splice(index, 1);
+  renderSubtasks();
 }
 
 
-function renderSubtasks(subtasks) {
+function renderSubtasks() {
   const subTaskListRef = document.getElementById("subtask-list");
   subTaskListRef.innerHTML = "";
   for (let index = 0; index < subtasks.length; index++) {
@@ -354,7 +340,7 @@ function confirmSubtaskEdit(index, subtaskElementRef) {
   const description = inputRef.value.trim();
   if (description === "") return;
   subtasks[index].description = description;
-  renderSubtasks(subtasks);
+  renderSubtasks();
 }
 
 
@@ -390,6 +376,7 @@ function handleRequired(event) {
   fieldRef.classList.toggle("field-error", inputValue === "");
 }
 
+
 function handleFormValidation() {
   const requiredFields = getRequiredFields();
   createTaskBtnRef.disabled = !validateForm(requiredFields);
@@ -405,13 +392,3 @@ function getCurrentDate() {
 
   return `${year}-${month}-${day}`;
 }
-
-
-// export function updateFormContacts(contacts) {
-//   const selectRef = document.getElementById("assigned-to");
-//   if (!selectRef) return;
-
-//   const selectedContacts = [...selectRef.selectedOptions].map(option => option.value).filter(contactId => contactId !== "");
-
-//   renderContacts(contacts, selectedContacts);
-// }

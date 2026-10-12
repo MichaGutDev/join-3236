@@ -52,7 +52,6 @@ function initDBListeners() {
         contacts = updatedContacts;
         contactsLoaded = true;
         renderBoardWhenReady();
-        // updateFormContacts(updatedContacts);
     });
 }
 
@@ -73,7 +72,6 @@ function initAddTaskButtons() {
 }
 
 
-//_________render Tasks & search________________
 function search(event) {
     const searchTerm = event.target.value.toLowerCase();
     const filteredTasks = filterTasks(tasks, searchTerm);
@@ -95,9 +93,9 @@ export function displayTasks(taskList = tasks) {
     taskList.forEach(task => {
         const containerRef = taskContainerMap[task.status];
         if (!containerRef) return;
-        containerRef.innerHTML += returnTaskHTML(task, contacts)
+        containerRef.innerHTML += returnTaskHTML(task, contacts);
     });
-    renderEmptyColumnMessages()
+    renderEmptyColumnMessages();
     initDraggableTasks();
 }
 
@@ -125,7 +123,6 @@ function clearTaskHTML() {
 function openAddTask(status) {
     taskDialogRef.innerHTML = returnAddTaskForm();
 
-    // renderContacts(contacts);
     setFormAssignedTo();
     setFormSubtasks();
 
@@ -141,7 +138,6 @@ function initTaskClickListener() {
 }
 
 
-// ____DIALOG____
 /**
  * Renders the Dialog Content and opens the Modal
  */
@@ -156,6 +152,7 @@ function openTaskDialog() {
 function closeTaskDialog() {
     taskDialogRef.close();
 }
+
 
 function clearTaskDialog() {
     taskDialogRef.innerHTML = "";
@@ -183,10 +180,8 @@ function backdropClose(event) {
         closeTaskDialog();
     }
 }
-// ____DIALOG____ENDE
 
 
-//_________open Task________________
 function openTask(event) {
     const taskElement = event.target.closest(".task-box");
 
@@ -198,7 +193,7 @@ function openTask(event) {
     if (!task) return;
 
     taskDialogRef.innerHTML = returnTaskView(task, contacts);
-    initTaskDialogButtons(task)
+    initTaskDialogButtons(task);
     openTaskDialog();
 }
 
@@ -226,13 +221,11 @@ function initEditTaskButton(task) {
 }
 
 
-//_________Edit Task________________
 function openEditTask(task) {
     taskDialogRef.innerHTML = returnAddTaskForm();
     document.getElementById("task-form").classList.add("task-form-edit");
 
     fillBasicTaskForm(task);
-    // renderContacts(contacts, task.assignedTo);
     setFormAssignedTo(task.assignedTo);
     setFormSubtasks(task.subtasks);
 
@@ -257,7 +250,7 @@ function initCancelButton(task) {
     const cancelButtonTextRef = document.getElementById("cancel-btn-text");
     cancelButtonRef.type = "button";
     submitButtonRef.textContent = "Ok";
-    cancelButtonTextRef.textContent = "Cancel"
+    cancelButtonTextRef.textContent = "Cancel";
 
     cancelButtonRef.addEventListener("click", () => {
         cancelEdit(task);
@@ -278,7 +271,6 @@ function initTaskDialogButtons(task) {
 }
 
 
-//_________Drag and Drop________________
 /**
  * Stores the id of the dragged task and applies a visual dragging style to the element.
  * 
@@ -301,11 +293,6 @@ function stopDragging(event) {
 }
 
 
-// /**
-//  * Finds the dragged task by its id, updates its status, removes the drop-target highlight, and re-renders the board.
-//  * 
-//  * @param {string} status 
-//  */
 async function moveTaskTo(event) {
     event.preventDefault();
 

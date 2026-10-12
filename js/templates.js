@@ -205,7 +205,7 @@ export function returnTaskView(task, contacts) {
     `
 }
 
-export function returnSubtasksHTML(subtasks) {
+function returnSubtasksHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) {
         return "";
     }
@@ -236,7 +236,7 @@ export function returnSubtasksHTML(subtasks) {
     `;
 }
 
-export function returnSubtaskCompletionHTML(subtaskStats) {
+function returnSubtaskCompletionHTML(subtaskStats) {
     return `
         <div class="subtask-progress-container">
             <div class="progress-bar">
@@ -270,7 +270,7 @@ function getSubtaskStats(subtasks) {
         percentage
     };
 }
-
+// CHECK HIER
 export function returnAssignedToHTML(assignedToList, contacts, showName = false) {
     if (!assignedToList || assignedToList.length === 0) {
         return "<div></div>";
@@ -304,7 +304,7 @@ function returnNameHTML(name) {
         <span>${escapedName}</span>
     `;
 }
-
+//BIS HIER
 export function returnSubtaskEditHTML(subtask, index) {
     return `
     <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
@@ -356,8 +356,6 @@ function escapeHTML(text) {
 export function returnContactHTML2(contact, isSelected) {
     const escapedName = escapeHTML(contact.name);
     const escapedInitials = escapeHTML(getInitials(contact.name));
-    const checkedIcon = `<img class="assigned-checkbox" src="../assets/icons/checkbox-checked.svg">`;
-    const uncheckedIcon = `<img class="assigned-checkbox" src="../assets/icons/checkbox-empty.svg">`;
     return `
     <label class="assigned-contact" data-contact-id="${contact.id}">
     <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
@@ -372,9 +370,3 @@ export function returnContactHTML2(contact, isSelected) {
     </label>
     `
 }
-
-//   <div class="assigned-contact" data-contact-id="${contact.id}">
-//       <div class="user-avatar">${escapedInitials}</div>
-//        <span>${escapedName}</span>
-//       ${isSelected ? checkedIcon : uncheckedIcon}
-//    </div>
