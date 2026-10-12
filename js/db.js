@@ -47,7 +47,7 @@ export function deleteTask(id) {
 
 
 export function listenToContacts(callback) {
-    onValue(contactsRef, (snapshot) => {
+    return onValue(contactsRef, (snapshot) => {
         const contactsData = snapshot.val();
         const contacts = contactsData
             ? Object.entries(contactsData).map(([id, contact]) => {

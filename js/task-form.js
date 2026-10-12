@@ -8,6 +8,7 @@ const subtasks = [];
 let contacts = [];
 const requiredFieldIds = ["title", "dueDate", "category"];
 let selectedContactIds = [];
+let unsubscribeFromContacts = null;
 
 
 function toggleAssignedContact(contactId) {
@@ -16,24 +17,22 @@ function toggleAssignedContact(contactId) {
   } else {
     selectedContactIds.push(contactId);
   }
-  updateAssignedToContacts();
   renderSelectedContacts();
-  const checkboxRef = document.querySelector(`.assigned-contact-checkbox[value="${CSS.escape(contactId)}"]`);
-  checkboxRef?.focus();
 }
 
 
 export function setFormAssignedTo(assignedTo = []) {
   selectedContactIds = [...assignedTo];
   renderAssignedToContacts();
+  renderSelectedContacts();
 }
 
 
 function initContacts() {
-  listenToContacts((updatedContacts) => {
+  if (unsubscribeFromContacts) return;
+  unsubscribeFromContacts = listenToContacts((updatedContacts) => {
     contacts = updatedContacts;
-    // updateFormContacts(contacts);
-
+    if (!document.getElementById("task-form")) return;
     updateAssignedToContacts();
     renderSelectedContacts();
   });
@@ -45,7 +44,6 @@ function initAssignedToListeners() {
   const assignedToSearchRef = document.getElementById("search-assigned-to");
   const assignedToDropdownArrowRef = document.getElementById("assigned-to-arrow");
   const assignedToRef = document.querySelector(".assigned-to");
-
   assignedToButtonRef.addEventListener("click", toggleAssignedToDropdown);
   assignedToDropdownArrowRef.addEventListener("click", toggleAssignedToDropdown);
   assignedToSearchRef.addEventListener("input", updateAssignedToContacts);
@@ -63,7 +61,7 @@ function handleAssignedToKeydown(event) {
   }
 }
 
-function updateAssignedToContacts(event) {
+function updateAssignedToContacts() {
   const searchTerm = document.getElementById("search-assigned-to").value;
   const filteredContacts = filterContacts(contacts, searchTerm);
   renderAssignedToContacts(filteredContacts);
@@ -104,18 +102,13 @@ function renderAssignedToContacts(contactList = contacts) {
     .join("");
 }
 
-// function handleContactSelection(event) {
-//   const selectedContact = event.target.closest(".assigned-contact");
-//   if (!selectedContact) return;
-//   toggleAssignedContact(selectedContact.dataset.contactId);
-// }
 
 function handleContactSelection(event) {
   if (!event.target.matches(".assigned-contact-checkbox")) return;
-
   const contactId = event.target.value;
   toggleAssignedContact(contactId);
 }
+
 
 function initContactListener() {
   const assignedToDropDownRef = document.getElementById("assigned-to-dropdown");
@@ -129,9 +122,6 @@ function renderSelectedContacts() {
     contacts
   );
 }
-
-
-
 
 
 export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave = null) {
@@ -149,7 +139,6 @@ function initTaskListeners(taskStatus, editingTaskId, onSave) {
   initSubtaskListeners();
   initRequiredFieldListeners();
   initAssignedToListeners();
-  // initAssignedToSearch();
   formRef.addEventListener("reset", handleFormReset);
   formRef.addEventListener("submit", (event) => {
     event.preventDefault();

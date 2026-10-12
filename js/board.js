@@ -37,6 +37,7 @@ function init() {
 function initDialogListeners() {
     taskDialogRef.addEventListener("click", backdropClose);
     taskDialogRef.addEventListener("change", handleSubtaskCompletion);
+    taskDialogRef.addEventListener("close", clearTaskDialog);
 }
 
 
@@ -93,7 +94,7 @@ export function displayTasks(taskList = tasks) {
     clearTaskHTML();
     taskList.forEach(task => {
         const containerRef = taskContainerMap[task.status];
-        if(!containerRef) return;
+        if (!containerRef) return;
         containerRef.innerHTML += returnTaskHTML(task, contacts)
     });
     renderEmptyColumnMessages()
@@ -154,6 +155,10 @@ function openTaskDialog() {
  */
 function closeTaskDialog() {
     taskDialogRef.close();
+}
+
+function clearTaskDialog() {
+    taskDialogRef.innerHTML = "";
 }
 
 
