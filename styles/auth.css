@@ -216,28 +216,6 @@
 
 /* End Back Arrow */
 
-/* Toast (Success Message After Sign-up) */
-
-.toast {
-  display: none;
-  position: fixed;
-  bottom: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  align-items: center;
-  justify-content: center;
-  height: 74px;
-  padding: 0 25px;
-  border-radius: 20px;
-  background-color: var(--color-primary);
-  color: white;
-  font-size: 1.25rem;
-  font-weight: 400;
-  box-shadow: 0 0 4px rgb(0 0 0 / 15%);
-}
-
-/* End Toast */
-
 /* Region media queries */
 
 @media screen and (max-width: 768px) {
@@ -312,13 +290,6 @@
   .back-arrow {
     top: 40px;
     left: 40px;
-  }
-
-  .toast {
-    max-width: calc(100vw - 32px);
-    height: auto;
-    padding: 16px 24px;
-    text-align: center;
   }
 
   .auth-card h1 {
