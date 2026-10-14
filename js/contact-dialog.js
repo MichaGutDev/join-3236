@@ -167,22 +167,6 @@ export function isContactFormValid(name, email, phone) {
 
 
 /**
- * Shows a toast with the given message for a short moment.
- *
- * @param {string} message - The text to display in the toast.
- */
-export function showContactToast(message) {
-    const toast = document.getElementById('contact-toast');
-    toast.textContent = message;
-    toast.style.display = 'flex';
-
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, 1500);
-}
-
-
-/**
  * Toggles which dialog buttons and avatar are visible depending on add or edit mode.
  *
  * @param {boolean} isEdit - True to show edit buttons, false to show add buttons.

@@ -4,8 +4,9 @@ import { getRandomContactColor } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
 import {
     openDialog, closeDialog, cancelDialog, stopBubbleling, setDeleteButtonsDisabled,
-    clearContactError, isContactFormValid, validateContactField, showContactToast, editContact, createContact
+    clearContactError, isContactFormValid, validateContactField, editContact, createContact
 } from './contact-dialog.js';
+import { showToast } from './toast.js';
 
 
 const contactsRef = ref(database, "contacts");
@@ -45,7 +46,7 @@ async function saveContact() {
 
     renderContactDetails(contact);
     closeDialog();
-    showContactToast('Contact successfully edited');
+    showToast('Contact successfully edited');
 }
 
 
@@ -63,7 +64,7 @@ async function deleteContact() {
     await removeContactFromTasks(selectedContactId);
 
     closeDialog();
-    showContactToast('Contact successfully deleted');
+    showToast('Contact successfully deleted');
 }
 
 
@@ -106,7 +107,7 @@ async function addContact() {
     await set(newContactRef, contact);
 
     closeDialog();
-    showContactToast('Contact successfully created');
+    showToast('Contact successfully created');
 }
 
 
