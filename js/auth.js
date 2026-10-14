@@ -2,6 +2,7 @@ import { auth, database } from './firebase-config.js';
 import { push, set, ref } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { signInWithEmailAndPassword, signInAnonymously, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { getRandomContactColor, isValidEmail } from './contact-utils.js';
+import { showToast } from './toast.js';
 
 
 /**
@@ -50,15 +51,10 @@ function handleFirebaseLogin(email, password) {
 
 
 /**
- *Shows the success toast and redirects to the login page after a short delay. 
+ * Redirects to the login page.
  */
-function showToast() {
-    const toast = document.getElementById('toast');
-    toast.style.display = 'flex';
-
-    setTimeout(() => {
-        window.location.href = '../index.html';
-    }, 800);
+function redirectToLogin() {
+    window.location.href = '../index.html';
 }
 
 
@@ -100,7 +96,7 @@ function handleFirebaseSignUp(name, email, password) {
 
     createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            showToast();
+            showToast('You Signed Up successfully', redirectToLogin);
             const newContactRef = push(ref(database, "contacts"));
             set(newContactRef, { name, email, phone: "", color: getRandomContactColor(), userId: userCredential.user.uid });
         })
