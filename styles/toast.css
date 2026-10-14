@@ -8,9 +8,10 @@
   left: 50%;
   transform: translateX(-50%);
   align-items: center;
-  justify-content: center;
-  height: 74px;
-  padding: 0 25px;
+  justify-content: space-between;
+  min-width: 326px;
+  min-height: 74px;
+  padding: 25px 30px;
   border-radius: 20px;
   background-color: var(--color-primary);
   color: white;
@@ -25,8 +26,9 @@
 
 @media screen and (max-width: 768px) {
   .toast {
+    min-width: 0;
     max-width: calc(100vw - 32px);
-    height: auto;
+    min-height: 0;
     padding: 16px 24px;
     text-align: center;
   }
