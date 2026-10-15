@@ -222,3 +222,28 @@ aside img {
 }
 
 /* End Responsive */
+
+/* Landscape Warning */
+
+@media screen and (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  body {
+    overflow: hidden;
+  }
+
+  body::after {
+    content: "Please rotate your device to portrait mode.";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    background-color: var(--color-primary);
+    color: white;
+    font-size: 1.25rem;
+    text-align: center;
+  }
+}
+
+/* End Landscape Warning */
