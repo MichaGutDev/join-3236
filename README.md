@@ -37,7 +37,7 @@ join/
 │   ├── firebase-config.js      # Firebase initialisation
 │   ├── auth.js                 # Login, guest login and sign up
 │   ├── auth-check.js           # Redirects to the login if nobody is logged in
-│   ├── db.js                   # Reading and writing tasks and contacts
+│   ├── db.js                   # Database access for the board and the task form
 │   ├── board.js                # Board, task dialogs and drag and drop
 │   ├── task-form.js            # Task form (validation, saving, assigned contacts)
 │   ├── subtasks.js             # Subtask logic of the task form
@@ -84,7 +84,7 @@ cd join
 
 - Every page loads `script.js` for the user menu and logout. Pages that need a login also load `js/auth-check.js`, which sends visitors without a session back to `index.html`.
 - `js/auth.js` handles login, guest login and sign up. A new user also gets an entry in the contact list.
-- `js/db.js` is the only place that talks to the Realtime Database. The board, the summary and the task form listen to tasks and contacts and update themselves when the data changes.
+- `js/db.js` reads, saves and deletes tasks and contacts for the board and the task form. The contact list, the summary, the sign up and the login check use the Realtime Database directly in their own files. The board, the summary and the contact list listen to the data and update themselves when it changes.
 - `js/board.js` renders the four columns, opens the task dialogs (view, add, edit) and moves tasks by drag and drop. The task dialog uses the form from `js/task-form.js`, which also runs on the add task page. Subtasks and assigned contacts are handled in their own modules.
 - HTML for tasks, forms and contacts is created in the template files (`templates.js`, `contact-templates.js`), so the logic files stay free of markup.
 - Colours are defined once in `styles/variables.css`. Each area has its own CSS file, loaded only on the pages that need it.
