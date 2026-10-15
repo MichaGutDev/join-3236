@@ -22,7 +22,7 @@ Join is a Kanban-style project management tool, built as a group project in the 
 ```
 join/
 ├── index.html                  # Login page
-├── script.js                   # Shared logic for all pages (user menu, logout)
+├── script.js                   # Shared logic for most pages (user menu, logout)
 ├── style.css                   # Global styles (reset, layout, sidebar)
 ├── html/                       # All other pages
 │   ├── signup.html             # Sign up
@@ -36,7 +36,7 @@ join/
 ├── js/
 │   ├── firebase-config.js      # Firebase initialisation
 │   ├── auth.js                 # Login, guest login and sign up
-│   ├── auth-check.js           # Redirects to the login if nobody is logged in
+│   ├── auth-check.js           # Redirects to the login if nobody is logged in, shows the initials
 │   ├── db.js                   # Database access for the board and the task form
 │   ├── board.js                # Board, task dialogs and drag and drop
 │   ├── task-form.js            # Task form (validation, saving, assigned contacts)
@@ -82,12 +82,12 @@ cd join
 
 ## How It Works (Overview)
 
-- Every page loads `script.js` for the user menu and logout. Pages that need a login also load `js/auth-check.js`, which sends visitors without a session back to `index.html`.
+- Almost every page loads `script.js` for the user menu and logout (only the two external legal pages do not). Pages that need a login also load `js/auth-check.js`, which sends visitors without a session back to `index.html` and shows the initials of the user in the header.
 - `js/auth.js` handles login, guest login and sign up. A new user also gets an entry in the contact list.
 - `js/db.js` reads, saves and deletes tasks and contacts for the board and the task form. The contact list, the summary, the sign up and the login check use the Realtime Database directly in their own files. The board, the summary and the contact list listen to the data and update themselves when it changes.
-- `js/board.js` renders the four columns, opens the task dialogs (view, add, edit) and moves tasks by drag and drop. The task dialog uses the form from `js/task-form.js`, which also runs on the add task page. Subtasks and assigned contacts are handled in their own modules.
-- HTML for tasks, forms and contacts is created in the template files (`templates.js`, `contact-templates.js`), so the logic files stay free of markup.
-- Colours are defined once in `styles/variables.css`. Each area has its own CSS file, loaded only on the pages that need it.
+- `js/board.js` renders the four columns, opens the task dialogs (view, add, edit) and moves tasks by drag and drop. The task dialog uses the form from `js/task-form.js`, which also runs on the add task page. The subtasks are handled in `js/subtasks.js`.
+- HTML for tasks, forms and contacts is created in the template files (`templates.js`, `contact-templates.js`), so the logic files stay mostly free of markup.
+- The main colours are defined as variables in `styles/variables.css`. Each area has its own CSS file, loaded on the pages that need it.
 
 ## License
 
