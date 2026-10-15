@@ -18,6 +18,9 @@ const taskContainerMap = {
 const taskDialogRef = document.getElementById("task-dialog");
 
 
+/**
+ * Renders the board once tasks and contacts have loaded.
+ */
 function renderBoardWhenReady() {
     if (tasksLoaded && contactsLoaded) {
         displayTasks();
@@ -25,6 +28,9 @@ function renderBoardWhenReady() {
 }
 
 
+/**
+ * Initializes the board's data listeners and user interactions.
+ */
 function init() {
     initDBListeners();
     initSearchBar();
@@ -35,6 +41,9 @@ function init() {
 }
 
 
+/**
+ * Registers event listeners for task dialog interactions.
+ */
 function initDialogListeners() {
     taskDialogRef.addEventListener("click", backdropClose);
     taskDialogRef.addEventListener("change", handleSubtaskCompletion);
@@ -42,6 +51,9 @@ function initDialogListeners() {
 }
 
 
+/**
+ * Subscribes to Firebase tasks and contacts updates.
+ */
 function initDBListeners() {
     listenToTasks((updatedTasks) => {
         tasks = updatedTasks;
@@ -57,12 +69,18 @@ function initDBListeners() {
 }
 
 
+/**
+ * Registers the input listener for task search.
+ */
 function initSearchBar() {
     const searchInputRef = document.getElementById("search-task");
     searchInputRef.addEventListener("input", search);
 }
 
 
+/**
+ * Registers click listeners for opening the task form.
+ */
 function initAddTaskButtons() {
     const addTaskBtnRefs = document.querySelectorAll(".add-task-btn");
     addTaskBtnRefs.forEach(button => {
@@ -73,6 +91,10 @@ function initAddTaskButtons() {
 }
 
 
+/**
+ * Filters tasks by the search input and updates the board.
+ * @param {Event} event - The input event.
+ */
 function search(event) {
     const searchTerm = event.target.value.toLowerCase();
     const filteredTasks = filterTasks(tasks, searchTerm);
@@ -85,9 +107,8 @@ function search(event) {
 
 
 /**
- * Renders all tasks into the respective containers.
- * 
- * @param {Array} [taskList=tasks] - Optional list of tasks to render.
+ * Renders tasks in their respective board columns.
+ * @param {Object[]} [taskList=tasks] - Tasks to render.
  */
 export function displayTasks(taskList = tasks) {
     clearTaskHTML();
@@ -101,6 +122,9 @@ export function displayTasks(taskList = tasks) {
 }
 
 
+/**
+ * Displays a placeholder message in each empty task column.
+ */
 function renderEmptyColumnMessages() {
     Object.values(taskContainerMap).forEach(element => {
         if (element.children.length === 0) {
@@ -112,7 +136,7 @@ function renderEmptyColumnMessages() {
 
 
 /**
- * Clears all HTML Task Containers.
+ * Clears all task containers on the board.
  */
 function clearTaskHTML() {
     Object.values(taskContainerMap).forEach(taskContainer => {
@@ -121,6 +145,10 @@ function clearTaskHTML() {
 }
 
 
+/**
+ * Opens and initializes the task creation form.
+ * @param {string} status - Initial status for the new task.
+ */
 function openAddTask(status) {
     taskDialogRef.innerHTML = returnAddTaskForm();
 
@@ -133,6 +161,9 @@ function openAddTask(status) {
 }
 
 
+/**
+ * Registers the click listener for opening task details.
+ */
 function initTaskClickListener() {
     const boardWrapperRef = document.querySelector(".board-wrapper");
     boardWrapperRef.addEventListener("click", openTask);
@@ -140,7 +171,7 @@ function initTaskClickListener() {
 
 
 /**
- * Renders the Dialog Content and opens the Modal
+ * Opens the task dialog as a modal.
  */
 function openTaskDialog() {
     taskDialogRef.showModal();
@@ -148,24 +179,34 @@ function openTaskDialog() {
 
 
 /**
- * Closes Task Dialog Modal
+ * Closes the task dialog.
  */
 function closeTaskDialog() {
     taskDialogRef.close();
 }
 
 
+/**
+ * Removes all content from the task dialog.
+ */
 function clearTaskDialog() {
     taskDialogRef.innerHTML = "";
 }
 
 
+/**
+ * Registers the listener for closing the task dialog.
+ */
 function initCloseTaskButton() {
     const closeBtnRef = document.getElementById("close-task-dialog");
     closeBtnRef.addEventListener("click", closeTaskDialog);
 }
 
 
+/**
+ * Registers the delete button listener for a task.
+ * @param {Object} task - Task to delete.
+ */
 function initDeleteTaskButton(task) {
     const deleteBtnRef = document.getElementById("delete-task-btn");
 
@@ -176,6 +217,10 @@ function initDeleteTaskButton(task) {
 }
 
 
+/**
+ * Closes the task dialog when its backdrop is clicked.
+ * @param {MouseEvent} event - The click event.
+ */
 function backdropClose(event) {
     if (event.target === event.currentTarget) {
         closeTaskDialog();
@@ -183,6 +228,10 @@ function backdropClose(event) {
 }
 
 
+/**
+ * Opens the details dialog for the clicked task.
+ * @param {MouseEvent} event - The click event.
+ */
 function openTask(event) {
     const taskElement = event.target.closest(".task-box");
 
@@ -199,6 +248,10 @@ function openTask(event) {
 }
 
 
+/**
+ * Updates a subtask's completion state in Firebase.
+ * @param {Event} event - The checkbox change event.
+ */
 function handleSubtaskCompletion(event) {
     const subtaskInputRef = event.target.closest(".subtask-item-input");
     if (!subtaskInputRef) return;
@@ -214,6 +267,10 @@ function handleSubtaskCompletion(event) {
 }
 
 
+/**
+ * Registers the edit button listener for a task.
+ * @param {Object} task - Task to edit.
+ */
 function initEditTaskButton(task) {
     const editTaskBtnRef = document.querySelector(".edit-task-btn");
     editTaskBtnRef.addEventListener("click", () => {
@@ -222,6 +279,10 @@ function initEditTaskButton(task) {
 }
 
 
+/**
+ * Initializes the task form with an existing task's data.
+ * @param {Object} task - Task to edit.
+ */
 function openEditTask(task) {
     taskDialogRef.innerHTML = returnAddTaskForm();
     document.getElementById("task-form").classList.add("task-form-edit");
@@ -236,6 +297,10 @@ function openEditTask(task) {
 }
 
 
+/**
+ * Populates the task form with basic task details.
+ * @param {Object} task - Task containing the form values.
+ */
 function fillBasicTaskForm(task) {
     document.getElementById("title").value = task.title;
     document.getElementById("description").value = task.description;
@@ -245,6 +310,10 @@ function fillBasicTaskForm(task) {
 }
 
 
+/**
+ * Configures the cancel button for task editing.
+ * @param {Object} task - Original task to restore on cancellation.
+ */
 function initCancelButton(task) {
     const cancelButtonRef = document.getElementById("cancel-btn");
     const submitButtonRef = document.getElementById("submit-btn-text");
@@ -259,12 +328,20 @@ function initCancelButton(task) {
 }
 
 
+/**
+ * Discards unsaved edits and restores the task details view.
+ * @param {Object} task - Original task to display.
+ */
 function cancelEdit(task) {
     taskDialogRef.innerHTML = returnTaskView(task, contacts);
     initTaskDialogButtons(task);
 }
 
 
+/**
+ * Registers the close, edit, and delete button listeners.
+ * @param {Object} task - Task associated with the dialog.
+ */
 function initTaskDialogButtons(task) {
     initCloseTaskButton();
     initEditTaskButton(task);
@@ -273,9 +350,8 @@ function initTaskDialogButtons(task) {
 
 
 /**
- * Stores the id of the dragged task and applies a visual dragging style to the element.
- * 
- * @param {DragEvent} event 
+ * Stores the dragged task ID and applies the dragging style.
+ * @param {DragEvent} event - The dragstart event.
  */
 function startDragging(event) {
     currentDraggedTaskId = event.currentTarget.dataset.taskId;
@@ -284,9 +360,8 @@ function startDragging(event) {
 
 
 /**
- * Removes the visual dragging style from the element.
- * 
- * @param {DragEvent} event 
+ * Removes the dragging style and clears the dragged task ID.
+ * @param {DragEvent} event - The dragend event.
  */
 function stopDragging(event) {
     event.currentTarget.classList.remove("dragging");
@@ -294,6 +369,11 @@ function stopDragging(event) {
 }
 
 
+/**
+ * Updates the dragged task's status in Firebase.
+ * @param {DragEvent} event - The drop event.
+ * @returns {Promise<void>}
+ */
 async function moveTaskTo(event) {
     event.preventDefault();
 
@@ -306,6 +386,9 @@ async function moveTaskTo(event) {
 }
 
 
+/**
+ * Registers drag-and-drop listeners for all task columns.
+ */
 function initDragAndDrop() {
     const taskColumns = document.querySelectorAll(".task-column");
     taskColumns.forEach(column => {
@@ -316,6 +399,9 @@ function initDragAndDrop() {
 }
 
 
+/**
+ * Registers dragstart and dragend listeners for all task cards.
+ */
 function initDraggableTasks() {
     const taskElements = document.querySelectorAll(".task-box");
 
@@ -326,17 +412,26 @@ function initDraggableTasks() {
 }
 
 
+/**
+ * Allows dropping and highlights the target column.
+ * @param {DragEvent} event - The dragover event.
+ */
 function allowDrop(event) {
     event.preventDefault();
     event.currentTarget.classList.add("drag-area-highlight")
 }
 
 
+/**
+ * Removes the column highlight when the dragged element leaves it.
+ * @param {DragEvent} event - The dragleave event.
+ */
 function removeHighlight(event) {
     if (event.currentTarget.contains(event.relatedTarget)) {
         return;
     }
     event.currentTarget.classList.remove("drag-area-highlight");
 }
+
 
 init();
