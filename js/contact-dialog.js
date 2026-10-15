@@ -204,7 +204,7 @@ export function editContact(contact) {
     dialogInitials.style.backgroundColor = contact.color;
 
     document.getElementById('dialog-topic-area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <img class="dialog-join-logo" src="../assets/icons/main-icon.svg" alt="">
         <h2 class="dialog-topic-title">Edit Contact</h2>
         <div class="dialog-topic-underline"></div>
     `;
@@ -220,7 +220,7 @@ export function createContact() {
     setDialogMode(false);
 
     document.getElementById('dialog-topic-area').innerHTML = `
-        <img class="dialog-join-logo" src="../assets/imgs/dialog-join-logo.svg" alt="">
+        <img class="dialog-join-logo" src="../assets/icons/main-icon.svg" alt="">
         <h2 class="dialog-topic-title">Add contact</h2>
         <p class="dialog-topic-slogan">Tasks are better with a team</p>
         <div class="dialog-topic-underline"></div>
