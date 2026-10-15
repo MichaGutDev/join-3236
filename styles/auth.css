@@ -1,6 +1,6 @@
 /* Splash Screen */
 
-#splash-screen {
+.splash-screen {
   position: fixed;
   top: 0;
   left: 0;
@@ -219,7 +219,7 @@
 /* Region media queries */
 
 @media screen and (max-width: 768px) {
-  #splash-screen {
+  .splash-screen {
     background-color: var(--color-primary);
   }
 
