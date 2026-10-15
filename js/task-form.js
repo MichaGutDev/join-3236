@@ -1,7 +1,9 @@
 import { saveTask, listenToContacts } from "./db.js";
 import { filterContacts } from "./search.js";
-import { returnSubtaskHTML, returnSubtaskEditHTML, returnContactHTML2, returnAssignedToHTML } from "./templates.js";
+import { returnContactHTML2, returnAssignedToHTML } from "./templates.js";
 import { showToast } from "./toast.js";
+import { getSubtasks, initSubtaskListeners, resetSubtasks, renderSubtasks } from "./subtasks.js";
+
 let formRef;
 let createTaskBtnRef;
 const subtasks = [];
@@ -135,6 +137,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave 
   setMinimumDueDate();
   initTaskListeners(taskStatus, editingTaskId, onSave);
   handleFormValidation();
+  renderSubtasks();
 }
 
 
@@ -158,34 +161,9 @@ function initRequiredFieldListeners() {
 }
 
 
-function initSubtaskListeners() {
-  const addSubtaskBtnRef = document.getElementById("add-subtask-btn");
-  const subTaskInputRef = document.getElementById("new-subtask");
-  const subtaskListRef = document.getElementById("subtask-list");
-  const clearSubtaskButtonRef = document.getElementById("clear-subtask-btn");
-
-  subTaskInputRef.addEventListener("input", toggleSubtaskInputActions);
-  clearSubtaskButtonRef.addEventListener("click", clearSubtaskInput);
-  addSubtaskBtnRef.addEventListener("click", addSubtask);
-  subTaskInputRef.addEventListener("keydown", handleSubtaskKeydown);
-  subtaskListRef.addEventListener("click", handleSubtaskClick);
-  subtaskListRef.addEventListener("dblclick", doubleClickEdit);
-  subtaskListRef.addEventListener("keydown", handleSubtaskEditKeydown);
-}
-
-
 function setMinimumDueDate() {
   const dueDateRef = document.getElementById("dueDate");
   dueDateRef.min = getCurrentDate();
-}
-
-
-export function setFormSubtasks(taskSubtasks = []) {
-  subtasks.length = 0;
-  taskSubtasks.forEach(subtask => {
-    subtasks.push({ ...subtask });
-  });
-  renderSubtasks();
 }
 
 
@@ -217,18 +195,16 @@ function createTaskObject(formData, status) {
     category: formData.get("category"),
     assignedTo: [...selectedContactIds],
     status,
-    subtasks: [...subtasks],
+    subtasks: getSubtasks(),
   };
 }
 
 
 function handleFormReset() {
-  subtasks.length = 0;
   selectedContactIds = [];
-  renderSubtasks();
+  resetSubtasks();
   updateAssignedToContacts();
   renderSelectedContacts();
-  clearSubtaskInput();
   resetRequiredFields();
 }
 
@@ -238,117 +214,6 @@ function resetRequiredFields() {
     document.getElementById(id).classList.remove("field-error");
     document.getElementById(`${id}-error`).classList.add("d-none");
   });
-}
-
-
-function toggleSubtaskInputActions(event) {
-  const actionsRef = document.querySelector(".subtask-input-actions");
-  const hasValue = event.target.value.trim() !== "";
-  actionsRef.classList.toggle("d-none", !hasValue);
-}
-
-
-function clearSubtaskInput() {
-  const subTaskInputRef = document.getElementById("new-subtask");
-  const actionsRef = document.querySelector(".subtask-input-actions");
-  subTaskInputRef.value = "";
-  actionsRef.classList.add("d-none");
-}
-
-
-function handleSubtaskEditKeydown(event) {
-  const inputRef = event.target.closest(".subtask-edit-input");
-  if (!inputRef || event.key !== "Enter") return;
-
-  event.preventDefault();
-
-  const subtaskElementRef = inputRef.closest(".subtask-item");
-  const index = Number(subtaskElementRef.dataset.index);
-
-  confirmSubtaskEdit(index, subtaskElementRef);
-}
-
-
-function addSubtask() {
-  const subTaskInputRef = document.getElementById("new-subtask");
-  const description = subTaskInputRef.value.trim();
-
-  if (description === "") return;
-
-  subtasks.push({
-    description,
-    completion: false
-  });
-
-  renderSubtasks();
-  clearSubtaskInput();
-}
-
-
-function deleteSubtask(index) {
-  subtasks.splice(index, 1);
-  renderSubtasks();
-}
-
-
-function renderSubtasks() {
-  const subTaskListRef = document.getElementById("subtask-list");
-  subTaskListRef.innerHTML = "";
-  for (let index = 0; index < subtasks.length; index++) {
-    const subtask = subtasks[index];
-    subTaskListRef.innerHTML += returnSubtaskHTML(subtask, index);
-  }
-}
-
-
-function handleSubtaskKeydown(event) {
-  if (event.key !== "Enter") return;
-
-  event.preventDefault();
-  addSubtask();
-}
-
-
-function doubleClickEdit(event) {
-  if (event.target.closest(".subtask-edit-input")) return;
-
-  const subtaskElementRef = event.target.closest(".subtask-item");
-  if (!subtaskElementRef) return;
-
-  const index = Number(subtaskElementRef.dataset.index);
-  editSubtask(index);
-}
-
-
-function handleSubtaskClick(event) {
-  const subtaskElementRef = event.target.closest(".subtask-item");
-  if (!subtaskElementRef) return;
-
-  const index = Number(subtaskElementRef.dataset.index);
-  const editButtonRef = event.target.closest(".subtask-edit-btn");
-  const deleteButtonRef = event.target.closest(".subtask-delete-btn, .subtask-edit-delete-btn");
-  const confirmEditButtonRef = event.target.closest(".subtask-edit-confirm-btn");
-
-  if (editButtonRef) editSubtask(index);
-  else if (deleteButtonRef) deleteSubtask(index);
-  else if (confirmEditButtonRef) confirmSubtaskEdit(index, subtaskElementRef);
-}
-
-
-function confirmSubtaskEdit(index, subtaskElementRef) {
-  const inputRef = subtaskElementRef.querySelector(".subtask-edit-input");
-  const description = inputRef.value.trim();
-  if (description === "") return;
-  subtasks[index].description = description;
-  renderSubtasks();
-}
-
-
-function editSubtask(index) {
-  const subtaskListRef = document.getElementById("subtask-list");
-  const subtaskElement = subtaskListRef.querySelector(`[data-index="${index}"]`);
-  const subtask = subtasks[index];
-  subtaskElement.innerHTML = returnSubtaskEditHTML(subtask, index);
 }
 
 

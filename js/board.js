@@ -1,4 +1,5 @@
-import { initTaskForm, setFormSubtasks, setFormAssignedTo } from "./task-form.js";
+import { initTaskForm, setFormAssignedTo } from "./task-form.js";
+import { setFormSubtasks } from "./subtasks.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
