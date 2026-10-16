@@ -66,7 +66,7 @@ join/
 
 - Micha Gut
 - Robert van den Boom
-- Sebastian
+- Sebastian Opielka
 
 ## Quick Start
 
