@@ -85,7 +85,7 @@
     align-items: center;
     gap: 4px;
     padding: 4px 16px;
-    border-bottom: 1px solid var(--color-input-border-focus);
+    border-bottom: 1px solid rgb(0, 93, 255);
     background-color: white;
     list-style: none;
 }
