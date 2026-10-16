@@ -59,6 +59,9 @@ export function returnAddTaskForm() {
                             </fieldset>
                         </div>
 
+                        <div class="form-group">
+                            <label for="assigned-to-trigger">Assigned to</label>
+
                         <div class="assigned-to form-group">
                                 <div class="assigned-to-control">
                                     <button type="button" id="assigned-to-trigger" aria-expanded="false"
@@ -85,6 +88,7 @@ export function returnAddTaskForm() {
                                     <!-- Contacts kommen hier rein -->
                                 </div>
                             </div>
+                        </div>
                         </div>
 
                         <div id="selected-contacts">
