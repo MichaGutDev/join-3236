@@ -73,7 +73,7 @@ join/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/MichaGutDev/join.git
+git clone https://github.com/MichaGutDev/join-3236.git
 cd join
 ```
 
