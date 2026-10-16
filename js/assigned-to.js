@@ -5,6 +5,7 @@ import { returnContactHTML2, returnAssignedToHTML } from "./templates.js";
 let contacts = [];
 let selectedContactIds = [];
 let unsubscribeFromContacts = null;
+let isOutsideClickRegistered = false;
 
 
 /**
@@ -168,6 +169,7 @@ export function initAssignedTo() {
   initContacts();
   initContactListener();
   initAssignedToListeners();
+  initOutsideClickClose();
 }
 
 
@@ -187,4 +189,28 @@ export function resetAssignedTo() {
   selectedContactIds = [];
   updateAssignedToContacts();
   renderSelectedContacts();
+}
+
+
+/**
+ * Registers the document click listener once to close the dropdown on outside clicks.
+ */
+function initOutsideClickClose() {
+  if (isOutsideClickRegistered) return;
+  isOutsideClickRegistered = true;
+  document.addEventListener("click", closeOnOutsideClick);
+}
+
+
+/**
+ * Closes the open contacts dropdown when a click happens outside of it.
+ * @param {MouseEvent} event - The click event.
+ */
+function closeOnOutsideClick(event) {
+  const assignedToRef = document.querySelector(".assigned-to");
+  const dropdownRef = document.getElementById("assigned-to-wrapper");
+  if (!assignedToRef || assignedToRef.contains(event.target)) return;
+  if (!dropdownRef.classList.contains("d-none")) {
+    toggleAssignedToDropdown();
+  }
 }
