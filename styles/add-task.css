@@ -91,14 +91,6 @@
     color: var(--color-input-placeholder);
 }
 
-select.task-input {
-    appearance: none;
-    background-image: url("../assets/icons/arrow-drop-down.svg");
-    background-repeat: no-repeat;
-    background-position: right 22px center;
-    cursor: pointer;
-}
-
 .task-date-input::-webkit-calendar-picker-indicator {
     background-image: url("../assets/icons/event.svg");
     cursor: pointer;
