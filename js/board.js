@@ -111,14 +111,41 @@ function search(event) {
  * @param {Object[]} [taskList=tasks] - Tasks to render.
  */
 export function displayTasks(taskList = tasks) {
-    clearTaskHTML();
-    taskList.forEach(task => {
-        const containerRef = taskContainerMap[task.status];
-        if (!containerRef) return;
-        containerRef.innerHTML += returnTaskHTML(task, contacts);
-    });
+    const groupedTasks = groupTasksByStatus(taskList);
+    renderGroupedTasks(groupedTasks);
     renderEmptyColumnMessages();
     initDraggableTasks();
+}
+
+
+/**
+ * Groups tasks by their valid board status.
+ * @param {Object[]} taskList - Tasks to group.
+ * @returns {Object.<string, Object[]>} Tasks grouped by status.
+ */
+function groupTasksByStatus(taskList) {
+    return taskList.reduce((acc, task) => {
+        if (!taskContainerMap[task.status]) return acc;
+        if (!acc[task.status]) {
+            acc[task.status] = [];
+        }
+        acc[task.status].push(task);
+        return acc;
+    }, {});
+}
+
+
+/**
+ * Renders grouped tasks into their respective board columns.
+ * @param {Object.<string, Object[]>} groupedTasks - Tasks grouped by status.
+ */
+function renderGroupedTasks(groupedTasks) {
+    Object.entries(taskContainerMap).forEach(([status, container]) => {
+        const statusTasks = groupedTasks[status] || [];
+        container.innerHTML = statusTasks
+            .map(task => returnTaskHTML(task, contacts))
+            .join("");
+    });
 }
 
 
@@ -131,16 +158,6 @@ function renderEmptyColumnMessages() {
             const columnTitle = element.closest(".task-col").querySelector(".taskgroup-header").textContent;
             element.innerHTML = returnNoTaskHTML(columnTitle);
         }
-    });
-}
-
-
-/**
- * Clears all task containers on the board.
- */
-function clearTaskHTML() {
-    Object.values(taskContainerMap).forEach(taskContainer => {
-        taskContainer.innerHTML = ""
     });
 }
 
