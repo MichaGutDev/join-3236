@@ -1,5 +1,10 @@
 import { getInitials } from "./contact-templates.js";
 
+
+/**
+ * Returns the HTML template for the task creation form.
+ * @returns {string} Task form HTML.
+ */
 export function returnAddTaskForm() {
     return ` <button type="button" id="close-task-dialog" class="task-close-btn" aria-label="Close task"></button>
             <section class="form-wrapper">
@@ -24,7 +29,7 @@ export function returnAddTaskForm() {
                         <!-- Due Date -->
                         <div class="form-group">
                             <label for="dueDate">Due Date<span class="error-message">*</span></label>
-                            <input type="date" id="dueDate" name="dueDate" class="task-input task-date-input">
+                            <input type="date" id="dueDate" name="dueDate" class="task-input task-date-input" required>
                             <span id="dueDate-error" class="form-error d-none">This field is required</span>
                         </div>
                     </div>
@@ -139,6 +144,13 @@ export function returnAddTaskForm() {
         `
 }
 
+
+/**
+ * Returns the HTML for a task card on the board.
+ * @param {Object} task - Task to display.
+ * @param {Object[]} contacts - Available contacts.
+ * @returns {string} Task card HTML.
+ */
 export function returnTaskHTML(task, contacts) {
     const escapedTitle = escapeHTML(task.title);
     const escapedDescription = escapeHTML(task.description);
@@ -158,6 +170,13 @@ export function returnTaskHTML(task, contacts) {
     `
 }
 
+
+/**
+ * Returns the detailed HTML view of a task.
+ * @param {Object} task - Task to display.
+ * @param {Object[]} contacts - Available contacts.
+ * @returns {string} Task detail HTML.
+ */
 export function returnTaskView(task, contacts) {
     const escapedTitle = escapeHTML(task.title);
     const escapedDescription = escapeHTML(task.description);
@@ -205,6 +224,12 @@ export function returnTaskView(task, contacts) {
     `
 }
 
+
+/**
+ * Returns the HTML for a task's subtask checklist.
+ * @param {{description: string, completion: boolean}[]} subtasks - Task subtasks.
+ * @returns {string} Subtask checklist HTML.
+ */
 function returnSubtasksHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) {
         return "";
@@ -236,6 +261,12 @@ function returnSubtasksHTML(subtasks) {
     `;
 }
 
+
+/**
+ * Returns the HTML for the subtask progress indicator.
+ * @param {{completed: number, total: number, percentage: number}} subtaskStats - Subtask statistics.
+ * @returns {string} Progress indicator HTML.
+ */
 function returnSubtaskCompletionHTML(subtaskStats) {
     return `
         <div class="subtask-progress-container">
@@ -248,10 +279,22 @@ function returnSubtaskCompletionHTML(subtaskStats) {
     `;
 }
 
+
+/**
+ * Returns the placeholder HTML for an empty task column.
+ * @param {string} columnTitle - Title of the column.
+ * @returns {string} Placeholder HTML.
+ */
 export function returnNoTaskHTML(columnTitle) {
     return `<div class="no-tasks">No tasks ${columnTitle}</div>`;
 }
 
+
+/**
+ * Returns the subtask progress HTML if subtasks exist.
+ * @param {{description: string, completion: boolean}[]} subtasks - Task subtasks.
+ * @returns {string} Progress HTML or an empty string.
+ */
 function returnSubtaskProgressHTML(subtasks) {
     if (!subtasks || subtasks.length === 0) {
         return "";
@@ -260,6 +303,12 @@ function returnSubtaskProgressHTML(subtasks) {
     return returnSubtaskCompletionHTML(subtaskStats);
 }
 
+
+/**
+ * Calculates the completion statistics of subtasks.
+ * @param {{completion: boolean}[]} subtasks - Subtasks to evaluate.
+ * @returns {{completed: number, total: number, percentage: number}}
+ */
 function getSubtaskStats(subtasks) {
     const completed = subtasks.filter(subtask => subtask.completion).length;
     const total = subtasks.length;
@@ -270,7 +319,15 @@ function getSubtaskStats(subtasks) {
         percentage
     };
 }
-// CHECK HIER
+
+
+/**
+ * Returns the HTML for assigned contact avatars and optional names.
+ * @param {string[]} assignedToList - IDs of assigned contacts.
+ * @param {Object[]} contacts - Available contacts.
+ * @param {boolean} [showName=false] - Whether to display contact names.
+ * @returns {string} Assigned contacts HTML.
+ */
 export function returnAssignedToHTML(assignedToList, contacts, showName = false) {
     if (!assignedToList || assignedToList.length === 0) {
         return "<div></div>";
@@ -286,6 +343,12 @@ export function returnAssignedToHTML(assignedToList, contacts, showName = false)
 }
 
 
+/**
+ * Returns a contact avatar with an optional name.
+ * @param {Object} contact - Contact to display.
+ * @param {boolean} [showName=false] - Whether to display the name.
+ * @returns {string} Contact HTML.
+ */
 function returnContactHTML(contact, showName = false) {
     if (!contact) {
         return "";
@@ -298,13 +361,50 @@ function returnContactHTML(contact, showName = false) {
 }
 
 
+/**
+ * Returns a selectable contact with its checkbox state.
+ * @param {Object} contact - Contact to display.
+ * @param {boolean} isSelected - Whether the contact is selected.
+ * @returns {string} Contact HTML.
+ */
+export function returnContactHTML2(contact, isSelected) {
+    const escapedName = escapeHTML(contact.name);
+    const escapedInitials = escapeHTML(getInitials(contact.name));
+    return `
+    <label class="assigned-contact" data-contact-id="${contact.id}">
+    <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
+    <span>${escapedName}</span>
+
+    <input
+        type="checkbox"
+        class="assigned-contact-checkbox"
+        value="${contact.id}"
+        ${isSelected ? "checked" : ""}
+    >
+    </label>
+    `
+}
+
+
+/**
+ * Returns the escaped HTML for a contact's name.
+ * @param {string} name - Contact name.
+ * @returns {string} Contact name HTML.
+ */
 function returnNameHTML(name) {
     const escapedName = escapeHTML(name);
     return `
         <span>${escapedName}</span>
     `;
 }
-//BIS HIER
+
+
+/**
+ * Returns the editable HTML template for a subtask.
+ * @param {{description: string, completion: boolean}} subtask - Subtask to edit.
+ * @param {number} index - Index of the subtask.
+ * @returns {string} Subtask edit HTML.
+ */
 export function returnSubtaskEditHTML(subtask, index) {
     return `
     <input type="text" id="subtask-edit-${index}" class="task-input subtask-edit-input" value="${escapeHTML(subtask.description)}">
@@ -318,6 +418,13 @@ export function returnSubtaskEditHTML(subtask, index) {
   `
 }
 
+
+/**
+ * Returns the HTML for a subtask with edit and delete actions.
+ * @param {{description: string, completion: boolean}} subtask - Subtask to display.
+ * @param {number} index - Index of the subtask.
+ * @returns {string} Subtask HTML.
+ */
 export function returnSubtaskHTML(subtask, index) {
     const escapedDescription = escapeHTML(subtask.description);
     return `
@@ -338,6 +445,12 @@ export function returnSubtaskHTML(subtask, index) {
     `;
 }
 
+
+/**
+ * Escapes special HTML characters to prevent HTML injection.
+ * @param {string} text - Text to escape.
+ * @returns {string} Escaped text.
+ */
 function escapeHTML(text) {
     const characters = [
         ["&", "&amp;"],
@@ -351,22 +464,4 @@ function escapeHTML(text) {
     });
 
     return text;
-}
-
-export function returnContactHTML2(contact, isSelected) {
-    const escapedName = escapeHTML(contact.name);
-    const escapedInitials = escapeHTML(getInitials(contact.name));
-    return `
-    <label class="assigned-contact" data-contact-id="${contact.id}">
-    <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
-    <span>${escapedName}</span>
-
-    <input
-        type="checkbox"
-        class="assigned-contact-checkbox"
-        value="${contact.id}"
-        ${isSelected ? "checked" : ""}
-    >
-    </label>
-    `
 }
