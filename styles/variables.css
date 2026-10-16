@@ -18,6 +18,7 @@
   --color-input-border-focus: var(--color-accent);
   --color-input-placeholder: var(--color-neutral);
   --color-muted: rgb(168, 168, 168);
+  --color-hover: rgb(238, 238, 238);
 
   --color-error: rgb(230, 0, 38);
 

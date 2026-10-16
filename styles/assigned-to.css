@@ -62,16 +62,13 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 8px 12px;
+    padding: 7px 16px;
+    border-radius: 10px;
     cursor: pointer;
 }
 
 .assigned-contact-checkbox {
     margin-left: auto;
-}
-
-.assigned-contact-checkbox:hover {
-    filter: brightness(0) invert(1);
 }
 
 .assigned-to-dropdown {
@@ -85,8 +82,11 @@
 }
 
 .assigned-contact:hover {
-    background-color: var(--color-nav-active) !important;
-    color: white;
+    background-color: var(--color-hover);
+}
+
+.assigned-contact:has(.assigned-contact-checkbox:checked):hover {
+    background-color: var(--color-nav-active);
 }
 
 #selected-contacts {
