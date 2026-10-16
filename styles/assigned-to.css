@@ -31,6 +31,14 @@
     padding-right: 21px;
 }
 
+.assigned-to-control button img {
+    transition: transform 100ms;
+}
+
+.assigned-to-control button[aria-expanded="true"] img {
+    transform: rotate(180deg);
+}
+
 .assigned-contact {
     display: flex;
     align-items: center;
