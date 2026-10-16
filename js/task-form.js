@@ -6,7 +6,6 @@ import { getSubtasks, initSubtaskListeners, resetSubtasks, renderSubtasks } from
 
 let formRef;
 let createTaskBtnRef;
-const subtasks = [];
 let contacts = [];
 const requiredFieldIds = ["title", "dueDate", "category"];
 let selectedContactIds = [];
