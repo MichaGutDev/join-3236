@@ -3,12 +3,12 @@ import { setFormSubtasks } from "./subtasks.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateTaskStatus, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
+import { initDraggableTasks, initDragAndDrop } from "./move-tasks.js";
 
 let tasks = [];
 let contacts = [];
 let tasksLoaded = false;
 let contactsLoaded = false;
-let currentDraggedTaskId = null;
 const taskContainerMap = {
     "To Do": document.getElementById('to_do'),
     "In Progress": document.getElementById('in_progress'),
@@ -346,91 +346,6 @@ function initTaskDialogButtons(task) {
     initCloseTaskButton();
     initEditTaskButton(task);
     initDeleteTaskButton(task);
-}
-
-
-/**
- * Stores the dragged task ID and applies the dragging style.
- * @param {DragEvent} event - The dragstart event.
- */
-function startDragging(event) {
-    currentDraggedTaskId = event.currentTarget.dataset.taskId;
-    event.currentTarget.classList.add("dragging");
-}
-
-
-/**
- * Removes the dragging style and clears the dragged task ID.
- * @param {DragEvent} event - The dragend event.
- */
-function stopDragging(event) {
-    event.currentTarget.classList.remove("dragging");
-    currentDraggedTaskId = null;
-}
-
-
-/**
- * Updates the dragged task's status in Firebase.
- * @param {DragEvent} event - The drop event.
- * @returns {Promise<void>}
- */
-async function moveTaskTo(event) {
-    event.preventDefault();
-
-    const taskId = currentDraggedTaskId;
-    const status = event.currentTarget.dataset.status;
-
-    event.currentTarget.classList.remove("drag-area-highlight");
-
-    await updateTaskStatus(taskId, status);
-}
-
-
-/**
- * Registers drag-and-drop listeners for all task columns.
- */
-function initDragAndDrop() {
-    const taskColumns = document.querySelectorAll(".task-column");
-    taskColumns.forEach(column => {
-        column.addEventListener("dragover", allowDrop);
-        column.addEventListener("dragleave", removeHighlight);
-        column.addEventListener("drop", moveTaskTo);
-    });
-}
-
-
-/**
- * Registers dragstart and dragend listeners for all task cards.
- */
-function initDraggableTasks() {
-    const taskElements = document.querySelectorAll(".task-box");
-
-    taskElements.forEach(task => {
-        task.addEventListener("dragstart", startDragging);
-        task.addEventListener("dragend", stopDragging);
-    });
-}
-
-
-/**
- * Allows dropping and highlights the target column.
- * @param {DragEvent} event - The dragover event.
- */
-function allowDrop(event) {
-    event.preventDefault();
-    event.currentTarget.classList.add("drag-area-highlight")
-}
-
-
-/**
- * Removes the column highlight when the dragged element leaves it.
- * @param {DragEvent} event - The dragleave event.
- */
-function removeHighlight(event) {
-    if (event.currentTarget.contains(event.relatedTarget)) {
-        return;
-    }
-    event.currentTarget.classList.remove("drag-area-highlight");
 }
 
 
