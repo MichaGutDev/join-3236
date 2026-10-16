@@ -97,12 +97,21 @@ export function returnAddTaskForm() {
 
                         <!-- Category -->
                         <div class="form-group">
-                            <label for="category">Category<span class="error-message">*</span></label>
-                            <select id="category" name="category" class="task-input">
-                                <option value="">Select task category</option>
-                                <option value="User Story">User Story</option>
-                                <option value="Technical Task">Technical Task</option>
-                            </select>
+                            <label for="category-trigger">Category<span class="error-message">*</span></label>
+                            <div class="category-select">
+                                <div class="category-select-control">
+                                    <button type="button" id="category-trigger" class="category-select-trigger"
+                                        aria-expanded="false" aria-controls="category-options">
+                                        <span id="category-selected" class="category-select-text category-select-placeholder">Select task category</span>
+                                        <img src="../assets/icons/arrow-drop-down.svg" alt="">
+                                    </button>
+                                </div>
+                                <div id="category-options" class="category-select-options d-none">
+                                    <button type="button" class="category-select-option" data-value="Technical Task">Technical Task</button>
+                                    <button type="button" class="category-select-option" data-value="User Story">User Story</button>
+                                </div>
+                            </div>
+                            <input type="hidden" id="category" name="category" value="">
                             <span id="category-error" class="form-error d-none">This field is required</span>
                         </div>
 

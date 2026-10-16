@@ -1,5 +1,6 @@
 import { initTaskForm } from "./task-form.js";
 import { setFormAssignedTo } from "./assigned-to.js";
+import { setFormCategory } from "./category-select.js";
 import { setFormSubtasks } from "./subtasks.js";
 import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } from "./templates.js";
 import { listenToTasks, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
@@ -323,7 +324,7 @@ function fillBasicTaskForm(task) {
     document.getElementById("title").value = task.title;
     document.getElementById("description").value = task.description;
     document.getElementById("dueDate").value = task.dueDate;
-    document.getElementById("category").value = task.category;
+    setFormCategory(task.category);
     document.getElementById(task.priority).checked = true;
 }
 

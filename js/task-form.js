@@ -2,6 +2,7 @@ import { saveTask } from "./db.js";
 import { showToast } from "./toast.js";
 import { getSubtasks, initSubtaskListeners, resetSubtasks, renderSubtasks } from "./subtasks.js";
 import { initAssignedTo, getSelectedContactIds, resetAssignedTo } from "./assigned-to.js";
+import { initCategorySelect, resetCategory } from "./category-select.js";
 
 let formRef;
 let createTaskBtnRef;
@@ -18,6 +19,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave 
   formRef = document.querySelector("#task-form");
   createTaskBtnRef = document.getElementById("create-task-btn");
   initAssignedTo();
+  initCategorySelect();
   setMinimumDueDate();
   initTaskListeners(taskStatus, editingTaskId, onSave);
   handleFormValidation();
@@ -113,6 +115,7 @@ function createTaskObject(formData, status) {
  */
 function handleFormReset() {
   resetAssignedTo();
+  resetCategory();
   resetSubtasks();
   resetRequiredFields();
 }
