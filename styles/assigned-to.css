@@ -7,6 +7,16 @@
     position: relative;
 }
 
+.assigned-to,
+.category-select {
+    z-index: 1;
+}
+
+.assigned-to:has([aria-expanded="true"]),
+.category-select:has([aria-expanded="true"]) {
+    z-index: 2;
+}
+
 .assigned-to-control,
 .category-select-control {
     position: relative;
