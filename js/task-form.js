@@ -77,15 +77,24 @@ async function getValues(status, editingTaskId, onSave) {
   if (!validateForm(getRequiredFields())) return;
   try {
     await saveTask(task, editingTaskId);
-    formRef.reset();
-    if (onSave) {
-      onSave();
-    }
+    handleSavedTask(onSave);
   } catch (error) {
     console.error(error);
     showToast("Task could not be saved. Please try again.");
   } finally {
     handleFormValidation();
+  }
+}
+
+
+/**
+ * Resets the form after saving and calls the callback.
+ * @param {(() => void)|null} onSave - Callback after a successful save.
+ */
+function handleSavedTask(onSave) {
+  formRef.reset();
+  if (onSave) {
+    onSave();
   }
 }
 
