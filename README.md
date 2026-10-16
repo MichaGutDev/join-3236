@@ -38,8 +38,11 @@ join/
 │   ├── auth.js                 # Login, guest login and sign up
 │   ├── auth-check.js           # Redirects to the login if nobody is logged in, shows the initials
 │   ├── db.js                   # Database access for the board and the task form
-│   ├── board.js                # Board, task dialogs and drag and drop
-│   ├── task-form.js            # Task form (validation, saving, assigned contacts)
+│   ├── board.js                # Board and task dialogs
+│   ├── move-tasks.js           # Drag and drop of tasks between columns
+│   ├── task-form.js            # Task form (validation and saving)
+│   ├── assigned-to.js          # Assigned contacts dropdown of the task form
+│   ├── category-select.js      # Category dropdown of the task form
 │   ├── subtasks.js             # Subtask logic of the task form
 │   ├── templates.js            # HTML templates for tasks, forms and subtasks
 │   ├── search.js               # Search for tasks and contacts
@@ -85,7 +88,7 @@ cd join
 - Almost every page loads `script.js` for the user menu and logout (only the two external legal pages do not). Pages that need a login also load `js/auth-check.js`, which sends visitors without a session back to `index.html` and shows the initials of the user in the header.
 - `js/auth.js` handles login, guest login and sign up. A new user also gets an entry in the contact list.
 - `js/db.js` reads, saves and deletes tasks and contacts for the board and the task form. The contact list, the summary, the sign up and the login check use the Realtime Database directly in their own files. The board, the summary and the contact list listen to the data and update themselves when it changes.
-- `js/board.js` renders the four columns, opens the task dialogs (view, add, edit) and moves tasks by drag and drop. The task dialog uses the form from `js/task-form.js`, which also runs on the add task page. The subtasks are handled in `js/subtasks.js`.
+- `js/board.js` renders the four columns and opens the task dialogs (view, add, edit), `js/move-tasks.js` moves tasks by drag and drop. The task dialog uses the form from `js/task-form.js`, which also runs on the add task page. The subtasks, the assigned contacts and the category are handled in their own modules (`js/subtasks.js`, `js/assigned-to.js`, `js/category-select.js`).
 - HTML for tasks, forms and contacts is created in the template files (`templates.js`, `contact-templates.js`), so the logic files stay mostly free of markup.
 - The main colours are defined as variables in `styles/variables.css`. Each area has its own CSS file, loaded on the pages that need it.
 
