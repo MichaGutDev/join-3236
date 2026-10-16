@@ -170,6 +170,7 @@ export function initAssignedTo() {
   initContactListener();
   initAssignedToListeners();
   initOutsideClickClose();
+  document.querySelector(".assigned-to").addEventListener("keydown", moveAssignedToFocus);
 }
 
 
@@ -213,4 +214,19 @@ function closeOnOutsideClick(event) {
   if (!dropdownRef.classList.contains("d-none")) {
     toggleAssignedToDropdown();
   }
+}
+
+
+/**
+ * Moves the focus to the next or previous contact with the arrow keys.
+ * @param {KeyboardEvent} event - The keyboard event.
+ */
+function moveAssignedToFocus(event) {
+  const contactRef = event.target.closest(".assigned-contact");
+  let targetRef = null;
+  if (event.key === "ArrowDown") targetRef = contactRef ? contactRef.nextElementSibling : document.querySelector(".assigned-contact");
+  if (event.key === "ArrowUp" && contactRef) targetRef = contactRef.previousElementSibling;
+  if (!targetRef) return;
+  event.preventDefault();
+  targetRef.querySelector("input").focus();
 }
