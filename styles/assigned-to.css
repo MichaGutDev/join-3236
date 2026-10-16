@@ -7,6 +7,8 @@
 }
 
 .assigned-to-control {
+    position: relative;
+    z-index: 11;
     display: flex;
     align-items: center;
     min-height: 48px;
@@ -56,7 +58,7 @@
 }
 
 .assigned-to-dropdown {
-    max-height: 240px;
+    max-height: 297px;
     overflow-y: auto;
 }
 
@@ -110,13 +112,14 @@
 
 #assigned-to-wrapper {
     position: absolute;
-    top: 100%;
+    top: 0;
     left: 0;
     width: 100%;
     z-index: 10;
+    padding-top: 48px;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.14);
     overflow: hidden;
 }
 
@@ -149,6 +152,7 @@
 @media screen and (max-width: 1024px) {
     #assigned-to-wrapper {
         position: static;
+        padding-top: 0;
     }
 }
 
