@@ -104,7 +104,7 @@ export function initMobileTaskMovement() {
  * @param {MouseEvent} event - The click event.
  */
 function handleMobileTaskMovement(event) {
-    const statusButtonRef = event.target.closest("button[data-status]");
+    const statusButtonRef = event.target.closest(".mobile-move-task-list button[data-status]");
     const moveButtonRef = event.target.closest(".task-move-btn");
 
     if (statusButtonRef) {
