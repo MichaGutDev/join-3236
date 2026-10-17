@@ -19,7 +19,7 @@ export function returnAddTaskForm() {
                         <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
-                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title">
+                            <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title" autocomplete="off">
                             <span id="title-error" class="form-error d-none">This field is required</span>
                         </div>
 
@@ -124,7 +124,7 @@ export function returnAddTaskForm() {
                             <label for="new-subtask">Subtasks</label>
 
                             <div class="subtask-input">
-                                <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask">
+                                <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask" autocomplete="off">
 
                                 <div class="subtask-input-actions d-none">
                                     <button type="button" id="clear-subtask-btn" class="subtask-icon-btn subtask-clear-btn"
