@@ -67,19 +67,31 @@ function redirectToLogin() {
 function signUp(event) {
     event.preventDefault();
 
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirm-password').value;
+    const values = getSignUpValues();
 
     clearError('signup-error', ['confirm-password']);
 
-    if (password !== confirmPassword) {
+    if (values.password !== values.confirmPassword) {
         showError('signup-error', ['confirm-password'], "Your passwords don't match. Please try again.");
         return;
     }
 
-    handleFirebaseSignUp(name, email, password);
+    handleFirebaseSignUp(values.name, values.email, values.password);
+}
+
+
+/**
+ * Reads the values of the signup form.
+ *
+ * @returns {{name: string, email: string, password: string, confirmPassword: string}} The form values.
+ */
+function getSignUpValues() {
+    return {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        password: document.getElementById('password').value,
+        confirmPassword: document.getElementById('confirm-password').value
+    };
 }
 
 

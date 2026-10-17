@@ -194,22 +194,46 @@ function setDialogMode(isEdit) {
  */
 export function editContact(contact) {
     setDialogMode(true);
+    fillContactInputs(contact);
+    showContactAvatar(contact);
+    showEditTitle();
+    openDialog();
+}
 
+
+/**
+ * Fills the dialog inputs with the data of the given contact.
+ *
+ * @param {object} contact - The contact data (name, email, phone).
+ */
+function fillContactInputs(contact) {
     document.getElementById('dialog-input-name').value = contact.name;
     document.getElementById('dialog-input-email').value = contact.email;
     document.getElementById('dialog-input-phone').value = contact.phone;
+}
 
+
+/**
+ * Shows the initials and the color of the given contact in the dialog.
+ *
+ * @param {object} contact - The contact data (name, color).
+ */
+function showContactAvatar(contact) {
     const dialogInitials = document.getElementById('dialog-initials');
     dialogInitials.textContent = getInitials(contact.name);
     dialogInitials.style.backgroundColor = contact.color;
+}
 
+
+/**
+ * Shows the title area of the dialog in edit mode.
+ */
+function showEditTitle() {
     document.getElementById('dialog-topic-area').innerHTML = `
         <img class="dialog-join-logo" src="../assets/icons/main-icon.svg" alt="">
         <h2 class="dialog-topic-title">Edit Contact</h2>
         <div class="dialog-topic-underline"></div>
     `;
-
-    openDialog();
 }
 
 
