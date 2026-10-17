@@ -176,7 +176,7 @@ function openAddTask(status) {
     setFormAssignedTo();
     setFormSubtasks();
 
-    initTaskForm(status, null, () => handleBoardTaskSaved("Task added successfully"));
+    initTaskForm(status, null, () => handleBoardTaskSaved("Task added to board", "../assets/icons/board-icon.svg"));
     initCloseTaskButton();
     openTaskDialog();
 }
@@ -185,10 +185,11 @@ function openAddTask(status) {
 /**
  * Closes the task dialog and shows a success message.
  * @param {string} message - Success message to display.
+ * @param {string} [iconSrc] - Path of an icon shown after the message.
  */
-function handleBoardTaskSaved(message) {
+function handleBoardTaskSaved(message, iconSrc) {
     closeTaskDialog();
-    showToast(message);
+    showToast(message, null, iconSrc);
 }
 
 
