@@ -1,4 +1,4 @@
-import { returnSubtaskHTML, returnSubtaskEditHTML } from "./templates.js";
+import { returnSubtaskHTML, returnSubtaskEditHTML } from "./subtask-templates.js";
 const subtasks = [];
 
 
