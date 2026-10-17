@@ -1,4 +1,4 @@
-import { returnAssignedToHTML } from "./contact-templates.js";
+import { returnAssignedContactsHTML } from "./contact-templates.js";
 import { escapeHTML } from "./html-utils.js";
 
 
@@ -177,7 +177,7 @@ export function returnTaskHTML(task, contacts) {
             </div>
             ${returnSubtaskProgressHTML(task.subtasks)}
             <div class="initials-container">
-                ${returnAssignedToHTML(task.assignedTo, contacts)}
+                ${returnAssignedContactsHTML(task.assignedTo, contacts)}
                 <img src="../assets/icons/prio-${task.priority}.svg" alt="${task.priority}-priority icon">
             </div>
         </li>
@@ -224,7 +224,7 @@ export function returnTaskView(task, contacts) {
             <section class="task-assigned">
                 <h3>Assigned To:</h3>
                 <ul class="task-assigned-list">
-                    ${returnAssignedToHTML(task.assignedTo, contacts, true)}
+                    ${returnAssignedContactsHTML(task.assignedTo, contacts, true)}
                 </ul>
             </section>
 

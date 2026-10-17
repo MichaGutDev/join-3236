@@ -1,6 +1,6 @@
 import { listenToContacts } from "./db.js";
 import { filterContacts } from "./search.js";
-import { returnContactHTML2, returnAssignedToHTML } from "./contact-templates.js";
+import { returnSelectableContactHTML, returnAssignedContactsHTML } from "./contact-templates.js";
 
 let contacts = [];
 let selectedContactIds = [];
@@ -145,7 +145,7 @@ function renderAssignedToContacts(contactList = contacts) {
   assignedToRef.innerHTML = contactList
     .map(contact => {
       const isSelected = selectedContactIds.includes(contact.id);
-      return returnContactHTML2(contact, isSelected);
+      return returnSelectableContactHTML(contact, isSelected);
     })
     .join("");
 }
@@ -176,7 +176,7 @@ function initContactListener() {
  */
 function renderSelectedContacts() {
   const selectedContactsRef = document.getElementById("selected-contacts");
-  selectedContactsRef.innerHTML = returnAssignedToHTML(
+  selectedContactsRef.innerHTML = returnAssignedContactsHTML(
     selectedContactIds,
     contacts
   );
