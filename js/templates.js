@@ -1,4 +1,5 @@
-import { getInitials } from "./contact-templates.js";
+import { returnAssignedToHTML } from "./contact-templates.js";
+import { escapeHTML } from "./html-utils.js";
 
 
 /**
@@ -335,84 +336,6 @@ function getSubtaskStats(subtasks) {
 
 
 /**
- * Returns the HTML for assigned contact avatars and optional names.
- * @param {string[]} assignedToList - IDs of assigned contacts.
- * @param {Object[]} contacts - Available contacts.
- * @param {boolean} [showName=false] - Whether to display contact names.
- * @returns {string} Assigned contacts HTML.
- */
-export function returnAssignedToHTML(assignedToList, contacts, showName = false) {
-    if (!assignedToList || assignedToList.length === 0) {
-        return "<div></div>";
-    }
-
-    const assignedToHTML = assignedToList.map(contactID =>
-        returnContactHTML(
-            contacts.find(contact => contact.id === contactID),
-            showName
-        )
-    );
-    return assignedToHTML.join("");
-}
-
-
-/**
- * Returns a contact avatar with an optional name.
- * @param {Object} contact - Contact to display.
- * @param {boolean} [showName=false] - Whether to display the name.
- * @returns {string} Contact HTML.
- */
-function returnContactHTML(contact, showName = false) {
-    if (!contact) {
-        return "";
-    }
-    const escapedInitials = escapeHTML(getInitials(contact.name));
-    return `
-    <div class="contact-avatar" style="background: ${contact.color};">${escapedInitials}</div>
-    ${showName ? returnNameHTML(contact.name) : ""}
-    `;
-}
-
-
-/**
- * Returns a selectable contact with its checkbox state.
- * @param {Object} contact - Contact to display.
- * @param {boolean} isSelected - Whether the contact is selected.
- * @returns {string} Contact HTML.
- */
-export function returnContactHTML2(contact, isSelected) {
-    const escapedName = escapeHTML(contact.name);
-    const escapedInitials = escapeHTML(getInitials(contact.name));
-    return `
-    <label class="assigned-contact" data-contact-id="${contact.id}">
-    <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
-    <span>${escapedName}</span>
-
-    <input
-        type="checkbox"
-        class="assigned-contact-checkbox"
-        value="${contact.id}"
-        ${isSelected ? "checked" : ""}
-    >
-    </label>
-    `
-}
-
-
-/**
- * Returns the escaped HTML for a contact's name.
- * @param {string} name - Contact name.
- * @returns {string} Contact name HTML.
- */
-function returnNameHTML(name) {
-    const escapedName = escapeHTML(name);
-    return `
-        <span>${escapedName}</span>
-    `;
-}
-
-
-/**
  * Returns the editable HTML template for a subtask.
  * @param {{description: string, completion: boolean}} subtask - Subtask to edit.
  * @param {number} index - Index of the subtask.
@@ -456,25 +379,4 @@ export function returnSubtaskHTML(subtask, index) {
             </div>
         </li>
     `;
-}
-
-
-/**
- * Escapes special HTML characters to prevent HTML injection.
- * @param {string} text - Text to escape.
- * @returns {string} Escaped text.
- */
-function escapeHTML(text) {
-    const characters = [
-        ["&", "&amp;"],
-        ["<", "&lt;"],
-        [">", "&gt;"],
-        ['"', "&quot;"],
-        ["'", "&#039;"]
-    ];
-    characters.forEach(([character, entity]) => {
-        text = text.replaceAll(character, entity);
-    });
-
-    return text;
 }

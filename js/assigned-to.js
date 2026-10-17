@@ -1,6 +1,6 @@
 import { listenToContacts } from "./db.js";
 import { filterContacts } from "./search.js";
-import { returnContactHTML2, returnAssignedToHTML } from "./templates.js";
+import { returnContactHTML2, returnAssignedToHTML } from "./contact-templates.js";
 
 let contacts = [];
 let selectedContactIds = [];

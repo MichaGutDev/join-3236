@@ -1,3 +1,6 @@
+import { escapeHTML } from "./html-utils.js";
+
+
 /**
  * Builds the initials from a contact's full name.
  *
@@ -55,4 +58,82 @@ export function generateContactListHTML(entries) {
         html += generateContactHTML(id, contact);
         return html;
     }).join("");
+}
+
+
+/**
+ * Returns the HTML for assigned contact avatars and optional names.
+ * @param {string[]} assignedToList - IDs of assigned contacts.
+ * @param {Object[]} contacts - Available contacts.
+ * @param {boolean} [showName=false] - Whether to display contact names.
+ * @returns {string} Assigned contacts HTML.
+ */
+export function returnAssignedToHTML(assignedToList, contacts, showName = false) {
+    if (!assignedToList || assignedToList.length === 0) {
+        return "<div></div>";
+    }
+
+    const assignedToHTML = assignedToList.map(contactID =>
+        returnContactHTML(
+            contacts.find(contact => contact.id === contactID),
+            showName
+        )
+    );
+    return assignedToHTML.join("");
+}
+
+
+/**
+ * Returns a contact avatar with an optional name.
+ * @param {Object} contact - Contact to display.
+ * @param {boolean} [showName=false] - Whether to display the name.
+ * @returns {string} Contact HTML.
+ */
+function returnContactHTML(contact, showName = false) {
+    if (!contact) {
+        return "";
+    }
+    const escapedInitials = escapeHTML(getInitials(contact.name));
+    return `
+    <div class="contact-avatar" style="background: ${contact.color};">${escapedInitials}</div>
+    ${showName ? returnNameHTML(contact.name) : ""}
+    `;
+}
+
+
+/**
+ * Returns a selectable contact with its checkbox state.
+ * @param {Object} contact - Contact to display.
+ * @param {boolean} isSelected - Whether the contact is selected.
+ * @returns {string} Contact HTML.
+ */
+export function returnContactHTML2(contact, isSelected) {
+    const escapedName = escapeHTML(contact.name);
+    const escapedInitials = escapeHTML(getInitials(contact.name));
+    return `
+    <label class="assigned-contact" data-contact-id="${contact.id}">
+    <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
+    <span>${escapedName}</span>
+
+    <input
+        type="checkbox"
+        class="assigned-contact-checkbox"
+        value="${contact.id}"
+        ${isSelected ? "checked" : ""}
+    >
+    </label>
+    `
+}
+
+
+/**
+ * Returns the escaped HTML for a contact's name.
+ * @param {string} name - Contact name.
+ * @returns {string} Contact name HTML.
+ */
+function returnNameHTML(name) {
+    const escapedName = escapeHTML(name);
+    return `
+        <span>${escapedName}</span>
+    `;
 }
