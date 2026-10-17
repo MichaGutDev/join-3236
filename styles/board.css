@@ -47,6 +47,14 @@
     border-color: var(--color-input-border-focus);
 }
 
+.board-search input::-webkit-search-cancel-button {
+    appearance: none;
+    width: 13px;
+    height: 13px;
+    cursor: pointer;
+    background: url("../assets/icons/cancel-icon.svg") center / contain no-repeat;
+}
+
 .board-search img {
     border-left: solid var(--color-form-box) 1px;
     height: 32px;
