@@ -39,6 +39,14 @@
     font-weight: 400;
 }
 
+.board-search input:focus {
+    outline: none;
+}
+
+.board-search:focus-within {
+    border-color: var(--color-input-border-focus);
+}
+
 .board-search img {
     border-left: solid var(--color-form-box) 1px;
     height: 32px;
