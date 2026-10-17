@@ -68,13 +68,13 @@ export function generateContactListHTML(entries) {
  * @param {boolean} [showName=false] - Whether to display contact names.
  * @returns {string} Assigned contacts HTML.
  */
-export function returnAssignedToHTML(assignedToList, contacts, showName = false) {
+export function returnAssignedContactsHTML(assignedToList, contacts, showName = false) {
     if (!assignedToList || assignedToList.length === 0) {
         return "<div></div>";
     }
 
     const assignedToHTML = assignedToList.map(contactID =>
-        returnContactHTML(
+        returnContactDisplayHTML(
             contacts.find(contact => contact.id === contactID),
             showName
         )
@@ -89,14 +89,14 @@ export function returnAssignedToHTML(assignedToList, contacts, showName = false)
  * @param {boolean} [showName=false] - Whether to display the name.
  * @returns {string} Contact HTML.
  */
-function returnContactHTML(contact, showName = false) {
+function returnContactDisplayHTML(contact, showName = false) {
     if (!contact) {
         return "";
     }
     const escapedInitials = escapeHTML(getInitials(contact.name));
     return `
     <div class="contact-avatar" style="background: ${contact.color};">${escapedInitials}</div>
-    ${showName ? returnNameHTML(contact.name) : ""}
+    ${showName ? returnContactNameHTML(contact.name) : ""}
     `;
 }
 
@@ -107,7 +107,7 @@ function returnContactHTML(contact, showName = false) {
  * @param {boolean} isSelected - Whether the contact is selected.
  * @returns {string} Contact HTML.
  */
-export function returnContactHTML2(contact, isSelected) {
+export function returnSelectableContactHTML(contact, isSelected) {
     const escapedName = escapeHTML(contact.name);
     const escapedInitials = escapeHTML(getInitials(contact.name));
     return `
@@ -131,7 +131,7 @@ export function returnContactHTML2(contact, isSelected) {
  * @param {string} name - Contact name.
  * @returns {string} Contact name HTML.
  */
-function returnNameHTML(name) {
+function returnContactNameHTML(name) {
     const escapedName = escapeHTML(name);
     return `
         <span>${escapedName}</span>
