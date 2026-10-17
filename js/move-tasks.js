@@ -88,3 +88,82 @@ function removeHighlight(event) {
     }
     event.currentTarget.classList.remove("drag-area-highlight");
 }
+
+
+/**
+ * Registers the click listener for mobile task movement.
+ */
+export function initMobileTaskMovement() {
+    const boardRef = document.querySelector(".board-wrapper");
+    boardRef.addEventListener("click", handleMobileTaskMovement);
+}
+
+
+/**
+ * Handles mobile task movement and menu interactions.
+ * @param {MouseEvent} event - The click event.
+ */
+function handleMobileTaskMovement(event) {
+    const statusButtonRef = event.target.closest("button[data-status]");
+    const moveButtonRef = event.target.closest(".task-move-btn");
+
+    if (statusButtonRef) {
+        event.stopPropagation();
+        moveTaskToStatus(statusButtonRef);
+    } else if (moveButtonRef) {
+        event.stopPropagation();
+        toggleMoveTaskMenu(moveButtonRef);
+    } else {
+        closeMoveTaskMenus();
+    }
+}
+
+
+/**
+ * Updates a task's status in Firebase and closes the move menu.
+ * @param {HTMLButtonElement} statusButtonRef - Selected status button.
+ * @returns {Promise<void>}
+ */
+async function moveTaskToStatus(statusButtonRef) {
+    const taskRef = statusButtonRef.closest(".task-box");
+    const taskId = taskRef.dataset.taskId;
+    const newStatus = statusButtonRef.dataset.status;
+    try {
+        await updateTaskStatus(taskId, newStatus);
+    } catch (error) {
+        console.error("Failed to move task:", error);
+    } finally {
+        closeMoveTaskMenus();
+    }
+}
+
+
+/**
+ * Toggles the selected move menu and closes other open menus.
+ * @param {HTMLButtonElement} moveButtonRef - Move menu trigger button.
+ */
+function toggleMoveTaskMenu(moveButtonRef) {
+    const containerRef = moveButtonRef.closest(".task-move");
+    const menuRef = containerRef.querySelector(".mobile-move-task-list");
+    const wasOpen = !menuRef.classList.contains("d-none");
+
+    closeMoveTaskMenus();
+
+    if (wasOpen) return;
+
+    menuRef.classList.remove("d-none");
+    moveButtonRef.setAttribute("aria-expanded", "true");
+}
+
+
+/**
+ * Closes all open move menus and resets their accessibility attributes.
+ */
+function closeMoveTaskMenus() {
+    document.querySelectorAll(".mobile-move-task-list:not(.d-none)")
+        .forEach(menu => {
+            menu.classList.add("d-none");
+            const buttonRef = menu.closest(".task-move").querySelector(".task-move-btn");
+            buttonRef.setAttribute("aria-expanded", "false");
+        });
+}

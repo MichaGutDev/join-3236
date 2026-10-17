@@ -2,6 +2,9 @@ import { returnAssignedContactsHTML } from "./contact-templates.js";
 import { escapeHTML } from "./html-utils.js";
 
 
+const taskStatuses = ["To Do", "In Progress", "Awaiting Feedback", "Done"];
+
+
 /**
  * Returns the HTML template for the task creation form.
  * @returns {string} Task form HTML.
@@ -170,7 +173,20 @@ export function returnTaskHTML(task, contacts) {
     const escapedDescription = escapeHTML(task.description);
     return `
         <li class="task-box" draggable="true" data-task-id="${task.id}">
-            <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
+            <div class="task-card-header"> 
+                <h3 class="${task.category.replace(/\s+/g, '-').toLowerCase()} task-category">${task.category}</h3>
+                <div class="task-move">
+                    <button type="button" class="task-move-btn"
+                        aria-label="Move task" aria-expanded="false">
+                        <img src="../assets/icons/mobile-move-task.svg" alt="">
+                    </button>
+
+                    <ul class="mobile-move-task-list d-none">
+                        <li class="move-task-heading">Move to</li>
+                        ${returnMoveTaskMenuHTML(task.status)}
+                    </ul>
+                </div>
+            </div>
             <div class="task-text">
                 <h4>${escapedTitle}</h4>
                 <span class="task-descr">${escapedDescription}</span>
@@ -379,4 +395,26 @@ export function returnSubtaskHTML(subtask, index) {
             </div>
         </li>
     `;
+}
+
+
+/**
+ * Returns move menu options excluding the current task status.
+ * @param {string} currentStatus - Current status of the task.
+ * @returns {string} HTML for the available status options.
+ */
+function returnMoveTaskMenuHTML(currentStatus) {
+    const availableStatuses = taskStatuses.filter(status => status !== currentStatus);
+    const currentIndex = taskStatuses.indexOf(currentStatus);
+
+    return availableStatuses.map(status => {
+        const direction = taskStatuses.indexOf(status) < currentIndex ? "up" : "down";
+        return `
+            <li>
+                <button type="button" data-status="${status}">
+                    <img src="../assets/icons/arrow-${direction}.svg" alt="">
+                    ${status}
+                </button>
+            </li>`;
+    }).join("");
 }
