@@ -101,6 +101,18 @@ function toggleAssignedToDropdown() {
   searchInputRef.classList.toggle("d-none");
 
   const isOpen = !dropdownRef.classList.contains("d-none");
+  handleAssignedToFocus(searchInputRef, arrowRef, isOpen);  
+  updateAssignedToAria(triggerRef, arrowRef, isOpen);
+}
+
+
+/**
+ * Manages input focus and resets the search when closing the dropdown.
+ * @param {HTMLInputElement} searchInputRef - Contact search input.
+ * @param {HTMLElement} arrowRef - Dropdown arrow button.
+ * @param {boolean} isOpen - Whether the dropdown is open.
+ */
+function handleAssignedToFocus(searchInputRef, arrowRef, isOpen) {
   if (isOpen) {
     searchInputRef.focus();
   } else {
@@ -108,7 +120,16 @@ function toggleAssignedToDropdown() {
     updateAssignedToContacts();
     arrowRef.focus();
   }
+}
 
+
+/**
+ * Updates accessibility attributes based on the dropdown state.
+ * @param {HTMLElement} triggerRef - Dropdown trigger button.
+ * @param {HTMLElement} arrowRef - Dropdown arrow button.
+ * @param {boolean} isOpen - Whether the dropdown is open.
+ */
+function updateAssignedToAria(triggerRef, arrowRef, isOpen) {
   triggerRef.setAttribute("aria-expanded", String(isOpen));
   arrowRef.setAttribute("aria-expanded", String(isOpen));
   arrowRef.setAttribute("aria-label", isOpen ? "Hide contacts" : "Show contacts");
