@@ -7,6 +7,7 @@ import { initCategorySelect, resetCategory } from "./category-select.js";
 let formRef;
 let createTaskBtnRef;
 const requiredFieldIds = ["title", "dueDate", "category"];
+let isSaving = false;
 
 
 /**
@@ -65,25 +66,43 @@ function setMinimumDueDate() {
 
 
 /**
- * Validates and saves the task, then resets the form on success.
+ * Validates the form and initiates the task saving process.
  * @param {string} status - Task status.
  * @param {string|null} editingTaskId - ID of the task being edited.
  * @param {(() => void)|null} onSave - Callback after a successful save.
  * @returns {Promise<void>}
  */
 async function getValues(status, editingTaskId, onSave) {
-  const formData = new FormData(formRef);
-  const task = createTaskObject(formData, status);
-  if (!validateForm(getRequiredFields())) return;
-  try {
-    await saveTask(task, editingTaskId);
-    handleSavedTask(onSave);
-  } catch (error) {
-    console.error(error);
-    showToast("Task could not be saved. Please try again.");
-  } finally {
+    if (isSaving || !validateForm(getRequiredFields())) return;
+
+    const formData = new FormData(formRef);
+    const task = createTaskObject(formData, status);
+
+    isSaving = true;
     handleFormValidation();
-  }
+
+    await saveFormTask(task, editingTaskId, onSave);
+}
+
+
+/**
+ * Saves a task and restores the form state after completion.
+ * @param {Object} task - Task data to save.
+ * @param {string|null} editingTaskId - ID of the task being edited.
+ * @param {(() => void)|null} onSave - Callback after a successful save.
+ * @returns {Promise<void>}
+ */
+async function saveFormTask(task, editingTaskId, onSave) {
+    try {
+        await saveTask(task, editingTaskId);
+        handleSavedTask(onSave);
+    } catch (error) {
+        console.error(error);
+        showToast("Task could not be saved. Please try again.");
+    } finally {
+        isSaving = false;
+        handleFormValidation();
+    }
 }
 
 
@@ -184,7 +203,7 @@ function handleRequired(event) {
  */
 function handleFormValidation() {
   const requiredFields = getRequiredFields();
-  createTaskBtnRef.disabled = !validateForm(requiredFields);
+  createTaskBtnRef.disabled = isSaving || !validateForm(requiredFields);
 }
 
 
