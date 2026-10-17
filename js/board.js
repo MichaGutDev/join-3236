@@ -6,6 +6,7 @@ import { returnTaskHTML, returnAddTaskForm, returnTaskView, returnNoTaskHTML } f
 import { listenToTasks, updateSubtaskCompletion, listenToContacts, deleteTask } from "./db.js";
 import { filterTasks } from "./search.js";
 import { initDraggableTasks, initDragAndDrop, initMobileTaskMovement } from "./move-tasks.js";
+import { showToast } from "./toast.js";
 
 let tasks = [];
 let contacts = [];
@@ -175,9 +176,19 @@ function openAddTask(status) {
     setFormAssignedTo();
     setFormSubtasks();
 
-    initTaskForm(status, null, closeTaskDialog);
+    initTaskForm(status, null, () => handleBoardTaskSaved("Task added successfully"));
     initCloseTaskButton();
     openTaskDialog();
+}
+
+
+/**
+ * Closes the task dialog and shows a success message.
+ * @param {string} message - Success message to display.
+ */
+function handleBoardTaskSaved(message) {
+    closeTaskDialog();
+    showToast(message);
 }
 
 
@@ -312,7 +323,7 @@ function openEditTask(task) {
     setFormAssignedTo(task.assignedTo);
     setFormSubtasks(task.subtasks);
 
-    initTaskForm(task.status, task.id, closeTaskDialog);
+    initTaskForm(task.status, task.id, () => handleBoardTaskSaved("Task updated successfully"));
     initCancelButton(task);
     initCloseTaskButton();
 }

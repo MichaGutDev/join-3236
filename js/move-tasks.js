@@ -1,4 +1,5 @@
 import { updateTaskStatus } from "./db.js";
+import { showToast } from "./toast.js";
 
 let currentDraggedTaskId = null;
 
@@ -130,6 +131,7 @@ async function moveTaskToStatus(statusButtonRef) {
     const newStatus = statusButtonRef.dataset.status;
     try {
         await updateTaskStatus(taskId, newStatus);
+        showToast("Task moved successfully");
     } catch (error) {
         console.error("Failed to move task:", error);
     } finally {
