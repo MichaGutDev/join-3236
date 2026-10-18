@@ -69,7 +69,12 @@ function signUp(event) {
 
     const values = getSignUpValues();
 
-    clearError('signup-error', ['confirm-password']);
+    clearError('signup-error', ['password', 'confirm-password']);
+
+    if (values.password.length < 6) {
+        showError('signup-error', ['password'], 'Your password must be at least 6 characters long.');
+        return;
+    }
 
     if (values.password !== values.confirmPassword) {
         showError('signup-error', ['confirm-password'], "Your passwords don't match. Please try again.");
