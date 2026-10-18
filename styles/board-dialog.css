@@ -143,6 +143,7 @@ body:has(.task-dialog[open]) {
 .task-dialog .task-actions {
     position: sticky;
     bottom: 0;
+    z-index: 3;
     padding-bottom: 24px;
     background-color: white;
 }
