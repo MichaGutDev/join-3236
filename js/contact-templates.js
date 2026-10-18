@@ -105,15 +105,16 @@ function returnContactDisplayHTML(contact, showName = false) {
  * Returns a selectable contact with its checkbox state.
  * @param {Object} contact - Contact to display.
  * @param {boolean} isSelected - Whether the contact is selected.
+ * @param {boolean} isCurrentUser - Whether the contact belongs to the logged in user.
  * @returns {string} Contact HTML.
  */
-export function returnSelectableContactHTML(contact, isSelected) {
+export function returnSelectableContactHTML(contact, isSelected, isCurrentUser) {
     const escapedName = escapeHTML(contact.name);
     const escapedInitials = escapeHTML(getInitials(contact.name));
     return `
     <label class="assigned-contact" data-contact-id="${contact.id}">
     <span class="contact-avatar" style="background: ${contact.color}">${escapedInitials}</span>
-    <span>${escapedName}</span>
+    <span>${escapedName}${isCurrentUser ? " (You)" : ""}</span>
 
     <input
         type="checkbox"

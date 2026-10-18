@@ -1,3 +1,5 @@
+import { auth } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { listenToContacts } from "./db.js";
 import { filterContacts } from "./search.js";
 import { returnSelectableContactHTML, returnAssignedContactsHTML } from "./contact-templates.js";
@@ -5,6 +7,8 @@ import { returnSelectableContactHTML, returnAssignedContactsHTML } from "./conta
 let contacts = [];
 let selectedContactIds = [];
 let unsubscribeFromContacts = null;
+let currentUserId = null;
+let unsubscribeFromAuth = null;
 let isOutsideClickRegistered = false;
 
 
@@ -43,6 +47,17 @@ function initContacts() {
     if (!document.getElementById("task-form")) return;
     updateAssignedToContacts();
     renderSelectedContacts();
+  });
+}
+
+/**
+ * Remembers the id of the logged in user and redraws the contacts.
+ */
+function initCurrentUser() {
+  if (unsubscribeFromAuth) return;
+  unsubscribeFromAuth = onAuthStateChanged(auth, (user) => {
+    currentUserId = user ? user.uid : null;
+    if (document.getElementById("assigned-to-dropdown")) updateAssignedToContacts();
   });
 }
 
@@ -145,7 +160,7 @@ function renderAssignedToContacts(contactList = contacts) {
   assignedToRef.innerHTML = contactList
     .map(contact => {
       const isSelected = selectedContactIds.includes(contact.id);
-      return returnSelectableContactHTML(contact, isSelected);
+      return returnSelectableContactHTML(contact, isSelected, contact.userId === currentUserId);
     })
     .join("");
 }
@@ -188,6 +203,7 @@ function renderSelectedContacts() {
  */
 export function initAssignedTo() {
   initContacts();
+  initCurrentUser();
   initContactListener();
   initAssignedToListeners();
   initOutsideClickClose();
