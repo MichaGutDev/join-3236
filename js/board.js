@@ -176,7 +176,7 @@ function openAddTask(status) {
     setFormAssignedTo();
     setFormSubtasks();
 
-    initTaskForm(status, null, () => handleBoardTaskSaved("Task added to board", "../assets/icons/board-icon.svg"));
+    initTaskForm(status, null, () => closeTaskDialogWithToast("Task added to board", "../assets/icons/board-icon.svg"));
     initCloseTaskButton();
     openTaskDialog();
 }
@@ -187,7 +187,7 @@ function openAddTask(status) {
  * @param {string} message - Success message to display.
  * @param {string} [iconSrc] - Path of an icon shown after the message.
  */
-function handleBoardTaskSaved(message, iconSrc) {
+function closeTaskDialogWithToast(message, iconSrc) {
     closeTaskDialog();
     showToast(message, null, iconSrc);
 }
@@ -244,7 +244,7 @@ function initDeleteTaskButton(task) {
 
     deleteBtnRef.addEventListener("click", async () => {
         await deleteTask(task.id);
-        closeTaskDialog();
+        closeTaskDialogWithToast("Task deleted", "../assets/icons/trash-icon-white.svg");
     });
 }
 
@@ -324,7 +324,7 @@ function openEditTask(task) {
     setFormAssignedTo(task.assignedTo);
     setFormSubtasks(task.subtasks);
 
-    initTaskForm(task.status, task.id, () => handleBoardTaskSaved("Task updated successfully"));
+    initTaskForm(task.status, task.id, () => closeTaskDialogWithToast("Task updated successfully"));
     initCancelButton(task);
     initCloseTaskButton();
 }

@@ -49,7 +49,7 @@ export function returnSubtaskProgressHTML(subtasks) {
 function returnSubtaskCompletionHTML(subtaskStats) {
     return `
         <div class="subtask-progress-container">
-            <div class="progress-bar">
+            <div class="progress-bar" title="${subtaskStats.completed} of ${subtaskStats.total} subtasks completed">
                 <div class="progress-bar-fill" style="width: ${subtaskStats.percentage}%">
                 </div>
             </div>
