@@ -1,5 +1,5 @@
 import { database } from './firebase-config.js';
-import { push, get, set, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { push, get, set, update, remove, ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { getRandomContactColor } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
 import {
@@ -38,11 +38,11 @@ async function saveContact() {
     clearContactError();
     if (!isContactFormValid(name, email, phone)) return;
 
-    const contact = { name, email, phone, color: contactsData[selectedContactId].color };
+    const contact = { ...contactsData[selectedContactId], name, email, phone };
     const contactRef = ref(database, "contacts/" + selectedContactId);
 
     document.getElementById('save-contact-btn-dialog').disabled = true;
-    await set(contactRef, contact);
+    await update(contactRef, { name, email, phone });
 
     renderContactDetails(contact);
     closeDialog();
