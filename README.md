@@ -4,7 +4,9 @@ Join is a Kanban-style project management tool, built as a group project in the 
 
 ## Preview
 
-![Preview](assets/imgs/preview.png)
+![Join summary view](assets/imgs/preview.png)
+
+![Join board view](assets/imgs/preview-2.png)
 
 ## Features
 
