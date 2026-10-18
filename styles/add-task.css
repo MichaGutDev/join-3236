@@ -258,6 +258,10 @@
 }
 
 @media screen and (max-width: 500px) {
+    .task-dialog:has(.task-form) {
+        max-width: none;
+    }
+
     .form-wrapper {
         padding-left: clamp(16px, 6vw, 24px);
         padding-right: clamp(16px, 6vw, 24px);
