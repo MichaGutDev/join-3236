@@ -80,7 +80,7 @@ export function returnAddTaskForm() {
 
                                     <button type="button" id="assigned-to-arrow" aria-label="Show contacts"
                                         aria-expanded="false" aria-controls="assigned-to-wrapper">
-                                        <img src="/assets/icons/arrow-drop-down.svg" alt="">
+                                        <img src="../assets/icons/arrow-drop-down.svg" alt="">
                                     </button>
                                 </div>
 
