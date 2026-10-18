@@ -1,5 +1,5 @@
 import { auth, database } from './firebase-config.js';
-import { ref, onValue, get } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 import { findContactByUserId } from './auth-check.js';
 

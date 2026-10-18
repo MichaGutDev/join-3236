@@ -1,5 +1,3 @@
-// import { displayTasks } from "./board.js";
-
 /**
  * Filters tasks by title and description based on the current search input value, and returns the array.
  * @param {array} tasks from board

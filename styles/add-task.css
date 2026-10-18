@@ -257,8 +257,6 @@
     }
 }
 
-/* @media (max-width: 768px) {} */
-
 @media screen and (max-width: 500px) {
     .form-wrapper {
         padding-left: clamp(16px, 6vw, 24px);

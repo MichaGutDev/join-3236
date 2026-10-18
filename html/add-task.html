@@ -95,7 +95,6 @@
             <form id="task-form" class="task-form" novalidate>
                 <div class="task-form-columns">
                     <div class="task-form-column">
-                        <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
                             <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title"
@@ -103,14 +102,12 @@
                             <span id="title-error" class="form-error d-none">This field is required</span>
                         </div>
 
-                        <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" class="task-input task-textarea"
                                 placeholder="Enter a description"></textarea>
                         </div>
 
-                        <!-- Due Date -->
                         <div class="form-group">
                             <label for="dueDate">Due Date<span class="error-message">*</span></label>
                             <input type="date" id="dueDate" name="dueDate" class="task-input task-date-input" required>
@@ -121,7 +118,6 @@
                     <div class="task-form-divider"></div>
 
                     <div class="task-form-column">
-                        <!-- Priority -->
                         <div class="form-group">
                             <fieldset class="priority">
                                 <legend>Priority</legend>
@@ -143,7 +139,6 @@
                             </fieldset>
                         </div>
 
-                        <!-- Assigned To -->
                         <div class="form-group">
                             <label for="assigned-to-trigger">Assigned to</label>
 
@@ -170,17 +165,14 @@
                                 </p>
 
                                 <div id="assigned-to-dropdown" class="assigned-to-dropdown">
-                                    <!-- Contacts kommen hier rein -->
                                 </div>
                             </div>
                         </div>
                         </div>
 
                         <div id="selected-contacts">
-                            <!-- Selected Contacts kommen hier rein -->
                         </div>
 
-                        <!-- Category -->
                         <div class="form-group">
                             <label for="category-trigger">Category<span class="error-message">*</span></label>
                             <div class="category-select">
@@ -200,7 +192,6 @@
                             <span id="category-error" class="form-error d-none">This field is required</span>
                         </div>
 
-                        <!-- Subtasks -->
                         <div class="form-group">
                             <label for="new-subtask">Subtasks</label>
 
@@ -221,7 +212,6 @@
                             </div>
 
                             <ul id="subtask-list" class="subtask-list">
-                                <!-- Subtasks hier rendern -->
                             </ul>
                         </div>
                     </div>
