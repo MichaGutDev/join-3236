@@ -44,7 +44,9 @@ join/
 │   ├── assigned-to.js          # Assigned contacts dropdown of the task form
 │   ├── category-select.js      # Category dropdown of the task form
 │   ├── subtasks.js             # Subtask logic of the task form
-│   ├── templates.js            # HTML templates for tasks, forms and subtasks
+│   ├── subtask-templates.js    # HTML templates for subtasks
+│   ├── templates.js            # HTML templates for tasks and the task form
+│   ├── html-utils.js           # Escapes special characters in HTML
 │   ├── search.js               # Search for tasks and contacts
 │   ├── summary.js              # Summary figures and greeting
 │   ├── contact.js              # Contact list and details
@@ -89,7 +91,7 @@ cd join
 - `js/auth.js` handles login, guest login and sign up. A new user also gets an entry in the contact list.
 - `js/db.js` reads, saves and deletes tasks and contacts for the board and the task form. The contact list, the summary, the sign up and the login check use the Realtime Database directly in their own files. The board, the summary and the contact list listen to the data and update themselves when it changes.
 - `js/board.js` renders the four columns and opens the task dialogs (view, add, edit), `js/move-tasks.js` moves tasks by drag and drop. The task dialog uses the form from `js/task-form.js`, which also runs on the add task page. The subtasks, the assigned contacts and the category are handled in their own modules (`js/subtasks.js`, `js/assigned-to.js`, `js/category-select.js`).
-- HTML for tasks, forms and contacts is created in the template files (`templates.js`, `contact-templates.js`), so the logic files stay mostly free of markup.
+- HTML for tasks, forms, subtasks and contacts is created in the template files (`templates.js`, `subtask-templates.js`, `contact-templates.js`), so the logic files stay mostly free of markup.
 - The main colours are defined as variables in `styles/variables.css`. Each area has its own CSS file, loaded on the pages that need it.
 
 ## License
