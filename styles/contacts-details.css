@@ -265,6 +265,12 @@
 
     .section-main-content.detail-open .container-contact-details {
         display: flex;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .contact-details-container {
+        height: auto;
     }
 
     .contact-details-header {
