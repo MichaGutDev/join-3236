@@ -9,6 +9,7 @@
   transform: translateX(-50%);
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   min-width: 326px;
   min-height: 74px;
   padding: 25px 30px;
@@ -23,6 +24,12 @@
 /* End Toast */
 
 /* Responsive */
+
+@media screen and (max-width: 1024px) {
+  .toast {
+    bottom: 96px;
+  }
+}
 
 @media screen and (max-width: 768px) {
   .toast {
