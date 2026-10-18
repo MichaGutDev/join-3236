@@ -42,6 +42,10 @@
     animation: slide-in-right 100ms ease-out;
 }
 
+body:has(.task-dialog[open]) {
+    overflow: hidden;
+}
+
 @keyframes slide-in-right {
     from {
         transform: translateX(100vw);
