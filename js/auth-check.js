@@ -19,7 +19,7 @@ function checkAuth() {
 
 
 /**
- * Shows "G" for a guest, or the logged in user's initials, in the header.
+ * Shows "G" for a guest or a user without a contact, or the logged in user's initials, in the header.
  *
  * @param {object} user - The Firebase Auth user object.
  */
@@ -27,15 +27,8 @@ async function updateUserInitials(user) {
     const initialsRef = document.getElementById('user-initials');
     if (!initialsRef) return;
 
-    if (user.isAnonymous) {
-        initialsRef.textContent = 'G';
-        return;
-    }
-
-    const contact = await findContactByUserId(user.uid);
-    if (contact) {
-        initialsRef.textContent = getInitials(contact.name);
-    }
+    const contact = user.isAnonymous ? null : await findContactByUserId(user.uid);
+    initialsRef.textContent = contact ? getInitials(contact.name) : 'G';
 }
 
 

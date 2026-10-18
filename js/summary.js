@@ -78,25 +78,34 @@ onValue(tasksRef, (snapshot) => {
 
 
 /**
- * Shows the guest greeting (no name) or fills in the logged in user's contact name.
+ * Shows the guest greeting (no name) for a guest or a user without a contact, or fills in the contact name.
  *
  * @param {object} user - The Firebase Auth user object.
  * @returns {Promise<void>}
  */
 async function displayUserGreeting(user) {
     const nameRefs = [document.getElementById("greeting-name"), document.getElementById("greeting-overlay-name")];
+    const contact = user.isAnonymous ? null : await findContactByUserId(user.uid);
 
-    if (user.isAnonymous) {
-        document.getElementById("greeting-welcome").textContent = getGreeting("!");
-        document.getElementById("greeting-overlay-welcome").textContent = getGreeting("!");
-        nameRefs.forEach(ref => ref.style.display = "none");
+    if (!contact) {
+        showGuestGreeting(nameRefs);
         return;
     }
 
-    const contact = await findContactByUserId(user.uid);
-    if (contact) {
-        nameRefs.forEach(ref => ref.textContent = contact.name);
-    }
+    nameRefs.forEach(ref => ref.textContent = contact.name);
+}
+
+
+/**
+ * Shows the greeting without a name.
+ *
+ * @param {HTMLElement[]} nameRefs - The elements that normally show the name.
+ * @returns {void}
+ */
+function showGuestGreeting(nameRefs) {
+    document.getElementById("greeting-welcome").textContent = getGreeting("!");
+    document.getElementById("greeting-overlay-welcome").textContent = getGreeting("!");
+    nameRefs.forEach(ref => ref.style.display = "none");
 }
 
 
