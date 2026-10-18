@@ -91,6 +91,20 @@
     color: var(--color-input-placeholder);
 }
 
+.task-date-input {
+    display: block;
+    min-width: 0;
+    max-width: 100%;
+    min-height: 48px;
+    text-align: left;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.task-date-input::-webkit-date-and-time-value {
+    text-align: left;
+}
+
 .task-date-input::-webkit-calendar-picker-indicator {
     background-image: url("../assets/icons/event.svg");
     cursor: pointer;
