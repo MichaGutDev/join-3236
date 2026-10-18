@@ -60,6 +60,7 @@ async function deleteContact() {
     await remove(contactRef);
 
     document.getElementById('contact-details').hidden = true;
+    closeContactDetails();
 
     await removeContactFromTasks(selectedContactId);
 
