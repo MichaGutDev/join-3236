@@ -53,7 +53,7 @@ export function cancelDialog() {
 /**
  * Stops a click event from bubbling up to the dialog backdrop.
  *
- * @param {MouseEvent} event
+ * @param {MouseEvent} event - The click event.
  */
 export function stopBubbleling(event) {
     event.stopPropagation();

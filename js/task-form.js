@@ -12,6 +12,7 @@ let isSaving = false;
 
 /**
  * Initializes the task form, its listeners, validation, and subtasks.
+ *
  * @param {string} [taskStatus="To Do"] - Initial task status.
  * @param {string|null} [editingTaskId=null] - ID of the task being edited.
  * @param {Function|null} [onSave=null] - Callback after a successful save.
@@ -30,6 +31,7 @@ export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave 
 
 /**
  * Registers the task form's event listeners.
+ *
  * @param {string} taskStatus - Initial task status.
  * @param {string|null} editingTaskId - ID of the task being edited.
  * @param {(() => void)|null} onSave - Callback after a successful save.
@@ -67,6 +69,7 @@ function setMinimumDueDate() {
 
 /**
  * Validates the form and initiates the task saving process.
+ *
  * @param {string} status - Task status.
  * @param {string|null} editingTaskId - ID of the task being edited.
  * @param {(() => void)|null} onSave - Callback after a successful save.
@@ -87,6 +90,7 @@ async function getValues(status, editingTaskId, onSave) {
 
 /**
  * Saves a task and restores the form state after completion.
+ *
  * @param {Object} task - Task data to save.
  * @param {string|null} editingTaskId - ID of the task being edited.
  * @param {(() => void)|null} onSave - Callback after a successful save.
@@ -108,6 +112,7 @@ async function saveFormTask(task, editingTaskId, onSave) {
 
 /**
  * Resets the form after saving and calls the callback.
+ *
  * @param {(() => void)|null} onSave - Callback after a successful save.
  */
 function handleSavedTask(onSave) {
@@ -120,6 +125,7 @@ function handleSavedTask(onSave) {
 
 /**
  * Creates a task object from form data and the current selections.
+ *
  * @param {FormData} formData - Task form data.
  * @param {string} status - Task status.
  * @returns {{title: string, description: string, dueDate: string, priority: string, category: string, assignedTo: string[], status: string, subtasks: {description: string, completion: boolean}[]}}
@@ -162,6 +168,7 @@ function resetRequiredFields() {
 
 /**
  * Retrieves the current values of all required form fields.
+ *
  * @returns {{title: string, dueDate: string, category: string}}
  */
 function getRequiredFields() {
@@ -176,6 +183,7 @@ function getRequiredFields() {
 
 /**
  * Checks whether all required fields have values.
+ *
  * @param {{title: string, dueDate: string, category: string}} requiredFields - Fields to validate.
  * @returns {boolean} Whether all required fields are filled.
  */
@@ -186,6 +194,7 @@ function validateForm(requiredFields) {
 
 /**
  * Updates the validation state of a required field on blur.
+ *
  * @param {FocusEvent} event - The blur event.
  */
 function handleRequired(event) {
@@ -209,6 +218,7 @@ function handleFormValidation() {
 
 /**
  * Returns the current local date in YYYY-MM-DD format.
+ *
  * @returns {string} The formatted date.
  */
 function getCurrentDate() {

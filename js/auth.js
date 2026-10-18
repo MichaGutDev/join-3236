@@ -7,7 +7,7 @@ import { showToast } from './toast.js';
 
 /**
  * Handles the login form submission.
- * 
+ *
  * @param {SubmitEvent} event - The form submit event.
  * @returns {void}
  */
@@ -30,7 +30,7 @@ function login(event) {
 
 /**
  * Signs in the user with Firebase using email and password.
- * 
+ *
  * @param {string} email - The user's email address.
  * @param {string} password - The user's password.
  */
@@ -60,7 +60,7 @@ function redirectToLogin() {
 
 /**
  * Handles the signup form submission.
- * 
+ *
  * @param {SubmitEvent} event - The form submit event.
  * @returns {void}
  */
@@ -102,7 +102,7 @@ function getSignUpValues() {
 
 /**
  * Creates a new user account with Firebase using email and password, and writes a corresponding contact entry to the database.
- * 
+ *
  * @param {string} name - The user's name.
  * @param {string} email - The user's email address.
  * @param {string} password - The user's password.
@@ -126,6 +126,7 @@ function handleFirebaseSignUp(name, email, password) {
 
 /**
  * Shows an error message and highlights the given fields.
+ *
  * @param {string} errorId - The id of the error message element.
  * @param {string[]} fieldIds - The ids of the input fields to highlight.
  * @param {string} message - The error message to display.
@@ -140,6 +141,7 @@ function showError(errorId, fieldIds, message) {
 
 /**
  * Clears the error message and removes highlighting from the given fields.
+ *
  * @param {string} errorId - The id of the error message element.
  * @param {string[]} fieldIds - The ids of the input fields to clear.
  */
@@ -172,6 +174,7 @@ function guestLogin() {
 
 /**
  * Updates the password icon based on whether the field has content.
+ *
  * @param {string} inputId - The id of the password input field.
  * @param {string} iconId - The id of the icon to update.
  */
@@ -184,6 +187,7 @@ function updatePasswordIcon(inputId, iconId) {
 
 /**
  * Toggles the visibility of a password field between hidden and visible.
+ *
  * @param {string} inputId - The id of the password input field.
  * @param {string} iconId - The id of the icon to update.
  */

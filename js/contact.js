@@ -126,7 +126,7 @@ function markContactAsActive(contactItem) {
 /**
  * Shows the details of the contact that was clicked or activated via keyboard, and highlights it in the list.
  *
- * @param {MouseEvent|KeyboardEvent} event
+ * @param {MouseEvent|KeyboardEvent} event - The click or key event.
  */
 function handleContactClick(event) {
     const contactItem = event.target.closest('.contact-list-item');
@@ -172,7 +172,7 @@ function renderContactDetails(contact) {
 /**
  * Activates a contact via keyboard (Enter or Space), same as a click.
  *
- * @param {KeyboardEvent} event
+ * @param {KeyboardEvent} event - The key event.
  */
 function handleContactKeydown(event) {
     if (event.key !== 'Enter' && event.key !== ' ') return;
@@ -247,7 +247,7 @@ if (contactMenuBtn) {
 /**
  * Closes the contact menu when a click occurs outside of it.
  *
- * @param {MouseEvent} event
+ * @param {MouseEvent} event - The click event.
  */
 function closeContactMenuOutside(event) {
     const wrapper = document.querySelector('.contact-menu-wrapper');

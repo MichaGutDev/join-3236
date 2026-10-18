@@ -34,6 +34,7 @@ export function renderSubtasks() {
 
 /**
  * Replaces the current subtasks with copies of the provided subtasks.
+ *
  * @param {{description: string, completion: boolean}[]} [taskSubtasks=[]] - Subtasks to load.
  */
 export function setFormSubtasks(taskSubtasks = []) {
@@ -56,6 +57,7 @@ export function resetSubtasks() {
 
 /**
  * Returns a shallow copy of the current subtasks.
+ *
  * @returns {{description: string, completion: boolean}[]}
  */
 export function getSubtasks() {
@@ -84,6 +86,7 @@ function addSubtask() {
 
 /**
  * Toggles input action buttons based on the entered text.
+ *
  * @param {Event} event - The input event.
  */
 function toggleSubtaskInputActions(event) {
@@ -114,6 +117,7 @@ function clearSubtasks() {
 
 /**
  * Confirms a subtask edit when Enter is pressed.
+ *
  * @param {KeyboardEvent} event - The keyboard event.
  */
 function handleSubtaskEditKeydown(event) {
@@ -131,6 +135,7 @@ function handleSubtaskEditKeydown(event) {
 
 /**
  * Removes a subtask by its index and updates the display.
+ *
  * @param {number} index - Index of the subtask to remove.
  */
 function deleteSubtask(index) {
@@ -141,6 +146,7 @@ function deleteSubtask(index) {
 
 /**
  * Adds a subtask when Enter is pressed.
+ *
  * @param {KeyboardEvent} event - The keyboard event.
  */
 function handleSubtaskKeydown(event) {
@@ -153,6 +159,7 @@ function handleSubtaskKeydown(event) {
 
 /**
  * Opens the subtask editor on double-click.
+ *
  * @param {MouseEvent} event - The double-click event.
  */
 function doubleClickEdit(event) {
@@ -168,6 +175,7 @@ function doubleClickEdit(event) {
 
 /**
  * Handles edit, delete, and confirm actions on subtask items.
+ *
  * @param {MouseEvent} event - The click event.
  */
 function handleSubtaskClick(event) {
@@ -187,6 +195,7 @@ function handleSubtaskClick(event) {
 
 /**
  * Saves a subtask's edited description and updates the display.
+ *
  * @param {number} index - Index of the subtask to update.
  * @param {HTMLElement} subtaskElementRef - The subtask element being edited.
  */
@@ -201,6 +210,7 @@ function confirmSubtaskEdit(index, subtaskElementRef) {
 
 /**
  * Replaces a subtask's display with its editable template.
+ *
  * @param {number} index - Index of the subtask to edit.
  */
 function editSubtask(index) {

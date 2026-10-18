@@ -97,6 +97,7 @@ function initAddTaskButtons() {
 
 /**
  * Filters tasks by the search input and updates the board.
+ *
  * @param {Event} event - The input event.
  */
 function search(event) {
@@ -112,6 +113,7 @@ function search(event) {
 
 /**
  * Renders tasks in their respective board columns.
+ *
  * @param {Object[]} [taskList=tasks] - Tasks to render.
  */
 export function displayTasks(taskList = tasks) {
@@ -124,6 +126,7 @@ export function displayTasks(taskList = tasks) {
 
 /**
  * Groups tasks by their valid board status.
+ *
  * @param {Object[]} taskList - Tasks to group.
  * @returns {Object.<string, Object[]>} Tasks grouped by status.
  */
@@ -141,6 +144,7 @@ function groupTasksByStatus(taskList) {
 
 /**
  * Renders grouped tasks into their respective board columns.
+ *
  * @param {Object.<string, Object[]>} groupedTasks - Tasks grouped by status.
  */
 function renderGroupedTasks(groupedTasks) {
@@ -168,6 +172,7 @@ function renderEmptyColumnMessages() {
 
 /**
  * Opens and initializes the task creation form.
+ *
  * @param {string} status - Initial status for the new task.
  */
 function openAddTask(status) {
@@ -184,6 +189,7 @@ function openAddTask(status) {
 
 /**
  * Closes the task dialog and shows a success message.
+ *
  * @param {string} message - Success message to display.
  * @param {string} [iconSrc] - Path of an icon shown after the message.
  */
@@ -237,6 +243,7 @@ function initCloseTaskButton() {
 
 /**
  * Registers the delete button listener for a task.
+ *
  * @param {Object} task - Task to delete.
  */
 function initDeleteTaskButton(task) {
@@ -251,6 +258,7 @@ function initDeleteTaskButton(task) {
 
 /**
  * Closes the task dialog when its backdrop is clicked.
+ *
  * @param {MouseEvent} event - The click event.
  */
 function backdropClose(event) {
@@ -262,6 +270,7 @@ function backdropClose(event) {
 
 /**
  * Opens the details dialog for the clicked task.
+ *
  * @param {MouseEvent} event - The click event.
  */
 function openTask(event) {
@@ -283,6 +292,7 @@ function openTask(event) {
 
 /**
  * Updates a subtask's completion state in Firebase.
+ *
  * @param {Event} event - The checkbox change event.
  */
 function handleSubtaskCompletion(event) {
@@ -302,6 +312,7 @@ function handleSubtaskCompletion(event) {
 
 /**
  * Registers the edit button listener for a task.
+ *
  * @param {Object} task - Task to edit.
  */
 function initEditTaskButton(task) {
@@ -314,6 +325,7 @@ function initEditTaskButton(task) {
 
 /**
  * Initializes the task form with an existing task's data.
+ *
  * @param {Object} task - Task to edit.
  */
 function openEditTask(task) {
@@ -332,6 +344,7 @@ function openEditTask(task) {
 
 /**
  * Populates the task form with basic task details.
+ *
  * @param {Object} task - Task containing the form values.
  */
 function fillBasicTaskForm(task) {
@@ -345,6 +358,7 @@ function fillBasicTaskForm(task) {
 
 /**
  * Configures the cancel button for task editing.
+ *
  * @param {Object} task - Original task to restore on cancellation.
  */
 function initCancelButton(task) {
@@ -363,6 +377,7 @@ function initCancelButton(task) {
 
 /**
  * Discards unsaved edits and restores the task details view.
+ *
  * @param {Object} task - Original task to display.
  */
 function cancelEdit(task) {
@@ -373,6 +388,7 @@ function cancelEdit(task) {
 
 /**
  * Registers the close, edit, and delete button listeners.
+ *
  * @param {Object} task - Task associated with the dialog.
  */
 function initTaskDialogButtons(task) {
@@ -380,6 +396,5 @@ function initTaskDialogButtons(task) {
     initEditTaskButton(task);
     initDeleteTaskButton(task);
 }
-
 
 init();

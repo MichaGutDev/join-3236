@@ -63,6 +63,7 @@ export function generateContactListHTML(entries) {
 
 /**
  * Returns the HTML for assigned contact avatars and optional names.
+ *
  * @param {string[]} assignedToList - IDs of assigned contacts.
  * @param {Object[]} contacts - Available contacts.
  * @param {boolean} [showName=false] - Whether to display contact names.
@@ -85,6 +86,7 @@ export function returnAssignedContactsHTML(assignedToList, contacts, showName = 
 
 /**
  * Returns a contact avatar with an optional name.
+ *
  * @param {Object} contact - Contact to display.
  * @param {boolean} [showName=false] - Whether to display the name.
  * @returns {string} Contact HTML.
@@ -103,6 +105,7 @@ function returnContactDisplayHTML(contact, showName = false) {
 
 /**
  * Returns a selectable contact with its checkbox state.
+ *
  * @param {Object} contact - Contact to display.
  * @param {boolean} isSelected - Whether the contact is selected.
  * @param {boolean} isCurrentUser - Whether the contact belongs to the logged in user.
@@ -129,6 +132,7 @@ export function returnSelectableContactHTML(contact, isSelected, isCurrentUser) 
 
 /**
  * Returns the escaped HTML for a contact's name.
+ *
  * @param {string} name - Contact name.
  * @returns {string} Contact name HTML.
  */

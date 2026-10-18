@@ -14,7 +14,7 @@ export function initCategorySelect() {
 
 /**
  * Checks whether the category options are visible.
- * 
+ *
  * @returns {boolean} True if the options are open.
  */
 function isCategoryOpen() {
@@ -47,7 +47,7 @@ function closeCategoryOptions() {
 
 /**
  * Takes the clicked option as category and informs the form.
- * 
+ *
  * @param {MouseEvent} event - The click event.
  */
 function selectCategory(event) {
@@ -62,7 +62,7 @@ function selectCategory(event) {
 
 /**
  * Closes the open category options when Escape is pressed.
- * 
+ *
  * @param {KeyboardEvent} event - The keyboard event.
  */
 function closeCategoryOnEscape(event) {
@@ -76,7 +76,7 @@ function closeCategoryOnEscape(event) {
 
 /**
  * Closes the open category options when a click happens outside of them.
- * 
+ *
  * @param {MouseEvent} event - The click event.
  */
 function closeCategoryOnOutsideClick(event) {
@@ -89,7 +89,7 @@ function closeCategoryOnOutsideClick(event) {
 
 /**
  * Sets the category value and the text shown in the dropdown.
- * 
+ *
  * @param {string} [value=""] - The category, or an empty string for the placeholder.
  */
 export function setFormCategory(value = "") {

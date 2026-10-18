@@ -22,7 +22,7 @@
   cursor: pointer;
   font-size: 1.3125rem;
   font-weight: 700;
-  transition: 100ms; /* Checklist: 75-125ms for clickable elements */
+  transition: 100ms;
   text-decoration: none;
   color: inherit;
 }

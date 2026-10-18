@@ -14,6 +14,7 @@ let isOutsideClickRegistered = false;
 
 /**
  * Toggles a contact's selection and updates the selected contacts display.
+ *
  * @param {string} contactId - ID of the contact to toggle.
  */
 function toggleAssignedContact(contactId) {
@@ -28,6 +29,7 @@ function toggleAssignedContact(contactId) {
 
 /**
  * Sets the assigned contacts and updates their display.
+ *
  * @param {string[]} [assignedTo=[]] - IDs of assigned contacts.
  */
 export function setFormAssignedTo(assignedTo = []) {
@@ -49,6 +51,7 @@ function initContacts() {
     renderSelectedContacts();
   });
 }
+
 
 /**
  * Remembers the id of the logged in user and redraws the contacts.
@@ -79,6 +82,7 @@ function initAssignedToListeners() {
 
 /**
  * Closes the assigned contacts dropdown when Escape is pressed.
+ *
  * @param {KeyboardEvent} event - The keyboard event.
  */
 function handleAssignedToKeydown(event) {
@@ -123,6 +127,7 @@ function toggleAssignedToDropdown() {
 
 /**
  * Manages input focus and resets the search when closing the dropdown.
+ *
  * @param {HTMLInputElement} searchInputRef - Contact search input.
  * @param {HTMLElement} arrowRef - Dropdown arrow button.
  * @param {boolean} isOpen - Whether the dropdown is open.
@@ -140,6 +145,7 @@ function handleAssignedToFocus(searchInputRef, arrowRef, isOpen) {
 
 /**
  * Updates accessibility attributes based on the dropdown state.
+ *
  * @param {HTMLElement} triggerRef - Dropdown trigger button.
  * @param {HTMLElement} arrowRef - Dropdown arrow button.
  * @param {boolean} isOpen - Whether the dropdown is open.
@@ -153,6 +159,7 @@ function updateAssignedToAria(triggerRef, arrowRef, isOpen) {
 
 /**
  * Renders contacts in the dropdown with their selection states.
+ *
  * @param {Object[]} [contactList=contacts] - Contacts to display.
  */
 function renderAssignedToContacts(contactList = contacts) {
@@ -168,6 +175,7 @@ function renderAssignedToContacts(contactList = contacts) {
 
 /**
  * Handles checkbox changes to toggle contact selection.
+ *
  * @param {Event} event - The change event.
  */
 function handleContactSelection(event) {
@@ -213,6 +221,7 @@ export function initAssignedTo() {
 
 /**
  * Returns a copy of the selected contact IDs.
+ *
  * @returns {string[]} IDs of the selected contacts.
  */
 export function getSelectedContactIds() {
@@ -242,6 +251,7 @@ function initOutsideClickClose() {
 
 /**
  * Closes the open contacts dropdown when a click happens outside of it.
+ *
  * @param {MouseEvent} event - The click event.
  */
 function closeOnOutsideClick(event) {
@@ -256,6 +266,7 @@ function closeOnOutsideClick(event) {
 
 /**
  * Moves the focus to the next or previous contact with the arrow keys.
+ *
  * @param {KeyboardEvent} event - The keyboard event.
  */
 function moveAssignedToFocus(event) {

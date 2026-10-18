@@ -9,10 +9,10 @@ const tasksRef = ref(database, "tasks");
 
 /**
  * This helper function counts and writes the corresponding value to the DOM
- * 
- * @param {object} tasksData
- * @param {string} status
- * @param {string} elementId
+ *
+ * @param {object} tasksData - All tasks from the database.
+ * @param {string} status - The task status to count.
+ * @param {string} elementId - The id of the element that shows the count.
  * @returns {void}
  */
 function updateCount(tasksData, status, elementId) {
@@ -25,7 +25,7 @@ function updateCount(tasksData, status, elementId) {
 /**
  * Filters, sorts and writes the nearest urgent deadline to the DOM
  *
- * @param {object} tasksData
+ * @param {object} tasksData - All tasks from the database.
  * @returns {void}
  */
 function updateUrgentDeadline(tasksData) {

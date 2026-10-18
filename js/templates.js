@@ -8,6 +8,7 @@ const taskStatuses = ["To Do", "In Progress", "Awaiting Feedback", "Done"];
 
 /**
  * Returns the HTML template for the task creation form.
+ *
  * @returns {string} Task form HTML.
  */
 export function returnAddTaskForm() {
@@ -165,6 +166,7 @@ export function returnAddTaskForm() {
 
 /**
  * Returns the HTML for a task card on the board.
+ *
  * @param {Object} task - Task to display.
  * @param {Object[]} contacts - Available contacts.
  * @returns {string} Task card HTML.
@@ -204,6 +206,7 @@ export function returnTaskHTML(task, contacts) {
 
 /**
  * Returns the detailed HTML view of a task.
+ *
  * @param {Object} task - Task to display.
  * @param {Object[]} contacts - Available contacts.
  * @returns {string} Task detail HTML.
@@ -258,6 +261,7 @@ export function returnTaskView(task, contacts) {
 
 /**
  * Returns the placeholder HTML for an empty task column.
+ *
  * @param {string} columnTitle - Title of the column.
  * @returns {string} Placeholder HTML.
  */
@@ -268,6 +272,7 @@ export function returnNoTaskHTML(columnTitle) {
 
 /**
  * Returns move menu options excluding the current task status.
+ *
  * @param {string} currentStatus - Current status of the task.
  * @returns {string} HTML for the available status options.
  */

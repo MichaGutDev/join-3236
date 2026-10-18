@@ -2,6 +2,7 @@ import { escapeHTML } from "./html-utils.js";
 
 /**
  * Returns the HTML for a subtask with edit and delete actions.
+ *
  * @param {{description: string, completion: boolean}} subtask - Subtask to display.
  * @param {number} index - Index of the subtask.
  * @returns {string} Subtask HTML.
@@ -29,6 +30,7 @@ export function returnSubtaskHTML(subtask, index) {
 
 /**
  * Returns the subtask progress HTML if subtasks exist.
+ *
  * @param {{description: string, completion: boolean}[]} subtasks - Task subtasks.
  * @returns {string} Progress HTML or an empty string.
  */
@@ -43,6 +45,7 @@ export function returnSubtaskProgressHTML(subtasks) {
 
 /**
  * Returns the HTML for the subtask progress indicator.
+ *
  * @param {{completed: number, total: number, percentage: number}} subtaskStats - Subtask statistics.
  * @returns {string} Progress indicator HTML.
  */
@@ -61,6 +64,7 @@ function returnSubtaskCompletionHTML(subtaskStats) {
 
 /**
  * Calculates the completion statistics of subtasks.
+ *
  * @param {{completion: boolean}[]} subtasks - Subtasks to evaluate.
  * @returns {{completed: number, total: number, percentage: number}}
  */
@@ -78,6 +82,7 @@ function getSubtaskStats(subtasks) {
 
 /**
  * Returns the HTML for a task's subtask checklist.
+ *
  * @param {{description: string, completion: boolean}[]} subtasks - Task subtasks.
  * @returns {string} Subtask checklist HTML.
  */
@@ -115,6 +120,7 @@ export function returnSubtasksHTML(subtasks) {
 
 /**
  * Returns the editable HTML template for a subtask.
+ *
  * @param {{description: string, completion: boolean}} subtask - Subtask to edit.
  * @param {number} index - Index of the subtask.
  * @returns {string} Subtask edit HTML.
