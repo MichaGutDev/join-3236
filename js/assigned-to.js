@@ -43,7 +43,7 @@ export function setFormAssignedTo(assignedTo = []) {
 function initContacts() {
   if (unsubscribeFromContacts) return;
   unsubscribeFromContacts = listenToContacts((updatedContacts) => {
-    contacts = updatedContacts;
+    contacts = updatedContacts.sort((a, b) => a.name.localeCompare(b.name));
     if (!document.getElementById("task-form")) return;
     updateAssignedToContacts();
     renderSelectedContacts();
