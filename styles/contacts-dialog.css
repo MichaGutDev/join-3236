@@ -376,8 +376,12 @@
 }
 
 @media screen and (max-width: 1024px) and (max-height: 700px) {
+    .dialog {
+        height: calc(100dvh - 32px);
+    }
+
     .dialog-topic {
-        height: 35%;
+        height: 42%;
     }
 
     .dialog-button-container {
