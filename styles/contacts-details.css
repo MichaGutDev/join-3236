@@ -32,7 +32,6 @@
 }
 
 .contact-details-title {
-    height: 100%;
     flex-shrink: 0;
     font-size: clamp(36px, 4vw, 61px);
     font-weight: 700;
