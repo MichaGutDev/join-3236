@@ -58,7 +58,6 @@ function getGreeting(suffix = ",") {
 }
 
 
-// Listens for changes under "tasks" and updates all task-related dashboard counts
 onValue(tasksRef, (snapshot) => {
     const tasksData = snapshot.val();
 

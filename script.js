@@ -1,4 +1,3 @@
-// Allgemeine, seitenübergreifende Logik (User-Menü, Logout)
 import { auth } from './js/firebase-config.js';
 import { signOut } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 
@@ -15,7 +14,7 @@ function showMenu() {
 /**
  * Closes the user menu when a click occurs outside of it.
  *
- * @param {MouseEvent} event
+ * @param {MouseEvent} event - The click event.
  * @returns {void}
  */
 function closeMenuOutside(event) {
