@@ -318,7 +318,7 @@ function handleSubtaskCompletion(event) {
 function initEditTaskButton(task) {
     const editTaskBtnRef = document.querySelector(".edit-task-btn");
     editTaskBtnRef.addEventListener("click", () => {
-        openEditTask(task);
+        openEditTask(tasks.find(item => item.id === task.id) ?? task);
     });
 }
 
