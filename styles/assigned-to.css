@@ -210,4 +210,24 @@
     }
 }
 
+@media screen and (max-width: 500px) {
+    .assigned-to,
+    .category-select,
+    .assigned-to-control button,
+    .category-select-control button,
+    #search-assigned-to,
+    .category-select-option {
+        font-size: 16px;
+    }
+
+    #assigned-to-trigger,
+    #search-assigned-to {
+        padding-left: clamp(10px, 4vw, 21px);
+    }
+
+    .category-select-trigger {
+        padding: 0 clamp(10px, 4vw, 21px);
+    }
+}
+
 /* End Responsive */
