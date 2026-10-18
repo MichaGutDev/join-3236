@@ -87,9 +87,7 @@
 .board-wrapper {
     display: flex;
     gap: 26px;
-    margin-top: 20px;
-    margin-left: 64px;
-    margin-right: 16px;
+    margin: 20px 16px 20px 64px;
     max-width: 1208px;
 }
 
