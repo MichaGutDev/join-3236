@@ -10,9 +10,9 @@
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  min-width: 326px;
+  width: max-content;
   min-height: 74px;
-  padding: 25px 30px;
+  padding: 25px;
   border-radius: 20px;
   background-color: var(--color-primary);
   color: white;
@@ -33,10 +33,7 @@
 
 @media screen and (max-width: 768px) {
   .toast {
-    min-width: 0;
     max-width: calc(100vw - 32px);
-    min-height: 0;
-    padding: 16px 24px;
     text-align: center;
   }
 }
