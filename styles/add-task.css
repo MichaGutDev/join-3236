@@ -124,6 +124,11 @@
     color: black;
 }
 
+.task-date-input:valid,
+.task-date-input:valid::-webkit-date-and-time-value {
+    color: black;
+}
+
 .task-form .contact-avatar {
     width: 42px;
     height: 42px;
