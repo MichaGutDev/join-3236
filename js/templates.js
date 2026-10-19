@@ -243,7 +243,7 @@ export function returnTaskView(task, contacts) {
 
             <section class="task-assigned">
                 <h3>Assigned To:</h3>
-                <ul class="task-assigned-list">
+                <ul class="task-assigned-list task-view-scroll-box">
                     ${returnAssignedContactsHTML(task.assignedTo, contacts, true)}
                 </ul>
             </section>

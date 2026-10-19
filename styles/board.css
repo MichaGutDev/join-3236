@@ -380,3 +380,8 @@ h4 {
 }
 
 /* End Responsive */
+
+.task-view-scroll-box {
+    overflow-y: scroll;
+    height: 185px;
+}

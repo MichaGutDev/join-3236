@@ -95,7 +95,7 @@ export function returnSubtasksHTML(subtasks) {
         <section class="task-subtasks">
             <h3>Subtasks</h3>
 
-            <ul class="task-subtask-list">
+            <ul class="task-subtask-list task-view-scroll-box">
                 ${subtasks.map(({ description, completion }, index) => {
         const escapedDescription = escapeHTML(description);
         return `

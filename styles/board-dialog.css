@@ -185,7 +185,7 @@ body:has(.task-dialog[open]) {
     flex-direction: column;
     gap: 24px;
     width: min(525px, calc(100vw - 60px));
-    padding: 48px 40px 24px;
+    padding: 48px 40px 0px;
 }
 
 .task-detail-header {
