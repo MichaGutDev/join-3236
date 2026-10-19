@@ -1,5 +1,7 @@
 import { escapeHTML } from "./html-utils.js";
 
+const MAX_VISIBLE_CONTACTS = 3;
+
 
 /**
  * Builds the initials from a contact's full name.
@@ -62,7 +64,8 @@ export function generateContactListHTML(entries) {
 
 
 /**
- * Returns the HTML for assigned contact avatars and optional names.
+ * Returns the HTML for assigned contact avatars and optional names. Without names only the
+ * first three avatars are shown, followed by a +N avatar for the contacts that are not shown.
  *
  * @param {string[]} assignedToList - IDs of assigned contacts.
  * @param {Object[]} contacts - Available contacts.
@@ -74,13 +77,26 @@ export function returnAssignedContactsHTML(assignedToList, contacts, showName = 
         return "<div></div>";
     }
 
-    const assignedToHTML = assignedToList.map(contactID =>
+    const visibleList = showName ? assignedToList : assignedToList.slice(0, MAX_VISIBLE_CONTACTS);
+    const hiddenCount = assignedToList.length - visibleList.length;
+    const assignedToHTML = visibleList.map(contactID =>
         returnContactDisplayHTML(
             contacts.find(contact => contact.id === contactID),
             showName
         )
     );
-    return assignedToHTML.join("");
+    return assignedToHTML.join("") + (hiddenCount > 0 ? returnMoreContactsHTML(hiddenCount) : "");
+}
+
+
+/**
+ * Returns the avatar that shows how many assigned contacts are not displayed.
+ *
+ * @param {number} hiddenCount - Number of contacts that are not displayed.
+ * @returns {string} Avatar HTML.
+ */
+function returnMoreContactsHTML(hiddenCount) {
+    return `<div class="contact-avatar contact-avatar-more">+${hiddenCount}</div>`;
 }
 
 
