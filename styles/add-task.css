@@ -51,6 +51,7 @@
 .task-form-divider {
     width: 1px;
     background-color: var(--color-form-box);
+    max-height: 540px;
 }
 
 /* End Layout */
@@ -225,7 +226,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 20px;
 }
 
@@ -260,6 +261,7 @@
 @media screen and (max-width: 1024px) {
     .task-form-columns {
         flex-direction: column;
+        height: auto;
     }
 
     .task-form-divider {
@@ -277,12 +279,13 @@
 
     .form-actions-buttons {
         justify-content: flex-end;
+        width: 100%;
     }
 }
 
 @media screen and (max-width: 500px) {
     .task-dialog:has(.task-form) {
-        max-width: none;
+        max-width: 90%;
     }
 
     .form-wrapper {
@@ -303,11 +306,13 @@
     .priority {
         justify-content: flex-start;
         gap: clamp(8px, 3vw, 16px);
+        flex-direction: column;
+        align-items: center;
     }
 
     .priority label {
         flex: 1;
-        width: auto;
+        width: 70%;
         min-width: 0;
         padding: clamp(8px, 4vw, 16px) clamp(4px, 2vw, 10px);
         gap: 4px;
@@ -329,11 +334,13 @@
     .form-actions .btn-primary {
         width: clamp(140px, 45vw, 183px);
         font-size: 16px;
+        align-self: flex-end;
     }
 
     .form-actions .btn-secondary {
         width: clamp(90px, 28vw, 110px);
         font-size: clamp(14px, 3.5vw, 21px);
+        align-self: flex-end;
     }
 }
 

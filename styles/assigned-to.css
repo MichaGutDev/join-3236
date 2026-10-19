@@ -205,13 +205,6 @@
 
 /* Responsive */
 
-@media screen and (max-width: 1024px) {
-    #assigned-to-wrapper,
-    .category-select-options {
-        position: static;
-        padding-top: 0;
-    }
-}
 
 @media screen and (max-width: 500px) {
     .assigned-to,

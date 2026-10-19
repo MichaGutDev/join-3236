@@ -122,7 +122,7 @@ export function returnAddTaskForm() {
                         </div>
 
                         <!-- Subtasks -->
-                        <div class="form-group">
+                        <div class="form-group subtask-container">
                             <label for="new-subtask">Subtasks</label>
 
                             <div class="subtask-input">

@@ -124,7 +124,7 @@ body:has(.task-dialog[open]) {
 }
 
 .task-dialog .form-wrapper {
-    padding: 64px 64px 40px;
+    padding: 64px 64px 0px;
 }
 
 .task-dialog .form-wrapper h1 {
@@ -354,7 +354,7 @@ body:has(.task-dialog[open]) {
     }
 
     .task-dialog .form-wrapper {
-        padding: 48px clamp(16px, 6vw, 24px) 24px;
+        padding: 48px clamp(16px, 6vw, 24px) 0px;
     }
 
     .task-dialog:has(.task-form-edit) {
@@ -396,5 +396,14 @@ body:has(.task-dialog[open]) {
         border-radius: 16px;
     }
 }
+
+@media screen and (max-width: 440px) {
+
+    .form-actions-buttons {
+        flex-direction: column;
+    }
+}
+
+
 
 /* End Responsive */
