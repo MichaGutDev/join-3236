@@ -265,6 +265,9 @@ body:has(.task-dialog[open]) {
 
 .task-subtask-list {
     padding-inline-start: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .subtask-description {
@@ -281,6 +284,7 @@ body:has(.task-dialog[open]) {
     display: flex;
     align-items: center;
     gap: 12px;
+    min-height: 32px;
 }
 
 .subtask-item-input {
