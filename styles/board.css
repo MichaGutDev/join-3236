@@ -384,6 +384,5 @@ h4 {
 .task-view-scroll-box {
     overflow-y: scroll;
     flex: 1;
-    min-height: 90px;
     max-height: 160px;
 }
