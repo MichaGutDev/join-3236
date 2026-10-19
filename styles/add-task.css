@@ -349,6 +349,12 @@
         font-size: clamp(14px, 3.5vw, 21px);
         align-self: flex-end;
     }
+
+    .task-form-edit .form-actions .btn-primary {
+        width: 89px;
+        height: 57px;
+        padding: 0;
+    }
 }
 
 @media screen and (max-width: 380px) {
