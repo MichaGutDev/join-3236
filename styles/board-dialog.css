@@ -156,6 +156,10 @@ body:has(.task-dialog[open]) {
     padding: 104px 40px 24px;
 }
 
+.required-note {
+    min-width: fit-content;
+}
+
 .task-dialog:has(.task-form-edit) h1,
 .task-form-edit .required-note,
 .task-form-edit .btn-secondary,
@@ -407,4 +411,5 @@ body:has(.task-dialog[open]) {
         border-radius: 16px;
     }
 }
+
 /* End Responsive */
