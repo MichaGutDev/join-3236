@@ -56,12 +56,18 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: absolute;
+    top: 110%;
+    overflow-y: scroll;
+    height: 60px;
+    width: 95%;
 }
 
 .subtask-list .subtask-item {
     position: relative;
     padding-right: 72px;
     overflow-wrap: anywhere;
+    margin-right: 10px;
 }
 
 .subtask-item-actions {

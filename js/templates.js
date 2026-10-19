@@ -68,38 +68,38 @@ export function returnAddTaskForm() {
                         <div class="form-group">
                             <label for="assigned-to-trigger">Assigned to</label>
 
-                        <div class="assigned-to form-group">
-                                <div class="assigned-to-control">
-                                    <button type="button" id="assigned-to-trigger" aria-expanded="false"
-                                        aria-controls="assigned-to-wrapper">
-                                        <span>Select contacts to assign</span>
-                                    </button>
+                            <div class="assigned-to form-group">
+                                    <div class="assigned-to-control">
+                                        <button type="button" id="assigned-to-trigger" aria-expanded="false"
+                                            aria-controls="assigned-to-wrapper">
+                                            <span>Select contacts to assign</span>
+                                        </button>
 
-                                    <input id="search-assigned-to" type="text" placeholder="Find Contacts"
-                                        aria-label="Search contacts to assign" class="d-none">
+                                        <input id="search-assigned-to" type="text" placeholder="Find Contacts"
+                                            aria-label="Search contacts to assign" class="d-none">
 
-                                    <button type="button" id="assigned-to-arrow" aria-label="Show contacts"
-                                        aria-expanded="false" aria-controls="assigned-to-wrapper">
-                                        <img src="../assets/icons/arrow-drop-down.svg" alt="">
-                                    </button>
-                                </div>
+                                        <button type="button" id="assigned-to-arrow" aria-label="Show contacts"
+                                            aria-expanded="false" aria-controls="assigned-to-wrapper">
+                                            <img src="../assets/icons/arrow-drop-down.svg" alt="">
+                                        </button>
+                                    </div>
 
 
-                            <div id="assigned-to-wrapper" class="d-none">
-                                <p id="no-results-message" class="no-results-message" hidden>
-                                    No matching contacts found.
-                                </p>
+                                <div id="assigned-to-wrapper" class="d-none">
+                                    <p id="no-results-message" class="no-results-message" hidden>
+                                        No matching contacts found.
+                                    </p>
 
-                                <div id="assigned-to-dropdown" class="assigned-to-dropdown">
-                                    <!-- Contacts kommen hier rein -->
+                                    <div id="assigned-to-dropdown" class="assigned-to-dropdown">
+                                        <!-- Contacts kommen hier rein -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div id="selected-contacts">
+                            </div>
                         </div>
 
-                        <div id="selected-contacts">
-                            <!-- Selected Contacts kommen hier rein -->
-                        </div>
+
 
                         <!-- Category -->
                         <div class="form-group">

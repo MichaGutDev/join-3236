@@ -142,7 +142,7 @@
                         <div class="form-group">
                             <label for="assigned-to-trigger">Assigned to</label>
 
-                        <div class="assigned-to form-group">
+                            <div class="assigned-to form-group">
                                 <div class="assigned-to-control">
                                     <button type="button" id="assigned-to-trigger" aria-expanded="false"
                                         aria-controls="assigned-to-wrapper">
@@ -159,19 +159,20 @@
                                 </div>
 
 
-                            <div id="assigned-to-wrapper" class="d-none">
-                                <p id="no-results-message" class="no-results-message" hidden>
-                                    No matching contacts found.
-                                </p>
+                                <div id="assigned-to-wrapper" class="d-none">
+                                    <p id="no-results-message" class="no-results-message" hidden>
+                                        No matching contacts found.
+                                    </p>
 
-                                <div id="assigned-to-dropdown" class="assigned-to-dropdown">
+                                    <div id="assigned-to-dropdown" class="assigned-to-dropdown">
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            <div id="selected-contacts">
+                            </div>
                         </div>
 
-                        <div id="selected-contacts">
-                        </div>
+
 
                         <div class="form-group">
                             <label for="category-trigger">Category<span class="error-message">*</span></label>
@@ -179,13 +180,17 @@
                                 <div class="category-select-control">
                                     <button type="button" id="category-trigger" class="category-select-trigger"
                                         aria-expanded="false" aria-controls="category-options">
-                                        <span id="category-selected" class="category-select-text category-select-placeholder">Select task category</span>
+                                        <span id="category-selected"
+                                            class="category-select-text category-select-placeholder">Select task
+                                            category</span>
                                         <img src="../assets/icons/arrow-drop-down.svg" alt="">
                                     </button>
                                 </div>
                                 <div id="category-options" class="category-select-options d-none">
-                                    <button type="button" class="category-select-option" data-value="Technical Task">Technical Task</button>
-                                    <button type="button" class="category-select-option" data-value="User Story">User Story</button>
+                                    <button type="button" class="category-select-option"
+                                        data-value="Technical Task">Technical Task</button>
+                                    <button type="button" class="category-select-option" data-value="User Story">User
+                                        Story</button>
                                 </div>
                             </div>
                             <input type="hidden" id="category" name="category" value="">
@@ -196,7 +201,8 @@
                             <label for="new-subtask">Subtasks</label>
 
                             <div class="subtask-input">
-                                <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask" autocomplete="off">
+                                <input type="text" id="new-subtask" class="task-input" placeholder="Add new subtask"
+                                    autocomplete="off">
 
                                 <div class="subtask-input-actions d-none">
                                     <button type="button" id="clear-subtask-btn"

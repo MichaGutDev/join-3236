@@ -7,6 +7,8 @@
 .form-error {
     color: red;
     margin-left: 10px;
+    position: absolute;
+    top: 103%;
 }
 
 /* End Hidden Elements */
@@ -35,6 +37,7 @@
     display: flex;
     gap: 32px;
     min-width: 0;
+    height: 100%;
 }
 
 .task-form-column {
@@ -57,6 +60,7 @@
 
 .form-group {
     gap: 8px;
+    position: relative;
 }
 
 .form-group label {
@@ -221,8 +225,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 124px;
-    margin-bottom: 79px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .form-actions-buttons {
@@ -263,7 +267,7 @@
     }
 
     .task-form {
-        padding-bottom: 104px;
+        padding-bottom: 30px;
     }
 
     .form-wrapper h1 {
