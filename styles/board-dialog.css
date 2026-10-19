@@ -131,18 +131,13 @@ body:has(.task-dialog[open]) {
     margin-top: 0;
 }
 
-.task-dialog .form-actions {
-    margin-bottom: 0;
-}
-
 .task-dialog .task-form {
     padding-bottom: 0;
 }
 
 .task-dialog .form-actions,
 .task-dialog .task-actions {
-    bottom: 0;
-    z-index: 3;
+    margin-bottom: 0;
     padding-bottom: 24px;
     background-color: white;
 }
@@ -163,10 +158,7 @@ body:has(.task-dialog[open]) {
 .task-dialog:has(.task-form-edit) h1,
 .task-form-edit .required-note,
 .task-form-edit .btn-secondary,
-.task-form-edit .task-form-divider {
-    display: none;
-}
-
+.task-form-edit .task-form-divider,
 .task-form-edit .form-group:has([name="category"]) {
     display: none;
 }
@@ -211,7 +203,9 @@ body:has(.task-dialog[open]) {
     overflow-wrap: anywhere;
 }
 
-.task-description {
+.task-description,
+.task-information dd,
+.task-subtask-list .subtask-description {
     font-size: 20px;
     line-height: 120%;
     color: black;
@@ -233,12 +227,6 @@ body:has(.task-dialog[open]) {
     font-size: 20px;
     line-height: 120%;
     color: var(--color-board-taskgroup);
-}
-
-.task-information dd {
-    font-size: 20px;
-    line-height: 120%;
-    color: black;
 }
 
 .task-priority {
@@ -276,12 +264,6 @@ body:has(.task-dialog[open]) {
 
 .subtask-description {
     font-size: 16px;
-}
-
-.task-subtask-list .subtask-description {
-    font-size: 20px;
-    line-height: 120%;
-    color: black;
 }
 
 .task-subtask-list .subtask-item {
@@ -364,16 +346,13 @@ body:has(.task-dialog[open]) {
 /* Responsive */
 
 @media screen and (max-width: 768px) {
-    .task-dialog {
+    .task-dialog,
+    .task-dialog:has(.task-form-edit) {
         --dialog-padding: clamp(16px, 6vw, 24px);
     }
 
     .task-dialog .form-wrapper {
         padding: 48px clamp(16px, 6vw, 24px) 0px;
-    }
-
-    .task-dialog:has(.task-form-edit) {
-        --dialog-padding: clamp(16px, 6vw, 24px);
     }
 
     .task-dialog:has(.task-form-edit) .form-wrapper {
