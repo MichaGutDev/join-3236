@@ -69,7 +69,7 @@ function signUp(event) {
 
     const values = getSignUpValues();
 
-    clearError('signup-error', ['password', 'confirm-password']);
+    clearError('signup-error', ['email', 'password', 'confirm-password']);
 
     const error = getSignUpError(values);
     if (error) {
@@ -82,20 +82,36 @@ function signUp(event) {
 
 
 /**
- * Checks the signup values and returns the first problem that was found.
+ * Checks the signup values on submit and returns the first problem that was found.
  *
- * @param {{password: string, confirmPassword: string, privacyAccepted: boolean}} values - The form values.
+ * @param {{email: string, password: string, confirmPassword: string, privacyAccepted: boolean}} values - The form values.
  * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
  */
 function getSignUpError(values) {
-    if (values.password.length < 6) {
-        return { fieldIds: ['password'], message: 'Your password must be at least 6 characters long.' };
-    }
-    if (values.password !== values.confirmPassword) {
-        return { fieldIds: ['confirm-password'], message: "Your passwords don't match. Please try again." };
-    }
+    const fieldError = getFieldError(values);
+    if (fieldError) return fieldError;
     if (!values.privacyAccepted) {
         return { fieldIds: [], message: 'Please accept the Privacy policy.' };
+    }
+    return null;
+}
+
+
+/**
+ * Checks the signup fields that already have a value and returns the first problem that was found.
+ *
+ * @param {{email: string, password: string, confirmPassword: string}} values - The form values.
+ * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
+ */
+function getFieldError(values) {
+    if (values.email && !isValidEmail(values.email)) {
+        return { fieldIds: ['email'], message: 'Please enter a valid email address.' };
+    }
+    if (values.password && values.password.length < 6) {
+        return { fieldIds: ['password'], message: 'Your password must be at least 6 characters long.' };
+    }
+    if (values.confirmPassword && values.password !== values.confirmPassword) {
+        return { fieldIds: ['confirm-password'], message: "Your passwords don't match. Please try again." };
     }
     return null;
 }
@@ -219,7 +235,18 @@ function togglePasswordVisibility(inputId, iconId) {
 
 
 /**
- * Checks that all required signup fields are filled, then enables or disables the submit button accordingly.
+ * Shows the first problem of the signup fields while the user types and updates the submit button.
+ */
+function checkSignUpInput() {
+    clearError('signup-error', ['email', 'password', 'confirm-password']);
+    const error = getFieldError(getSignUpValues());
+    if (error) showError('signup-error', error.fieldIds, error.message);
+    updateSignupButtonState();
+}
+
+
+/**
+ * Enables the submit button once all required signup fields are filled and none of them has a problem.
  */
 function updateSignupButtonState() {
     const name = document.getElementById("name").value.trim();
@@ -227,7 +254,7 @@ function updateSignupButtonState() {
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirm-password").value.trim();
     const button = document.getElementById('signup-submit');
-    button.disabled = !(name && email && password && confirmPassword);
+    button.disabled = !(name && email && password && confirmPassword) || getFieldError(getSignUpValues()) !== null;
 }
 
 
@@ -245,18 +272,17 @@ if (signupForm) {
 
 const privacyCheckbox = document.getElementById('privacy-policy');
 if (privacyCheckbox) {
-    privacyCheckbox.addEventListener('change', () => clearError('signup-error', ['password', 'confirm-password']));
+    privacyCheckbox.addEventListener('change', checkSignUpInput);
 }
 
 
 const textFields = ['name', 'email', 'password', 'confirm-password'];
 
-textFields.forEach(id => {
-    const field = document.getElementById(id);
-    if (field) {
-        field.addEventListener('input', updateSignupButtonState);
-    }
-});
+if (signupForm) {
+    textFields.forEach(id => {
+        document.getElementById(id).addEventListener('input', checkSignUpInput);
+    });
+}
 
 
 const guestButton = document.getElementById('guest-login');
