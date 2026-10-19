@@ -121,5 +121,5 @@
 /* @media screen and (min-width: 1024px) {} */
 
 .scrollbar-placeholder {
-    min-height: 160px;
+    min-height: 100px;
 }
