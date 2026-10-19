@@ -12,6 +12,18 @@ export function getRandomContactColor() {
 
 
 /**
+ * Validates a person's name: at least two characters, starting and ending with a letter,
+ * with letters, spaces, dots, apostrophes and hyphens in between.
+ *
+ * @param {string} name - The name to validate.
+ * @returns {boolean} True if the name is valid.
+ */
+export function isValidName(name) {
+    return /^\p{L}[\p{L} .'-]*\p{L}$/u.test(name);
+}
+
+
+/**
  * Validates the email format using a regular expression. The part before the @ consists of
  * words separated by single dots or special characters, the domain parts must not start or
  * end with a hyphen, and the domain ending has 2 to 4 letters.

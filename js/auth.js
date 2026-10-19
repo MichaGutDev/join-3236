@@ -1,7 +1,7 @@
 import { auth, database } from './firebase-config.js';
 import { push, set, ref } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-database.js";
 import { signInWithEmailAndPassword, signInAnonymously, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { getRandomContactColor, isValidEmail } from './contact-utils.js';
+import { getRandomContactColor, isValidEmail, isValidName } from './contact-utils.js';
 import { showToast } from './toast.js';
 
 
@@ -69,7 +69,7 @@ function signUp(event) {
 
     const values = getSignUpValues();
 
-    clearError('signup-error', ['email', 'password', 'confirm-password']);
+    clearError('signup-error', ['name', 'email', 'password', 'confirm-password']);
 
     const error = getSignUpError(values);
     if (error) {
@@ -77,14 +77,14 @@ function signUp(event) {
         return;
     }
 
-    handleFirebaseSignUp(values.name, values.email, values.password);
+    handleFirebaseSignUp(values.name.trim(), values.email, values.password);
 }
 
 
 /**
  * Checks the signup values on submit and returns the first problem that was found.
  *
- * @param {{email: string, password: string, confirmPassword: string, privacyAccepted: boolean}} values - The form values.
+ * @param {{name: string, email: string, password: string, confirmPassword: string, privacyAccepted: boolean}} values - The form values.
  * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
  */
 function getSignUpError(values) {
@@ -100,13 +100,38 @@ function getSignUpError(values) {
 /**
  * Checks the signup fields that already have a value and returns the first problem that was found.
  *
- * @param {{email: string, password: string, confirmPassword: string}} values - The form values.
+ * @param {{name: string, email: string, password: string, confirmPassword: string}} values - The form values.
  * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
  */
 function getFieldError(values) {
+    return getNameAndEmailError(values) || getPasswordError(values);
+}
+
+
+/**
+ * Checks the name and the email of the signup form, as far as they already have a value.
+ *
+ * @param {{name: string, email: string}} values - The form values.
+ * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
+ */
+function getNameAndEmailError(values) {
+    if (values.name.trim() && !isValidName(values.name.trim())) {
+        return { fieldIds: ['name'], message: 'Please enter a valid name.' };
+    }
     if (values.email && !isValidEmail(values.email)) {
         return { fieldIds: ['email'], message: 'Please enter a valid email address.' };
     }
+    return null;
+}
+
+
+/**
+ * Checks the password and its confirmation, as far as they already have a value.
+ *
+ * @param {{password: string, confirmPassword: string}} values - The form values.
+ * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
+ */
+function getPasswordError(values) {
     if (values.password && values.password.length < 6) {
         return { fieldIds: ['password'], message: 'Your password must be at least 6 characters long.' };
     }
@@ -238,7 +263,7 @@ function togglePasswordVisibility(inputId, iconId) {
  * Shows the first problem of the signup fields while the user types and updates the submit button.
  */
 function checkSignUpInput() {
-    clearError('signup-error', ['email', 'password', 'confirm-password']);
+    clearError('signup-error', ['name', 'email', 'password', 'confirm-password']);
     const error = getFieldError(getSignUpValues());
     if (error) showError('signup-error', error.fieldIds, error.message);
     updateSignupButtonState();
