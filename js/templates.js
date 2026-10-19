@@ -18,21 +18,18 @@ export function returnAddTaskForm() {
             <form id="task-form" class="task-form" novalidate>
                 <div class="task-form-columns">
                     <div class="task-form-column">
-                        <!-- Title -->
                         <div class="form-group">
                             <label for="title">Title<span class="error-message">*</span></label>
                             <input type="text" id="title" name="title" class="task-input" placeholder="Enter a title" autocomplete="off">
                             <span id="title-error" class="form-error d-none">This field is required</span>
                         </div>
 
-                        <!-- Description -->
                         <div class="form-group">
                             <label for="description">Description</label>
                             <textarea id="description" name="description" class="task-input task-textarea"
                                 placeholder="Enter a description"></textarea>
                         </div>
 
-                        <!-- Due Date -->
                         <div class="form-group">
                             <label for="dueDate">Due Date<span class="error-message">*</span></label>
                             <input type="date" id="dueDate" name="dueDate" class="task-input task-date-input" required>
@@ -43,7 +40,6 @@ export function returnAddTaskForm() {
                     <div class="task-form-divider"></div>
 
                     <div class="task-form-column">
-                        <!-- Priority -->
                         <div class="form-group">
                             <fieldset class="priority">
                                 <legend>Priority</legend>
@@ -99,9 +95,6 @@ export function returnAddTaskForm() {
                             </div>
                         </div>
 
-
-
-                        <!-- Category -->
                         <div class="form-group">
                             <label for="category-trigger">Category<span class="error-message">*</span></label>
                             <div class="category-select">
@@ -121,7 +114,6 @@ export function returnAddTaskForm() {
                             <span id="category-error" class="form-error d-none">This field is required</span>
                         </div>
 
-                        <!-- Subtasks -->
                         <div class="form-group subtask-container">
                             <label for="new-subtask">Subtasks</label>
 
@@ -142,7 +134,6 @@ export function returnAddTaskForm() {
                             </div>
 
                             <ul id="subtask-list" class="subtask-list">
-                                <!-- Subtasks hier rendern -->
                             </ul>
                         </div>
                     </div>
