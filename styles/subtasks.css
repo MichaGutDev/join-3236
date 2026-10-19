@@ -57,10 +57,6 @@
     flex-direction: column;
     align-self: center;
     gap: 8px;
-    position: absolute;
-    top: 110%;
-    overflow-y: scroll;
-    height: 60px;
     width: 95%;
     border-radius: 10px;
 }
@@ -70,6 +66,8 @@
     padding-right: 72px;
     overflow-wrap: anywhere;
     margin-right: 10px;
+    padding-bottom: 4px;
+    height: 32px;
 }
 
 .subtask-item-actions {
@@ -124,6 +122,6 @@
     
 } */
 
-.subtask-container {
+/* .subtask-container {
     margin-bottom: 100px;
-}
+} */

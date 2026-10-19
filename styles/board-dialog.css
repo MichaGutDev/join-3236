@@ -70,7 +70,7 @@ body:has(.task-dialog[open]) {
     background-color: #eeeeee;
 }
 
-.task-dialog > .task-close-btn {
+.task-dialog>.task-close-btn {
     position: absolute;
     top: var(--dialog-padding);
     right: var(--dialog-padding);
@@ -141,7 +141,6 @@ body:has(.task-dialog[open]) {
 
 .task-dialog .form-actions,
 .task-dialog .task-actions {
-    position: sticky;
     bottom: 0;
     z-index: 3;
     padding-bottom: 24px;
@@ -268,8 +267,12 @@ body:has(.task-dialog[open]) {
     padding-inline-start: 20px;
 }
 
-.task-subtask-list .subtask-description {
+.subtask-description {
     font-size: 16px;
+}
+
+.task-subtask-list .subtask-description {
+    font-size: 20px;
     line-height: 120%;
     color: black;
 }
@@ -407,4 +410,5 @@ body:has(.task-dialog[open]) {
         flex-direction: column;
     }
 }
+
 /* End Responsive */
