@@ -71,13 +71,9 @@ function signUp(event) {
 
     clearError('signup-error', ['password', 'confirm-password']);
 
-    if (values.password.length < 6) {
-        showError('signup-error', ['password'], 'Your password must be at least 6 characters long.');
-        return;
-    }
-
-    if (values.password !== values.confirmPassword) {
-        showError('signup-error', ['confirm-password'], "Your passwords don't match. Please try again.");
+    const error = getSignUpError(values);
+    if (error) {
+        showError('signup-error', error.fieldIds, error.message);
         return;
     }
 
@@ -86,16 +82,37 @@ function signUp(event) {
 
 
 /**
+ * Checks the signup values and returns the first problem that was found.
+ *
+ * @param {{password: string, confirmPassword: string, privacyAccepted: boolean}} values - The form values.
+ * @returns {{fieldIds: string[], message: string}|null} The error to show, or null if everything is fine.
+ */
+function getSignUpError(values) {
+    if (values.password.length < 6) {
+        return { fieldIds: ['password'], message: 'Your password must be at least 6 characters long.' };
+    }
+    if (values.password !== values.confirmPassword) {
+        return { fieldIds: ['confirm-password'], message: "Your passwords don't match. Please try again." };
+    }
+    if (!values.privacyAccepted) {
+        return { fieldIds: [], message: 'Please accept the Privacy policy.' };
+    }
+    return null;
+}
+
+
+/**
  * Reads the values of the signup form.
  *
- * @returns {{name: string, email: string, password: string, confirmPassword: string}} The form values.
+ * @returns {{name: string, email: string, password: string, confirmPassword: string, privacyAccepted: boolean}} The form values.
  */
 function getSignUpValues() {
     return {
         name: document.getElementById('name').value,
         email: document.getElementById('email').value,
         password: document.getElementById('password').value,
-        confirmPassword: document.getElementById('confirm-password').value
+        confirmPassword: document.getElementById('confirm-password').value,
+        privacyAccepted: document.getElementById('privacy-policy').checked
     };
 }
 
@@ -202,16 +219,15 @@ function togglePasswordVisibility(inputId, iconId) {
 
 
 /**
- * Checks all required signup fields and the privacy checkbox, then enables or disables the submit button accordingly.
+ * Checks that all required signup fields are filled, then enables or disables the submit button accordingly.
  */
 function updateSignupButtonState() {
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
     const confirmPassword = document.getElementById("confirm-password").value.trim();
-    const checkbox = document.getElementById('privacy-policy');
-    const button = document.getElementById('signup-submit')
-    button.disabled = !(name && email && password && confirmPassword && checkbox.checked);   
+    const button = document.getElementById('signup-submit');
+    button.disabled = !(name && email && password && confirmPassword);
 }
 
 
@@ -229,7 +245,7 @@ if (signupForm) {
 
 const privacyCheckbox = document.getElementById('privacy-policy');
 if (privacyCheckbox) {
-    privacyCheckbox.addEventListener('change', updateSignupButtonState);
+    privacyCheckbox.addEventListener('change', () => clearError('signup-error', ['password', 'confirm-password']));
 }
 
 
