@@ -403,12 +403,4 @@ body:has(.task-dialog[open]) {
         border-radius: 16px;
     }
 }
-
-@media screen and (max-width: 440px) {
-
-    .form-actions-buttons {
-        flex-direction: column;
-    }
-}
-
 /* End Responsive */
