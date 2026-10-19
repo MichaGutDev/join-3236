@@ -159,6 +159,10 @@
   gap: 8px;
 }
 
+.auth-field-group .error-message {
+  min-height: 1.25rem;
+}
+
 /* End Form Fields */
 
 /* Buttons & Checkbox */

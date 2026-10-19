@@ -54,8 +54,8 @@
 }
 
 .btn-secondary:hover {
-  border: 2px solid var(--color-accent);
-  box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  border-color: var(--color-accent);
+  box-shadow: inset 0 0 0 1px var(--color-accent), 0 4px 4px rgb(0 0 0 / 25%);
 }
 
 /* End Hover States */
