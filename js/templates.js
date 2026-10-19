@@ -141,7 +141,7 @@ export function returnAddTaskForm() {
                                 </div>
                             </div>
 
-                            <ul id="subtask-list" class="subtask-list task-view-scroll-box scrollbar-placeholder">
+                            <ul id="subtask-list" class="subtask-list">
                                 <!-- Subtasks hier rendern -->
                             </ul>
                         </div>

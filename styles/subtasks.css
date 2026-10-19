@@ -118,8 +118,44 @@
 
 /* End Responsive */
 
-/* @media screen and (min-width: 1024px) {} */
+/* Scroll Lists */
 
-.scrollbar-placeholder {
-    min-height: 100px;
+.task-view-scroll-box,
+.subtask-list {
+    overflow-y: auto;
 }
+
+.subtask-list {
+    min-height: 72px;
+    max-height: 72px;
+}
+
+.task-view-scroll-box {
+    max-height: 160px;
+}
+
+.task-view-scroll-box::-webkit-scrollbar,
+.subtask-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.task-view-scroll-box::-webkit-scrollbar-button,
+.subtask-list::-webkit-scrollbar-button {
+    display: none;
+}
+
+.task-view-scroll-box::-webkit-scrollbar-thumb,
+.subtask-list::-webkit-scrollbar-thumb {
+    background: var(--color-muted);
+    border-radius: 8px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+    .task-view-scroll-box,
+    .subtask-list {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-muted) transparent;
+    }
+}
+
+/* End Scroll Lists */
