@@ -12,13 +12,15 @@ export function getRandomContactColor() {
 
 
 /**
- * Validates the email format using a regular expression.
+ * Validates the email format using a regular expression. The part before the @ consists of
+ * words separated by single dots or special characters, the domain parts must not start or
+ * end with a hyphen, and the domain ending has 2 to 4 letters.
  *
  * @param {string} email - The email address to validate.
  * @returns {boolean} True if the email format is valid.
  */
 export function isValidEmail(email) {
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    const emailRegex = /^[a-zA-Z0-9]+([._%+-][a-zA-Z0-9]+)*@([a-zA-Z0-9]([a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z]{2,4}$/;
     return emailRegex.test(email);
 }
 
