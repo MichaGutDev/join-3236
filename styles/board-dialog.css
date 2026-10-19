@@ -124,7 +124,7 @@ body:has(.task-dialog[open]) {
 }
 
 .task-dialog .form-wrapper {
-    padding: 64px 64px 0px;
+    padding: 64px 64px 30px;
 }
 
 .task-dialog .form-wrapper h1 {
