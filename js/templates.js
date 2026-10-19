@@ -87,7 +87,6 @@ export function returnAddTaskForm() {
                                     </p>
 
                                     <div id="assigned-to-dropdown" class="assigned-to-dropdown">
-                                        <!-- Contacts kommen hier rein -->
                                     </div>
                                 </div>
                             </div>
