@@ -184,7 +184,7 @@ body:has(.task-dialog[open]) {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: min(525px, calc(100vw - 40px));
+    width: min(525px, calc(100vw - 60px));
     padding: 48px 40px 24px;
 }
 
@@ -262,6 +262,10 @@ body:has(.task-dialog[open]) {
     line-height: 120%;
     color: var(--color-board-taskgroup);
     margin-bottom: 8px;
+}
+
+.task-subtask-list {
+    padding-inline-start: 20px;
 }
 
 .task-subtask-list .subtask-description {
@@ -403,7 +407,4 @@ body:has(.task-dialog[open]) {
         flex-direction: column;
     }
 }
-
-
-
 /* End Responsive */
