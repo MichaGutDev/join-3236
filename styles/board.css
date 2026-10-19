@@ -388,12 +388,16 @@ h4 {
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
-.task-view-scroll-box::-webkit-scrollbar {
+/* .task-view-scroll-box::-webkit-scrollbar {
   display: none;
-}
+} */
 
 /* Hide scrollbar for IE, Edge and Firefox */
-.task-view-scroll-box {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+/* .task-view-scroll-box {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+} */
+
+.task-view-scroll-box::-moz-scrollbar-button, .task-view-scroll-box::-webkit-scrollbar-button {
+  width: 0px;
 }

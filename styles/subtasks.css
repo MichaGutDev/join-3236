@@ -67,7 +67,7 @@
     overflow-wrap: anywhere;
     margin-right: 10px;
     padding-bottom: 4px;
-    height: 32px;
+    min-height: 32px;
 }
 
 .subtask-item-actions {
@@ -118,10 +118,8 @@
 
 /* End Responsive */
 
-/* @media screen and (max-width: 1024px) {
-    
-} */
+/* @media screen and (min-width: 1024px) {} */
 
-/* .subtask-container {
-    margin-bottom: 100px;
-} */
+.scrollbar-placeholder {
+    min-height: 160px;
+}
