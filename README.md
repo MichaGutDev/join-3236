@@ -23,42 +23,13 @@ Join is a Kanban-style project management tool, built as a group project in the 
 
 ```
 join/
-├── index.html                  # Login page
-├── script.js                   # Shared logic for most pages (user menu, logout)
-├── style.css                   # Global styles (reset, layout, sidebar)
-├── html/                       # All other pages
-│   ├── signup.html             # Sign up
-│   ├── summary.html            # Summary (dashboard)
-│   ├── board.html              # Kanban board
-│   ├── add-task.html           # Add task
-│   ├── contacts.html           # Contacts
-│   ├── help.html               # Help
-│   ├── legal-notice*.html      # Legal notice (logged in and external)
-│   └── privacy-policy*.html    # Privacy policy (logged in and external)
-├── js/
-│   ├── firebase-config.js      # Firebase initialisation
-│   ├── auth.js                 # Login, guest login and sign up
-│   ├── auth-check.js           # Redirects to the login if nobody is logged in, shows the initials
-│   ├── db.js                   # Database access for the board and the task form
-│   ├── board.js                # Board and task dialogs
-│   ├── move-tasks.js           # Drag and drop of tasks between columns
-│   ├── task-form.js            # Task form (validation and saving)
-│   ├── assigned-to.js          # Assigned contacts dropdown of the task form
-│   ├── category-select.js      # Category dropdown of the task form
-│   ├── subtasks.js             # Subtask logic of the task form
-│   ├── subtask-templates.js    # HTML templates for subtasks
-│   ├── templates.js            # HTML templates for tasks and the task form
-│   ├── html-utils.js           # Escapes special characters in HTML
-│   ├── search.js               # Search for tasks and contacts
-│   ├── summary.js              # Summary figures and greeting
-│   ├── contact.js              # Contact list and details
-│   ├── contact-dialog.js       # Add and edit contact dialog
-│   ├── contact-templates.js    # HTML templates for contacts
-│   ├── contact-utils.js        # Validation and helpers for contacts
-│   ├── toast.js                # Toast messages
-│   └── add-task.js             # Entry point of the add task page
-├── styles/                     # CSS, one file per area (variables.css holds the colours)
-└── assets/                     # Fonts, icons and images
+├── index.html    # Login page
+├── script.js     # Shared logic (user menu, logout)
+├── style.css     # Global styles (reset, layout, sidebar)
+├── html/         # All other pages
+├── js/           # One module per feature (auth, board, tasks, contacts, summary, ...)
+├── styles/       # CSS, one file per area (variables.css holds the colours)
+└── assets/       # Fonts, icons and images
 ```
 
 ## Tech Stack
@@ -80,7 +51,7 @@ join/
 
 ```bash
 git clone https://github.com/MichaGutDev/join-3236.git
-cd join
+cd join-3236
 ```
 
 2. Start a local web server and open `index.html`, for example with the Live Server extension in VS Code. Opening the files directly from the file system does not work because the scripts are ES modules.
