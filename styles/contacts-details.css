@@ -317,4 +317,11 @@
     }
 }
 
+@media screen and (min-width: 786px) and (max-height: 700px) {
+    .contact-details-info {
+        height: 50px;
+        margin: 12px 0;
+    }
+}
+
 /* End Responsive */
