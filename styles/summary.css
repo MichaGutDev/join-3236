@@ -356,4 +356,48 @@
     }
 }
 
+@media screen and (min-width: 769px) and (max-height: 700px) {
+    .summary-content {
+        padding-top: 24px;
+        gap: 24px;
+    }
+
+    .summary-content h1 {
+        font-size: 47px;
+    }
+
+    .summary-cards,
+    .summary-cards-row {
+        gap: 24px;
+    }
+
+    .summary-card {
+        width: 222px;
+        height: 110px;
+        padding: 16px;
+    }
+
+    .summary-card--urgent {
+        width: 468px;
+    }
+
+    .summary-card-data {
+        height: 68px;
+    }
+
+    .summary-card--compact {
+        width: 140px;
+        height: 116px;
+        padding: 12px 8px;
+    }
+
+    .summary-card-number {
+        font-size: 41px;
+    }
+
+    .summary-card-label {
+        font-size: 16px;
+    }
+}
+
 /* End Responsive */
