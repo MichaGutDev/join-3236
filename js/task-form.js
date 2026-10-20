@@ -20,6 +20,7 @@ let isSaving = false;
 export function initTaskForm(taskStatus = "To Do", editingTaskId = null, onSave = null) {
   formRef = document.querySelector("#task-form");
   createTaskBtnRef = document.getElementById("create-task-btn");
+  isSaving = false;
   initAssignedTo();
   initCategorySelect();
   setMinimumDueDate();
@@ -90,13 +91,14 @@ async function getValues(status, editingTaskId, onSave) {
 
   isSaving = true;
   handleFormValidation();
+  setFormDisabled(true);
 
   await saveFormTask(task, editingTaskId, onSave);
 }
 
 
 /**
- * Saves a task and restores the form state after completion.
+ * Saves a task and unlocks the form only if saving fails.
  *
  * @param {Object} task - Task data to save.
  * @param {string|null} editingTaskId - ID of the task being edited.
@@ -110,10 +112,22 @@ async function saveFormTask(task, editingTaskId, onSave) {
   } catch (error) {
     console.error(error);
     showToast("Task could not be saved. Please try again.");
-  } finally {
     isSaving = false;
+    setFormDisabled(false);
     handleFormValidation();
   }
+}
+
+
+/**
+ * Enables or disables all form controls.
+ *
+ * @param {boolean} disabled - Whether controls should be disabled.
+ */
+function setFormDisabled(disabled) {
+  formRef.querySelectorAll("input, select, textarea, button").forEach(element => {
+    element.disabled = disabled;
+  });
 }
 
 
