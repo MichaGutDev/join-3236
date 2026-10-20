@@ -66,6 +66,7 @@ function initRequiredFieldListeners() {
 function setMinimumDueDate() {
   const dueDateRef = document.getElementById("dueDate");
   dueDateRef.min = getCurrentDate();
+  dueDateRef.max = "2100-12-31";
 }
 
 
@@ -78,19 +79,19 @@ function setMinimumDueDate() {
  * @returns {Promise<void>}
  */
 async function getValues(status, editingTaskId, onSave) {
-    if (isSaving) return;
-    if (!validateForm(getRequiredFields())) {
-        showRequiredErrors();
-        return;
-    }
+  if (isSaving) return;
+  if (!validateForm(getRequiredFields())) {
+    showRequiredErrors();
+    return;
+  }
 
-    const formData = new FormData(formRef);
-    const task = createTaskObject(formData, status);
+  const formData = new FormData(formRef);
+  const task = createTaskObject(formData, status);
 
-    isSaving = true;
-    handleFormValidation();
+  isSaving = true;
+  handleFormValidation();
 
-    await saveFormTask(task, editingTaskId, onSave);
+  await saveFormTask(task, editingTaskId, onSave);
 }
 
 
@@ -103,16 +104,16 @@ async function getValues(status, editingTaskId, onSave) {
  * @returns {Promise<void>}
  */
 async function saveFormTask(task, editingTaskId, onSave) {
-    try {
-        await saveTask(task, editingTaskId);
-        handleSavedTask(onSave);
-    } catch (error) {
-        console.error(error);
-        showToast("Task could not be saved. Please try again.");
-    } finally {
-        isSaving = false;
-        handleFormValidation();
-    }
+  try {
+    await saveTask(task, editingTaskId);
+    handleSavedTask(onSave);
+  } catch (error) {
+    console.error(error);
+    showToast("Task could not be saved. Please try again.");
+  } finally {
+    isSaving = false;
+    handleFormValidation();
+  }
 }
 
 
@@ -194,7 +195,8 @@ function getRequiredFields() {
  * @returns {boolean} Whether all required fields are filled.
  */
 function validateForm(requiredFields) {
-  return Object.values(requiredFields).every(value => value !== "");
+  return Object.values(requiredFields).every(value => value !== "")
+    && isValidDueDate(requiredFields.dueDate);
 }
 
 
@@ -204,21 +206,60 @@ function validateForm(requiredFields) {
  * @param {Event} event - The blur or input event.
  */
 function handleRequired(event) {
-  updateRequiredField(event.target);
+  // updateRequiredField(event.target);
+  const fieldRef = event.target;
+
+  if (fieldRef.id === "dueDate" && event.type === "blur") {
+    clampDueDate(fieldRef);
+  }
+
+  updateRequiredField(fieldRef);
+  handleFormValidation();
 }
 
 
 /**
- * Shows or hides the required error of a single field depending on its value.
+ * Limits the due date to the maximum allowed date.
  *
- * @param {HTMLElement} fieldRef - The required field.
+ * @param {HTMLInputElement} fieldRef - The date input.
+ */
+function clampDueDate(fieldRef) {
+  if (fieldRef.value && fieldRef.value > fieldRef.max) {
+    fieldRef.value = fieldRef.max;
+  }
+}
+
+
+/**
+ * Checks whether the due date is today or in the future.
+ *
+ * @param {string} dueDate - The selected due date.
+ * @returns {boolean} Whether the date is valid.
+ */
+function isValidDueDate(dueDate) {
+  return dueDate !== ""
+    && dueDate >= getCurrentDate()
+    && dueDate <= "2100-12-31";
+}
+
+
+/**
+ * Updates a required field's error message and validation state.
+ *
+ * @param {HTMLElement} fieldRef - The field to validate.
  */
 function updateRequiredField(fieldRef) {
   const inputValue = fieldRef.value.trim();
   const errorRef = document.getElementById(`${fieldRef.id}-error`);
+  const isEmpty = inputValue === "";
+  const isPastDate = fieldRef.id === "dueDate" && !isEmpty && inputValue < getCurrentDate();
+  const isFutureDate = fieldRef.id === "dueDate" && !isEmpty && inputValue > "2100-12-31";
 
-  errorRef.classList.toggle("d-none", inputValue !== "");
-  fieldRef.classList.toggle("field-error", inputValue === "");
+  errorRef.textContent = isPastDate ? "Date cannot be in the past"
+    : isFutureDate ? "Date cannot be after 2100" : "This field is required";
+
+  errorRef.classList.toggle("d-none", !isEmpty && !isPastDate && !isFutureDate);
+  fieldRef.classList.toggle("field-error", isEmpty || isPastDate || isFutureDate);
 }
 
 
