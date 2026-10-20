@@ -327,6 +327,7 @@ body:has(.task-dialog[open]) {
     line-height: 120%;
     color: var(--color-primary);
     cursor: pointer;
+    min-width: 80px;
 }
 
 .task-actions button:hover {
