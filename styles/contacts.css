@@ -92,7 +92,10 @@ a {
 
 .contact-list-letter {
     font-size: 20px;
-    padding: 17px 36px;
+    width: 42px;
+    margin-left: clamp(8px, 4vw, 24px);
+    padding: 17px 0;
+    text-align: center;
 }
 
 .contact-list-name {
@@ -114,9 +117,9 @@ a {
 }
 
 .initials-box {
-    min-height: clamp(32px, 8vw, 42px);
-    min-width: clamp(32px, 8vw, 42px);
-    width: clamp(32px, 8vw, 42px);
+    min-height: 42px;
+    min-width: 42px;
+    width: 42px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -126,8 +129,8 @@ a {
 .contact-initials {
     border: solid white 2px;
     color: white;
-    height: clamp(32px, 8vw, 42px);
-    width: clamp(32px, 8vw, 42px);
+    height: 42px;
+    width: 42px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -203,7 +206,7 @@ a {
 
 @media screen and (min-width: 786px) and (max-height: 700px) {
     .contact-list-letter {
-        padding: 17px 36px 9px;
+        padding: 17px 0 9px;
     }
 
     .contact-list-container {
