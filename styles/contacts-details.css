@@ -130,7 +130,7 @@
     transition: 100ms;
 }
 
-.contact-menu-item:hover {
+.contact-menu-item:hover:not(:disabled) {
     border-radius: 8px;
     background-color: var(--color-bg-main);
 }
