@@ -192,6 +192,7 @@ aside img {
 
   .guest aside {
     justify-content: space-between;
+    padding: 0 clamp(0px, calc((100vw - 326px) / 2), 16px);
   }
 
   .guest .sidebar-nav {
