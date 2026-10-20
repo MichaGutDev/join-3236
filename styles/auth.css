@@ -291,6 +291,10 @@
     gap: 24px;
   }
 
+  .auth-field-group .error-message {
+    min-height: 2.5rem;
+  }
+
   .back-arrow {
     top: 40px;
     left: 40px;
