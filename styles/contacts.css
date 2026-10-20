@@ -144,6 +144,21 @@ a {
 /* End Contact List */
 
 
+/* Dialog Input Errors */
+
+.dialog-input-group {
+    position: relative;
+}
+
+.dialog-input-group .error-message {
+    position: absolute;
+    top: 100%;
+    margin-top: 4px;
+}
+
+/* End Dialog Input Errors */
+
+
 /* Responsive */
 
 @media screen and (max-width: 1024px) {
@@ -171,6 +186,10 @@ a {
 
     .button-add-new-contact span {
         display: none;
+    }
+
+    .dialog-input-group .error-message {
+        margin-top: 0;
     }
 }
 

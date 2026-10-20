@@ -4,7 +4,7 @@ import { getRandomContactColor } from './contact-utils.js';
 import { getInitials, generateContactListHTML } from './contact-templates.js';
 import {
     openDialog, closeDialog, cancelDialog, stopBubbleling, setDeleteButtonsDisabled,
-    clearContactError, isContactFormValid, validateContactField, editContact, createContact
+    clearContactError, isContactFormValid, validateContactField, checkPhoneCharacters, editContact, createContact
 } from './contact-dialog.js';
 import { showToast } from './toast.js';
 
@@ -223,6 +223,7 @@ const contactFieldIds = ['dialog-input-name', 'dialog-input-email', 'dialog-inpu
 contactFieldIds.forEach((id) => {
     document.getElementById(id)?.addEventListener('blur', () => validateContactField(id));
 });
+document.getElementById('dialog-input-phone')?.addEventListener('input', checkPhoneCharacters);
 
 
 const editContactBtn = document.getElementById('edit-contact-btn');

@@ -126,6 +126,20 @@ function clearFieldError(fieldId) {
 
 
 /**
+ * Shows an error as soon as the phone number contains anything but numbers, spaces, + - and brackets.
+ */
+export function checkPhoneCharacters() {
+    const hasInvalidCharacter = /[^0-9\s+\-()]/.test(document.getElementById('dialog-input-phone').value);
+
+    if (hasInvalidCharacter) {
+        showContactError('dialog-input-phone', 'Please enter numbers only.');
+    } else {
+        clearFieldError('dialog-input-phone');
+    }
+}
+
+
+/**
  * Validates a single contact field on blur and updates its own error state.
  *
  * @param {string} fieldId - The id of the field to validate.
