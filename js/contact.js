@@ -171,6 +171,14 @@ function renderContactDetails(contact) {
 
 
 /**
+ * Highlights the selected contact in the list again after the list was rebuilt.
+ */
+function markSelectedContact() {
+    document.querySelector(`.contact-list-item[data-id="${selectedContactId}"]`)?.classList.add('active');
+}
+
+
+/**
  * Activates a contact via keyboard (Enter or Space), same as a click.
  *
  * @param {KeyboardEvent} event - The key event.
@@ -192,6 +200,7 @@ onValue(contactsRef, (snapshot) => {
 
     const html = generateContactListHTML(sortedContacts);
     document.getElementById("contact-list").innerHTML = html;
+    markSelectedContact();
 });
 
 
