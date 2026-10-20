@@ -103,7 +103,7 @@ export function setFormCategory(value = "") {
 /**
  * Shows or hides the required error depending on the chosen category.
  */
-function checkCategory() {
+export function checkCategory() {
   const hasError = document.getElementById("category").value === "";
   document.getElementById("category-error").classList.toggle("d-none", !hasError);
   document.querySelector(".category-select-control").classList.toggle("field-error", hasError);

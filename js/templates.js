@@ -144,7 +144,7 @@ export function returnAddTaskForm() {
                     <div class="form-actions-buttons">
                         <button type="reset" class="btn btn-secondary fa-buttons" id="cancel-btn"><span id="cancel-btn-text">Clear</span>
                             <img src="../assets/icons/cancel-icon.svg" alt=""></button>
-                        <button type="submit" class="btn btn-primary fa-buttons" id="create-task-btn" disabled><span id="submit-btn-text">Create Task</span>
+                        <button type="submit" class="btn btn-primary fa-buttons" id="create-task-btn" aria-disabled="true"><span id="submit-btn-text">Create Task</span>
                             <img src="../assets/icons/check-icon.svg" alt=""></button>
                     </div>
                 </div>

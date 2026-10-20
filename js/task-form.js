@@ -2,7 +2,7 @@ import { saveTask } from "./db.js";
 import { showToast } from "./toast.js";
 import { getSubtasks, initSubtaskListeners, resetSubtasks, renderSubtasks } from "./subtasks.js";
 import { initAssignedTo, getSelectedContactIds, resetAssignedTo } from "./assigned-to.js";
-import { initCategorySelect, resetCategory } from "./category-select.js";
+import { initCategorySelect, resetCategory, checkCategory } from "./category-select.js";
 
 let formRef;
 let createTaskBtnRef;
@@ -49,11 +49,13 @@ function initTaskListeners(taskStatus, editingTaskId, onSave) {
 
 
 /**
- * Registers blur listeners for all required fields.
+ * Registers blur and input listeners for all required fields.
  */
 function initRequiredFieldListeners() {
   requiredFieldIds.forEach(id => {
-    formRef.querySelector(`#${id}`).addEventListener("blur", handleRequired);
+    const fieldRef = formRef.querySelector(`#${id}`);
+    fieldRef.addEventListener("blur", handleRequired);
+    fieldRef.addEventListener("input", handleRequired);
   });
 }
 
@@ -76,7 +78,11 @@ function setMinimumDueDate() {
  * @returns {Promise<void>}
  */
 async function getValues(status, editingTaskId, onSave) {
-    if (isSaving || !validateForm(getRequiredFields())) return;
+    if (isSaving) return;
+    if (!validateForm(getRequiredFields())) {
+        showRequiredErrors();
+        return;
+    }
 
     const formData = new FormData(formRef);
     const task = createTaskObject(formData, status);
@@ -193,12 +199,21 @@ function validateForm(requiredFields) {
 
 
 /**
- * Updates the validation state of a required field on blur.
+ * Updates the validation state of a required field on blur and on every input.
  *
- * @param {FocusEvent} event - The blur event.
+ * @param {Event} event - The blur or input event.
  */
 function handleRequired(event) {
-  const fieldRef = event.target;
+  updateRequiredField(event.target);
+}
+
+
+/**
+ * Shows or hides the required error of a single field depending on its value.
+ *
+ * @param {HTMLElement} fieldRef - The required field.
+ */
+function updateRequiredField(fieldRef) {
   const inputValue = fieldRef.value.trim();
   const errorRef = document.getElementById(`${fieldRef.id}-error`);
 
@@ -208,11 +223,21 @@ function handleRequired(event) {
 
 
 /**
- * Enables or disables the submit button based on form validity.
+ * Shows the required errors of all fields that are still empty.
+ */
+function showRequiredErrors() {
+  ["title", "dueDate"].forEach(id => updateRequiredField(document.getElementById(id)));
+  checkCategory();
+}
+
+
+/**
+ * Locks the submit button while saving and marks it as not ready while required fields are empty.
  */
 function handleFormValidation() {
-  const requiredFields = getRequiredFields();
-  createTaskBtnRef.disabled = isSaving || !validateForm(requiredFields);
+  const isValid = validateForm(getRequiredFields());
+  createTaskBtnRef.disabled = isSaving;
+  createTaskBtnRef.setAttribute("aria-disabled", String(!isValid));
 }
 
 
