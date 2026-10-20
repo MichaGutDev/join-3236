@@ -99,4 +99,10 @@
     }
 }
 
+@media screen and (max-width: 420px) {
+    .content-section ul {
+        padding-left: 16px;
+    }
+}
+
 /* End Responsive */

@@ -221,6 +221,12 @@ aside img {
   }
 }
 
+@media screen and (max-width: 325px) {
+  .guest .footer-nav-item {
+    padding: 8px;
+  }
+}
+
 /* End Responsive */
 
 /* Landscape Warning */
