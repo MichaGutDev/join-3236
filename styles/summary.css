@@ -1,5 +1,4 @@
 /* Content Wrapper */
-
 .summary-content {
     padding-top: clamp(16px, 5vw, 110px);
     padding-right: 16px;
@@ -31,7 +30,6 @@
 
 /* End Title */
 
-
 /* Cards Layout */
 
 .summary-metrics {
@@ -52,7 +50,6 @@
 }
 
 /* End Cards Layout */
-
 
 /* Card Base (Row 1 + Urgent) */
 
@@ -136,7 +133,6 @@
 
 /* End Card Base */
 
-
 /* Urgent Card (wide, two content groups) */
 
 .summary-card--urgent {
@@ -177,7 +173,6 @@
 
 /* End Urgent Card */
 
-
 /* Compact Card (Row 3) */
 
 .summary-card--compact {
@@ -195,7 +190,6 @@
 }
 
 /* End Compact Card */
-
 
 /* Greeting */
 
@@ -219,7 +213,6 @@
 }
 
 /* End Greeting */
-
 
 /* Greeting Overlay (nach Login, Mobile) */
 
@@ -246,7 +239,6 @@
 }
 
 /* End Greeting Overlay */
-
 
 /* Responsive */
 
@@ -405,5 +397,4 @@
         font-size: 48px;
     }
 }
-
 /* End Responsive */

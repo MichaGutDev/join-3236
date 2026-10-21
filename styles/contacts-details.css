@@ -33,8 +33,6 @@
 
 .contact-details-title {
     flex-shrink: 0;
-    /* font-size: clamp(36px, 4vw, 61px);
-    font-weight: 700; */
 }
 
 .contact-details-slogan {
