@@ -104,6 +104,18 @@
     .content-section ul {
         padding-left: 16px;
     }
+
+    .content-section {
+        hyphens: auto;
+        overflow-wrap: anywhere;
+    }
+}
+
+@media screen and (max-width: 350px) {
+    .content-page {
+        margin: 0px;
+        padding: 20px 12px 30px 15px;
+    }
 }
 
 /* End Responsive */
