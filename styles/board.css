@@ -378,4 +378,24 @@ h4 {
     }
 }
 
+@media screen and (max-width: 400px) {
+    .board-title-row {
+        padding-left: 8px;
+    }
+
+    .board-wrapper {
+        margin: 0px;
+        padding: 20px 12px 30px 15px;
+    }
+}
+
+@media screen and (max-height: 600px) {
+    .board-title-row {
+        padding-top: 12px;
+    }
+
+    .board-title-row h1 {
+        font-size: 47px;
+    }
+}
 /* End Responsive */
