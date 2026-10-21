@@ -117,6 +117,12 @@
     }
 }
 
+@media screen and (max-width: 768px) {
+    .subtask-list {
+        padding-left: 16px;
+    }
+}
+
 /* End Responsive */
 
 /* Scroll Lists */
