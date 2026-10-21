@@ -371,7 +371,7 @@ body:has(.task-dialog[open]) {
     }
 
     .task-detail {
-        padding: 32px 24px 8px;
+        padding: 24px 16px 8px;
     }
 
     .task-detail-header .task-category {
