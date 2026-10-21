@@ -20,7 +20,7 @@ a {
 /* Add New Contact */
 
 .contact-list-container {
-    height: calc(100vh - 80px);
+    height: calc(100vh - 96px);
     min-width: 424px;
     width: 424px;
     overflow-y: auto;
@@ -166,7 +166,7 @@ a {
 
 @media screen and (max-width: 1024px) {
     .contact-list-container {
-        height: calc(100vh - 160px);
+        height: calc(100vh - 176px);
         box-shadow: none;
     }
 
