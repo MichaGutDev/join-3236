@@ -221,4 +221,10 @@ a {
     }
 }
 
+@media screen and (max-width: 390px) {
+    .contact-list-email {
+        font-size: 12px;
+    }
+}
+
 /* End Responsive */
