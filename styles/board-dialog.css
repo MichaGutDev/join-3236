@@ -328,6 +328,7 @@ body:has(.task-dialog[open]) {
     color: var(--color-primary);
     cursor: pointer;
     min-width: 80px;
+    max-width: 80px;
 }
 
 .task-actions button:hover {
@@ -396,5 +397,4 @@ body:has(.task-dialog[open]) {
         border-radius: 16px;
     }
 }
-
 /* End Responsive */
