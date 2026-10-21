@@ -271,7 +271,7 @@ body:has(.task-dialog[open]) {
 
 .task-subtask-list .subtask-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     flex-shrink: 0;
     gap: 12px;
     min-height: 32px;
@@ -383,8 +383,8 @@ body:has(.task-dialog[open]) {
     }
 
     .task-description,
-    .task-information dt,
-    .task-information dd,
+    .task-information :is(dt, dd),
+    .task-subtask-list .subtask-description,
     .task-assigned h3,
     .task-subtasks h3,
     .task-assigned-list span {
