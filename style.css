@@ -141,6 +141,10 @@ aside img {
 /* Responsive */
 
 @media screen and (max-width: 1024px) {
+  h1 {
+    font-size: 47px;
+  }
+
   aside {
     position: fixed;
     top: auto;
