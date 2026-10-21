@@ -2,8 +2,8 @@
 
 .task-dialog {
     --dialog-padding: 64px;
-    max-width: min(1116px, calc(100% - 6px - 1em));
-    max-height: min(870px, calc(100% - 6px - 1em));
+    max-width: min(1116px, calc(100% - 6px - var(--dialog-margin, 1em)));
+    max-height: min(870px, calc(100% - 6px - var(--dialog-margin, 1em)));
     margin: auto;
     padding: 0;
     border: none;
@@ -179,7 +179,7 @@ body:has(.task-dialog[open]) {
     display: flex;
     flex-direction: column;
     gap: 24px;
-    width: min(525px, calc(100vw - 22px));
+    width: min(525px, calc(100vw - 6px - var(--dialog-margin, 1em)));
     padding: 48px 40px 0px;
 }
 
@@ -275,7 +275,6 @@ body:has(.task-dialog[open]) {
     flex-shrink: 0;
     gap: 12px;
     min-height: 32px;
-    height: auto;
 }
 
 .subtask-item-input {
@@ -394,6 +393,7 @@ body:has(.task-dialog[open]) {
 
 @media screen and (max-width: 480px) {
     .task-dialog {
+        --dialog-margin: 2px;
         border-radius: 16px;
     }
 }
