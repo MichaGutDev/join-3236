@@ -1,7 +1,8 @@
 /* Page Layout */
 
 .content-page {
-    padding: 96px 24px 64px 96px;
+    padding-top: clamp(16px, 5vw, 110px);
+    padding-left: clamp(16px, 6vw, 98px);
     max-width: 1208px;
     display: flex;
     flex-direction: column;
