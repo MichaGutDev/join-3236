@@ -1,5 +1,4 @@
 /* Dialog Box */
-
 .task-dialog {
     --dialog-padding: 64px;
     max-width: min(1116px, calc(100% - 6px - var(--dialog-margin, 1em)));
@@ -75,11 +74,9 @@ body:has(.task-dialog[open]) {
     top: var(--dialog-padding);
     right: var(--dialog-padding);
 }
-
 /* End Dialog Box */
 
 /* Form (Add and Edit) */
-
 .form-wrapper {
     display: flex;
     justify-content: center;
@@ -170,11 +167,9 @@ body:has(.task-dialog[open]) {
 .task-form-edit .form-actions {
     justify-content: flex-end;
 }
-
 /* End Form (Add and Edit) */
 
 /* Task Detail */
-
 .task-detail {
     display: flex;
     flex-direction: column;
@@ -201,6 +196,7 @@ body:has(.task-dialog[open]) {
     line-height: 120%;
     color: black;
     overflow-wrap: anywhere;
+    hyphens: auto;
 }
 
 .task-description,
@@ -346,11 +342,9 @@ body:has(.task-dialog[open]) {
     background-image: url("../assets/icons/edit-icon.svg");
     background-position: 10px center;
 }
-
 /* End Task Detail */
 
 /* Responsive */
-
 @media screen and (max-width: 768px) {
     .task-dialog,
     .task-dialog:has(.task-form-edit) {
@@ -371,6 +365,7 @@ body:has(.task-dialog[open]) {
 
     .task-detail {
         padding: 24px 16px 8px;
+        max-width: 90vw;
     }
 
     .task-detail-header .task-category {
