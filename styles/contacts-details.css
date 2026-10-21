@@ -33,8 +33,8 @@
 
 .contact-details-title {
     flex-shrink: 0;
-    font-size: clamp(36px, 4vw, 61px);
-    font-weight: 700;
+    /* font-size: clamp(36px, 4vw, 61px);
+    font-weight: 700; */
 }
 
 .contact-details-slogan {
@@ -247,6 +247,13 @@
     }
 }
 
+@media screen and (max-width: 1024px) {
+    .contact-details-title {
+        height: auto;
+        font-size: 47px;
+    }
+}
+
 @media screen and (max-width: 785px) {
     .contact-back-btn {
         display: flex;
@@ -280,11 +287,6 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
-    }
-
-    .contact-details-title {
-        height: auto;
-        font-size: 47px;
     }
 
     .contact-details-slogan {

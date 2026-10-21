@@ -124,6 +124,7 @@
 
 .summary-card-number {
     font-size: 64px;
+    font-size: 3.8rem;
     font-weight: 600;
     color: #000000;
 }
@@ -257,7 +258,6 @@
 
 @media screen and (max-width: 768px) {
     .summary-content {
-        padding: 48px 16px 16px;
         gap: 24px;
     }
 
@@ -397,6 +397,12 @@
 
     .summary-card-label {
         font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .summary-card-number {
+        font-size: 48px;
     }
 }
 

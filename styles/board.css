@@ -4,10 +4,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-left: 64px;
     margin-right: 16px;
-    margin-top: 80px;
     max-width: 1208px;
+    padding-top: clamp(16px, 5vw, 110px);
+    padding-left: clamp(16px, 6vw, 98px);
 }
 
 .board-actions {
@@ -87,8 +87,9 @@
 .board-wrapper {
     display: flex;
     gap: 26px;
-    margin: 20px 16px 20px 64px;
+    margin: 20px 16px 20px 0px;
     max-width: 1208px;
+    padding-left: clamp(16px, 6vw, 98px);
 }
 
 .task-col {
@@ -319,8 +320,8 @@ h4 {
         grid-template-columns: 1fr auto;
         align-items: center;
         gap: 24px;
-        margin-top: 48px;
-        margin-left: 16px;
+        /* margin-top: 48px;
+        margin-left: 16px; */
     }
 
     .board-title-row h1 {
